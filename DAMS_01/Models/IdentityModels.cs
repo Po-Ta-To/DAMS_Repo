@@ -3,6 +3,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+//using System.Data.Entity;
+//using System.Data.Entity.;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAMS_01.Models
 {
@@ -20,6 +27,11 @@ namespace DAMS_01.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -29,5 +41,15 @@ namespace DAMS_01.Models
         {
             return new ApplicationDbContext();
         }
+
+        protected internal virtual void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\DAMS_DB;database=DAMS_DB01;Trusted_Connection=True;MultipleActiveResultSets=True");
+        }
+
+        protected internal virtual void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
+
     }
-}
