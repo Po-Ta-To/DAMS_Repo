@@ -67,10 +67,16 @@ namespace Dental_IT.Droid
 		{
 			
 			// aapt resource value: 0x7f050001
-			public const int login_box = 2131034113;
+			public const int emailField = 2131034113;
 			
 			// aapt resource value: 0x7f050000
-			public const int login_box_imageview = 2131034112;
+			public const int loginBoxImageview = 2131034112;
+			
+			// aapt resource value: 0x7f050003
+			public const int login_box = 2131034115;
+			
+			// aapt resource value: 0x7f050002
+			public const int passwordField = 2131034114;
 			
 			static Id()
 			{
@@ -101,11 +107,14 @@ namespace Dental_IT.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
-			
 			// aapt resource value: 0x7f040000
-			public const int hello = 2130968576;
+			public const int app_name = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int email = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int password = 2130968578;
 			
 			static String()
 			{

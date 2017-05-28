@@ -16,18 +16,18 @@ namespace Dental_IT.Droid
 		{
 			base.OnCreate (bundle);
 
-            //  Sticky immersive mode - Note: ALL statements are needed to achieve this mode (idk why)
+            //  Hide title label, prevent content resizing with status bar
+            RequestWindowFeature(WindowFeatures.NoTitle);
+
             this.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
                     (SystemUiFlags.LayoutStable |
-                    SystemUiFlags.LayoutHideNavigation |
-                    SystemUiFlags.LayoutFullscreen |
-                    SystemUiFlags.HideNavigation |
-                    SystemUiFlags.Fullscreen |
-                    SystemUiFlags.ImmersiveSticky);
+                    SystemUiFlags.LayoutFullscreen);
 
             //  Set view to login layout
             SetContentView (Resource.Layout.Login);
-                        
+
+            EditText emailField = FindViewById<EditText>(Resource.Id.emailField);
+            EditText passwordField = FindViewById<EditText>(Resource.Id.passwordField);
 
             //// Get our button from the layout resource,
             //// and attach an event to it

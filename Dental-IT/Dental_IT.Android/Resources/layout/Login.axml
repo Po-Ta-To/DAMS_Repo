@@ -2,15 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@drawable/login_background">
-
   <ImageView
-        android:id="@+id/login_box_imageview"
-        android:layout_width="300dp"
-        android:layout_height="350dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
-        android:background="@drawable/login_box" />
-  
-  
+      android:id="@+id/loginBoxImageview"
+      android:layout_width="300dp"
+      android:layout_height="325dp"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="225dp"
+      android:background="@drawable/login_box" />
+  <EditText
+      android:id="@+id/emailField"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@id/loginBoxImageview"
+      android:layout_alignLeft="@id/loginBoxImageview"
+      android:layout_alignEnd="@id/loginBoxImageview"
+      android:layout_marginTop="20dp"
+      android:layout_marginLeft="20dp"
+      android:layout_marginRight="20dp"
+      android:maxLines="1"
+      android:hint="@string/email"
+      android:textColorHint="#183152"
+      android:fontFamily="sans-serif-light"
+      android:gravity="center_horizontal"
+      android:backgroundTint="#375d81" />
+  <EditText
+      android:id="@+id/passwordField"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/emailField"
+      android:layout_alignLeft="@id/loginBoxImageview"
+      android:layout_alignEnd="@id/loginBoxImageview"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="20dp"
+      android:layout_marginRight="20dp"
+      android:maxLines="1"
+      android:hint="@string/password"
+      android:textColorHint="#183152"
+      android:fontFamily="sans-serif-light"
+      android:gravity="center_horizontal"
+      android:backgroundTint="#375d81" />
 </RelativeLayout>
