@@ -9,18 +9,23 @@ using Android.OS;
 
 namespace Dental_IT.Droid
 {
-	[Activity(MainLauncher = true)]
+	[Activity(MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class Login : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
-            this.RequestWindowFeature(WindowFeatures.NoTitle);            
+            //  Sticky immersive mode - Note: ALL statements are needed to achieve this mode (idk why)
             this.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
-                (SystemUiFlags.Fullscreen | SystemUiFlags.HideNavigation);
+                    (SystemUiFlags.LayoutStable |
+                    SystemUiFlags.LayoutHideNavigation |
+                    SystemUiFlags.LayoutFullscreen |
+                    SystemUiFlags.HideNavigation |
+                    SystemUiFlags.Fullscreen |
+                    SystemUiFlags.ImmersiveSticky);
 
-            // Set our view from the "login" layout resource
+            //  Set view to login layout
             SetContentView (Resource.Layout.Login);
                         
 
@@ -32,7 +37,7 @@ namespace Dental_IT.Droid
             //	button.Text = string.Format ("{0} clicks!", count++);
             //};
         }
-	}
+    }
 }
 
 

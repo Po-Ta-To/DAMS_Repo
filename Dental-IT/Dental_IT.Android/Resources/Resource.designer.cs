@@ -48,7 +48,10 @@ namespace Dental_IT.Droid
 			public const int Icon = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Login = 2130837505;
+			public const int login_background = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int login_box = 2130837506;
 			
 			static Drawable()
 			{
@@ -56,6 +59,25 @@ namespace Dental_IT.Droid
 			}
 			
 			private Drawable()
+			{
+			}
+		}
+		
+		public partial class Id
+		{
+			
+			// aapt resource value: 0x7f050001
+			public const int login_box = 2131034113;
+			
+			// aapt resource value: 0x7f050000
+			public const int login_box_imageview = 2131034112;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Id()
 			{
 			}
 		}
