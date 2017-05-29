@@ -61,9 +61,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\drawable\login_box.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Login.axml">
@@ -80,6 +77,17 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\login_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Colors.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\text_selector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\login_box.xml" />
   </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

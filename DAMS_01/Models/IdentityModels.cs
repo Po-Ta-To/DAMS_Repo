@@ -36,7 +36,7 @@ namespace DAMS_01.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
@@ -49,7 +49,8 @@ namespace DAMS_01.Models
 
         protected internal virtual void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
         }
 
     }
+}
