@@ -73,16 +73,19 @@ namespace Dental_IT.Droid
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int editText_line = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int login_background = 2130837505;
+			public const int Icon = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int login_box = 2130837506;
+			public const int login_background = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int text_selector = 2130837507;
+			public const int login_box = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int text_selector = 2130837508;
 			
 			static Drawable()
 			{
@@ -112,6 +115,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060002
 			public const int signInBtn = 2131099650;
 			
+			// aapt resource value: 0x7f060005
+			public const int testField = 2131099653;
+			
 			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -127,6 +133,9 @@ namespace Dental_IT.Droid
 			
 			// aapt resource value: 0x7f030000
 			public const int Login = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int Register = 2130903041;
 			
 			static Layout()
 			{

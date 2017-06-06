@@ -27,7 +27,7 @@ namespace Dental_IT.Droid
             SetContentView (Resource.Layout.Login);
 
             //  Create widgets
-            EditText emailField = FindViewById<EditText>(Resource.Id.emailField);
+            EditText emailField = FindViewById<EditText>(Resource.Id.emailField);       //  Background tint only works on API 21+, need solution
             EditText passwordField = FindViewById<EditText>(Resource.Id.passwordField);
             Button signInBtn = FindViewById<Button>(Resource.Id.signInBtn);
             CheckBox rememberMeCkhbox = FindViewById<CheckBox>(Resource.Id.rememberMeChkbox);
@@ -36,13 +36,12 @@ namespace Dental_IT.Droid
             //  Set button text size to be same as text field text sizes
             signInBtn.SetTextSize(Android.Util.ComplexUnitType.Px, emailField.TextSize);
 
-            //// Get our button from the layout resource,
-            //// and attach an event to it
-            //Button button = FindViewById<Button> (Resource.Id.myButton);
-
-            //button.Click += delegate {
-            //	button.Text = string.Format ("{0} clicks!", count++);
-            //};
+            //  Intent to redirect to register page  
+            registerText.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Register));
+                this.StartActivity(intent);
+            };
         }
     }
 }
