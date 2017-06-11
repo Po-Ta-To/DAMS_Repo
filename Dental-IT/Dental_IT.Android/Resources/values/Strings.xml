@@ -6,4 +6,15 @@
   <string name="sign_in">Sign In</string>
   <string name="remember_me">Remember me</string>
   <string name="register_text">Don\'t have an account?\nRegister now</string>
+  <string name="repeat_password">Repeat Password</string>
+  <string name="DOB">Date of Birth</string>
+  <string name="gender">Gender</string>
+  <string-array name="gender_dropdown">
+    <item>Male</item>
+    <item>Female</item>
+  </string-array>
+  <string name="NRIC">NRIC/Password No.</string>
+  <string name="mobile">Mobile No.</string>
+  <string name="pdpa">I agree to the <u>Terms and Conditions</u></string>
+  <string name="register">Register</string>
 </resources>

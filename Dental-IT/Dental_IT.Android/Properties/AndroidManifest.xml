@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <uses-sdk android:minSdkVersion="15" />
   <application android:label="Dental-IT"
-               android:icon="@drawable/icon">
+               android:icon="@drawable/ic_launcher">
   </application>
   <activity
     android:name="Register">
