@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Login.cs" />
-    <Compile Include="Main_Menu.cs" />
+    <Compile Include="Main Menu.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

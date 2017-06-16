@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
@@ -22,7 +18,7 @@ namespace Dental_IT.Droid
             //  Hide title label, prevent content resizing with status bar
             //RequestWindowFeature(WindowFeatures.NoTitle);
 
-            this.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
+            Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
                     (SystemUiFlags.LayoutStable | SystemUiFlags.LayoutFullscreen);
 
             //  Set view to register layout
@@ -68,6 +64,13 @@ namespace Dental_IT.Droid
 
             //  Set button text size to be same as text field text sizes
             registerBtn.SetTextSize(Android.Util.ComplexUnitType.Px, registerEmailField.TextSize);
+
+            //  Intent to redirect to main menu page
+            registerBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Main_Menu));
+                StartActivity(intent);
+            };
         }
     }
 

@@ -119,35 +119,38 @@ namespace Dental_IT.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f07000d
-			public const int pdpaChkbox = 2131165197;
-			
-			// aapt resource value: 0x7f07000c
-			public const int pdpaLayout = 2131165196;
+			// aapt resource value: 0x7f070005
+			public const int mainMenuGridview = 2131165189;
 			
 			// aapt resource value: 0x7f07000e
-			public const int pdpaText = 2131165198;
+			public const int pdpaChkbox = 2131165198;
+			
+			// aapt resource value: 0x7f07000d
+			public const int pdpaLayout = 2131165197;
 			
 			// aapt resource value: 0x7f07000f
-			public const int registerBtn = 2131165199;
+			public const int pdpaText = 2131165199;
 			
-			// aapt resource value: 0x7f070008
-			public const int registerDOBField = 2131165192;
-			
-			// aapt resource value: 0x7f070005
-			public const int registerEmailField = 2131165189;
+			// aapt resource value: 0x7f070010
+			public const int registerBtn = 2131165200;
 			
 			// aapt resource value: 0x7f070009
-			public const int registerGenderDropdown = 2131165193;
-			
-			// aapt resource value: 0x7f07000b
-			public const int registerMobileField = 2131165195;
-			
-			// aapt resource value: 0x7f07000a
-			public const int registerNRICField = 2131165194;
+			public const int registerDOBField = 2131165193;
 			
 			// aapt resource value: 0x7f070006
-			public const int registerPasswordField = 2131165190;
+			public const int registerEmailField = 2131165190;
+			
+			// aapt resource value: 0x7f07000a
+			public const int registerGenderDropdown = 2131165194;
+			
+			// aapt resource value: 0x7f07000c
+			public const int registerMobileField = 2131165196;
+			
+			// aapt resource value: 0x7f07000b
+			public const int registerNRICField = 2131165195;
+			
+			// aapt resource value: 0x7f070007
+			public const int registerPasswordField = 2131165191;
 			
 			// aapt resource value: 0x7f070004
 			public const int registerText = 2131165188;
@@ -155,8 +158,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f070003
 			public const int rememberMeChkbox = 2131165187;
 			
-			// aapt resource value: 0x7f070007
-			public const int repeatPasswordField = 2131165191;
+			// aapt resource value: 0x7f070008
+			public const int repeatPasswordField = 2131165192;
 			
 			// aapt resource value: 0x7f070002
 			public const int signInBtn = 2131165186;
