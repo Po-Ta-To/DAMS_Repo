@@ -10,4 +10,7 @@
   <activity
     android:name="Main_Menu">
   </activity>
+  <activity
+    android:name="Select_Hospital">
+  </activity>
 </manifest>

@@ -1,6 +1,4 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
@@ -23,7 +21,7 @@ namespace Dental_IT.Droid
             SetContentView(Resource.Layout.Main_Menu);
 
             //  Create widgets
-            GridView gridview = FindViewById<GridView>(Resource.Id.mainMenuGridview);
+            GridView gridView = FindViewById<GridView>(Resource.Id.mainMenuGridView);
 
             //  Get screen height
             SCREEN_HEIGHT = Resources.DisplayMetrics.HeightPixels;
@@ -33,34 +31,21 @@ namespace Dental_IT.Droid
             ACTIONBAR_HEIGHT = (int)styledAttributes.GetDimension(0, 0);
             styledAttributes.Recycle();
 
-            ////  Get gridview height
-            //ViewTreeObserver vto = gridview.ViewTreeObserver;
-            //vto.GlobalLayout += (sender, args) =>
-            //{
-            //    if (gridview.Height > 0)
-            //    {
-            //        GRID_HEIGHT = gridview.Height;
-                        
-            //        //  Configure gridview            
-            //        gridview.Adapter = new CustomAdapter(this);
-
-            //        return;
-            //    }
-            //};
-
-            gridview.Post(() => {
-                GRID_HEIGHT = gridview.Height;
-                gridview.Adapter = new CustomAdapter(this);
+            //  Configure custom adapter for gridview
+            gridView.Post(() => {
+                GRID_HEIGHT = gridView.Height;
+                gridView.Adapter = new GridAdapter(this);
             });            
         }
     }
 
-    class CustomAdapter : BaseAdapter
+    //  Class for gridview custom adapter
+    class GridAdapter : BaseAdapter
     {
         private readonly Context context;
         private int numRows = 2;
 
-        public CustomAdapter(Context c)
+        public GridAdapter(Context c)
         {
             context = c;
         }
@@ -83,7 +68,6 @@ namespace Dental_IT.Droid
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             Button button;
-            View view;
 
             if (convertView == null)
             {
@@ -96,11 +80,10 @@ namespace Dental_IT.Droid
             }
 
             button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-            //imageButton.SetBackgroundColor(Android.Graphics.Color.Transparent);
             button.SetBackgroundColor(Android.Graphics.Color.Gray);
             button.SetHeight(Main_Menu.GRID_HEIGHT / numRows);
-            //button.SetHeight(Convert.ToInt32((Main_Menu.SCREEN_HEIGHT - Main_Menu.ACTIONBAR_HEIGHT) * 0.6) / numRows);
             button.Text = buttonTexts[position];
+
             return button;
         }
 

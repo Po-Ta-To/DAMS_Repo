@@ -36,7 +36,7 @@ namespace Dental_IT.Droid
             //  Intent to redirect to main menu page
             signInBtn.Click += delegate
             {
-                Intent intent = new Intent(this, typeof(Main_Menu));
+                Intent intent = new Intent(this, typeof(Select_Hospital));
                 StartActivity(intent);
             };
 

@@ -64,13 +64,16 @@ namespace Dental_IT.Droid
 			public const int _5_white = 2130968577;
 			
 			// aapt resource value: 0x7f040002
-			public const int black = 2130968578;
+			public const int _8_white = 2130968578;
 			
 			// aapt resource value: 0x7f040003
-			public const int blue = 2130968579;
+			public const int black = 2130968579;
 			
 			// aapt resource value: 0x7f040004
-			public const int dark_blue = 2130968580;
+			public const int blue = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int dark_blue = 2130968581;
 			
 			// aapt resource value: 0x7f040000
 			public const int white = 2130968576;
@@ -119,56 +122,65 @@ namespace Dental_IT.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070005
-			public const int mainMenuGridview = 2131165189;
+			// aapt resource value: 0x7f070001
+			public const int favouritesToggle = 2131165185;
 			
-			// aapt resource value: 0x7f07000e
-			public const int pdpaChkbox = 2131165198;
-			
-			// aapt resource value: 0x7f07000d
-			public const int pdpaLayout = 2131165197;
-			
-			// aapt resource value: 0x7f07000f
-			public const int pdpaText = 2131165199;
-			
-			// aapt resource value: 0x7f070010
-			public const int registerBtn = 2131165200;
-			
-			// aapt resource value: 0x7f070009
-			public const int registerDOBField = 2131165193;
-			
-			// aapt resource value: 0x7f070006
-			public const int registerEmailField = 2131165190;
-			
-			// aapt resource value: 0x7f07000a
-			public const int registerGenderDropdown = 2131165194;
-			
-			// aapt resource value: 0x7f07000c
-			public const int registerMobileField = 2131165196;
-			
-			// aapt resource value: 0x7f07000b
-			public const int registerNRICField = 2131165195;
+			// aapt resource value: 0x7f070013
+			public const int hospitalListView = 2131165203;
 			
 			// aapt resource value: 0x7f070007
-			public const int registerPasswordField = 2131165191;
+			public const int mainMenuGridView = 2131165191;
 			
-			// aapt resource value: 0x7f070004
-			public const int registerText = 2131165188;
+			// aapt resource value: 0x7f070010
+			public const int pdpaChkbox = 2131165200;
 			
-			// aapt resource value: 0x7f070003
-			public const int rememberMeChkbox = 2131165187;
+			// aapt resource value: 0x7f07000f
+			public const int pdpaLayout = 2131165199;
+			
+			// aapt resource value: 0x7f070011
+			public const int pdpaText = 2131165201;
+			
+			// aapt resource value: 0x7f070012
+			public const int registerBtn = 2131165202;
+			
+			// aapt resource value: 0x7f07000b
+			public const int registerDOBField = 2131165195;
 			
 			// aapt resource value: 0x7f070008
-			public const int repeatPasswordField = 2131165192;
+			public const int registerEmailField = 2131165192;
 			
-			// aapt resource value: 0x7f070002
-			public const int signInBtn = 2131165186;
+			// aapt resource value: 0x7f07000c
+			public const int registerGenderDropdown = 2131165196;
+			
+			// aapt resource value: 0x7f07000e
+			public const int registerMobileField = 2131165198;
+			
+			// aapt resource value: 0x7f07000d
+			public const int registerNRICField = 2131165197;
+			
+			// aapt resource value: 0x7f070009
+			public const int registerPasswordField = 2131165193;
+			
+			// aapt resource value: 0x7f070006
+			public const int registerText = 2131165190;
+			
+			// aapt resource value: 0x7f070005
+			public const int rememberMeChkbox = 2131165189;
+			
+			// aapt resource value: 0x7f07000a
+			public const int repeatPasswordField = 2131165194;
 			
 			// aapt resource value: 0x7f070000
-			public const int signInEmailField = 2131165184;
+			public const int selectHospitalText = 2131165184;
 			
-			// aapt resource value: 0x7f070001
-			public const int signInPasswordField = 2131165185;
+			// aapt resource value: 0x7f070004
+			public const int signInBtn = 2131165188;
+			
+			// aapt resource value: 0x7f070002
+			public const int signInEmailField = 2131165186;
+			
+			// aapt resource value: 0x7f070003
+			public const int signInPasswordField = 2131165187;
 			
 			static Id()
 			{
@@ -184,13 +196,19 @@ namespace Dental_IT.Droid
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Login = 2130903040;
+			public const int Hospital_List_Item = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main_Menu = 2130903041;
+			public const int Login = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int Register = 2130903042;
+			public const int Main_Menu = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int Register = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int Select_Hospital = 2130903044;
 			
 			static Layout()
 			{

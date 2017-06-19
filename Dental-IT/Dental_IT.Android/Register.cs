@@ -5,6 +5,7 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 
 namespace Dental_IT.Droid
 {
@@ -14,12 +15,6 @@ namespace Dental_IT.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            //  Hide title label, prevent content resizing with status bar
-            //RequestWindowFeature(WindowFeatures.NoTitle);
-
-            Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
-                    (SystemUiFlags.LayoutStable | SystemUiFlags.LayoutFullscreen);
 
             //  Set view to register layout
             SetContentView(Resource.Layout.Register);
@@ -82,6 +77,40 @@ namespace Dental_IT.Droid
         public override void OnClick(View widget)
         {
             Click?.Invoke(widget);
+        }
+    }
+
+    //  Class for spinner custom adapter
+    class SpinnerAdapter : BaseAdapter, ISpinnerAdapter
+    {
+        private readonly Context context;
+
+        public SpinnerAdapter(Context c)
+        {
+            context = c;
+        }
+
+        public override int Count
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override Java.Lang.Object GetItem(int position)
+        {
+            return null;
+        }
+
+        public override long GetItemId(int position)
+        {
+            return 0;
+        }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            throw new NotImplementedException();
         }
     }
 }
