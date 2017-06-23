@@ -5,8 +5,8 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-  <ListView
-    android:id="@+id/hospitalListView"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" />
+    <ListView
+        android:id="@+id/selectHospital_ListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 </RelativeLayout>

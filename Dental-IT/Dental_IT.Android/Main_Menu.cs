@@ -21,7 +21,7 @@ namespace Dental_IT.Droid
             SetContentView(Resource.Layout.Main_Menu);
 
             //  Create widgets
-            GridView gridView = FindViewById<GridView>(Resource.Id.mainMenuGridView);
+            GridView mainMenu_GridView = FindViewById<GridView>(Resource.Id.mainMenu_GridView);
 
             //  Get screen height
             SCREEN_HEIGHT = Resources.DisplayMetrics.HeightPixels;
@@ -32,10 +32,11 @@ namespace Dental_IT.Droid
             styledAttributes.Recycle();
 
             //  Configure custom adapter for gridview
-            gridView.Post(() => {
-                GRID_HEIGHT = gridView.Height;
-                gridView.Adapter = new GridAdapter(this);
-            });            
+            mainMenu_GridView.Post(() =>
+            {
+                GRID_HEIGHT = mainMenu_GridView.Height;
+                mainMenu_GridView.Adapter = new GridAdapter(this);
+            });
         }
     }
 
@@ -73,16 +74,27 @@ namespace Dental_IT.Droid
             {
                 // if it's not recycled, initialize some attributes
                 button = new Button(context);
+
+                button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+                button.SetBackgroundColor(Android.Graphics.Color.Gray);
+                button.SetHeight(Main_Menu.GRID_HEIGHT / numRows);
+                button.Text = buttonTexts[position];
+
+                switch (position)
+                {
+                    case 0:
+                        button.Click += delegate
+                        {
+                            Intent intent = new Intent(context, typeof(Select_Hospital));
+                            context.StartActivity(intent);
+                        };
+                        break;
+                }
             }
             else
             {
                 button = (Button)convertView;
             }
-
-            button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-            button.SetBackgroundColor(Android.Graphics.Color.Gray);
-            button.SetHeight(Main_Menu.GRID_HEIGHT / numRows);
-            button.Text = buttonTexts[position];
 
             return button;
         }

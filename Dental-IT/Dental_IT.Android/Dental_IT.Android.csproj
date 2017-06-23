@@ -51,9 +51,10 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Login.cs" />
-    <Compile Include="Main Menu.cs" />
+    <Compile Include="Sign_In.cs" />
+    <Compile Include="Main_Menu.cs" />
     <Compile Include="Register.cs" />
+    <Compile Include="Request_Appointment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Select_Hospital.cs" />
@@ -76,9 +77,12 @@
     <AndroidResource Include="Resources\layout\Hospital_List_Item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\Request_Appointment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Login.axml">
+    <AndroidResource Include="Resources\layout\Sign_In.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\Strings.xml">

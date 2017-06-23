@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
             <EditText
-                android:id="@+id/signInEmailField"
+                android:id="@+id/signIn_EmailField"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -30,10 +30,10 @@
                 android:fontFamily="sans-serif-light"
                 android:background="@drawable/editText_line" />
             <EditText
-                android:id="@+id/signInPasswordField"
+                android:id="@+id/signIn_PasswordField"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/signInEmailField"
+                android:layout_below="@id/signIn_EmailField"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -46,10 +46,10 @@
                 android:fontFamily="sans-serif-light"
                 android:background="@drawable/editText_line" />
             <Button
-                android:id="@+id/signInBtn"
+                android:id="@+id/signIn_SignInBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/signInPasswordField"
+                android:layout_below="@id/signIn_PasswordField"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -58,10 +58,10 @@
                 android:textAllCaps="false"
                 android:background="@color/blue" />
             <CheckBox
-                android:id="@+id/rememberMeChkbox"
+                android:id="@+id/signIn_RememberMeChkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/signInBtn"
+                android:layout_below="@id/signIn_SignInBtn"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/dark_blue"
@@ -69,10 +69,10 @@
                 android:scaleX="0.80"
                 android:scaleY="0.80" />
             <TextView
-                android:id="@+id/registerText"
+                android:id="@+id/signIn_RegisterText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rememberMeChkbox"
+                android:layout_below="@id/signIn_RememberMeChkbox"
                 android:layout_marginTop="15dp"
                 android:layout_centerHorizontal="true"
                 android:textColor="@drawable/text_selector"

@@ -16,7 +16,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.6">
         <GridView
-            android:id="@+id/mainMenuGridView"
+            android:id="@+id/mainMenu_GridView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:numColumns="2"

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/background">
+    <LinearLayout
+        android:id="@+id/request_HospitalLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/request_HospitalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:textColor="@color/dark_blue"
+            android:text="@string/hospital" />
+        <EditText
+            android:id="@+id/request_HospitalField"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/request_HospitalText"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:editable="false"
+            android:textColorHint="@color/dark_blue"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="sans-serif-light"
+            android:background="@drawable/editText_line" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/request_DateLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        android:layout_below="@id/request_HospitalLayout">
+        <TextView
+            android:id="@+id/request_DateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:textColor="@color/dark_blue"
+            android:text="@string/pref_date" />
+        <EditText
+            android:id="@+id/request_DateField"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/request_DateText"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:maxLines="1"
+            android:hint="@string/date"
+            android:textColorHint="@color/dark_blue"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="sans-serif-light"
+            android:background="@drawable/editText_line" />
+    </LinearLayout>
+</RelativeLayout>

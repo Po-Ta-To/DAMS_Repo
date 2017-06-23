@@ -7,7 +7,7 @@ using Android.OS;
 namespace Dental_IT.Droid
 {
     [Activity(MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-	public class Login : Activity
+	public class Sign_In : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -21,27 +21,27 @@ namespace Dental_IT.Droid
                     SystemUiFlags.LayoutFullscreen);
 
             //  Set view to login layout
-            SetContentView (Resource.Layout.Login);
+            SetContentView (Resource.Layout.Sign_In);
 
             //  Create widgets
-            EditText signInEmailField = FindViewById<EditText>(Resource.Id.signInEmailField);
-            EditText signInPasswordField = FindViewById<EditText>(Resource.Id.signInPasswordField);
-            Button signInBtn = FindViewById<Button>(Resource.Id.signInBtn);
-            CheckBox rememberMeCkhbox = FindViewById<CheckBox>(Resource.Id.rememberMeChkbox);
-            TextView registerText = FindViewById<TextView>(Resource.Id.registerText);
+            EditText signIn_EmailField = FindViewById<EditText>(Resource.Id.signIn_EmailField);
+            EditText signIn_PasswordField = FindViewById<EditText>(Resource.Id.signIn_PasswordField);
+            Button signIn_SignInBtn = FindViewById<Button>(Resource.Id.signIn_SignInBtn);
+            CheckBox signIn_RememberMeChkbox = FindViewById<CheckBox>(Resource.Id.signIn_RememberMeChkbox);
+            TextView signIn_RegisterText = FindViewById<TextView>(Resource.Id.signIn_RegisterText);
 
             //  Set button text size to be same as text field text sizes
-            signInBtn.SetTextSize(Android.Util.ComplexUnitType.Px, signInEmailField.TextSize);
+            signIn_SignInBtn.SetTextSize(Android.Util.ComplexUnitType.Px, signIn_EmailField.TextSize);
 
             //  Intent to redirect to main menu page
-            signInBtn.Click += delegate
+            signIn_SignInBtn.Click += delegate
             {
-                Intent intent = new Intent(this, typeof(Select_Hospital));
+                Intent intent = new Intent(this, typeof(Main_Menu));
                 StartActivity(intent);
             };
 
             //  Intent to redirect to register page  
-            registerText.Click += delegate
+            signIn_RegisterText.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Register));
                 StartActivity(intent);

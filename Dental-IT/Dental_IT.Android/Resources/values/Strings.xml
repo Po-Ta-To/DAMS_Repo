@@ -17,4 +17,9 @@
   <string name="mobile">Mobile No.</string>
   <string name="pdpa">I agree to the <u>Terms and Conditions</u></string>
   <string name="register">Register</string>
+  <string name="hospital">Hospital/clinic :</string>
+  <string name="pref_date">Preferred date :</string>
+  <string name="date">Select date</string>
+  <string name="pref_dentist">Preferred dentist (optional) :</string>
+  <string name="pref_session">Preferred session :</string>
 </resources>

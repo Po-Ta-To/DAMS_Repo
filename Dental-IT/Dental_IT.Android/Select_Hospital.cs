@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -18,13 +19,13 @@ namespace Dental_IT.Droid
             SetContentView(Resource.Layout.Select_Hospital);
 
             //  Create widgets
-            ListView listView = FindViewById<ListView>(Resource.Id.hospitalListView);
+            ListView selectHospital_ListView = FindViewById<ListView>(Resource.Id.selectHospital_ListView);
 
             //  Configure custom adapter for listview
-            listView.Post(() =>
+            selectHospital_ListView.Post(() =>
             {
-                LIST_HEIGHT = listView.Height;
-                listView.Adapter = new ListAdapter(this);
+                LIST_HEIGHT = selectHospital_ListView.Height;
+                selectHospital_ListView.Adapter = new ListAdapter(this);
             });
         }
     }
@@ -61,7 +62,7 @@ namespace Dental_IT.Droid
             {
                 view = convertView ?? activity.LayoutInflater.Inflate(Resource.Layout.Hospital_List_Item, parent, false);
 
-                TextView hospitalName = view.FindViewById<TextView>(Resource.Id.selectHospitalText);
+                TextView hospitalName = view.FindViewById<TextView>(Resource.Id.selectHospital_HospitalText);
                 var param = view.LayoutParameters;
                 param.Height = Select_Hospital.LIST_HEIGHT / 6;
 
@@ -71,6 +72,12 @@ namespace Dental_IT.Droid
                 {
                     view.SetBackgroundResource(Resource.Color._8_white);
                 }
+
+                view.Click += delegate {
+                    Intent intent = new Intent(activity, typeof(Request_Appointment));
+                    intent.PutExtra("hospitalName", nameTexts[position]);
+                    activity.StartActivity(intent);
+                };
             }
             else
             {

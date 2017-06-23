@@ -3,14 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <TextView
-        android:id="@+id/selectHospitalText"
+        android:id="@+id/selectHospital_HospitalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_centerVertical="true"
         android:textColor="@color/dark_blue" />
     <ToggleButton
-        android:id="@+id/favouritesToggle"
+        android:id="@+id/selectHospital_FavouritesToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="25dp"

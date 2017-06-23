@@ -5,7 +5,6 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Java.Lang;
 
 namespace Dental_IT.Droid
 {
@@ -20,22 +19,22 @@ namespace Dental_IT.Droid
             SetContentView(Resource.Layout.Register);
 
             //  Create widgets
-            EditText registerEmailField = FindViewById<EditText>(Resource.Id.registerEmailField);
-            EditText registerPasswordField = FindViewById<EditText>(Resource.Id.registerPasswordField);
-            EditText repeatPasswordField = FindViewById<EditText>(Resource.Id.repeatPasswordField);
-            EditText registerDOBField = FindViewById<EditText>(Resource.Id.registerDOBField);
-            Spinner registerGenderDropdown = FindViewById<Spinner>(Resource.Id.registerGenderDropdown);
-            EditText registerNRICField = FindViewById<EditText>(Resource.Id.registerNRICField);
-            EditText registerMobileField = FindViewById<EditText>(Resource.Id.registerMobileField);
-            CheckBox pdpaCkhbox = FindViewById<CheckBox>(Resource.Id.pdpaChkbox);
-            TextView pdpaText = FindViewById<TextView>(Resource.Id.pdpaText);
-            Button registerBtn = FindViewById<Button>(Resource.Id.registerBtn);
+            EditText register_EmailField = FindViewById<EditText>(Resource.Id.register_EmailField);
+            EditText register_PasswordField = FindViewById<EditText>(Resource.Id.register_PasswordField);
+            EditText register_RepeatPasswordField = FindViewById<EditText>(Resource.Id.register_RepeatPasswordField);
+            EditText register_DOBField = FindViewById<EditText>(Resource.Id.register_DOBField);
+            Spinner register_GenderDropdown = FindViewById<Spinner>(Resource.Id.register_GenderDropdown);
+            EditText register_NRICField = FindViewById<EditText>(Resource.Id.register_NRICField);
+            EditText register_MobileField = FindViewById<EditText>(Resource.Id.register_MobileField);
+            CheckBox register_PdpaChkbox = FindViewById<CheckBox>(Resource.Id.register_PdpaChkbox);
+            TextView register_PdpaText = FindViewById<TextView>(Resource.Id.register_PdpaText);
+            Button register_RegisterBtn = FindViewById<Button>(Resource.Id.register_RegisterBtn);
 
             //  Configure spinner
             var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.gender_dropdown, Android.Resource.Layout.SimpleSpinnerItem);
 
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            registerGenderDropdown.Adapter = adapter;
+            register_GenderDropdown.Adapter = adapter;
 
             //  Configure pdpa dialog
             IClickableSpan pdpaClick = new IClickableSpan();
@@ -51,17 +50,17 @@ namespace Dental_IT.Droid
                 pdpa.Show();
             };
 
-            Android.Text.SpannableString pdpaSpan = new Android.Text.SpannableString(pdpaText.Text);
+            Android.Text.SpannableString pdpaSpan = new Android.Text.SpannableString(register_PdpaText.Text);
             pdpaSpan.SetSpan(pdpaClick, 15, 35, Android.Text.SpanTypes.ExclusiveExclusive);
             pdpaSpan.SetSpan(new Android.Text.Style.ForegroundColorSpan(Android.Graphics.Color.Red), 15, 35, Android.Text.SpanTypes.ExclusiveExclusive);
-            pdpaText.TextFormatted = pdpaSpan;
-            pdpaText.MovementMethod = Android.Text.Method.LinkMovementMethod.Instance;
+            register_PdpaText.TextFormatted = pdpaSpan;
+            register_PdpaText.MovementMethod = Android.Text.Method.LinkMovementMethod.Instance;
 
             //  Set button text size to be same as text field text sizes
-            registerBtn.SetTextSize(Android.Util.ComplexUnitType.Px, registerEmailField.TextSize);
+            register_RegisterBtn.SetTextSize(Android.Util.ComplexUnitType.Px, register_EmailField.TextSize);
 
             //  Intent to redirect to main menu page
-            registerBtn.Click += delegate
+            register_RegisterBtn.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Main_Menu));
                 StartActivity(intent);
