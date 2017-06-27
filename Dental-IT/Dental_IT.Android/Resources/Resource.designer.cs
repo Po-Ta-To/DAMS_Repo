@@ -128,6 +128,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f070006
 			public const int register_DOBField = 2131165190;
 			
+			// aapt resource value: 0x7f070016
+			public const int register_DentistDropdown = 2131165206;
+			
 			// aapt resource value: 0x7f070003
 			public const int register_EmailField = 2131165187;
 			
@@ -158,6 +161,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f070005
 			public const int register_RepeatPasswordField = 2131165189;
 			
+			// aapt resource value: 0x7f070019
+			public const int register_SessionDropdown = 2131165209;
+			
 			// aapt resource value: 0x7f070013
 			public const int request_DateField = 2131165203;
 			
@@ -166,6 +172,12 @@ namespace Dental_IT.Droid
 			
 			// aapt resource value: 0x7f070012
 			public const int request_DateText = 2131165202;
+			
+			// aapt resource value: 0x7f070014
+			public const int request_DentistLayout = 2131165204;
+			
+			// aapt resource value: 0x7f070015
+			public const int request_DentistText = 2131165205;
 			
 			// aapt resource value: 0x7f070010
 			public const int request_HospitalField = 2131165200;
@@ -176,29 +188,50 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f07000f
 			public const int request_HospitalText = 2131165199;
 			
+			// aapt resource value: 0x7f07001d
+			public const int request_RemarksField = 2131165213;
+			
+			// aapt resource value: 0x7f07001b
+			public const int request_RemarksLayout = 2131165211;
+			
+			// aapt resource value: 0x7f07001c
+			public const int request_RemarksText = 2131165212;
+			
+			// aapt resource value: 0x7f07001e
+			public const int request_RequestBtn = 2131165214;
+			
+			// aapt resource value: 0x7f070017
+			public const int request_SessionLayout = 2131165207;
+			
+			// aapt resource value: 0x7f070018
+			public const int request_SessionText = 2131165208;
+			
+			// aapt resource value: 0x7f07001a
+			public const int request_TreatmentsBtn = 2131165210;
+			
 			// aapt resource value: 0x7f070001
 			public const int selectHospital_FavouritesToggle = 2131165185;
 			
 			// aapt resource value: 0x7f070000
 			public const int selectHospital_HospitalText = 2131165184;
 			
-			// aapt resource value: 0x7f070014
-			public const int selectHospital_ListView = 2131165204;
+			// aapt resource value: 0x7f07001f
+			public const int selectHospital_ListView = 2131165215;
 			
-			// aapt resource value: 0x7f070015
-			public const int signIn_EmailField = 2131165205;
+			// aapt resource value: 0x7f070020
+			public const int signIn_EmailField = 2131165216;
 			
-			// aapt resource value: 0x7f070016
-			public const int signIn_PasswordField = 2131165206;
+			// aapt resource value: 0x7f070021
+			public const int signIn_PasswordField = 2131165217;
 			
-			// aapt resource value: 0x7f070019
-			public const int signIn_RegisterText = 2131165209;
+			// aapt resource value: 0x7f070024
+			public const int signIn_RegisterText = 2131165220;
 			
-			// aapt resource value: 0x7f070018
-			public const int signIn_RememberMeChkbox = 2131165208;
+			// aapt resource value: 0x7f070023
+			public const int signIn_RememberMeChkbox = 2131165219;
 			
-			// aapt resource value: 0x7f070017
-			public const int signIn_SignInBtn = 2131165207;
+			// aapt resource value: 0x7f070022
+			public const int signIn_SignInBtn = 2131165218;
 			
 			static Id()
 			{
@@ -256,6 +289,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f05000f
 			public const int date = 2131034127;
 			
+			// aapt resource value: 0x7f050011
+			public const int dentist = 2131034129;
+			
 			// aapt resource value: 0x7f050001
 			public const int email = 2131034113;
 			
@@ -280,8 +316,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f050010
 			public const int pref_dentist = 2131034128;
 			
-			// aapt resource value: 0x7f050011
-			public const int pref_session = 2131034129;
+			// aapt resource value: 0x7f050012
+			public const int pref_session = 2131034130;
 			
 			// aapt resource value: 0x7f05000c
 			public const int register = 2131034124;
@@ -289,14 +325,26 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f050005
 			public const int register_text = 2131034117;
 			
+			// aapt resource value: 0x7f050015
+			public const int remarks = 2131034133;
+			
 			// aapt resource value: 0x7f050004
 			public const int remember_me = 2131034116;
 			
 			// aapt resource value: 0x7f050006
 			public const int repeat_password = 2131034118;
 			
+			// aapt resource value: 0x7f050013
+			public const int session = 2131034131;
+			
 			// aapt resource value: 0x7f050003
 			public const int sign_in = 2131034115;
+			
+			// aapt resource value: 0x7f050016
+			public const int submit = 2131034134;
+			
+			// aapt resource value: 0x7f050014
+			public const int treatments = 2131034132;
 			
 			static String()
 			{
