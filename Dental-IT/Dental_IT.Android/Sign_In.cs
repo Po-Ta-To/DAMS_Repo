@@ -30,8 +30,11 @@ namespace Dental_IT.Droid
             CheckBox signIn_RememberMeChkbox = FindViewById<CheckBox>(Resource.Id.signIn_RememberMeChkbox);
             TextView signIn_RegisterText = FindViewById<TextView>(Resource.Id.signIn_RegisterText);
 
-            //  Set button text size to be same as text field text sizes
-            signIn_SignInBtn.SetTextSize(Android.Util.ComplexUnitType.Px, signIn_EmailField.TextSize);
+            RunOnUiThread(() =>
+            {
+                //  Set button text size to be same as text field text sizes
+                signIn_SignInBtn.SetTextSize(Android.Util.ComplexUnitType.Px, signIn_EmailField.TextSize);
+            });
 
             //  Intent to redirect to main menu page
             signIn_SignInBtn.Click += delegate

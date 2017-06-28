@@ -30,6 +30,14 @@ namespace Dental_IT.Droid
             TextView register_PdpaText = FindViewById<TextView>(Resource.Id.register_PdpaText);
             Button register_RegisterBtn = FindViewById<Button>(Resource.Id.register_RegisterBtn);
 
+            //  Set text sizes to be same as button text sizes
+            register_EmailField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
+            register_PasswordField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
+            register_RepeatPasswordField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
+            register_DOBField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
+            register_NRICField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
+            register_MobileField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
+
             //  Configure spinner
             var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.gender_dropdown, Android.Resource.Layout.SimpleSpinnerItem);
 
@@ -55,9 +63,6 @@ namespace Dental_IT.Droid
             pdpaSpan.SetSpan(new Android.Text.Style.ForegroundColorSpan(Android.Graphics.Color.Red), 15, 35, Android.Text.SpanTypes.ExclusiveExclusive);
             register_PdpaText.TextFormatted = pdpaSpan;
             register_PdpaText.MovementMethod = Android.Text.Method.LinkMovementMethod.Instance;
-
-            //  Set button text size to be same as text field text sizes
-            register_RegisterBtn.SetTextSize(Android.Util.ComplexUnitType.Px, register_EmailField.TextSize);
 
             //  Intent to redirect to main menu page
             register_RegisterBtn.Click += delegate

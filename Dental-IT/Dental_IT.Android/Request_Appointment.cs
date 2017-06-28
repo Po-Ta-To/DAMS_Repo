@@ -26,18 +26,27 @@ namespace Dental_IT.Droid
             EditText request_DateField = FindViewById<EditText>(Resource.Id.request_DateField);
             TextView request_DentistText = FindViewById<TextView>(Resource.Id.request_DentistText);
             TextView request_SessionText = FindViewById<TextView>(Resource.Id.request_SessionText);
+            Button request_TreatmentsBtn = FindViewById<Button>(Resource.Id.request_TreatmentsBtn);
             TextView request_RemarksText = FindViewById<TextView>(Resource.Id.request_RemarksText);
             EditText request_RemarksField = FindViewById<EditText>(Resource.Id.request_RemarksField);
 
-            //  Set text sizes to be same as text field text sizes
-            request_HospitalText.SetTextSize(Android.Util.ComplexUnitType.Px, request_HospitalField.TextSize);
-            request_DateText.SetTextSize(Android.Util.ComplexUnitType.Px, request_HospitalField.TextSize);
-            request_DentistText.SetTextSize(Android.Util.ComplexUnitType.Px, request_HospitalField.TextSize);
-            request_SessionText.SetTextSize(Android.Util.ComplexUnitType.Px, request_HospitalField.TextSize);
-            request_RemarksText.SetTextSize(Android.Util.ComplexUnitType.Px, request_HospitalField.TextSize);
+            RunOnUiThread(() =>
+            {
+                //  Set text sizes to be same as textview text sizes
+                request_HospitalField.SetTextSize(Android.Util.ComplexUnitType.Px, request_HospitalText.TextSize);
+                request_DateField.SetTextSize(Android.Util.ComplexUnitType.Px, request_HospitalText.TextSize);
+                request_RemarksField.SetTextSize(Android.Util.ComplexUnitType.Px, request_HospitalText.TextSize);
 
-            //  Set hospital name
-            request_HospitalField.Text = hospitalName;
+                //  Set type face to be same as button typeface
+                request_HospitalText.SetTypeface(request_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+                request_DateText.SetTypeface(request_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+                request_DentistText.SetTypeface(request_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+                request_SessionText.SetTypeface(request_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+                request_RemarksText.SetTypeface(request_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+
+                //  Set hospital name
+                request_HospitalField.Text = hospitalName;
+            });
         }
     }
 }

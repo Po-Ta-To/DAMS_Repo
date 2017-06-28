@@ -60,20 +60,23 @@ namespace Dental_IT.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int _5_white = 2130968577;
-			
 			// aapt resource value: 0x7f040002
-			public const int _8_white = 2130968578;
+			public const int _5_white = 2130968578;
 			
 			// aapt resource value: 0x7f040003
-			public const int black = 2130968579;
+			public const int _8_white = 2130968579;
 			
 			// aapt resource value: 0x7f040004
-			public const int blue = 2130968580;
+			public const int black = 2130968580;
 			
 			// aapt resource value: 0x7f040005
-			public const int dark_blue = 2130968581;
+			public const int blue = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int dark_blue = 2130968582;
+			
+			// aapt resource value: 0x7f040001
+			public const int transparent = 2130968577;
 			
 			// aapt resource value: 0x7f040000
 			public const int white = 2130968576;

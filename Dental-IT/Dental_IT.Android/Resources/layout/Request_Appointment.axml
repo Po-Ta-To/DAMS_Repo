@@ -5,6 +5,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:paddingBottom="35dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:background="@drawable/background">
@@ -128,10 +129,10 @@
             android:layout_marginTop="35dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:textColor="@color/white"
+            android:textColor="@color/dark_blue"
             android:text="@string/treatments"
             android:textAllCaps="false"
-            android:background="@color/blue" />
+            android:background="@color/transparent" />
         <LinearLayout
             android:id="@+id/request_RemarksLayout"
             android:layout_width="fill_parent"
@@ -149,7 +150,7 @@
             <EditText
                 android:id="@+id/request_RemarksField"
                 android:layout_width="fill_parent"
-                android:layout_height="300dp"
+                android:layout_height="150dp"
                 android:layout_below="@id/request_RemarksText"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="50dp"
@@ -158,7 +159,7 @@
                 android:gravity="top|left"
                 android:textColor="@color/dark_blue"
                 android:fontFamily="sans-serif-light"
-                android:background="@color/white" />
+                android:background="@color/.8_white" />
         </LinearLayout>
         <Button
             android:id="@+id/request_RequestBtn"
