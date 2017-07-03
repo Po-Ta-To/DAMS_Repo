@@ -281,6 +281,7 @@
     <Compile Include="Models\ClinicHospitalTreatment.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAMS_03Context.cs" />
     <Compile Include="Models\DAMS_Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -388,6 +389,36 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\AdminAccounts\Create.cshtml" />
+    <Content Include="Views\AdminAccounts\Delete.cshtml" />
+    <Content Include="Views\AdminAccounts\Details.cshtml" />
+    <Content Include="Views\AdminAccounts\Edit.cshtml" />
+    <Content Include="Views\AdminAccounts\Index.cshtml" />
+    <Content Include="Views\UserAccounts\Create.cshtml" />
+    <Content Include="Views\UserAccounts\Delete.cshtml" />
+    <Content Include="Views\UserAccounts\Details.cshtml" />
+    <Content Include="Views\UserAccounts\Edit.cshtml" />
+    <Content Include="Views\UserAccounts\Index.cshtml" />
+    <Content Include="Views\DoctorDentists\Create.cshtml" />
+    <Content Include="Views\DoctorDentists\Delete.cshtml" />
+    <Content Include="Views\DoctorDentists\Details.cshtml" />
+    <Content Include="Views\DoctorDentists\Edit.cshtml" />
+    <Content Include="Views\DoctorDentists\Index.cshtml" />
+    <Content Include="Views\Appointments\Create.cshtml" />
+    <Content Include="Views\Appointments\Delete.cshtml" />
+    <Content Include="Views\Appointments\Details.cshtml" />
+    <Content Include="Views\Appointments\Edit.cshtml" />
+    <Content Include="Views\Appointments\Index.cshtml" />
+    <Content Include="Views\ClinicHospitals\Create.cshtml" />
+    <Content Include="Views\ClinicHospitals\Delete.cshtml" />
+    <Content Include="Views\ClinicHospitals\Details.cshtml" />
+    <Content Include="Views\ClinicHospitals\Edit.cshtml" />
+    <Content Include="Views\ClinicHospitals\Index.cshtml" />
+    <Content Include="Views\Treatments\Create.cshtml" />
+    <Content Include="Views\Treatments\Delete.cshtml" />
+    <Content Include="Views\Treatments\Details.cshtml" />
+    <Content Include="Views\Treatments\Edit.cshtml" />
+    <Content Include="Views\Treatments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

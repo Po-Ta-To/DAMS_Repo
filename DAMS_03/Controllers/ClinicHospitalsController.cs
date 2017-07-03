@@ -2,103 +2,117 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using DAMS_03.Models;
 
 namespace DAMS_03.Controllers
 {
-    public class ClinicHospitalsController : ApiController
+    public class ClinicHospitalsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
 
-        // GET: api/ClinicHospitals
-        public IQueryable<ClinicHospital> GetClinicHospitals()
+        // GET: ClinicHospitals
+        public ActionResult Index()
         {
-            return db.ClinicHospitals;
+            return View(db.ClinicHospitals.ToList());
         }
 
-        // GET: api/ClinicHospitals/5
-        [ResponseType(typeof(ClinicHospital))]
-        public IHttpActionResult GetClinicHospital(int id)
+        // GET: ClinicHospitals/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
             if (clinicHospital == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(clinicHospital);
+            return View(clinicHospital);
         }
 
-        // PUT: api/ClinicHospitals/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutClinicHospital(int id, ClinicHospital clinicHospital)
+        // GET: ClinicHospitals/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
 
-            if (id != clinicHospital.ID)
+        // POST: ClinicHospitals/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID,ClinicHospitalID,ClinicHospitalName,ClinicHospitalAddress,ClinicHospitalOpenHours,ClinicHospitalTel,ClinicHospitalEmail,MaxBookings")] ClinicHospital clinicHospital)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(clinicHospital).State = EntityState.Modified;
-
-            try
-            {
+                db.ClinicHospitals.Add(clinicHospital);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClinicHospitalExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(clinicHospital);
         }
 
-        // POST: api/ClinicHospitals
-        [ResponseType(typeof(ClinicHospital))]
-        public IHttpActionResult PostClinicHospital(ClinicHospital clinicHospital)
+        // GET: ClinicHospitals/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.ClinicHospitals.Add(clinicHospital);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = clinicHospital.ID }, clinicHospital);
-        }
-
-        // DELETE: api/ClinicHospitals/5
-        [ResponseType(typeof(ClinicHospital))]
-        public IHttpActionResult DeleteClinicHospital(int id)
-        {
             ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
             if (clinicHospital == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(clinicHospital);
+        }
 
+        // POST: ClinicHospitals/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,ClinicHospitalID,ClinicHospitalName,ClinicHospitalAddress,ClinicHospitalOpenHours,ClinicHospitalTel,ClinicHospitalEmail,MaxBookings")] ClinicHospital clinicHospital)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(clinicHospital).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(clinicHospital);
+        }
+
+        // GET: ClinicHospitals/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
+            if (clinicHospital == null)
+            {
+                return HttpNotFound();
+            }
+            return View(clinicHospital);
+        }
+
+        // POST: ClinicHospitals/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
             db.ClinicHospitals.Remove(clinicHospital);
             db.SaveChanges();
-
-            return Ok(clinicHospital);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -108,11 +122,6 @@ namespace DAMS_03.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool ClinicHospitalExists(int id)
-        {
-            return db.ClinicHospitals.Count(e => e.ID == id) > 0;
         }
     }
 }

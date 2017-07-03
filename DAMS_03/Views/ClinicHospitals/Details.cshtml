@@ -1,0 +1,74 @@
+﻿@model DAMS_03.Models.ClinicHospital
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ClinicHospital</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicHospitalID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicHospitalID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicHospitalName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicHospitalName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicHospitalAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicHospitalAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicHospitalOpenHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicHospitalOpenHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicHospitalTel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicHospitalTel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClinicHospitalEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClinicHospitalEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxBookings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxBookings)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

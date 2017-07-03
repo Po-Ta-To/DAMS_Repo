@@ -2,103 +2,117 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using DAMS_03.Models;
 
 namespace DAMS_03.Controllers
 {
-    public class TreatmentsController : ApiController
+    public class TreatmentsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
 
-        // GET: api/Treatments
-        public IQueryable<Treatment> GetTreatments()
+        // GET: Treatments
+        public ActionResult Index()
         {
-            return db.Treatments;
+            return View(db.Treatments.ToList());
         }
 
-        // GET: api/Treatments/5
-        [ResponseType(typeof(Treatment))]
-        public IHttpActionResult GetTreatment(int id)
+        // GET: Treatments/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Treatment treatment = db.Treatments.Find(id);
             if (treatment == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(treatment);
+            return View(treatment);
         }
 
-        // PUT: api/Treatments/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutTreatment(int id, Treatment treatment)
+        // GET: Treatments/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
 
-            if (id != treatment.ID)
+        // POST: Treatments/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID,TreatmentID,TreatmentName,TreatmentDesc,IsFollowUp")] Treatment treatment)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(treatment).State = EntityState.Modified;
-
-            try
-            {
+                db.Treatments.Add(treatment);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TreatmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(treatment);
         }
 
-        // POST: api/Treatments
-        [ResponseType(typeof(Treatment))]
-        public IHttpActionResult PostTreatment(Treatment treatment)
+        // GET: Treatments/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.Treatments.Add(treatment);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = treatment.ID }, treatment);
-        }
-
-        // DELETE: api/Treatments/5
-        [ResponseType(typeof(Treatment))]
-        public IHttpActionResult DeleteTreatment(int id)
-        {
             Treatment treatment = db.Treatments.Find(id);
             if (treatment == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(treatment);
+        }
 
+        // POST: Treatments/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,TreatmentID,TreatmentName,TreatmentDesc,IsFollowUp")] Treatment treatment)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(treatment).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(treatment);
+        }
+
+        // GET: Treatments/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Treatment treatment = db.Treatments.Find(id);
+            if (treatment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(treatment);
+        }
+
+        // POST: Treatments/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Treatment treatment = db.Treatments.Find(id);
             db.Treatments.Remove(treatment);
             db.SaveChanges();
-
-            return Ok(treatment);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -108,11 +122,6 @@ namespace DAMS_03.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool TreatmentExists(int id)
-        {
-            return db.Treatments.Count(e => e.ID == id) > 0;
         }
     }
 }

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DAMS_03.Models.ClinicHospital>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicHospitalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicHospitalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicHospitalAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicHospitalOpenHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicHospitalTel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicHospitalEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxBookings)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicHospitalID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicHospitalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicHospitalAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicHospitalOpenHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicHospitalTel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicHospitalEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxBookings)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

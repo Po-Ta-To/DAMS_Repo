@@ -2,103 +2,134 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using DAMS_03.Models;
 
 namespace DAMS_03.Controllers
 {
-    public class AppointmentsController : ApiController
+    public class AppointmentsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
 
-        // GET: api/Appointments
-        public IQueryable<Appointment> GetAppointments()
+        // GET: Appointments
+        public ActionResult Index()
         {
-            return db.Appointments;
+            var appointments = db.Appointments.Include(a => a.ClinicHospital).Include(a => a.DoctorDentist).Include(a => a.DoctorDentist1).Include(a => a.UserAccount);
+            return View(appointments.ToList());
         }
 
-        // GET: api/Appointments/5
-        [ResponseType(typeof(Appointment))]
-        public IHttpActionResult GetAppointment(int id)
+        // GET: Appointments/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Appointment appointment = db.Appointments.Find(id);
             if (appointment == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(appointment);
+            return View(appointment);
         }
 
-        // PUT: api/Appointments/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutAppointment(int id, Appointment appointment)
+        // GET: Appointments/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            ViewBag.ClinicHospitalID = new SelectList(db.ClinicHospitals, "ID", "ClinicHospitalID");
+            ViewBag.DoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID");
+            ViewBag.RequestDoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID");
+            ViewBag.UserID = new SelectList(db.UserAccounts, "ID", "ID");
+            return View();
+        }
 
-            if (id != appointment.ID)
+        // POST: Appointments/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID,AppointmentID,UserID,ClinicHospitalID,ApprovalState,PreferredDate,PreferredTime,DoctorDentistID,RequestDoctorDentistID,Remarks,AppointmentDate,AppointmentTime")] Appointment appointment)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(appointment).State = EntityState.Modified;
-
-            try
-            {
+                db.Appointments.Add(appointment);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AppointmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            ViewBag.ClinicHospitalID = new SelectList(db.ClinicHospitals, "ID", "ClinicHospitalID", appointment.ClinicHospitalID);
+            ViewBag.DoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.DoctorDentistID);
+            ViewBag.RequestDoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.RequestDoctorDentistID);
+            ViewBag.UserID = new SelectList(db.UserAccounts, "ID", "ID", appointment.UserID);
+            return View(appointment);
         }
 
-        // POST: api/Appointments
-        [ResponseType(typeof(Appointment))]
-        public IHttpActionResult PostAppointment(Appointment appointment)
+        // GET: Appointments/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.Appointments.Add(appointment);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = appointment.ID }, appointment);
-        }
-
-        // DELETE: api/Appointments/5
-        [ResponseType(typeof(Appointment))]
-        public IHttpActionResult DeleteAppointment(int id)
-        {
             Appointment appointment = db.Appointments.Find(id);
             if (appointment == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            ViewBag.ClinicHospitalID = new SelectList(db.ClinicHospitals, "ID", "ClinicHospitalID", appointment.ClinicHospitalID);
+            ViewBag.DoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.DoctorDentistID);
+            ViewBag.RequestDoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.RequestDoctorDentistID);
+            ViewBag.UserID = new SelectList(db.UserAccounts, "ID", "ID", appointment.UserID);
+            return View(appointment);
+        }
 
+        // POST: Appointments/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,AppointmentID,UserID,ClinicHospitalID,ApprovalState,PreferredDate,PreferredTime,DoctorDentistID,RequestDoctorDentistID,Remarks,AppointmentDate,AppointmentTime")] Appointment appointment)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(appointment).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ClinicHospitalID = new SelectList(db.ClinicHospitals, "ID", "ClinicHospitalID", appointment.ClinicHospitalID);
+            ViewBag.DoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.DoctorDentistID);
+            ViewBag.RequestDoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.RequestDoctorDentistID);
+            ViewBag.UserID = new SelectList(db.UserAccounts, "ID", "ID", appointment.UserID);
+            return View(appointment);
+        }
+
+        // GET: Appointments/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Appointment appointment = db.Appointments.Find(id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(appointment);
+        }
+
+        // POST: Appointments/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Appointment appointment = db.Appointments.Find(id);
             db.Appointments.Remove(appointment);
             db.SaveChanges();
-
-            return Ok(appointment);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -108,11 +139,6 @@ namespace DAMS_03.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool AppointmentExists(int id)
-        {
-            return db.Appointments.Count(e => e.ID == id) > 0;
         }
     }
 }

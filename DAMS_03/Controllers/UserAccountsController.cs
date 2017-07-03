@@ -2,103 +2,117 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using DAMS_03.Models;
 
 namespace DAMS_03.Controllers
 {
-    public class UserAccountsController : ApiController
+    public class UserAccountsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
 
-        // GET: api/UserAccounts
-        public IQueryable<UserAccount> GetUserAccounts()
+        // GET: UserAccounts
+        public ActionResult Index()
         {
-            return db.UserAccounts;
+            return View(db.UserAccounts.ToList());
         }
 
-        // GET: api/UserAccounts/5
-        [ResponseType(typeof(UserAccount))]
-        public IHttpActionResult GetUserAccount(int id)
+        // GET: UserAccounts/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             UserAccount userAccount = db.UserAccounts.Find(id);
             if (userAccount == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(userAccount);
+            return View(userAccount);
         }
 
-        // PUT: api/UserAccounts/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutUserAccount(int id, UserAccount userAccount)
+        // GET: UserAccounts/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
 
-            if (id != userAccount.ID)
+        // POST: UserAccounts/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID")] UserAccount userAccount)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(userAccount).State = EntityState.Modified;
-
-            try
-            {
+                db.UserAccounts.Add(userAccount);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserAccountExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(userAccount);
         }
 
-        // POST: api/UserAccounts
-        [ResponseType(typeof(UserAccount))]
-        public IHttpActionResult PostUserAccount(UserAccount userAccount)
+        // GET: UserAccounts/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.UserAccounts.Add(userAccount);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = userAccount.ID }, userAccount);
-        }
-
-        // DELETE: api/UserAccounts/5
-        [ResponseType(typeof(UserAccount))]
-        public IHttpActionResult DeleteUserAccount(int id)
-        {
             UserAccount userAccount = db.UserAccounts.Find(id);
             if (userAccount == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(userAccount);
+        }
 
+        // POST: UserAccounts/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID")] UserAccount userAccount)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(userAccount).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(userAccount);
+        }
+
+        // GET: UserAccounts/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserAccount userAccount = db.UserAccounts.Find(id);
+            if (userAccount == null)
+            {
+                return HttpNotFound();
+            }
+            return View(userAccount);
+        }
+
+        // POST: UserAccounts/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            UserAccount userAccount = db.UserAccounts.Find(id);
             db.UserAccounts.Remove(userAccount);
             db.SaveChanges();
-
-            return Ok(userAccount);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -108,11 +122,6 @@ namespace DAMS_03.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool UserAccountExists(int id)
-        {
-            return db.UserAccounts.Count(e => e.ID == id) > 0;
         }
     }
 }
