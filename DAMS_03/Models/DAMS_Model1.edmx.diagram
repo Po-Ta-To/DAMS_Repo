@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="863bab7b89e6479bb657237c3b958ac6" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="DAMS_01Model.AdminAccount" Width="1.5" PointX="0.625" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.AdminAccountDoctorDentist" Width="1.5" PointX="2.875" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.Advertisement" Width="1.5" PointX="7.625" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.Appointment" Width="1.5" PointX="9.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.AppointmentTreatment" Width="1.5" PointX="13.625" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.Booking" Width="1.5" PointX="0.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.ClinicHospital" Width="1.5" PointX="1" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.ClinicHospitalAdvertisement" Width="1.5" PointX="4.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.ClinicHospitalDoctorDentist" Width="1.5" PointX="3.875" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.ClinicHospitalOpeningHour" Width="1.5" PointX="2.625" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.ClinicHospitalTreatment" Width="1.5" PointX="7.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.DoctorDentist" Width="1.5" PointX="5.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.OpeningHour" Width="1.5" PointX="5.625" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.Treatment" Width="1.5" PointX="10.375" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.UserAccount" Width="1.5" PointX="12.25" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="DAMS_01Model.FK__AdminAcco__Admin__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__AdminAcco__Docto__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Adver__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Appoi__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Clini__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Docto__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Reque__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__UserI__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Treat__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Bookings__Clinic__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Docto__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Openi__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Treat__4D94879B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
