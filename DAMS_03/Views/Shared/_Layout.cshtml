@@ -16,12 +16,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Dental Appointment Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li class="dropdown">
+                        <a href="#" id="adminControls" data-toggle="dropdown" class="dropdown-toggle" role="button" title="Admin Controls">Admin Controls<b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                            <li><a data-toggle="tab" href="#test1">Account Controls</a></li>
+                            <li><a data-toggle="tab" href="#test2">Listing Controls</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" id="manageAppts" data-toggle="dropdown" class="dropdown-toggle" role="button" title="Appointment Management">Manage Appointments<b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                            <li><a data-toggle="tab" href="#test1">Manage Booked Appointments</a></li>
+                            <li><a data-toggle="tab" href="#test2">Manage Appointment Requests</a></li>
+                            <li><a data-toggle="tab" href="#test3">Manage Appointment Update Requests</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
