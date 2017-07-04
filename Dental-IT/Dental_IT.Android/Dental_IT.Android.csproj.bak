@@ -14,7 +14,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -51,7 +51,6 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
     <Compile Include="Sign_In.cs" />
     <Compile Include="Main_Menu.cs" />
@@ -76,13 +75,10 @@
     <AndroidResource Include="Resources\layout\Select_Hospital.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\sublayout_Hospital_List_Item.axml">
+    <AndroidResource Include="Resources\layout\Hospital_List_Item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Request_Appointment.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\sublayout_Spinner_View.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

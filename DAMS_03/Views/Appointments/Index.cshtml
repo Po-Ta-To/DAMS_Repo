@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DAMS_03.Models.Appointment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovalState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreferredDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreferredTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClinicHospital.ClinicHospitalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorDentist.DoctorDentistID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorDentist1.DoctorDentistID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserAccount.ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovalState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreferredDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreferredTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClinicHospital.ClinicHospitalID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorDentist.DoctorDentistID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorDentist1.DoctorDentistID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserAccount.ID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
