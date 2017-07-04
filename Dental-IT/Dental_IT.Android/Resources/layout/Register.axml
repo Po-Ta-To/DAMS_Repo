@@ -78,7 +78,6 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:spinnerMode="dropdown"
-        android:pointerIcon="arrow"
         android:prompt="@string/gender"
         android:entries="@array/gender_dropdown"
         android:background="@drawable/editText_line" />
@@ -93,6 +92,7 @@
         android:maxLines="1"
         android:gravity="center"
         android:hint="@string/NRIC"
+        android:inputType="text"
         android:textColorHint="@color/dark_blue"
         android:textColor="@color/dark_blue"
         android:fontFamily="sans-serif-light"

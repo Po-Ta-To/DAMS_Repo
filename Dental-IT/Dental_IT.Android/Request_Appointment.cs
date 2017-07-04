@@ -6,7 +6,7 @@ using Android.OS;
 
 namespace Dental_IT.Droid
 {
-    [Activity(MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Request_Appointment : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

@@ -6,6 +6,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Fragments;
+using Dental_IT.Droid.Adapters;
 
 namespace Dental_IT.Droid
 {
@@ -50,10 +51,11 @@ namespace Dental_IT.Droid
                 };
 
                 //  Configure spinner for gender dropdown
-                var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.gender_dropdown, Android.Resource.Layout.SimpleSpinnerItem);
-
-                adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-                register_GenderDropdown.Adapter = adapter;
+                //var arrayAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerDropDownItem)
+                //arrayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                //register_GenderDropdown.Adapter = arrayAdapter;
+                
+                register_GenderDropdown.Adapter = new SpinnerAdapter(this, genders);
 
                 //  Configure pdpa dialog
                 IClickableSpan pdpaClick = new IClickableSpan();
@@ -95,6 +97,14 @@ namespace Dental_IT.Droid
 
             fragment.Show(FragmentManager, TAG);
         }
+
+        //  List off genders to populate spinner
+        private string[] genders =
+        {
+            "Gender",
+            "Male",
+            "Female"
+        };
     }
 
     //  Class for implementing clickable span
@@ -105,40 +115,6 @@ namespace Dental_IT.Droid
         public override void OnClick(View widget)
         {
             Click?.Invoke(widget);
-        }
-    }
-
-    //  Class for spinner custom adapter
-    class SpinnerAdapter : BaseAdapter, ISpinnerAdapter
-    {
-        private readonly Context context;
-
-        public SpinnerAdapter(Context c)
-        {
-            context = c;
-        }
-
-        public override int Count
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public override Java.Lang.Object GetItem(int position)
-        {
-            return null;
-        }
-
-        public override long GetItemId(int position)
-        {
-            return 0;
-        }
-
-        public override View GetView(int position, View convertView, ViewGroup parent)
-        {
-            throw new NotImplementedException();
         }
     }
 }

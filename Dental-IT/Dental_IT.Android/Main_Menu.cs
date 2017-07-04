@@ -72,7 +72,6 @@ namespace Dental_IT.Droid
 
             if (convertView == null)
             {
-                // if it's not recycled, initialize some attributes
                 button = new Button(context);
 
                 button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
