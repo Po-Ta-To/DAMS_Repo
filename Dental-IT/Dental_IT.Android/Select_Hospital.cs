@@ -1,6 +1,8 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 
@@ -19,112 +21,82 @@ namespace Dental_IT.Droid
             SetContentView(Resource.Layout.Select_Hospital);
 
             //  Create widgets
-            ListView selectHospital_ListView = FindViewById<ListView>(Resource.Id.selectHospital_ListView);
+            RecyclerView selectHospital_RecyclerView = FindViewById<RecyclerView>(Resource.Id.selectHospital_RecyclerView);
 
-            //  Configure custom adapter for listview
-            selectHospital_ListView.Post(() =>
+            //  Configure custom adapter for recyclerview
+            selectHospital_RecyclerView.Post(() =>
             {
-                LIST_HEIGHT = selectHospital_ListView.Height;
-                selectHospital_ListView.Adapter = new ListAdapter(this);
+                LIST_HEIGHT = selectHospital_RecyclerView.Height;
+                selectHospital_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
+                selectHospital_RecyclerView.SetAdapter(new RecyclerAdapter(this));
             });
-
-            selectHospital_ListView.FastScrollEnabled = true;
         }
     }
 
-    public class ListAdapter : BaseAdapter
+    public class RecyclerAdapter : RecyclerView.Adapter
     {
         private readonly Activity activity;
 
-        public ListAdapter(Activity a)
+        public RecyclerAdapter(Activity a)
         {
             activity = a;
         }
 
-        public override int Count
+        public override int ItemCount
         {
-            get { return nameTexts.Length; }
-        }
-
-        public override Java.Lang.Object GetItem(int position)
-        {
-            return null;
+            get
+            {
+                return nameTexts.Length;
+            }
         }
 
         public override long GetItemId(int position)
         {
-            return 0;
+            return position;
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
-        {
-            ViewHolder holder;
-            View view = convertView;
-            int type;
-
-            if (view == null)
-            {
-                holder = new ViewHolder();
-
-                view = activity.LayoutInflater.Inflate(Resource.Layout.sublayout_Hospital_List_Item, parent, false);
-                holder.hospitalName = view.FindViewById<TextView>(Resource.Id.selectHospital_HospitalText);
-                holder.hospitalFavourites = view.FindViewById<ToggleButton>(Resource.Id.selectHospital_FavouritesToggle);
-                holder.position = position;
-                System.Diagnostics.Debug.WriteLine(holder.position);
-
-                //  Positions are not working correctly, this is a temporary solution
-                view.Click += delegate
-                {
-                    Intent intent = new Intent(activity, typeof(Request_Appointment));
-                    intent.PutExtra("hospitalName", holder.hospitalName.Text);
-                    activity.StartActivity(intent);
-                };
-
-                holder.hospitalFavourites.SetOnCheckedChangeListener(null);
-                holder.hospitalFavourites.Click += delegate
-                {
-                    holder.hospitalFavourites.Text = position.ToString();
-                };
-
-                view.Tag = holder;
-            }
-            else
-            {
-                holder = view.Tag as ViewHolder;
-            }            
-            
-            //  Set height of row
-            view.LayoutParameters.Height = Select_Hospital.LIST_HEIGHT / 6;
-
-            //  Set alternating background of row
-            type = GetItemViewType(holder.position);
-
-            if (type == 0)
-            {
-                view.SetBackgroundResource(Resource.Color._8_white);
-            }
-
-            //  Row contents
-            holder.hospitalName.Text = nameTexts[position];
-            holder.hospitalFavourites.Text = position.ToString();
-
-            return view;
-        }
-
-        //  Number of different rows
-        public override int ViewTypeCount
-        {
-            get
-            {
-                return 2;
-            }
-        }
-
-        //  To alternate rows
         public override int GetItemViewType(int position)
         {
             return position % 2 == 1 ? 0 : 1;
-        }        
+        }
+
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
+        {
+            ViewHolder vh = holder as ViewHolder;
+
+            //  Set height of row
+            vh.ItemView.LayoutParameters.Height = Select_Hospital.LIST_HEIGHT / 6;
+
+            //  Set alternating background of row
+            int type = GetItemViewType(position);
+
+            if (type == 0)
+            {
+                vh.ItemView.SetBackgroundResource(Resource.Color._8_white);
+            }
+
+            vh.hospitalName.Text = nameTexts[position];
+        }
+
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Hospital_List_Item, parent, false);
+            ViewHolder holder = new ViewHolder(view);
+
+            holder.ItemView.Click += delegate
+            {
+                Intent intent = new Intent(activity, typeof(Request_Appointment));
+                intent.PutExtra("hospitalName", holder.hospitalName.Text);
+                activity.StartActivity(intent);
+            };
+
+            holder.hospitalFavourites.Click += delegate
+            {
+                holder.hospitalFavourites.Text = "Test";
+            };
+
+            return holder;
+        }
 
         private readonly string[] nameTexts =
         {
@@ -156,10 +128,16 @@ namespace Dental_IT.Droid
         };
     }
 
-    class ViewHolder : Java.Lang.Object
+    class ViewHolder : RecyclerView.ViewHolder
     {
         public TextView hospitalName { get; set; }
         public ToggleButton hospitalFavourites { get; set; }
         public int position { get; set; }
+
+        public ViewHolder (View view) : base(view)
+        {
+            hospitalName = view.FindViewById<TextView>(Resource.Id.selectHospital_HospitalText);
+            hospitalFavourites = view.FindViewById<ToggleButton>(Resource.Id.selectHospital_FavouritesToggle);
+        }
     }
 }

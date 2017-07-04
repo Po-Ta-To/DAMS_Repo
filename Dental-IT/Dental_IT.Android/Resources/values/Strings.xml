@@ -12,6 +12,16 @@
   <string name="NRIC">NRIC/Password No.</string>
   <string name="mobile">Mobile No.</string>
   <string name="pdpa">I agree to the <u>Terms and Conditions</u></string>
+  <string name="pdpa_title">Registration Consent Clause</string>
+  <string name="pdpa_text">
+    \n\nBy signing this membership application form, you agree that Medisys Innovation may
+    collect, use and disclose your personal data, as provided in this application form, or (if
+    applicable) obtained by our organisation as a result of your membership, for the
+    following purposes in accordance with the Personal Data Protection Act 2012 and our
+    data protection policy (available at our website www.medinno.com):\n\n\n
+    \t\t (a) the processing of this membership application; and \n\n
+    \t\t (b) the administration of the membership with our organisation.\n\n\nPlease visit our website
+    for further details on our data protection policy, including how you may access and correct your    personal data or withdraw consent to the collection, use or disclosure of your personal data.\n\n</string>
   <string name="register">Register</string>
   <string name="hospital">Hospital/clinic :</string>
   <string name="pref_date">Preferred date :</string>

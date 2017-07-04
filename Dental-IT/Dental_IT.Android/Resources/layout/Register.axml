@@ -79,7 +79,6 @@
         android:layout_marginRight="50dp"
         android:spinnerMode="dropdown"
         android:prompt="@string/gender"
-        android:entries="@array/gender_dropdown"
         android:background="@drawable/editText_line" />
     <EditText
         android:id="@+id/register_NRICField"

@@ -88,9 +88,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:spinnerMode="dropdown"
-                android:pointerIcon="arrow"
                 android:prompt="@string/dentist"
-                android:entries="@array/gender_dropdown"
                 android:background="@drawable/editText_line" />
         </LinearLayout>
         <LinearLayout
@@ -116,9 +114,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:spinnerMode="dropdown"
-                android:pointerIcon="arrow"
                 android:prompt="@string/session"
-                android:entries="@array/gender_dropdown"
                 android:background="@drawable/editText_line" />
         </LinearLayout>
         <Button
