@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c01b63d5608c47f0b6980ef29acf1f12" Name="Diagram1">
-        <EntityTypeShape EntityType="DAMS_01Model.AdminAccount" Width="1.5" PointX="3.75" PointY="23.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DAMS_01Model.AdminAccountDoctorDentist" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.AdminAccount" Width="1.5" PointX="1.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAMS_01Model.AdminAccountDoctorDentist" Width="1.5" PointX="5.875" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DAMS_01Model.Advertisement" Width="1.5" PointX="3.75" PointY="17.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DAMS_01Model.Appointment" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DAMS_01Model.AppointmentTreatment" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
