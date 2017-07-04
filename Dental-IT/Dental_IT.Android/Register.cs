@@ -69,13 +69,16 @@ namespace Dental_IT.Droid
                 pdpaClick.Click += delegate
                 {
                     AlertDialog.Builder pdpa = new AlertDialog.Builder(this);
-                    pdpa.SetTitle("Test");
-                    pdpa.SetMessage("Testing");
-                    pdpa.SetNeutralButton("OK", delegate
+                    pdpa.SetTitle(Resource.String.pdpa_title);
+                    pdpa.SetMessage(Resource.String.pdpa_text);
+                    pdpa.SetNeutralButton("Close", delegate
                     {
                         pdpa.Dispose();
                     });
-                    pdpa.Show();
+
+                    var alert = pdpa.Show();
+                    TextView alertMessage = (TextView)alert.Window.DecorView.FindViewById(Android.Resource.Id.Message);
+                    alertMessage.SetTextSize(Android.Util.ComplexUnitType.Px, Convert.ToSingle(register_RegisterBtn.TextSize * 0.8));
                 };
             });
 
