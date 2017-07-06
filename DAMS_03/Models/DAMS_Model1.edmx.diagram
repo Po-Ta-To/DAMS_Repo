@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c01b63d5608c47f0b6980ef29acf1f12" Name="Diagram1">
+      <Diagram DiagramId="c61f470c42574a17a8164919055add96" Name="Diagram1">
         <EntityTypeShape EntityType="DAMS_01Model.AdminAccount" Width="1.5" PointX="3.75" PointY="23.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DAMS_01Model.AdminAccountDoctorDentist" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DAMS_01Model.Advertisement" Width="1.5" PointX="3.75" PointY="17.875" IsExpanded="true" />
@@ -20,23 +20,23 @@
         <EntityTypeShape EntityType="DAMS_01Model.OpeningHour" Width="1.5" PointX="3.75" PointY="20.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DAMS_01Model.Treatment" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DAMS_01Model.UserAccount" Width="1.5" PointX="0.75" PointY="14.375" IsExpanded="true" />
-        <AssociationConnector Association="DAMS_01Model.FK__AdminAcco__Admin__59FA5E80" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__AdminAcco__Docto__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Adver__6D0D32F4" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Appoi__7E37BEF6" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Clini__73BA3083" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Docto__74AE54BC" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Reque__75A278F5" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__Appointme__UserI__72C60C4A" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Treat__7F2BE32F" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__Bookings__Clinic__628FA481" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__68487DD7" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__6E01572D" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__7B5B524B" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Docto__5EBF139D" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Openi__6754599E" ManuallyRouted="false" />
-        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Treat__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__AdminAcco__Admin__339FAB6E" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__AdminAcco__Docto__32AB8735" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Adver__46B27FE2" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Appoi__57DD0BE4" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Clini__4D5F7D71" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Docto__4E53A1AA" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Reque__4F47C5E3" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__UserI__4C6B5938" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Appointme__Treat__58D1301D" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__Bookings__Clinic__3C34F16F" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__395884C4" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__41EDCAC5" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__47A6A41B" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Clini__55009F39" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Docto__3864608B" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Openi__40F9A68C" ManuallyRouted="false" />
+        <AssociationConnector Association="DAMS_01Model.FK__ClinicHos__Treat__540C7B00" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

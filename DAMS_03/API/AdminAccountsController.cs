@@ -10,7 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DAMS_03.Models;
 using Newtonsoft.Json;
-//using System.Web.Mvc;
+using System.Web.Mvc;
 //using Microsoft.AspNet.Mvc;
 
 namespace DAMS_03.API
@@ -20,21 +20,42 @@ namespace DAMS_03.API
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: api/AdminAccounts
-        //public JsonResult GetAdminAccounts()//IQueryable<AdminAccount>
-        //{
-        //    //return JsonConvert.SerializeObject(db.AdminAccounts).Replace("\"", "");
+        public IHttpActionResult GetAdminAccounts()//IQueryable<AdminAccount>
+        {
+            //return JsonConvert.SerializeObject(db.AdminAccounts).Replace("\"", "");
 
-        //    //var adminAccounts = new JsonResult
-        //    //{
-        //    //    Data = db.AdminAccounts
-        //    //};
+            //var adminAccounts = new JsonResult
+            //{
+            //    Data = db.AdminAccounts
+            //};
 
-        //    var adminAccounts = from AdminAccount in db.AdminAccounts
-        //                        select AdminAccount;
-            
-        //    return new JsonResult(adminAccounts);
+            //db.Configuration.ProxyCreationEnabled = false;
 
-        //}
+
+            var adminAccounts = from AdminAccount in db.AdminAccounts
+                                select new
+                                {
+                                    AdminID = AdminAccount.AdminID,
+                                    Name = AdminAccount.Name,
+                                    Email = AdminAccount.Email,
+                                    SecurityLevel = AdminAccount.SecurityLevel
+                                };
+
+            //db.Configuration.ProxyCreationEnabled = true;
+
+            //return Json(new { adminAccounts });
+
+            //var returnAdminAccount = { "ID" : 1 };
+
+            //foreach (var i in adminAccounts)
+            //{
+                
+
+            //}
+
+            return Ok(adminAccounts);
+
+        }
 
         // GET: api/AdminAccounts/5
         [ResponseType(typeof(AdminAccount))]
