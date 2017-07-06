@@ -27,7 +27,7 @@ namespace Dental_IT.Droid
             EditText register_PasswordField = FindViewById<EditText>(Resource.Id.register_PasswordField);
             EditText register_RepeatPasswordField = FindViewById<EditText>(Resource.Id.register_RepeatPasswordField);
             EditText register_DOBField = FindViewById<EditText>(Resource.Id.register_DOBField);
-            Spinner register_GenderDropdown = FindViewById<Spinner>(Resource.Id.register_GenderDropdown);
+            Spinner register_GenderSpinner = FindViewById<Spinner>(Resource.Id.register_GenderSpinner);
             EditText register_NRICField = FindViewById<EditText>(Resource.Id.register_NRICField);
             EditText register_MobileField = FindViewById<EditText>(Resource.Id.register_MobileField);
             CheckBox register_PdpaChkbox = FindViewById<CheckBox>(Resource.Id.register_PdpaChkbox);
@@ -36,7 +36,7 @@ namespace Dental_IT.Droid
 
             RunOnUiThread(() =>
             {
-                //  Set text sizes to be same as button text sizes
+                //  Set textfield text sizes to be same as button text sizes
                 register_EmailField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
                 register_PasswordField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
                 register_RepeatPasswordField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
@@ -51,18 +51,14 @@ namespace Dental_IT.Droid
                 };
 
                 //  Configure spinner for gender dropdown
-                //var arrayAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerDropDownItem)
-                //arrayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-                //register_GenderDropdown.Adapter = arrayAdapter;
-                
-                register_GenderDropdown.Adapter = new SpinnerAdapter(this, genders);
+                register_GenderSpinner.Adapter = new SpinnerAdapter(this, genders);
 
                 //  Configure pdpa dialog
                 IClickableSpan pdpaClick = new IClickableSpan();
 
                 Android.Text.SpannableString pdpaSpan = new Android.Text.SpannableString(register_PdpaText.Text);
-                pdpaSpan.SetSpan(pdpaClick, 15, 35, Android.Text.SpanTypes.ExclusiveExclusive);
-                pdpaSpan.SetSpan(new Android.Text.Style.ForegroundColorSpan(Android.Graphics.Color.Red), 15, 35, Android.Text.SpanTypes.ExclusiveExclusive);
+                pdpaSpan.SetSpan(pdpaClick, 16, 36, Android.Text.SpanTypes.ExclusiveExclusive);
+                pdpaSpan.SetSpan(new Android.Text.Style.ForegroundColorSpan(new Android.Graphics.Color(Resource.Color.dark_blue)), 16, 36, Android.Text.SpanTypes.ExclusiveExclusive);
                 register_PdpaText.TextFormatted = pdpaSpan;
                 register_PdpaText.MovementMethod = Android.Text.Method.LinkMovementMethod.Instance;
 

@@ -23,12 +23,15 @@ namespace Dental_IT.Droid
             //  Create widgets
             RecyclerView selectHospital_RecyclerView = FindViewById<RecyclerView>(Resource.Id.selectHospital_RecyclerView);
 
-            //  Configure custom adapter for recyclerview
-            selectHospital_RecyclerView.Post(() =>
+            RunOnUiThread(() =>
             {
-                LIST_HEIGHT = selectHospital_RecyclerView.Height;
-                selectHospital_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
-                selectHospital_RecyclerView.SetAdapter(new RecyclerAdapter(this));
+                //  Configure custom adapter for recyclerview
+                selectHospital_RecyclerView.Post(() =>
+                {
+                    LIST_HEIGHT = selectHospital_RecyclerView.Height;
+                    selectHospital_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
+                    selectHospital_RecyclerView.SetAdapter(new RecyclerAdapter(this));
+                });
             });
         }
     }

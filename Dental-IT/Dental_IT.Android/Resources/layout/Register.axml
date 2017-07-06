@@ -70,7 +70,7 @@
         android:fontFamily="sans-serif-light"
         android:background="@drawable/editText_line" />
     <Spinner
-        android:id="@+id/register_GenderDropdown"
+        android:id="@+id/register_GenderSpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/register_DOBField"
@@ -84,7 +84,7 @@
         android:id="@+id/register_NRICField"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_GenderDropdown"
+        android:layout_below="@id/register_GenderSpinner"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"

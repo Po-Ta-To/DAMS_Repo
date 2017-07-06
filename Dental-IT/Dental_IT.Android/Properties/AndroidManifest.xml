@@ -13,4 +13,13 @@
   <activity
     android:name="Select_Hospital">
   </activity>
+  <activity
+    android:name="Request_Appointment">
+  </activity>
+  <activity
+    android:name="Appointment_Details">
+  </activity>
+  <activity
+    android:name="Hospital_Details">
+  </activity>
 </manifest>
