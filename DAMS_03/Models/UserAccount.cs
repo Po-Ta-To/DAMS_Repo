@@ -23,8 +23,6 @@ namespace DAMS_03.Models
         public int ID { get; set; }
         public string NRIC { get; set; }
         public string Name { get; set; }
-        public string Passwordd { get; set; }
-        public string PasswordHash { get; set; }
         public string DOB { get; set; }
         public string Gender { get; set; }
         public string Mobile { get; set; }
