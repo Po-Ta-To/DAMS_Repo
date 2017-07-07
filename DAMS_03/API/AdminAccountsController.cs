@@ -15,6 +15,7 @@ using System.Web.Mvc;
 
 namespace DAMS_03.API
 {
+    [System.Web.Http.Authorize]
     public class AdminAccountsController : ApiController
     {
         private DAMS_01Entities db = new DAMS_01Entities();
