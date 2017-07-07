@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Account Controls</h2>
+<table class="table">
+    <tr>
+        <th>@Html.ActionLink("View Admin Accounts", "Index", "AdminAccounts", new { area = "" }, new { @class = "navbar-brand" })</th>
+    </tr>
+    <tr>
+        <th>@Html.ActionLink("View Hospital/Clinic Admin Accounts", "Index", "sth", new { area = "" }, new { @class = "navbar-brand" })</th>
+    </tr>
+    <tr>
+        <th>@Html.ActionLink("View Hospital/Clinic Clerk Accounts", "Index", "sth", new { area = "" }, new { @class = "navbar-brand" })</th>
+    </tr>
+    <tr>
+        <th>@Html.ActionLink("View Public User Accounts", "Index", "UserAccounts", new { area = "" }, new { @class = "navbar-brand" })</th>
+    </tr>
+</table>
