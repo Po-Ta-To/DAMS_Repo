@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+    android:id="@+id/back_arrow"
+    android:icon="@drawable/ic_keyboard_backspace"
+    android:showAsAction="always"
+    android:title="Go Back"/>
+</menu>

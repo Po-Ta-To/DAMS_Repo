@@ -84,6 +84,32 @@ namespace Dental_IT.Droid
                 Intent intent = new Intent(this, typeof(Main_Menu));
                 StartActivity(intent);
             };
+
+            //Implement CustomTheme ActionBar
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Registration";
+
+            //Set backarrow as Default
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+        }
+
+        //Implement menus in the action bar; backarrow
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            return true;
+        }
+
+
+        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Intent intent = new Intent(this, typeof(Sign_In));
+            StartActivity(intent);
+
+            Toast.MakeText(this, "Sign In" + item.TitleFormatted,
+                ToastLength.Short).Show();
+            return base.OnOptionsItemSelected(item);
         }
 
         //  Method to call DatePickerFragment

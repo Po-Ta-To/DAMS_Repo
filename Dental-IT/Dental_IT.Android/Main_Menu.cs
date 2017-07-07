@@ -40,6 +40,16 @@ namespace Dental_IT.Droid
                     mainMenu_GridView.Adapter = new GridAdapter(this);
                 });
             });
+
+            //Implement CustomTheme ActionBar(toolbar)
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Dental-It";
+
+            //Set menu hambuger
+            ActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
     }
 
