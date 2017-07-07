@@ -23,19 +23,22 @@ namespace Dental_IT.Droid
             //  Create widgets
             GridView mainMenu_GridView = FindViewById<GridView>(Resource.Id.mainMenu_GridView);
 
-            //  Get screen height
-            SCREEN_HEIGHT = Resources.DisplayMetrics.HeightPixels;
-
-            //  Get actionbar height
-            Android.Content.Res.TypedArray styledAttributes = Theme.ObtainStyledAttributes(new int[] { Android.Resource.Attribute.ActionBarSize });
-            ACTIONBAR_HEIGHT = (int)styledAttributes.GetDimension(0, 0);
-            styledAttributes.Recycle();
-
-            //  Configure custom adapter for gridview
-            mainMenu_GridView.Post(() =>
+            RunOnUiThread(() =>
             {
-                GRID_HEIGHT = mainMenu_GridView.Height;
-                mainMenu_GridView.Adapter = new GridAdapter(this);
+                //  Get screen height
+                SCREEN_HEIGHT = Resources.DisplayMetrics.HeightPixels;
+
+                //  Get actionbar height
+                Android.Content.Res.TypedArray styledAttributes = Theme.ObtainStyledAttributes(new int[] { Android.Resource.Attribute.ActionBarSize });
+                ACTIONBAR_HEIGHT = (int)styledAttributes.GetDimension(0, 0);
+                styledAttributes.Recycle();
+
+                //  Configure custom adapter for gridview
+                mainMenu_GridView.Post(() =>
+                {
+                    GRID_HEIGHT = mainMenu_GridView.Height;
+                    mainMenu_GridView.Adapter = new GridAdapter(this);
+                });
             });
         }
     }
@@ -85,6 +88,21 @@ namespace Dental_IT.Droid
                         button.Click += delegate
                         {
                             Intent intent = new Intent(context, typeof(Select_Hospital));
+                            context.StartActivity(intent);
+                        };
+                        break;
+
+                    case 1:
+                        button.Click += delegate
+                        {
+                            Intent intent = new Intent(context, typeof(Appointment_Details));
+                            context.StartActivity(intent);
+                        };
+                        break;
+                    case 2:
+                        button.Click += delegate
+                        {
+                            Intent intent = new Intent(context, typeof(Hospital_Details));
                             context.StartActivity(intent);
                         };
                         break;

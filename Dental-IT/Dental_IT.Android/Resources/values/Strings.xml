@@ -11,7 +11,9 @@
   <string name="gender">Gender</string>
   <string name="NRIC">NRIC/Password No.</string>
   <string name="mobile">Mobile No.</string>
-  <string name="pdpa">I agree to the <u>Terms and Conditions</u></string>
+  <string name="pdpa">
+    I agree to the <u>Terms and Conditions</u>
+  </string>
   <string name="pdpa_title">Registration Consent Clause</string>
   <string name="pdpa_text">
     \n\nBy signing this membership application form, you agree that Medisys Innovation may
@@ -21,16 +23,30 @@
     data protection policy (available at our website www.medinno.com):\n\n\n
     \t\t (a) the processing of this membership application; and \n\n
     \t\t (b) the administration of the membership with our organisation.\n\n\nPlease visit our website
-    for further details on our data protection policy, including how you may access and correct your    personal data or withdraw consent to the collection, use or disclosure of your personal data.\n\n</string>
+    for further details on our data protection policy, including how you may access and correct your
+    personal data or withdraw consent to the collection, use or disclosure of your personal data.\n\n
+  </string>
   <string name="register">Register</string>
   <string name="hospital">Hospital/clinic :</string>
   <string name="pref_date">Preferred date :</string>
-  <string name="date">Select date</string>
+  <string name="select_date">Select date</string>
   <string name="pref_dentist">Preferred dentist (optional) :</string>
-  <string name="dentist">Select dentist</string>
+  <string name="select_dentist">Select dentist</string>
   <string name="pref_session">Preferred session :</string>
-  <string name="session">Select session</string>
-  <string name="treatments">Select treatment(s)</string>
+  <string name="select_session">Select session</string>
+  <string name="select_treatments">Select treatment(s)</string>
   <string name="remarks">Remarks :</string>
   <string name="submit">Submit</string>
+  <string name="date">Date :</string>
+  <string name="dentist">Dentist :</string>
+  <string name="session">Session time :</string>
+  <string name="treatments">Treatment(s) :</string>
+  <string name="status">Status :</string>
+  <string name="update">Update</string>
+  <string name="delete">Delete</string>
+  <string name="address">Address :</string>
+  <string name="opening_hours">Opening hours :</string>
+  <string name="contact">Contact :</string>
+  <string name="treatments_offered">Treatments offered</string>
+  <string name="request">Request Appointment</string>
 </resources>
