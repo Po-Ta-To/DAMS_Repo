@@ -25,8 +25,10 @@ namespace DAMS_03.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string SecurityLevel { get; set; }
+        public string AspNetID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdminAccountDoctorDentist> AdminAccountDoctorDentists { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

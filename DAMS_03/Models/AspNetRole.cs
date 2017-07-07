@@ -12,27 +12,18 @@ namespace DAMS_03.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserAccount
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserAccount()
+        public AspNetRole()
         {
-            this.Appointments = new HashSet<Appointment>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
-        public int ID { get; set; }
-        public string NRIC { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public string Passwordd { get; set; }
-        public string PasswordHash { get; set; }
-        public string DOB { get; set; }
-        public string Gender { get; set; }
-        public string Mobile { get; set; }
-        public string Addrress { get; set; }
-        public string AspNetID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointments { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

@@ -30,6 +30,10 @@ namespace DAMS_03.Models
         public virtual DbSet<Advertisement> Advertisements { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<AppointmentTreatment> AppointmentTreatments { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<ClinicHospital> ClinicHospitals { get; set; }
         public virtual DbSet<ClinicHospitalAdvertisement> ClinicHospitalAdvertisements { get; set; }
