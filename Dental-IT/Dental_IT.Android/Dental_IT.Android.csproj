@@ -70,6 +70,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\GridAdapter.cs" />
+    <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Appointment_Details.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
