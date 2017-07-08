@@ -20,6 +20,8 @@ namespace DAMS_03
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            //config.EnableCors();
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

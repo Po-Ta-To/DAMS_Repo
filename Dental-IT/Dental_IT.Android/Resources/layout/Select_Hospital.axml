@@ -6,6 +6,9 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/selectHospital_RecyclerView"
         android:scrollbars="vertical"

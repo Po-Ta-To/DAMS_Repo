@@ -10,6 +10,7 @@ using DAMS_03.Models;
 
 namespace DAMS_03.Controllers
 {
+    [Authorize]
     public class AdminAccountsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
