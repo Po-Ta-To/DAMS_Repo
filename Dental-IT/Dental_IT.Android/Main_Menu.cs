@@ -38,7 +38,7 @@ namespace Dental_IT.Droid
                 mainMenu_GridView.Post(() =>
                 {
                     GRID_HEIGHT = mainMenu_GridView.Height;
-                    mainMenu_GridView.Adapter = new GridAdapter(this, buttonTexts);
+                    mainMenu_GridView.Adapter = new GridAdapter_MainMenu(this, buttonTexts);
                 });
             });
 
@@ -56,10 +56,10 @@ namespace Dental_IT.Droid
         //  List of button texts to popular grid adapter
         private readonly string[] buttonTexts =
         {
-            "Button 1",
-            "Button 2",
-            "Button 3",
-            "Button 4"
+            "Request Appointment",
+            "My Appointments",
+            "Treatment Info",
+            "Search"
         };
     }
 }

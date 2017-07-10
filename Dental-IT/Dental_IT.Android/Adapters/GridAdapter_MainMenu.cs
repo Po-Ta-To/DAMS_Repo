@@ -12,13 +12,13 @@ using Android.Widget;
 
 namespace Dental_IT.Droid.Adapters
 {
-    class GridAdapter : BaseAdapter
+    class GridAdapter_MainMenu : BaseAdapter
     {
         private readonly Context context;
         private int numRows = 2;
         private string[] items;
 
-        public GridAdapter(Context c, string[] i)
+        public GridAdapter_MainMenu(Context c, string[] i)
         {
             context = c;
             items = i;
@@ -48,8 +48,10 @@ namespace Dental_IT.Droid.Adapters
                 button = new Button(context);
 
                 button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-                button.SetBackgroundColor(Android.Graphics.Color.Gray);
+                button.SetBackgroundColor(new Android.Graphics.Color(Resource.Color.blue));
+                button.SetTextColor(new Android.Graphics.Color(Resource.Color.white));
                 button.SetHeight(Main_Menu.GRID_HEIGHT / numRows);
+                button.SetAllCaps(false);
                 button.Text = items[position];
 
                 switch (position)
@@ -70,6 +72,13 @@ namespace Dental_IT.Droid.Adapters
                         };
                         break;
                     case 2:
+                        button.Click += delegate
+                        {
+                            Intent intent = new Intent(context, typeof(Treatment_Information));
+                            context.StartActivity(intent);
+                        };
+                        break;
+                    case 3:
                         button.Click += delegate
                         {
                             Intent intent = new Intent(context, typeof(Hospital_Details));

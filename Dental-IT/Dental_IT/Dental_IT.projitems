@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Hospital.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hospital_Favourites.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Treatment.cs" />
   </ItemGroup>
 </Project>

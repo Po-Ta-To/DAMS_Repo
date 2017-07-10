@@ -22,4 +22,7 @@
   <activity
     android:name="Hospital_Details">
   </activity>
+  <activity
+    android:name="Treatment_Information">
+  </activity>
 </manifest>
