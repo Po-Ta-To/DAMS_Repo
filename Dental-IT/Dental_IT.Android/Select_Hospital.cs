@@ -40,7 +40,7 @@ namespace Dental_IT.Droid
             //Implement CustomTheme ActionBar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Select Hospitals/clinics ";
+            ActionBar.Title = "Select Hospital/Clinics ";
 
             //Set backarrow as Default
             ActionBar.SetDisplayHomeAsUpEnabled(true);

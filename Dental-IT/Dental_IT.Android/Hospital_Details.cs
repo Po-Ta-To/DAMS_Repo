@@ -41,6 +41,14 @@ namespace Dental_IT.Droid
                 hospDetails_OpeningHoursLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 hospDetails_ContactLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
             });
+
+            //Implement CustomTheme ActionBar
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Hospital/Clinics Details";
+
+            //Set backarrow as Default
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
     }
 }

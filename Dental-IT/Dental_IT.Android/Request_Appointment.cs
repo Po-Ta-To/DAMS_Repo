@@ -60,6 +60,15 @@ namespace Dental_IT.Droid
                     SelectDate(request_DateField);
                 };
             });
+
+
+            //Implement CustomTheme ActionBar
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Request Appointment";
+
+            //Set backarrow as Default
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
         //  Method to call DatePickerFragment

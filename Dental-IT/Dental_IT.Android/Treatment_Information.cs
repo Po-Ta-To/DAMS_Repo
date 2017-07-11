@@ -4,6 +4,7 @@ using Android.Support.V7.Widget;
 using System.Collections.Generic;
 using System.Collections;
 using Dental_IT.Droid.Adapters;
+using Android.Widget;
 
 namespace Dental_IT.Droid
 {
@@ -52,6 +53,14 @@ namespace Dental_IT.Droid
                     treatmentInformation_RecyclerView.SetAdapter(adapter);
                 });
             });
+
+            //Implement CustomTheme ActionBar
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Treatment Information";
+
+            //Set backarrow as Default
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
     }
 }

@@ -48,6 +48,15 @@ namespace Dental_IT.Droid
                 apptDetails_TreatmentLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 apptDetails_StatusLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
             });
+
+
+            //Implement CustomTheme ActionBar
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Appointment Details";
+
+            //Set backarrow as Default
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
     }
 }
