@@ -2,14 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-            android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:background="@drawable/background">
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/background">
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingBottom="35dp"
-        >
+        android:paddingBottom="35dp">
         <LinearLayout
             android:id="@+id/request_HospitalLayout"
             android:layout_width="fill_parent"
@@ -57,6 +56,8 @@
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:hint="@string/select_date"
+                android:focusable="false"
+                android:editable="false"
                 android:textColorHint="@color/dark_blue"
                 android:textColor="@color/dark_blue"
                 android:fontFamily="sans-serif-light"

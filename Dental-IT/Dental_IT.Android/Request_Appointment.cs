@@ -3,12 +3,16 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Dental_IT.Droid.Fragments;
+using System;
 
 namespace Dental_IT.Droid
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Request_Appointment : Activity
     {
+        private string TAG = "DatePickerFragment";
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -49,7 +53,24 @@ namespace Dental_IT.Droid
 
                 //  Set hospital name
                 request_HospitalField.Text = hospitalName;
+
+                //  Set date field onClick to show and implement DatePicker
+                request_DateField.Click += delegate
+                {
+                    SelectDate(request_DateField);
+                };
             });
+        }
+
+        //  Method to call DatePickerFragment
+        private void SelectDate(EditText request_DateField)
+        {
+            DatePickerFragment fragment = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                request_DateField.Text = time.ToLongDateString();
+            });
+
+            fragment.Show(FragmentManager, TAG);
         }
     }
 }

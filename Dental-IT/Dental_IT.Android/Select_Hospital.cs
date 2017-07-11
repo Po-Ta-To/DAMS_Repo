@@ -31,15 +31,16 @@ namespace Dental_IT.Droid
                 {
                     LIST_HEIGHT = selectHospital_RecyclerView.Height;
                     selectHospital_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
-                    selectHospital_RecyclerView.SetAdapter(new RecyclerAdapter(this));
+
+                    RecyclerAdapter adapter = new RecyclerAdapter(this);
+                    selectHospital_RecyclerView.SetAdapter(adapter);
                 });
             });
 
             //Implement CustomTheme ActionBar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Hospitals Available ";
-
+            ActionBar.Title = "Select Hospitals/clinics ";
 
             //Set backarrow as Default
             ActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -54,7 +55,6 @@ namespace Dental_IT.Droid
         //Implement menus in the action bar; backarrow
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-
             return true;
         }
 
@@ -69,12 +69,12 @@ namespace Dental_IT.Droid
                 ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }
-
     }
 
     public class RecyclerAdapter : RecyclerView.Adapter
     {
         private readonly Activity activity;
+        public event EventHandler<int> ItemClick;
 
         public RecyclerAdapter(Activity a)
         {
@@ -87,6 +87,17 @@ namespace Dental_IT.Droid
             {
                 return nameTexts.Length;
             }
+        }
+
+        private void OnClick(int position)
+        {
+            ItemClick?.Invoke(this, position);
+        }
+
+        private void OnItemClick(object sender, int position)
+        {
+            int buttonNum = position + 1;
+            Toast.MakeText(activity, "This is button number " + buttonNum, ToastLength.Short).Show();
         }
 
         public override long GetItemId(int position)
@@ -120,7 +131,7 @@ namespace Dental_IT.Droid
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Hospital_List_Item, parent, false);
-            ViewHolder holder = new ViewHolder(view);
+            ViewHolder holder = new ViewHolder(view, OnClick);
 
             holder.ItemView.Click += delegate
             {
@@ -129,10 +140,8 @@ namespace Dental_IT.Droid
                 activity.StartActivity(intent);
             };
 
-            holder.hospitalFavourites.Click += delegate
-           {
-               holder.hospitalFavourites.Text = "Test";
-           };
+            ItemClick -= OnItemClick;
+            ItemClick += OnItemClick;
 
             return holder;
         }
@@ -141,8 +150,8 @@ namespace Dental_IT.Droid
         {
             "Hospital 1",
             "Hospital 2",
-           "Hospital 3",
-           "Hospital 4",
+            "Hospital 3",
+            "Hospital 4",
             "Hospital 5",
             "Hospital 6",
             "Hospital 7",
@@ -150,7 +159,7 @@ namespace Dental_IT.Droid
             "Hospital 9",
             "Hospital 10",
             "Hospital 11",
-           "Hospital 12",
+            "Hospital 12",
             "Hospital 13",
             "Hospital 14",
             "Hospital 15",
@@ -168,15 +177,16 @@ namespace Dental_IT.Droid
     }
 
     class ViewHolder : RecyclerView.ViewHolder
-        {
-            public TextView hospitalName { get; set; }
-            public ToggleButton hospitalFavourites { get; set; }
-            public int position { get; set; }
+    {
+        public TextView hospitalName { get; set; }
+        public ToggleButton hospitalFavourites { get; set; }
 
-        public ViewHolder (View view) : base(view)
+        public ViewHolder(View view, Action<int> listener) : base(view)
         {
             hospitalName = view.FindViewById<TextView>(Resource.Id.selectHospital_HospitalText);
             hospitalFavourites = view.FindViewById<ToggleButton>(Resource.Id.selectHospital_FavouritesToggle);
+
+            hospitalFavourites.Click += (sender, e) => listener(AdapterPosition);
         }
     }
 }

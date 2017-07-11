@@ -6,12 +6,12 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/sublayout_Toolbar" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/selectHospital_RecyclerView"
-        android:scrollbars="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/sublayout_Toolbar" />
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/treatmentInformation_RecyclerView"
+      android:scrollbars="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent" />
 </LinearLayout>

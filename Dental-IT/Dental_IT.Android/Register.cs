@@ -50,7 +50,7 @@ namespace Dental_IT.Droid
                     SelectDate(register_DOBField);
                 };
 
-                //  Configure spinner for gender dropdown
+                //  Configure spinner adapter for gender dropdown
                 register_GenderSpinner.Adapter = new SpinnerAdapter(this, genders);
 
                 //  Configure pdpa dialog
@@ -123,7 +123,7 @@ namespace Dental_IT.Droid
             fragment.Show(FragmentManager, TAG);
         }
 
-        //  List off genders to populate spinner
+        //  List of genders to populate spinner adapter
         private string[] genders =
         {
             "Gender",
