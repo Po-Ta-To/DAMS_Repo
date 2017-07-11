@@ -130,9 +130,9 @@ namespace Dental_IT.Droid
             };
 
             holder.hospitalFavourites.Click += delegate
-            {
-                holder.hospitalFavourites.Text = "Test";
-            };
+           {
+               holder.hospitalFavourites.Text = "Test";
+           };
 
             return holder;
         }
@@ -141,8 +141,8 @@ namespace Dental_IT.Droid
         {
             "Hospital 1",
             "Hospital 2",
-            "Hospital 3",
-            "Hospital 4",
+           "Hospital 3",
+           "Hospital 4",
             "Hospital 5",
             "Hospital 6",
             "Hospital 7",
@@ -150,7 +150,7 @@ namespace Dental_IT.Droid
             "Hospital 9",
             "Hospital 10",
             "Hospital 11",
-            "Hospital 12",
+           "Hospital 12",
             "Hospital 13",
             "Hospital 14",
             "Hospital 15",
@@ -168,10 +168,10 @@ namespace Dental_IT.Droid
     }
 
     class ViewHolder : RecyclerView.ViewHolder
-    {
-        public TextView hospitalName { get; set; }
-        public ToggleButton hospitalFavourites { get; set; }
-        public int position { get; set; }
+        {
+            public TextView hospitalName { get; set; }
+            public ToggleButton hospitalFavourites { get; set; }
+            public int position { get; set; }
 
         public ViewHolder (View view) : base(view)
         {
