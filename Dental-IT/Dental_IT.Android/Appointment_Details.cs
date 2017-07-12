@@ -58,5 +58,24 @@ namespace Dental_IT.Droid
             //Set backarrow as Default
             ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
+
+
+        //Implement menus in the action bar; backarrow
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            return true;
+        }
+
+
+        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Intent intent = new Intent(this, typeof(Main_Menu));
+            StartActivity(intent);
+
+            Toast.MakeText(this, "Main Menu" + item.TitleFormatted,
+                ToastLength.Short).Show();
+            return base.OnOptionsItemSelected(item);
+        }
     }
 }
