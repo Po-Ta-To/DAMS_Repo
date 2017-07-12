@@ -4,48 +4,71 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Admin Accounts</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AdminID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecurityLevel)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdminID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecurityLevel)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    <div class="form-group col-md-8">
+        <label class="control-label col-md-4" for="accountInput">Accounts</label>
+        <select id="accountInput" class="form-control input-group-sm">
+            <option value="adminAccounts">Admin Accounts</option>
+            <option value="hcAdminAccounts">Hospital/Clinic Admin Accounts</option>
+            <option value="hcClerkAccounts">Hospital/Clinic Clerk Acccounts</option>
+            <option value="publicUserAccounts">Public User Accounts</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <div class="panel-title">
+                List of Accounts
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sieve">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AdminID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SecurityLevel)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="brandTableBody">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AdminID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SecurityLevel)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- end of div element with class="panel-body" -->
+        </div><!-- end of div element with class="panel" -->
+    </div> <!-- end of div element with  class="col-md-offset-2  col-md-8"-->
+</div><!-- end of div element with class="row"-->
