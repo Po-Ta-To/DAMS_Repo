@@ -71,6 +71,25 @@ namespace Dental_IT.Droid
             ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
+
+        //Implement menus in the action bar; backarrow
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            return true;
+        }
+
+
+        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Intent intent = new Intent(this, typeof(Select_Hospital));
+            StartActivity(intent);
+
+            Toast.MakeText(this, "Sign In" + item.TitleFormatted,
+                ToastLength.Short).Show();
+            return base.OnOptionsItemSelected(item);
+        }
+
         //  Method to call DatePickerFragment
         private void SelectDate(EditText request_DateField)
         {

@@ -215,9 +215,6 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f050014
 			public const int apptDetails_UpdateBtn = 2131034132;
 			
-			// aapt resource value: 0x7f05004f
-			public const int back_arrow = 2131034191;
-			
 			// aapt resource value: 0x7f050049
 			public const int content_frame = 2131034185;
 			
@@ -271,6 +268,21 @@ namespace Dental_IT.Droid
 			
 			// aapt resource value: 0x7f050023
 			public const int mainMenu_GridView = 2131034147;
+			
+			// aapt resource value: 0x7f050051
+			public const int nav_MyAppt = 2131034193;
+			
+			// aapt resource value: 0x7f050050
+			public const int nav_RequestAppt = 2131034192;
+			
+			// aapt resource value: 0x7f050053
+			public const int nav_Search = 2131034195;
+			
+			// aapt resource value: 0x7f050052
+			public const int nav_TreatmentInfo = 2131034194;
+			
+			// aapt resource value: 0x7f05004f
+			public const int nav_home = 2131034191;
 			
 			// aapt resource value: 0x7f050027
 			public const int register_DOBField = 2131034151;
@@ -461,7 +473,7 @@ namespace Dental_IT.Droid
 		{
 			
 			// aapt resource value: 0x7f090000
-			public const int top_menus = 2131296256;
+			public const int nav_menu = 2131296256;
 			
 			static Menu()
 			{

@@ -7,9 +7,12 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-  <include
+    <include
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/sublayout_Navigation_Drawer" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"

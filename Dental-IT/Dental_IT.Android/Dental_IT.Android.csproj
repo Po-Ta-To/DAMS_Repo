@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -207,7 +207,7 @@
     <AndroidResource Include="Resources\layout\sublayout_Navigation_Drawer.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Menu\top_menus.xml" />
+    <AndroidResource Include="Resources\Menu\nav_menu.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_menu.png" />
