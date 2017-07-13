@@ -10,13 +10,16 @@ namespace Dental_IT
         private string _name;
         private double _minPrice;
         private double _maxPrice;
+        private string _description;
 
-        public Treatment(int id, string name, double minPrice, double maxPrice)
+        public Treatment(int id, string name, double minPrice, double maxPrice, string description = "")
         {
             _id = id;
             _name = name;
             _minPrice = minPrice;
             _maxPrice = maxPrice;
+            _description = description;
+
         }
 
         public int id
@@ -41,6 +44,12 @@ namespace Dental_IT
         {
             get { return _maxPrice; }
             set { _maxPrice = value; }
+        }
+
+        public string description
+        {
+            get { return _description; }
+            set { _description = value; }
         }
     }
 }

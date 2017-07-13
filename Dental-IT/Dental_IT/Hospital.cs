@@ -8,11 +8,13 @@ namespace Dental_IT
     {
         private int _id;
         private string _name;
+        private bool _favourited;
 
-        public Hospital(int id, string name)
+        public Hospital(int id, string name, bool favourited = false)
         {
             _id = id;
             _name = name;
+            _favourited = favourited;
         }
 
         public int id
@@ -25,6 +27,12 @@ namespace Dental_IT
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        public bool favourited
+        {
+            get { return _favourited; }
+            set { _favourited = value; }
         }
     }
 }
