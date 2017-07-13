@@ -45,15 +45,15 @@ namespace Dental_IT.Droid
                 });
             });
 
-            //Implement CustomTheme ActionBar(toolbar)
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
-            ActionBar.Title = "Dental-It";
+            ////Implement CustomTheme ActionBar(toolbar)
+            //var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            //SetActionBar(toolbar);
+            //ActionBar.Title = "Dental-It";
 
-            //Set menu hambuger
-            ActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+            ////Set menu hambuger
+            //ActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
 
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            //ActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
         //  List of button texts to popular grid adapter
