@@ -22,6 +22,8 @@
         android:textColorHint="@color/dark_blue"
         android:textColor="@color/dark_blue"
         android:fontFamily="sans-serif-light"
+        android:drawableLeft="@drawable/ic_account"
+        android:drawablePadding="0dp"
         android:background="@drawable/editText_line" />
     <EditText
         android:id="@+id/register_PasswordField"
@@ -38,6 +40,7 @@
         android:textColorHint="@color/dark_blue"
         android:textColor="@color/dark_blue"
         android:fontFamily="sans-serif-light"
+        android:drawableLeft="@drawable/ic_lock"
         android:background="@drawable/editText_line" />
     <EditText
         android:id="@+id/register_RepeatPasswordField"
@@ -54,6 +57,7 @@
         android:textColorHint="@color/dark_blue"
         android:textColor="@color/dark_blue"
         android:fontFamily="sans-serif-light"
+        android:drawableLeft="@drawable/ic_lock"
         android:background="@drawable/editText_line" />
     <EditText
         android:id="@+id/register_DOBField"
@@ -71,6 +75,7 @@
         android:textColorHint="@color/dark_blue"
         android:textColor="@color/dark_blue"
         android:fontFamily="sans-serif-light"
+        android:drawableLeft="@drawable/ic_calendar_range"
         android:background="@drawable/editText_line" />
     <Spinner
         android:id="@+id/register_GenderSpinner"
@@ -82,6 +87,7 @@
         android:layout_marginRight="50dp"
         android:spinnerMode="dropdown"
         android:prompt="@string/gender"
+        android:drawableLeft="@drawable/ic_gender_male_female"
         android:background="@drawable/editText_line" />
     <EditText
         android:id="@+id/register_NRICField"
@@ -98,6 +104,7 @@
         android:textColorHint="@color/dark_blue"
         android:textColor="@color/dark_blue"
         android:fontFamily="sans-serif-light"
+        android:drawableLeft="@drawable/ic_account_card_details"
         android:background="@drawable/editText_line" />
     <EditText
         android:id="@+id/register_MobileField"
@@ -114,6 +121,7 @@
         android:textColorHint="@color/dark_blue"
         android:textColor="@color/dark_blue"
         android:fontFamily="sans-serif-light"
+        android:drawableLeft="@drawable/ic_phone"
         android:background="@drawable/editText_line" />
     <RelativeLayout
         android:id="@+id/register_PdpaLayout"
@@ -141,7 +149,7 @@
     <Button
         android:id="@+id/register_RegisterBtn"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_below="@id/register_PdpaLayout"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"

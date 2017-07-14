@@ -10,7 +10,7 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
-    <!--<include
+<!--<include
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Navigation_Drawer" />-->
     <LinearLayout
@@ -28,6 +28,6 @@
             android:numColumns="2"
             android:listSelector="@null"
             android:verticalSpacing="0dp"
-            android:horizontalSpacing="0dp" />
+            android:horizontalSpacing="0dp"/>
     </LinearLayout>
 </LinearLayout>
