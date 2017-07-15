@@ -4,26 +4,32 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using System.Collections.Generic;
+using Android.Preferences;
 
 namespace Dental_IT.Droid.Adapters
 {
     class RecyclerViewAdapter_SelectHospital : RecyclerView.Adapter
     {
         private readonly Context context;
-        private List<Hospital> list;
+        private List<Hospital> hospitalList;
+        public static List<int> prefList;
+        private List<Favourite> tempFavouriteList;
         public event EventHandler<int> ItemClick;
+        ISharedPreferences prefs;
 
-        public RecyclerViewAdapter_SelectHospital(Context c, List<Hospital> l)
+        public RecyclerViewAdapter_SelectHospital(Context c, List<Hospital> l, List<int> f, List<Favourite> temp)
         {
             context = c;
-            list = l;
+            hospitalList = l;
+            prefList = f;
+            tempFavouriteList = temp;
         }
 
         public override int ItemCount
         {
             get
             {
-                return list.Count;
+                return hospitalList.Count;
             }
         }
 
@@ -34,13 +40,21 @@ namespace Dental_IT.Droid.Adapters
 
         private void OnItemClick(object sender, int position)
         {
-            if (list[position].favourited == false)
+            if (tempFavouriteList[position].favourited == false)
             {
-                list[position].favourited = true;
+                tempFavouriteList[position].favourited = true;
+
+                prefList.Add(position + 1);
+
+                Toast.MakeText(context, hospitalList[position].name + " added to favourites!", ToastLength.Short).Show();
             }
             else
             {
-                list[position].favourited = false;
+                tempFavouriteList[position].favourited = false;
+
+                prefList.Remove(prefList.Find(e => (e == position + 1)));
+
+                Toast.MakeText(context, hospitalList[position].name + " removed from favourites!", ToastLength.Short).Show();
             }
         }
 
@@ -69,14 +83,17 @@ namespace Dental_IT.Droid.Adapters
                 vh.ItemView.SetBackgroundResource(Resource.Color._8_white);
             }
 
-            vh.hospitalName.Text = list[position].name;
-            vh.hospitalFavourites.Checked = list[position].favourited;
+            vh.hospitalName.Text = hospitalList[position].name;
+            vh.hospitalFavourites.Checked = tempFavouriteList[position].favourited;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Hospital_List_Item, parent, false);
             SelectHospital_ViewHolder holder = new SelectHospital_ViewHolder(view, OnClick);
+
+            //  Get list of favourites from shared preferences
+            prefs = PreferenceManager.GetDefaultSharedPreferences(context);
 
             holder.ItemView.Click += delegate
             {

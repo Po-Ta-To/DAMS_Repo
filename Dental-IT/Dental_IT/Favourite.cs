@@ -4,27 +4,26 @@ using System.Text;
 
 namespace Dental_IT
 {
-    class Hospital
+    public class Favourite
     {
         private int _id;
-        private string _name;
+        private bool _favourited;
 
-        public Hospital(int id, string name)
+        public Favourite(int id, bool favourited = false)
         {
             _id = id;
-            _name = name;
+            _favourited = favourited;
         }
 
         public int id
         {
             get { return _id; }
-            set { _id = value; }
         }
 
-        public string name
+        public bool favourited
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return _favourited; }
+            set { _favourited = value; }
         }
     }
 }
