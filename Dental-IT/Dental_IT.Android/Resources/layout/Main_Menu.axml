@@ -28,6 +28,6 @@
             android:numColumns="2"
             android:listSelector="@null"
             android:verticalSpacing="0dp"
-            android:horizontalSpacing="0dp"/>
+            android:horizontalSpacing="0dp" />
     </LinearLayout>
 </LinearLayout>

@@ -125,40 +125,43 @@ namespace Dental_IT.Droid
 			public const int editText_line = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int ic_account = 2130837506;
+			public const int gender_spinner = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int ic_account_card_details = 2130837507;
+			public const int ic_account = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int ic_calendar_range = 2130837508;
+			public const int ic_account_card_details = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int ic_gender_male_female = 2130837509;
+			public const int ic_calendar_range = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int ic_keyboard_backspace = 2130837510;
+			public const int ic_gender_male_female = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int ic_launcher = 2130837511;
+			public const int ic_keyboard_backspace = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int ic_lock = 2130837512;
+			public const int ic_launcher = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ic_menu = 2130837513;
+			public const int ic_lock = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int ic_phone = 2130837514;
+			public const int ic_menu = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int login_background = 2130837515;
+			public const int ic_phone = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int login_box = 2130837516;
+			public const int login_background = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int text_selector = 2130837517;
+			public const int login_box = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int text_selector = 2130837518;
 			
 			static Drawable()
 			{

@@ -87,8 +87,7 @@
         android:layout_marginRight="50dp"
         android:spinnerMode="dropdown"
         android:prompt="@string/gender"
-        android:drawableLeft="@drawable/ic_gender_male_female"
-        android:background="@drawable/editText_line" />
+        android:background="@drawable/gender_spinner" />
     <EditText
         android:id="@+id/register_NRICField"
         android:layout_width="fill_parent"
