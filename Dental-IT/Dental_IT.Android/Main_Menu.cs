@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.Widget;
 using Android.Views;
@@ -16,6 +17,10 @@ namespace Dental_IT.Droid
         public static int SCREEN_HEIGHT;
         public static int ACTIONBAR_HEIGHT;
         public static int GRID_HEIGHT;
+
+
+        //DrawerLayout drawerLayout;
+        //NavigationView navigationView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -54,7 +59,21 @@ namespace Dental_IT.Droid
             ActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
 
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-        }
+
+        //    drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+        //    navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+        //}
+
+        //public override bool OnOptionsItemSelected(IMenuItem item)
+        //{
+        //    switch (item.ItemId)
+        //    {
+        //        case Android.Resource.Id.Home:
+        //            drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+        //            return true;
+        //    }
+        //    return base.OnOptionsItemSelected(item);
+        //}
 
         //  List of button texts to popular grid adapter
         private readonly string[] buttonTexts =

@@ -49,4 +49,5 @@
   <string name="contact">Contact :</string>
   <string name="treatments_offered">Treatments offered</string>
   <string name="request">Request Appointment</string>
+  <string name="drawer_header">Insert Logo</string>
 </resources>
