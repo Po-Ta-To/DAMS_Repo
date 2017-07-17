@@ -1,12 +1,9 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
+    <link rel="stylesheet" href="~/Content/Container.css" type="text/css" />
+
     <div class="row">
         <div class="form-group col-md-7">
-
-<link rel="stylesheet" href="~/Content/Container.css" type="text/css" />
-
-<div>
-        <div class="col-md-9">
             <div class="bluebox">
                 <div class="centeralign">
                     <h2><b>Admin Controls</b></h2>
@@ -29,7 +26,8 @@
             </div>
         </div>
     </div>
-} else
+}
+else
 {
 
 }
