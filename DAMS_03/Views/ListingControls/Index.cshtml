@@ -1,16 +1,23 @@
-﻿@{
-    ViewBag.Title = "Index";
-}
+﻿
+    @{
+        ViewBag.Title = "Index";
+    }
 
-<h2>Listing Controls</h2>
-<table class="table">
-    <tr>
-        <th>@Html.ActionLink("View Hospitals/Clinics", "Index", "ClinicHospitals", new { area = "" }, new { @class = "navbar-brand" })</th>
-    </tr>
-    <tr>
-        <th>@Html.ActionLink("View Treatments", "Index", "Treatments", new { area = "" }, new { @class = "navbar-brand" })</th>
-    </tr>
-    <tr>
-        <th>@Html.ActionLink("View Doctors/Dentists", "Index", "DoctorDentists", new { area = "" }, new { @class = "navbar-brand" })</th>
-    </tr>
-</table>
+<link rel="stylesheet" href="~/Content/Container.css" type="text/css" />
+
+<div class="listbox">
+    <div class="centeralign">
+        <h2><b>Listing Controls</b></h2>
+        <table class="table">
+            <tr>
+                <th>@Html.ActionLink("View Hospitals/Clinics", "Index", "ClinicHospitals", new { area = "" }, new { @class = "navbar-brand" })</th>
+            </tr>
+            <tr>
+                <th>@Html.ActionLink("View Treatments", "Index", "Treatments", new { area = "" }, new { @class = "navbar-brand" })</th>
+            </tr>
+            <tr>
+                <th>@Html.ActionLink("View Doctors/Dentists", "Index", "DoctorDentists", new { area = "" }, new { @class = "navbar-brand" })</th>
+            </tr>
+        </table>
+    </div>
+</div>

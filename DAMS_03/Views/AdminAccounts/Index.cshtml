@@ -4,22 +4,25 @@
     ViewBag.Title = "Index";
 }
 
+<h2>View Admin Accounts</h2>
+
 <div class="row">
     <div class="form-group col-md-8">
-        <label class="control-label col-md-4" for="accountInput">Accounts</label>
+        <label class="control-label col-md-4" for="accountInput">Admin Accounts</label>
         <select id="accountInput" class="form-control input-group-sm">
             <option value="adminAccounts">Admin Accounts</option>
-            <option value="hcAdminAccounts">Hospital/Clinic Admin Accounts</option>
-            <option value="hcClerkAccounts">Hospital/Clinic Clerk Acccounts</option>
-            <option value="publicUserAccounts">Public User Accounts</option>
+            <option value="adminAccountRequests">Admin Account Requests</option>
         </select>
     </div>
 </div>
+
 <div class="row">
     <div class="panel panel-primary">
         <div class="panel-heading clearfix">
             <div class="panel-title">
-                List of Accounts
+                List of Admin Accounts
+                <button class="btn btn-success" type="button" style="float: right"
+                        onclick="location.href='@Url.Action("Create", "AdminAccounts")'">Create an Account</button>
             </div>
         </div>
         <div class="panel-body">
@@ -42,7 +45,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="brandTableBody">
+                        <tbody id="adminAccountTableBody">
                             @foreach (var item in Model)
                             {
                                 <tr>
@@ -59,9 +62,12 @@
                                         @Html.DisplayFor(modelItem => item.SecurityLevel)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        <button class="btn btn-info" type="button"
+                                                onclick="location.href='@Url.Action("Details", "AdminAccounts", new { id = item.ID })'">Details</button>
+                                        <button class="btn btn-primary" type="button" 
+                                                onclick="location.href='@Url.Action("Edit", "AdminAccounts", new { id = item.ID })'">Update</button>
+                                        <button class="btn btn-danger" type="button" 
+                                                onclick="location.href='@Url.Action("Delete", "AdminAccounts", new { id = item.ID })'">Delete</button>
                                     </td>
                                 </tr>
                             }
@@ -72,3 +78,8 @@
         </div><!-- end of div element with class="panel" -->
     </div> <!-- end of div element with  class="col-md-offset-2  col-md-8"-->
 </div><!-- end of div element with class="row"-->
+
+<script>
+    // Populate the 
+
+</script>

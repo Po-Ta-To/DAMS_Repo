@@ -1,0 +1,77 @@
+﻿body {
+}
+
+.bluebox {
+
+    border: 2px solid grey;
+    background-color: Highlight;
+    width: 60%;
+    padding: 6%;
+    margin-top: 8%;
+    margin-left: 10%; 
+    margin-bottom: 10%;
+    padding-bottom: 30%;
+    
+     
+}
+
+.bluebox2 {
+
+    border: 2px solid grey;
+    background-color: Highlight;
+    width: 80%;
+    padding: 6%;
+    margin-top: 11%;
+    margin-left: 10%;     
+    margin-bottom: 10%;
+    padding-bottom: 32%;
+
+}
+
+.listbox {
+
+    border: 2px solid grey;
+    background-color: Highlight;
+    width: 35%;
+    padding: 2%;
+    margin: auto;
+    margin-top: 3%;   
+    padding-bottom: 25%;
+     
+      
+}
+
+
+.centeralign {
+
+    text-align: center;
+
+}
+
+.accbox {
+
+    border: 2px solid grey;
+    background-color: Highlight;
+    width: 35%;
+    padding: 2%;
+    margin: auto;
+    margin-top: 3%;
+    padding-bottom: 18%;
+
+}
+
+p {
+
+    font-size: 19px;
+    
+}
+
+a:link {
+
+    color: black;
+}
+
+a:visited {
+
+    color: purple;
+}

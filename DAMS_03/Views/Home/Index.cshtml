@@ -1,25 +1,32 @@
-﻿
-<div>
-        <div class="col-md-9">
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <link rel="stylesheet" href="~/Content/Container.css" type="text/css" />
+
+    <div class="row">
+        <div class="form-group col-md-7">
             <div class="bluebox">
                 <div class="centeralign">
-                    <h2><b>Admin Controls</b></h2>
-                   
-                    <p><a href="@Url.Action("Index", "AdminAccounts")">Account Controls </a></p>
-                    <p><a href="@Url.Action("Index", "ListingControls")">Listing Controls </a></p>
+                    <h2><b>Admin Controls</b></h2> <br /><br /><br /><br />
+                    <p><img src="~/wwwroot/images/account icon.png" height="30"/> &nbsp; <a href="@Url.Action("Index", "AccountControls")">Account Controls </a></p> <br /><br /> <br /><br />
+                    <p><img src="~/wwwroot/images/listing icon.png" height="30" /> &nbsp; <a href="@Url.Action("Index", "ListingControls")">Listing Controls </a></p>
                 </div>
             </div>
-         </div>
-    
-    <div class="col-md-offset-9">
-        <div class="bluebox2">
-            <div class="centeralign">
-                <h2>Manage Appointments</h2>
+        </div>
+        <div class="form-group col-md-offset-7">
+            <div class="bluebox2">
+                <div class="centeralign">
+                    <h2><b>Manage Appointments</b></h2><br /><br /><br />
 
-                <p><a href="http://go.microsoft.com/fwlink/?LinkId=301872">View Booked Appointments</a></p>
-                <p><a href="http://go.microsoft.com/fwlink/?LinkId=301872">View Appointment Requests</a></p>
-                <p><a href="http://go.microsoft.com/fwlink/?LinkId=301872">View Appointment Update Requests</a></p>
+                    <p><img src="~/wwwroot/images/view booked appts.png" height="30"/> &nbsp; <a href="http://go.microsoft.com/fwlink/?LinkId=301872">View Booked Appointments</a></p><br /><br />
+                    <p><img src="~/wwwroot/images/view appt requests.png" height="30" /> &nbsp; <a href="http://go.microsoft.com/fwlink/?LinkId=301872">View Appointment Requests</a></p><br /><br />
+                    <p><img src="~/wwwroot/images/view appt update requests.png" height="30" /> &nbsp; <a href="http://go.microsoft.com/fwlink/?LinkId=301872">View Appointment Update Requests</a></p>
+                </div>
             </div>
         </div>
-   </div>
-</div>
+    </div>
+}
+else
+{
+
+}
+

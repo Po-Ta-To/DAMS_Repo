@@ -7,12 +7,29 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAMS_03.Models;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DAMS_03.Controllers
 {
     public class UserAccountsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
+
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public UserAccountsController()
+        {
+
+        }
+
+        public UserAccountsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
 
         // GET: UserAccounts
         public ActionResult Index()
@@ -46,16 +63,49 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID")] UserAccount userAccount)
+        public async Task<ActionResult> Create(UserAccountCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                db.UserAccounts.Add(userAccount);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+
+                    string aspID = (from AspNetUsers in db.AspNetUsers
+                                    where AspNetUsers.UserName == model.UserName
+                                    select AspNetUsers.Id).First().ToString();
+
+                    UserAccount addUserAccount = new UserAccount();
+
+                    addUserAccount.ID = 1;
+                    addUserAccount.NRIC = model.NRIC;
+                    addUserAccount.Name = model.Name;
+                    addUserAccount.DOB = model.DOB;
+                    addUserAccount.Gender = model.Gender;
+                    addUserAccount.Mobile = model.Mobile.ToString();
+                    addUserAccount.Addrress = model.Addrress;
+                    addUserAccount.AspNetID = aspID;
+
+                    db.UserAccounts.Add(addUserAccount);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                    //return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
             }
 
-            return View(userAccount);
+            return View(model);
         }
 
         // GET: UserAccounts/Edit/5
@@ -70,7 +120,31 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            return View(userAccount);
+
+            var AspNetUser = (from AspNetUsers in db.AspNetUsers
+                              where AspNetUsers.Id == userAccount.AspNetID
+                              select new
+                              {
+                                  AspNetUsers.UserName,
+                                  AspNetUsers.Email
+                              }).First();
+
+
+            UserAccountEditModel userAccountEdit = new UserAccountEditModel();
+
+            userAccountEdit.ID = userAccount.ID;
+            userAccountEdit.Name = userAccount.Name;
+            userAccountEdit.Email = AspNetUser.Email;
+            userAccountEdit.NRIC = userAccount.NRIC;
+            userAccountEdit.DOB = userAccount.DOB;
+            userAccountEdit.Gender = userAccount.Gender;
+            userAccountEdit.Mobile = Int32.Parse(userAccount.Mobile);
+            userAccountEdit.Addrress = userAccount.Addrress;
+
+            userAccountEdit.UserName = AspNetUser.UserName;
+
+
+            return View(userAccountEdit);
         }
 
         // POST: UserAccounts/Edit/5
@@ -78,15 +152,45 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID")] UserAccount userAccount)
+        public ActionResult Edit(UserAccountEditModel model)//[Bind(Include = "ID")] 
         {
             if (ModelState.IsValid)
             {
-                db.Entry(userAccount).State = EntityState.Modified;
+                string aspID = (from AspNetUsers in db.AspNetUsers
+                                where AspNetUsers.UserName == model.UserName
+                                select AspNetUsers.Id).First().ToString();
+
+                UserAccount editUserAccount = (from UserAccount in db.UserAccounts
+                                               where UserAccount.AspNetID == aspID
+                                               select UserAccount).SingleOrDefault();
+
+                //UserAccount editUserAccount = new UserAccount();
+
+                //editUserAccount.ID = model.ID;
+                //editUserAccount.AspNetID = aspID;
+
+                editUserAccount.ID = model.ID;
+                editUserAccount.Name = model.Name;
+                editUserAccount.NRIC = model.NRIC;
+                editUserAccount.NRIC = model.NRIC;
+                editUserAccount.DOB = model.DOB;
+                editUserAccount.Gender = model.Gender;
+                editUserAccount.Mobile = model.Mobile.ToString();
+                editUserAccount.Addrress = model.Addrress;
+
+
+                AspNetUser editAspNetUser = (from AspNetUser in db.AspNetUsers
+                                             where AspNetUser.Id == aspID
+                                             select AspNetUser).SingleOrDefault();
+
+                editAspNetUser.Email = model.Email;
+
+                db.Entry(editUserAccount).State = EntityState.Modified;
+                db.Entry(editAspNetUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(userAccount);
+            return View(model);
         }
 
         // GET: UserAccounts/Delete/5
@@ -123,5 +227,42 @@ namespace DAMS_03.Controllers
             }
             base.Dispose(disposing);
         }
+
+        #region 
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        #endregion
+
     }
 }
