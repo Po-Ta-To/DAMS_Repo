@@ -2,15 +2,15 @@
 }
 
 .bluebox {
+
     border: 2px solid grey;
     background-color: Highlight;
-    width: 400px;
-    padding: 40px;
-    margin-top: 20px;
-    margin-left: 80px; 
-    margin-right: 150px;
-    margin-bottom: 10px;
-    padding-bottom: 170px;
+    width: 60%;
+    padding: 6%;
+    margin-top: 8%;
+    margin-left: 10%; 
+    margin-bottom: 10%;
+    padding-bottom: 30%;
     
      
 }
@@ -19,25 +19,24 @@
 
     border: 2px solid grey;
     background-color: Highlight;
-    width: 420px;
-    padding: 40px;
-    margin-top: 20px;
-    margin-left: 20px; 
-    margin-right: 170px;
-    margin-bottom: 10px;
-    padding-bottom: 130px;
+    width: 80%;
+    padding: 6%;
+    margin-top: 11%;
+    margin-left: 10%;     
+    margin-bottom: 10%;
+    padding-bottom: 32%;
 
 }
 
-.please {
+.listbox {
 
     border: 2px solid grey;
     background-color: Highlight;
-    width: 390px;
-    padding: 40px;
+    width: 35%;
+    padding: 2%;
     margin: auto;
-    margin-top: 20px;   
-    padding-bottom: 240px;
+    margin-top: 3%;   
+    padding-bottom: 25%;
      
       
 }
@@ -53,11 +52,11 @@
 
     border: 2px solid grey;
     background-color: Highlight;
-    width: 420px;
-    padding: 40px;
+    width: 35%;
+    padding: 2%;
     margin: auto;
-    margin-top: 20px;
-    padding-bottom: 150px;
+    margin-top: 3%;
+    padding-bottom: 18%;
 
 }
 
