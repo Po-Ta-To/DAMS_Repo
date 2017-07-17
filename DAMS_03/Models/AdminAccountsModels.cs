@@ -36,7 +36,6 @@ namespace DAMS_03.Models
         //public string Email { get; set; }
         public string SecurityLevel { get; set; }
         //public string AspNetID { get; set; }
-
     }
 
 
