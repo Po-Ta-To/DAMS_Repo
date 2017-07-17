@@ -22,7 +22,7 @@
             <div class="panel-title">
                 List of Admin Accounts
                 <button class="btn btn-success" type="button" style="float: right"
-                        onclick="location.href='@Url.Action("Create", "AdminAccounts")'">Create Admin Account</button>
+                        onclick="location.href='@Url.Action("Create", "AdminAccounts")'">Create an Account</button>
             </div>
         </div>
         <div class="panel-body">
@@ -45,7 +45,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="brandTableBody">
+                        <tbody id="adminAccountTableBody">
                             @foreach (var item in Model)
                             {
                                 <tr>
