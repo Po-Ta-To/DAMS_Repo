@@ -470,6 +470,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\ListingControls\Index.cshtml" />
     <Content Include="Views\AccountControls\Index.cshtml" />
+    <Content Include="Views\AdminAccounts\IndexBy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

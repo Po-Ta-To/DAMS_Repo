@@ -23,7 +23,7 @@ namespace DAMS_03.Controllers
 
         public AdminAccountsController()
         {
-            
+
         }
 
         public AdminAccountsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -36,6 +36,22 @@ namespace DAMS_03.Controllers
         public ActionResult Index()
         {
             return View(db.AdminAccounts.ToList());
+        }
+
+        // GET: AdminAccounts
+        public ActionResult IndexBy(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var getAdminAccountsBySecId = from AdminAccounts in db.AdminAccounts
+                                          where AdminAccounts.SecurityLevel == id.ToString()
+                                          select AdminAccounts;
+
+            return View(getAdminAccountsBySecId.ToList());
         }
 
         // GET: AdminAccounts/Details/5
@@ -72,7 +88,7 @@ namespace DAMS_03.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -109,7 +125,7 @@ namespace DAMS_03.Controllers
                 }
                 AddErrors(result);
 
-                
+
             }
 
             return View(model);
@@ -129,8 +145,8 @@ namespace DAMS_03.Controllers
             }
 
             string UserName = (from AspNetUsers in db.AspNetUsers
-                            where AspNetUsers.Id == adminAccount.AspNetID
-                            select AspNetUsers.UserName).First().ToString();
+                               where AspNetUsers.Id == adminAccount.AspNetID
+                               select AspNetUsers.UserName).First().ToString();
 
 
             AdminAccountEditModel adminAccountEdit = new AdminAccountEditModel();
@@ -161,8 +177,8 @@ namespace DAMS_03.Controllers
                                 select AspNetUsers.Id).First().ToString();
 
                 AdminAccount editAdminAccount = (from AdminAccount in db.AdminAccounts
-                                       where AdminAccount.AspNetID == aspID
-                                       select AdminAccount).SingleOrDefault();
+                                                 where AdminAccount.AspNetID == aspID
+                                                 select AdminAccount).SingleOrDefault();
 
                 //AdminAccount editAdminAccount = new AdminAccount();
 
@@ -172,7 +188,7 @@ namespace DAMS_03.Controllers
                 editAdminAccount.Email = model.Email;
                 editAdminAccount.SecurityLevel = model.SecurityLevel;
                 //editAdminAccount.AspNetID = aspID;
-                
+
 
                 db.Entry(editAdminAccount).State = EntityState.Modified;
                 db.SaveChanges();
@@ -219,7 +235,7 @@ namespace DAMS_03.Controllers
 
 
         #region 
-        
+
         public ApplicationSignInManager SignInManager
         {
             get
