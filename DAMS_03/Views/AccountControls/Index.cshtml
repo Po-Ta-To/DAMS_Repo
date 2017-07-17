@@ -4,15 +4,26 @@
 <link rel="stylesheet" href="~/Content/Container.css" type="text/css" />
 
 <div class="row">
-    <div class="form-group col-md-5">
-        <div class="bluebox">
-            <div class="centeralign">
-                <h2><b>Account Controls</b></h2>
-                <p><a href="@Url.Action("Index", "AdminAccounts")">View Admin Accounts</a></p>
-                <p><a href="@Url.Action("Index", "")">View Hospital/Clinic Clerk Accounts</a></p>
-                <p><a href="@Url.Action("Index", "")">View Hospital/Clinic Admin Accounts</a></p>
-                <p><a href="@Url.Action("Index", "UserAccounts")">View Public User Accounts</a></p>
-            </div>
+    <!--<div class="form-group col-md-5"> -->
+        <div class="accbox">
+           <div class="centeralign">
+            <h2><b>Account Controls</b></h2>
+            <table class="table">
+                <tr>
+                    <th>@Html.ActionLink("View Admin Accounts", "Index", "AdminAccounts", new { area = "" }, new { @class = "navbar-brand" })</th>
+                </tr>
+                <tr>
+                    <th>@Html.ActionLink("View Hospital/Clinic Clerk Accounts", "Index", "Treatments", new { area = "" }, new { @class = "navbar-brand" })</th>
+                </tr>
+                <tr>
+                    <th>@Html.ActionLink("View Hospital/Clinic Admin Accounts", "Index", "DoctorDentists", new { area = "" }, new { @class = "navbar-brand" })</th>
+                </tr>
+
+                <tr>
+                    <th>@Html.ActionLink("View Public User Accounts", "Index", "UserAccounts", new { area = "" }, new { @class = "navbar-brand" })</th>
+                </tr>
+            </table>
+
         </div>
-    </div>
+  <!-- </div> -->
 </div>
