@@ -45,7 +45,6 @@ namespace DAMS_03.Models
         public string SecurityLevel { get; set; }
 
         //public string AspNetID { get; set; }
-
     }
 
     public class AdminAccountEditModel

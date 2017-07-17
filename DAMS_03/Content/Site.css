@@ -16,34 +16,4 @@ textarea {
     max-width: 280px;
 }
 
-.bluebox {
-    border: 2px solid grey;
-    background-color: Highlight;
-    width: 360px;
-    padding: 40px;
-    margin-top: 20px;
-    margin-left: 100px; 
-    margin-right: 150px;
-    margin-bottom: 10px;
-    padding-bottom: 100px;
-     
-}
 
-.bluebox2 {
-
-    border: 2px solid grey;
-    background-color: Highlight;
-    width: 365px;
-    padding: 40px;
-    margin-top: 20px;
-    margin-left: 50px;
-    margin-right: 50px;    
-    margin-bottom: 10px;
-
-}
-
-.centeralign {
-
-    text-align: center;
-
-}
