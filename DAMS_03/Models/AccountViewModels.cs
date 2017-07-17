@@ -49,9 +49,10 @@ namespace DAMS_03.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        [Display(Name = "User ID")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +65,12 @@ namespace DAMS_03.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        //[EmailAddress]
+        //[Display(Name = "Email")]
+        [Display(Name = "User ID")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -81,7 +88,7 @@ namespace DAMS_03.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ResetPasswordViewModel
+    public class ResetPasswordViewModel //<--
     {
         [Required]
         [EmailAddress]
