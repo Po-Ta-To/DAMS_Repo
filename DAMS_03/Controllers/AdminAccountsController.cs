@@ -93,7 +93,7 @@ namespace DAMS_03.Controllers
 
                     AdminAccount addAdminAccount = new AdminAccount();
 
-                    addAdminAccount.ID = model.ID;
+                    //addAdminAccount.ID = model.ID;
                     addAdminAccount.AdminID = model.AdminID;
                     addAdminAccount.Name = model.Name;
                     addAdminAccount.Email = model.Email;
@@ -127,7 +127,23 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            return View(adminAccount);
+
+            string UserName = (from AspNetUsers in db.AspNetUsers
+                            where AspNetUsers.Id == adminAccount.AspNetID
+                            select AspNetUsers.UserName).First().ToString();
+
+
+            AdminAccountEditModel adminAccountEdit = new AdminAccountEditModel();
+
+            adminAccountEdit.ID = adminAccount.ID;
+            adminAccountEdit.AdminID = adminAccount.AdminID;
+            adminAccountEdit.Name = adminAccount.Name;
+            adminAccountEdit.Email = adminAccount.Email;
+            adminAccountEdit.SecurityLevel = adminAccount.SecurityLevel;
+
+            adminAccountEdit.UserName = UserName;
+
+            return View(adminAccountEdit);
         }
 
         // POST: AdminAccounts/Edit/5
@@ -135,15 +151,34 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AdminID,Name,Email,SecurityLevel")] AdminAccount adminAccount)
+        public ActionResult Edit(AdminAccountEditModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(adminAccount).State = EntityState.Modified;
+
+                string aspID = (from AspNetUsers in db.AspNetUsers
+                                where AspNetUsers.UserName == model.UserName
+                                select AspNetUsers.Id).First().ToString();
+
+                AdminAccount editAdminAccount = (from AdminAccount in db.AdminAccounts
+                                       where AdminAccount.AspNetID == aspID
+                                       select AdminAccount).SingleOrDefault();
+
+                //AdminAccount editAdminAccount = new AdminAccount();
+
+                //editAdminAccount.ID = model.ID;
+                editAdminAccount.AdminID = model.AdminID;
+                editAdminAccount.Name = model.Name;
+                editAdminAccount.Email = model.Email;
+                editAdminAccount.SecurityLevel = model.SecurityLevel;
+                //editAdminAccount.AspNetID = aspID;
+                
+
+                db.Entry(editAdminAccount).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(adminAccount);
+            return View(model);
         }
 
         // GET: AdminAccounts/Delete/5
