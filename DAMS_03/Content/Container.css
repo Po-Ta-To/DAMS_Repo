@@ -10,7 +10,8 @@
     margin-left: 100px; 
     margin-right: 150px;
     margin-bottom: 10px;
-    padding-bottom: 100px;
+    padding-bottom: 210px;
+    
      
 }
 
@@ -32,13 +33,11 @@
 
     border: 2px solid grey;
     background-color: Highlight;
-    width: 360px;
+    width: 390px;
     padding: 40px;
-    margin-top: 20px;
-    margin-left: 100px; 
-    margin-right: 150px;
-    margin-bottom: 10px;
-    padding-bottom: 100px;
+    margin: auto;
+    margin-top: 20px;   
+    padding-bottom: 240px;
      
       
 }
@@ -48,4 +47,32 @@
 
     text-align: center;
 
+}
+
+.accbox {
+
+    border: 2px solid grey;
+    background-color: Highlight;
+    width: 380px;
+    padding: 40px;
+    margin: auto;
+    margin-top: 20px;
+    padding-bottom: 150px;
+
+}
+
+p {
+
+    font-size: 19px;
+    
+}
+
+a:link {
+
+    color: black;
+}
+
+a:visited {
+
+    color: purple;
 }
