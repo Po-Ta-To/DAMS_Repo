@@ -18,7 +18,6 @@ namespace Dental_IT.Droid
         public static int ACTIONBAR_HEIGHT;
         public static int GRID_HEIGHT;
 
-
         //DrawerLayout drawerLayout;
         //NavigationView navigationView;
 

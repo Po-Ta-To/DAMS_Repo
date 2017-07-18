@@ -11,8 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dental_IT.iOS", "Dental-IT\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dental_IT.Android", "Dental-IT\Dental_IT.Android\Dental_IT.Android.csproj", "{AA38257E-4E73-4CD0-B6FF-91590DA90861}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Dental_IT", "Dental-IT\Dental_IT\Dental_IT.shproj", "{12DD7D42-B425-44B7-AB4A-1BB58C8A9B01}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Dental-IT\Dental_IT\Dental_IT.projitems*{12dd7d42-b425-44b7-ab4a-1bb58c8a9b01}*SharedItemsImports = 13
 		Dental-IT\Dental_IT\Dental_IT.projitems*{aa38257e-4e73-4cd0-b6ff-91590da90861}*SharedItemsImports = 4
 		Dental-IT\Dental_IT\Dental_IT.projitems*{e1a68964-50ce-476a-98c2-0c0d4acf0cc8}*SharedItemsImports = 4
 	EndGlobalSection

@@ -113,6 +113,8 @@
     <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Appointment_Details.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
+    <Compile Include="Fragments\SearchHospitalFragment.cs" />
+    <Compile Include="Fragments\SearchTreatmentFragment.cs" />
     <Compile Include="Hospital_Details.cs" />
     <Compile Include="Sign_In.cs" />
     <Compile Include="Main_Menu.cs" />
@@ -399,6 +401,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_calendar_range.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
