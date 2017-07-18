@@ -21,7 +21,7 @@
         <div class="panel-heading clearfix">
             <div class="panel-title">
                 List of Admin Accounts
-                <button class="btn btn-success" type="button" style="float: right"
+                <button class="btn btn-default" type="button" style="float: right"
                         onclick="location.href='@Url.Action("Create", "AdminAccounts")'">
                     Create an Account
                 </button>
@@ -64,11 +64,11 @@
                                         @Html.DisplayFor(modelItem => item.SecurityLevel)
                                     </td>
                                     <td>
-                                        <button class="btn btn-info" type="button"
+                                        <button class="btn btn-primary" type="button"
                                                 onclick="location.href='@Url.Action("Details", "AdminAccounts", new { id = item.ID })'">
                                             Details
                                         </button>
-                                        <button class="btn btn-primary" type="button"
+                                        <button class="btn btn-success" type="button"
                                                 onclick="location.href='@Url.Action("Edit", "AdminAccounts", new { id = item.ID })'">
                                             Update
                                         </button>
