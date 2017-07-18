@@ -2,13 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:background="@drawable/background">
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingBottom="35dp">
+        android:paddingBottom="35dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
         <include
             android:id="@+id/toolbar"
             layout="@layout/sublayout_Toolbar" />
@@ -26,9 +26,25 @@
             android:textColorHint="@color/dark_blue"
             android:textColor="@color/dark_blue"
             android:fontFamily="sans-serif-light"
-            android:drawableLeft="@drawable/ic_account"
-            android:drawablePadding="0dp"
             android:background="@drawable/editText_line" />
+            <!--android:drawableLeft="@drawable/ic_account"
+            android:drawablePadding="0dp"-->
+
+      <RelativeLayout
+               android:layout_width="fill_parent"
+               android:layout_height="fill_parent"
+               android:background="@drawable/email" >
+
+      </RelativeLayout>
+      
+      <ImageView
+           android:id="@+id/email"
+           android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"/>
+      
+      
         <EditText
             android:id="@+id/register_PasswordField"
             android:layout_width="fill_parent"

@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
 <!--<include
-        android:id="@+id/toolbar"
+        android:id="@+id/nav_view"
         layout="@layout/sublayout_Navigation_Drawer" />-->
     <LinearLayout
         android:layout_width="fill_parent"
