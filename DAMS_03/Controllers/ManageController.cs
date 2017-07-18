@@ -10,7 +10,7 @@ using DAMS_03.Models;
 
 namespace DAMS_03.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

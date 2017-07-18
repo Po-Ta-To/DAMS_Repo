@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace DAMS_03.Controllers
 {
+    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     public class AccountControlsController : Controller
     {
         // GET: AccountControls

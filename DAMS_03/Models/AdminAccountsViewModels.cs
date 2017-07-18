@@ -42,7 +42,8 @@ namespace DAMS_03.Models
         //public string Email { get; set; }
 
         [Required]
-        public string SecurityLevel { get; set; }
+        [Range (1, 3)]
+        public int SecurityLevel { get; set; }
 
         //public string AspNetID { get; set; }
     }
@@ -83,7 +84,8 @@ namespace DAMS_03.Models
         //public string Email { get; set; }
 
         [Required]
-        public string SecurityLevel { get; set; }
+        [Range(1, 3)]
+        public int SecurityLevel { get; set; }
 
         //public string AspNetID { get; set; }
 
