@@ -1,4 +1,6 @@
 ﻿@model DAMS_03.Models.AdminAccountCreateModel
+@using MvcCheckBoxList.Model
+
 
 @{
     ViewBag.Title = "Create";
@@ -85,6 +87,8 @@
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             </div>
         </div>
+
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

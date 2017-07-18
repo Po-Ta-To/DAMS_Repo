@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAMS_03.Models;
+using DAMS_03.Authorization;
 
 namespace DAMS_03.Controllers
 {
-    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     public class AppointmentsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();

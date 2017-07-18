@@ -7,10 +7,12 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DAMS_03.Models;
+using DAMS_03.Authorization;
 
 namespace DAMS_03.Controllers
 {
-    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    //[AuthorizeAdmin(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

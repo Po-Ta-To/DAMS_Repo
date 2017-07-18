@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAMS_03.Models;
+using DAMS_03.Authorization;
 
 namespace DAMS_03.Controllers
 {
-    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     public class ClinicHospitalsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
@@ -58,6 +59,223 @@ namespace DAMS_03.Controllers
 
             return View(clinicHospital);
         }
+
+        //get treatment by hospital
+        // GET: ClinicHospitals/Treatments/5
+        public ActionResult Treatments(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
+            if (clinicHospital == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            //var getTreatmentList = from cht in db.ClinicHospitalTreatments
+            //                       where cht.ClinicHospitalID == id
+            //                       select cht;
+
+            var someTreatments = from t in db.Treatments
+                                 join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
+                                 join ch in db.ClinicHospitals on cht.ClinicHospitalID equals ch.ID
+                                 where cht.ClinicHospitalID == id
+                                 select new AddTreatmentsModel()
+                                 {
+                                     TreatmentID = t.TreatmentID,
+                                     //TreatmentName = t.TreatmentName,
+                                     //TreatmentDesc = t.TreatmentDesc,
+                                     //IsFollowUp = t.IsFollowUp,
+                                     Price = cht.Price
+
+                                 };
+
+
+            var allTreatments = from t in db.Treatments
+                                select new AddTreatmentsModel()
+                                {
+                                    TreatmentID = t.TreatmentID,
+                                    TreatmentName = t.TreatmentName,
+                                    TreatmentDesc = t.TreatmentDesc,
+                                    IsFollowUp = t.IsFollowUp,
+
+
+                                };
+
+            List<AddTreatmentsModel> returnList = new List<AddTreatmentsModel>();
+
+            foreach (var treatment in allTreatments)
+            {
+                bool added = false;
+
+                foreach (var someTreatment in someTreatments)
+                {
+
+                    if (someTreatment.TreatmentID == treatment.TreatmentID)
+                    {
+                        returnList.Add(new AddTreatmentsModel()
+                        {
+                            TreatmentID = treatment.TreatmentID,
+                            TreatmentName = treatment.TreatmentName,
+                            TreatmentDesc = treatment.TreatmentDesc,
+                            IsFollowUp = treatment.IsFollowUp,
+                            Price = someTreatment.Price,
+                            IsChecked = true
+
+                        });
+                        added = true;
+                        break;
+                    }
+
+                }
+
+                if (!added)
+                {
+                    returnList.Add(new AddTreatmentsModel()
+                    {
+                        TreatmentID = treatment.TreatmentID,
+                        TreatmentName = treatment.TreatmentName,
+                        TreatmentDesc = treatment.TreatmentDesc,
+                        IsFollowUp = treatment.IsFollowUp,
+                        Price = 0,
+                        IsChecked = false
+
+                    });
+                    
+                }
+
+            }
+
+
+            //return View(clinicHospital);
+
+
+
+            return View(returnList);
+        }
+
+
+        // GET: ClinicHospitals/EditTreatments/5
+        public ActionResult EditTreatments(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
+            if (clinicHospital == null)
+            {
+                return HttpNotFound();
+            }
+
+
+            //var getTreatmentList = from cht in db.ClinicHospitalTreatments
+            //                       where cht.ClinicHospitalID == id
+            //                       select cht;
+
+            var someTreatments = from t in db.Treatments
+                                 join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
+                                 join ch in db.ClinicHospitals on cht.ClinicHospitalID equals ch.ID
+                                 where cht.ClinicHospitalID == id
+                                 select new AddTreatmentsModel()
+                                 {
+                                     TreatmentID = t.TreatmentID,
+                                     //TreatmentName = t.TreatmentName,
+                                     //TreatmentDesc = t.TreatmentDesc,
+                                     //IsFollowUp = t.IsFollowUp,
+                                     Price = cht.Price
+
+                                 };
+
+
+            var allTreatments = from t in db.Treatments
+                                select new AddTreatmentsModel()
+                                {
+                                    TreatmentID = t.TreatmentID,
+                                    TreatmentName = t.TreatmentName,
+                                    TreatmentDesc = t.TreatmentDesc,
+                                    IsFollowUp = t.IsFollowUp,
+
+
+                                };
+
+            List<EditTreatmentsModel> returnList = new List<EditTreatmentsModel>();
+
+            foreach (var treatment in allTreatments)
+            {
+                bool added = false;
+
+                foreach (var someTreatment in someTreatments)
+                {
+
+                    if (someTreatment.TreatmentID == treatment.TreatmentID)
+                    {
+                        returnList.Add(new EditTreatmentsModel()
+                        {
+                            TreatmentID = treatment.TreatmentID,
+                            TreatmentName = treatment.TreatmentName,
+                            TreatmentDesc = treatment.TreatmentDesc,
+                            IsFollowUp = treatment.IsFollowUp,
+                            Price = someTreatment.Price,
+                            IsChecked = true
+
+                        });
+                        added = true;
+                        break;
+                    }
+
+                }
+
+                if (!added)
+                {
+                    returnList.Add(new EditTreatmentsModel()
+                    {
+                        TreatmentID = treatment.TreatmentID,
+                        TreatmentName = treatment.TreatmentName,
+                        TreatmentDesc = treatment.TreatmentDesc,
+                        IsFollowUp = treatment.IsFollowUp,
+                        Price = 0,
+                        IsChecked = false
+
+                    });
+
+                }
+
+            }
+
+
+            //return View(clinicHospital);
+
+
+
+            return View(returnList);
+            //return View(adminAccounts.ToList());
+        }
+
+
+        // POST: ClinicHospitals/AddTreatments/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditTreatments(EditTreatmentsModel EditTreatmentsModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+
+
+                //db.Entry(clinicHospital).State = EntityState.Modified;
+                //db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(EditTreatmentsModel);
+        }
+
+
 
         // GET: ClinicHospitals/Edit/5
         public ActionResult Edit(int? id)

@@ -10,10 +10,13 @@ using DAMS_03.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using DAMS_03.Authorization;
+using System.Web.Security;
 
 namespace DAMS_03.Controllers
 {
-    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    //[Authorize]
     public class AdminAccountsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
@@ -38,7 +41,7 @@ namespace DAMS_03.Controllers
             return View(db.AdminAccounts.ToList());
         }
 
-        // GET: AdminAccounts
+        // GET: AdminAccounts By Security level
         public ActionResult IndexBy(int? id)
         {
 
@@ -72,6 +75,7 @@ namespace DAMS_03.Controllers
 
         //[HttpGet]
         // GET: AdminAccounts/Create
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Create()
         {
             //var tuple = new Tuple<AdminAccount, RegisterViewModel>(new AdminAccount(), new RegisterViewModel());
@@ -83,11 +87,46 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public async Task<ActionResult> Create(AdminAccountCreateModel model)
         {
 
             if (ModelState.IsValid)
             {
+
+                //Only system admin can create system admin accounts
+                if (model.SecurityLevel == 1)
+                {
+                    if (!User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+                }
+
+                //switch (model.SecurityLevel)
+                //{
+                //    case 1:
+                //        if (User.IsInRole("Admin"))
+                //        {
+
+                //        }
+                //        else
+                //        {
+                //            return RedirectToAction("Unauthorized", "Account");
+                //        }
+                //        break;
+                //    case 2:
+
+                //        break;
+                //    case 3:
+
+                //        break;
+                //    default:
+
+                //        break;
+                //}
+
+
 
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -97,6 +136,14 @@ namespace DAMS_03.Controllers
                     var currentUser = UserManager.FindByName(user.UserName);
 
                     //var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
+
+                    //var loggedinUser = UserManager.FindById(User.Identity.GetUserId());
+
+                    //string[] roleNames = Roles.GetRolesForUser();
+
+                    //var role = GetRolesForUser().Single();
+
+                    //if (User.IsInRole("Admin")) ;
 
                     switch (model.SecurityLevel)
                     {
@@ -114,8 +161,8 @@ namespace DAMS_03.Controllers
                             break;
                     }
 
-                    
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -154,6 +201,7 @@ namespace DAMS_03.Controllers
         }
 
         // GET: AdminAccounts/Edit/5
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -189,6 +237,7 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Edit(AdminAccountEditModel model)
         {
             if (ModelState.IsValid)
@@ -220,6 +269,7 @@ namespace DAMS_03.Controllers
         }
 
         // GET: AdminAccounts/Delete/5
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -235,6 +285,7 @@ namespace DAMS_03.Controllers
         }
 
         // POST: AdminAccounts/Delete/5
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

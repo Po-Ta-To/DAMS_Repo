@@ -10,10 +10,11 @@ using DAMS_03.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using DAMS_03.Authorization;
 
 namespace DAMS_03.Controllers
 {
-    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     public class UserAccountsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();

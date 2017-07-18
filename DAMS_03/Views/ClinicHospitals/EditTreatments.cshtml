@@ -1,0 +1,94 @@
+﻿@model List<DAMS_03.Models.EditTreatmentsModel>
+
+
+
+@{
+    ViewBag.Title = "Index";
+
+
+
+}
+
+
+<h2>Edit Treatments</h2>
+
+
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <div class="panel-title">
+                List of Treatments
+                
+
+                <div class="form-group"  style="float: right">
+                    
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    
+                </div>
+
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sieve">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].TreatmentID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].TreatmentName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].TreatmentDesc)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].IsFollowUp)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].Price)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model[0].IsChecked)
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="treatmentTableBody">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentDesc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsFollowUp)
+                                    </td>
+
+                                    <td>
+                                        @Html.EditorFor(modelItem => item.Price)
+                                    </td>
+
+                                    <td>
+                                        @Html.EditorFor(modelItem => item.IsChecked)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

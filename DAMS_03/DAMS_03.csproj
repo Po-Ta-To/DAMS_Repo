@@ -81,6 +81,10 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MvcCheckBoxList, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcCheckBoxList.1.4.5\lib\net45\MvcCheckBoxList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -241,6 +245,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Authorization\AuthorizeAdmin.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountControlsController.cs" />
     <Compile Include="Controllers\AdminAccountsController.cs" />
@@ -322,6 +327,7 @@
     <Compile Include="Models\DoctorDentist.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HospitalClinicTreatmentViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OpeningHour.cs">
@@ -401,6 +407,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="SQL\SQLQuery1.sql" />
     <Content Include="SQL\SQLQuery2.sql" />
+    <Content Include="SQL\TestData.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -471,6 +478,9 @@
     <Content Include="Views\ListingControls\Index.cshtml" />
     <Content Include="Views\AccountControls\Index.cshtml" />
     <Content Include="Views\AdminAccounts\IndexBy.cshtml" />
+    <Content Include="Views\Account\Unauthorized.cshtml" />
+    <Content Include="Views\ClinicHospitals\Treatments.cshtml" />
+    <Content Include="Views\ClinicHospitals\EditTreatments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

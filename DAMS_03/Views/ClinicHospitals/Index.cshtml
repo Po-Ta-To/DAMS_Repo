@@ -75,10 +75,16 @@
                                 <td>
                                     <button class="btn btn-primary" type="button"
                                             onclick="location.href='@Url.Action("Details", "ClinicHospitals", new { id = item.ID })'">Details</button>
+
+                                    <button class="btn btn-primary" type="button"
+                                            onclick="location.href='@Url.Action("Treatments", "ClinicHospitals", new { id = item.ID })'">Treatments</button>
+
                                     <button class="btn btn-success" type="button"
                                             onclick="location.href='@Url.Action("Edit", "ClinicHospitals", new { id = item.ID })'">Update</button>
                                     <button class="btn btn-danger" type="button"
                                             onclick="location.href='@Url.Action("Delete", "ClinicHospitals", new { id = item.ID })'">Delete</button>
+                                    
+                                    
                                     
                                 </td>
                             </tr>

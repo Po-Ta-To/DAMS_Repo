@@ -9,10 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DAMS_03.Models;
+using DAMS_03.Authorization;
 
 namespace DAMS_03.Controllers
 {
-    //[Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    //[AuthorizeAdmin(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     [Authorize]
     public class AccountController : Controller
     {
@@ -53,6 +54,17 @@ namespace DAMS_03.Controllers
             {
                 _userManager = value;
             }
+        }
+
+
+
+        //
+        // GET: /Account/Unauthorized
+        [AllowAnonymous]
+        public ActionResult Unauthorized()
+        {
+            
+            return View();
         }
 
         //
@@ -165,7 +177,7 @@ namespace DAMS_03.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -173,7 +185,28 @@ namespace DAMS_03.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+
+
+                    string aspID = (from AspNetUsers in db.AspNetUsers
+                                    where AspNetUsers.UserName == model.UserName
+                                    select AspNetUsers.Id).First().ToString();
+
+                    UserAccount addUserAccount = new UserAccount();
+
+                    addUserAccount.ID = 1;
+                    addUserAccount.NRIC = model.NRIC;
+                    addUserAccount.Name = model.Name;
+                    addUserAccount.DOB = model.DOB;
+                    addUserAccount.Gender = model.Gender;
+                    addUserAccount.Mobile = model.Mobile.ToString();
+                    addUserAccount.Addrress = model.Addrress;
+                    addUserAccount.AspNetID = aspID;
+
+                    db.UserAccounts.Add(addUserAccount);
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Home");
+
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -402,7 +435,7 @@ namespace DAMS_03.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
