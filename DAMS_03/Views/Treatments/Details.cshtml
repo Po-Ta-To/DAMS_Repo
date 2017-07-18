@@ -4,47 +4,50 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>View Treatment Details</h2>
 
 <div>
-    <h4>Treatment</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TreatmentID)
-        </dt>
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.TreatmentID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TreatmentID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TreatmentID)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TreatmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TreatmentName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TreatmentName)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TreatmentDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TreatmentDesc, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TreatmentName)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsFollowUp, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IsFollowUp, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TreatmentDesc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TreatmentDesc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsFollowUp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsFollowUp)
-        </dd>
-
-    </dl>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-success" type="button"
+                        onclick="location.href='@Url.Action("Edit", "Treatments", new { id = Model.ID})'">
+                    Update
+                </button>
+                <button class="btn btn-primary" type="button"
+                        onclick="location.href='@Url.Action("Index", "Treatments")'">
+                    Back to List
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
