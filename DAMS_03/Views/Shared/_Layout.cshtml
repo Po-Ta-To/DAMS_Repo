@@ -39,9 +39,21 @@
                             <li class="dropdown">
                                 <a href="#" id="manageAppts" data-toggle="dropdown" class="dropdown-toggle" role="button" title="Appointment Management">Manage Appointments<b class="caret"></b></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-                                    <li><a data-toggle="tab" href="#test1">Manage Booked Appointments</a></li>
-                                    <li><a data-toggle="tab" href="#test2">Manage Appointment Requests</a></li>
-                                    <li><a data-toggle="tab" href="#test3">Manage Appointment Update Requests</a></li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Appointments")" class="elements">
+                                            <span>Manage Booked Appointments</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("", "Appointments")" class="elements">
+                                            <span>Manage Appointment Requests</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("IndexBy", "Appointments")" class="elements">
+                                            <span>Manage Appointment Update Requests</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

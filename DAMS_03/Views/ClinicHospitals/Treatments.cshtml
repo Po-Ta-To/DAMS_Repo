@@ -1,0 +1,87 @@
+﻿@model IEnumerable<DAMS_03.Models.AddTreatmentsModel>
+
+@{
+    ViewBag.Title = "Index";
+    
+
+
+}
+
+
+<h2>View Treatments</h2>
+
+
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <div class="panel-title">
+                List of Treatments
+                <button class="btn btn-default" type="button" style="float: right"
+                        onclick="location.href='@Url.Action("EditTreatments", "ClinicHospitals", new { id = Url.RequestContext.RouteData.Values["id"]})'">
+                    Edit
+                </button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sieve">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TreatmentID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TreatmentName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TreatmentDesc)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.IsFollowUp)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Price)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.IsChecked)
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="treatmentTableBody">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentDesc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsFollowUp)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Price)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsChecked)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

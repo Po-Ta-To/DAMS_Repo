@@ -4,103 +4,97 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>View Appointment Details</h2>
 
 <div>
-    <h4>Appointment</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AppointmentID)
-        </dt>
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppointmentID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AppointmentID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApprovalState, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ApprovalState, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.AppointmentID)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PreferredDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PreferredDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ApprovalState)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PreferredTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PreferredTime, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ApprovalState)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PreferredDate)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppointmentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AppointmentDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PreferredDate)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppointmentTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AppointmentTime, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PreferredTime)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClinicHospital.ClinicHospitalID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClinicHospital.ClinicHospitalID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PreferredTime)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DoctorDentist.DoctorDentistID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DoctorDentist.DoctorDentistID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DoctorDentist1.DoctorDentistID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DoctorDentist1.DoctorDentistID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Remarks)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserAccount.ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserAccount.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AppointmentDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AppointmentDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AppointmentTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AppointmentTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClinicHospital.ClinicHospitalID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClinicHospital.ClinicHospitalID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DoctorDentist.DoctorDentistID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DoctorDentist.DoctorDentistID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DoctorDentist1.DoctorDentistID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DoctorDentist1.DoctorDentistID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserAccount.ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserAccount.ID)
-        </dd>
-
-    </dl>
+        <div class="form-group">
+            <button class="btn btn-success" type="button"
+                    onclick="location.href='@Url.Action("Edit", "Appointments", new { id = Model.ID })'">
+                Update
+            </button>
+            <button class="btn btn-primary" type="button"
+                    onclick="location.href='@Url.Action("Index", "Appointments", new { id = Model.ID})'">
+                Back to List
+            </button>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
