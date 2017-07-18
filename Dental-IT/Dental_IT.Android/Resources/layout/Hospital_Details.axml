@@ -1,123 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingBottom="35dp">
-      <include
+    <include
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
-        <LinearLayout
-            android:id="@+id/hospDetails_HospitalLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/hospDetails_HospitalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="Hospital 1" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/hospDetails_AddressLayout"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/hospDetails_HospitalLayout">
-            <TextView
-                android:id="@+id/hospDetails_AddressLabel"
+            android:layout_height="fill_parent"
+            android:paddingBottom="35dp">
+            <LinearLayout
+                android:id="@+id/hospDetails_HospitalLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="@string/address" />
-            <TextView
-                android:id="@+id/hospDetails_AddressText"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="85dp"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/hospDetails_HospitalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="Hospital 1" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hospDetails_AddressLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/hospDetails_OpeningHoursLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/hospDetails_AddressLayout">
-            <TextView
-                android:id="@+id/hospDetails_OpeningHoursLabel"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/hospDetails_HospitalLayout">
+                <TextView
+                    android:id="@+id/hospDetails_AddressLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/address" />
+                <TextView
+                    android:id="@+id/hospDetails_AddressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hospDetails_OpeningHoursLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="@string/opening_hours" />
-            <TextView
-                android:id="@+id/hospDetails_OpeningHoursText"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/hospDetails_AddressLayout">
+                <TextView
+                    android:id="@+id/hospDetails_OpeningHoursLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/opening_hours" />
+                <TextView
+                    android:id="@+id/hospDetails_OpeningHoursText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hospDetails_ContactLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/hospDetails_ContactLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/hospDetails_OpeningHoursLayout">
-            <TextView
-                android:id="@+id/hospDetails_ContactLabel"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/hospDetails_OpeningHoursLayout">
+                <TextView
+                    android:id="@+id/hospDetails_ContactLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/contact" />
+                <TextView
+                    android:id="@+id/hospDetails_ContactText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/hospDetails_TreatmentsBtn"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/hospDetails_ContactLayout"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:textColor="@color/dark_blue"
-                android:text="@string/contact" />
-            <TextView
-                android:id="@+id/hospDetails_ContactText"
-                android:layout_width="wrap_content"
+                android:text="@string/treatments_offered"
+                android:textAllCaps="false"
+                android:background="@color/transparent" />
+            <Button
+                android:id="@+id/hospDetails_RequestBtn"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <Button
-            android:id="@+id/hospDetails_TreatmentsBtn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/hospDetails_ContactLayout"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/dark_blue"
-            android:text="@string/treatments_offered"
-            android:textAllCaps="false"
-            android:background="@color/transparent" />
-        <Button
-            android:id="@+id/hospDetails_RequestBtn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/hospDetails_TreatmentsBtn"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/white"
-            android:text="@string/request"
-            android:textAllCaps="false"
-            android:background="@color/blue" />
-    </RelativeLayout>
-</ScrollView>
+                android:layout_below="@id/hospDetails_TreatmentsBtn"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/white"
+                android:text="@string/request"
+                android:textAllCaps="false"
+                android:background="@color/blue" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

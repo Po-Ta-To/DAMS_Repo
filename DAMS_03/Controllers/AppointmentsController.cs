@@ -142,5 +142,22 @@ namespace DAMS_03.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult IndexBy(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var getApptBySecId = from Appointment in db.Appointments
+                                          where Appointment.ApprovalState == id
+                                          select Appointment;
+
+            return View(getApptBySecId.ToList());
+        }
+
+
     }
 }

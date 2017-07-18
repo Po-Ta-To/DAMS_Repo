@@ -59,6 +59,7 @@ namespace Dental_IT.Droid
             ActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
 
             ActionBar.SetDisplayHomeAsUpEnabled(true);
+        }
 
         //    drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
         //    navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);

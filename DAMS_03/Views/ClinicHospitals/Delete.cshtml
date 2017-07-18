@@ -4,77 +4,66 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2>Delete Clinic/Hospital Account</h2>
 <div>
-    <h4>ClinicHospital</h4>
+    <h4>Are you sure you want to delete this?</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ClinicHospitalID)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ClinicHospitalID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClinicHospitalName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClinicHospitalName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClinicHospitalAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClinicHospitalAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClinicHospitalOpenHours)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClinicHospitalOpenHours)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClinicHospitalTel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClinicHospitalTel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClinicHospitalEmail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClinicHospitalEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaxBookings)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaxBookings)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClinicHospitalID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClinicHospitalID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClinicHospitalName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClinicHospitalName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClinicHospitalAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClinicHospitalAddress, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClinicHospitalOpenHours, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClinicHospitalOpenHours, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClinicHospitalTel, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClinicHospitalTel, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClinicHospitalEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClinicHospitalEmail, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaxBookings, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MaxBookings, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <button class="btn btn-success" type="button"
+                            onclick="location.href='@Url.Action("Index", "ClinicHospitals")'">
+                        Cancel
+                    </button>
+                </div>
+            </div>
         </div>
     }
 </div>

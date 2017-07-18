@@ -478,6 +478,7 @@
     <Content Include="Views\ListingControls\Index.cshtml" />
     <Content Include="Views\AccountControls\Index.cshtml" />
     <Content Include="Views\AdminAccounts\IndexBy.cshtml" />
+    <Content Include="Views\Appointments\IndexBy.cshtml" />
     <Content Include="Views\Account\Unauthorized.cshtml" />
     <Content Include="Views\ClinicHospitals\Treatments.cshtml" />
     <Content Include="Views\ClinicHospitals\EditTreatments.cshtml" />
