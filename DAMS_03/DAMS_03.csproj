@@ -471,6 +471,7 @@
     <Content Include="Views\ListingControls\Index.cshtml" />
     <Content Include="Views\AccountControls\Index.cshtml" />
     <Content Include="Views\AdminAccounts\IndexBy.cshtml" />
+    <Content Include="Views\Appointments\IndexBy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
