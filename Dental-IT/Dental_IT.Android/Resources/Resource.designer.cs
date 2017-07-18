@@ -2098,8 +2098,26 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
+			// aapt resource value: 0x7f020076
+			public const int avd_hide_password_1 = 2130837622;
+			
+			// aapt resource value: 0x7f020077
+			public const int avd_hide_password_2 = 2130837623;
+			
+			// aapt resource value: 0x7f020078
+			public const int avd_hide_password_3 = 2130837624;
+			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
+			
+			// aapt resource value: 0x7f020079
+			public const int avd_show_password_1 = 2130837625;
+			
+			// aapt resource value: 0x7f02007a
+			public const int avd_show_password_2 = 2130837626;
+			
+			// aapt resource value: 0x7f02007b
+			public const int avd_show_password_3 = 2130837627;
 			
 			// aapt resource value: 0x7f020055
 			public const int background = 2130837589;

@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.Widget;
+using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Adapters;
@@ -11,15 +12,15 @@ using System;
 
 namespace Dental_IT.Droid
 {
-    [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Main_Menu : Activity
+    [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Theme = "@style/MyTheme")]
+    public class Main_Menu : AppCompatActivity
     {
         public static int SCREEN_HEIGHT;
         public static int ACTIONBAR_HEIGHT;
         public static int GRID_HEIGHT;
 
-        //DrawerLayout drawerLayout;
-        //NavigationView navigationView;
+        DrawerLayout drawerLayout;
+        NavigationView navigationView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -50,30 +51,29 @@ namespace Dental_IT.Droid
             });
 
             //Implement CustomTheme ActionBar(toolbar)
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
-            ActionBar.Title = "Dental-It";
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+            //ActionBar.Title = "Dental-It";
 
             //Set menu hambuger
-            ActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
         }
 
-        //    drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-        //    navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-        //}
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
 
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    switch (item.ItemId)
-        //    {
-        //        case Android.Resource.Id.Home:
-        //            drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
-        //            return true;
-        //    }
-        //    return base.OnOptionsItemSelected(item);
-        //}
 
         //  List of button texts to popular grid adapter
         private readonly string[] buttonTexts =
