@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace DAMS_03.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     public class AdminAccountsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
@@ -93,6 +93,28 @@ namespace DAMS_03.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    //var roleresult = UserManager.AddToRole(currentUser.Id, "Admin");
+
+                    switch (model.SecurityLevel)
+                    {
+                        case 1:
+                            UserManager.AddToRole(currentUser.Id, "SysAdmin");
+                            break;
+                        case 2:
+                            UserManager.AddToRole(currentUser.Id, "HospAdmin");
+                            break;
+                        case 3:
+                            UserManager.AddToRole(currentUser.Id, "ClerkAdmin");
+                            break;
+                        default:
+                            UserManager.AddToRole(currentUser.Id, "User");
+                            break;
+                    }
+
+                    
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -113,7 +135,7 @@ namespace DAMS_03.Controllers
                     addAdminAccount.AdminID = model.AdminID;
                     addAdminAccount.Name = model.Name;
                     addAdminAccount.Email = model.Email;
-                    addAdminAccount.SecurityLevel = model.SecurityLevel;
+                    addAdminAccount.SecurityLevel = model.SecurityLevel.ToString();
                     addAdminAccount.AspNetID = aspID;
 
                     db.AdminAccounts.Add(addAdminAccount);
@@ -155,7 +177,7 @@ namespace DAMS_03.Controllers
             adminAccountEdit.AdminID = adminAccount.AdminID;
             adminAccountEdit.Name = adminAccount.Name;
             adminAccountEdit.Email = adminAccount.Email;
-            adminAccountEdit.SecurityLevel = adminAccount.SecurityLevel;
+            adminAccountEdit.SecurityLevel = Int32.Parse(adminAccount.SecurityLevel);
 
             adminAccountEdit.UserName = UserName;
 
@@ -186,7 +208,7 @@ namespace DAMS_03.Controllers
                 editAdminAccount.AdminID = model.AdminID;
                 editAdminAccount.Name = model.Name;
                 editAdminAccount.Email = model.Email;
-                editAdminAccount.SecurityLevel = model.SecurityLevel;
+                editAdminAccount.SecurityLevel = model.SecurityLevel.ToString();
                 //editAdminAccount.AspNetID = aspID;
 
 

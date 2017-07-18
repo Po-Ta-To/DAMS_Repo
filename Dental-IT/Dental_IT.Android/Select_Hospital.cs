@@ -109,7 +109,7 @@ namespace Dental_IT.Droid
                 });
 
                 //Implement CustomTheme ActionBar
-                var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+                var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar);
                 SetActionBar(toolbar);
                 ActionBar.Title = "Select Hospital/Clinics ";
 

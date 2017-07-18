@@ -4,66 +4,89 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>View Clinic/Hospital Accounts</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ClinicHospitalID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClinicHospitalName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClinicHospitalAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClinicHospitalOpenHours)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClinicHospitalTel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClinicHospitalEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaxBookings)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClinicHospitalID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClinicHospitalName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClinicHospitalAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClinicHospitalOpenHours)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClinicHospitalTel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClinicHospitalEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxBookings)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <div class="panel-title">
+                List of Clinic/Hospital Accounts
+                <button class="btn btn-default" type="button" style="float: right"
+                        onclick="location.href='@Url.Action("Create", "ClinicHospitals")'">
+                    Create an Account
+                </button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sieve">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClinicHospitalID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClinicHospitalName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClinicHospitalAddress)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClinicHospitalOpenHours)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClinicHospitalTel)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClinicHospitalEmail)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.MaxBookings)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="clinichospitalAccountTableBody">
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClinicHospitalID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClinicHospitalName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClinicHospitalAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClinicHospitalOpenHours)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClinicHospitalTel)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClinicHospitalEmail)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaxBookings)
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" type="button"
+                                            onclick="location.href='@Url.Action("Details", "ClinicHospitals", new { id = item.ID })'">Details</button>
+                                    <button class="btn btn-success" type="button"
+                                            onclick="location.href='@Url.Action("Edit", "ClinicHospitals", new { id = item.ID })'">Update</button>
+                                    <button class="btn btn-danger" type="button"
+                                            onclick="location.href='@Url.Action("Delete", "ClinicHospitals", new { id = item.ID })'">Delete</button>
+                                    
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
