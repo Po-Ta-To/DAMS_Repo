@@ -1,177 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingBottom="35dp">
-      <include
+    <include
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
-        <LinearLayout
-            android:id="@+id/apptDetails_HospitalLayout"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/apptDetails_HospitalLabel"
-                android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingBottom="35dp">
+            <LinearLayout
+                android:id="@+id/apptDetails_HospitalLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="@string/hospital" />
-            <TextView
-                android:id="@+id/apptDetails_HospitalText"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="85dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/apptDetails_HospitalLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/hospital" />
+                <TextView
+                    android:id="@+id/apptDetails_HospitalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/apptDetails_DateLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/apptDetails_DateLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/apptDetails_HospitalLayout">
-            <TextView
-                android:id="@+id/apptDetails_DateLabel"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/apptDetails_HospitalLayout">
+                <TextView
+                    android:id="@+id/apptDetails_DateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/date" />
+                <TextView
+                    android:id="@+id/apptDetails_DateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/apptDetails_DentistLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="@string/date" />
-            <TextView
-                android:id="@+id/apptDetails_DateText"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/apptDetails_DateLayout">
+                <TextView
+                    android:id="@+id/apptDetails_DentistLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/dentist" />
+                <TextView
+                    android:id="@+id/apptDetails_DentistText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/apptDetails_SessionLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/apptDetails_DentistLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/apptDetails_DateLayout">
-            <TextView
-                android:id="@+id/apptDetails_DentistLabel"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/apptDetails_DentistLayout">
+                <TextView
+                    android:id="@+id/apptDetails_SessionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/session" />
+                <TextView
+                    android:id="@+id/apptDetails_SessionText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/apptDetails_TreatmentLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="@string/dentist" />
-            <TextView
-                android:id="@+id/apptDetails_DentistText"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/apptDetails_SessionLayout">
+                <TextView
+                    android:id="@+id/apptDetails_TreatmentLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/treatments" />
+                <TextView
+                    android:id="@+id/apptDetails_TreatmentText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/apptDetails_StatusLayout"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/apptDetails_SessionLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/apptDetails_DentistLayout">
-            <TextView
-                android:id="@+id/apptDetails_SessionLabel"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/apptDetails_TreatmentLayout">
+                <TextView
+                    android:id="@+id/apptDetails_StatusLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/status" />
+                <TextView
+                    android:id="@+id/apptDetails_StatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/apptDetails_UpdateBtn"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="@string/session" />
-            <TextView
-                android:id="@+id/apptDetails_SessionText"
-                android:layout_width="wrap_content"
+                android:layout_below="@id/apptDetails_StatusLayout"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/white"
+                android:text="@string/update"
+                android:textAllCaps="false"
+                android:background="@color/blue" />
+            <Button
+                android:id="@+id/apptDetails_DeleteBtn"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/apptDetails_TreatmentLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/apptDetails_SessionLayout">
-            <TextView
-                android:id="@+id/apptDetails_TreatmentLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="@string/treatments" />
-            <TextView
-                android:id="@+id/apptDetails_TreatmentText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/apptDetails_StatusLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal"
-            android:layout_below="@id/apptDetails_TreatmentLayout">
-            <TextView
-                android:id="@+id/apptDetails_StatusLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dark_blue"
-                android:text="@string/status" />
-            <TextView
-                android:id="@+id/apptDetails_StatusText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light" />
-        </LinearLayout>
-        <Button
-            android:id="@+id/apptDetails_UpdateBtn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/apptDetails_StatusLayout"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/white"
-            android:text="@string/update"
-            android:textAllCaps="false"
-            android:background="@color/blue" />
-        <Button
-            android:id="@+id/apptDetails_DeleteBtn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/apptDetails_UpdateBtn"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/white"
-            android:text="@string/delete"
-            android:textAllCaps="false"
-            android:background="@color/red" />
-    </RelativeLayout>
-</ScrollView>
+                android:layout_below="@id/apptDetails_UpdateBtn"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/white"
+                android:text="@string/delete"
+                android:textAllCaps="false"
+                android:background="@color/red" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

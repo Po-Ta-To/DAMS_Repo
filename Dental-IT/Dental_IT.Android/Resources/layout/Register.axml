@@ -1,248 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@drawable/background">
-    <RelativeLayout
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/sublayout_Toolbar" />
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingBottom="35dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/sublayout_Toolbar" />
+        android:layout_height="fill_parent">
         <RelativeLayout
-            android:id="@+id/register_EmailLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="85dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp">
-            <ImageView
-                android:id="@+id/register_EmailImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/email"
-                android:scaleX="0.75"
-                android:scaleY="0.75" />
-            <EditText
-                android:id="@+id/register_EmailField"
+            android:paddingBottom="35dp">
+            <RelativeLayout
+                android:id="@+id/register_EmailLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/register_EmailImage"
-                android:maxLines="1"
-                android:gravity="center"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:textColorHint="@color/dark_blue"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/editText_line" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/register_PasswordLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_below="@id/register_EmailLayout">
-            <ImageView
-                android:id="@+id/register_PasswordImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_lock"
-                android:scaleX="0.75"
-                android:scaleY="0.75" />
-            <EditText
-                android:id="@+id/register_PasswordField"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="80dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp">
+                <ImageView
+                    android:id="@+id/register_EmailImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_account"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
+                <EditText
+                    android:id="@+id/register_EmailField"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/register_EmailImage"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="@color/dark_blue"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light"
+                    android:background="@drawable/editText_line" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/register_PasswordLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/register_PasswordImage"
-                android:maxLines="1"
-                android:gravity="center"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:textColorHint="@color/dark_blue"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/editText_line" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/register_RepeatPasswordLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_below="@id/register_PasswordLayout">
-            <ImageView
-                android:id="@+id/register_RepeatPasswordImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_lock"
-                android:scaleX="0.75"
-                android:scaleY="0.75" />
-            <EditText
-                android:id="@+id/register_RepeatPasswordField"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_below="@id/register_EmailLayout">
+                <ImageView
+                    android:id="@+id/register_PasswordImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_lock"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
+                <EditText
+                    android:id="@+id/register_PasswordField"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/register_PasswordImage"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/dark_blue"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light"
+                    android:background="@drawable/editText_line" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/register_RepeatPasswordLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/register_RepeatPasswordImage"
-                android:maxLines="1"
-                android:gravity="center"
-                android:hint="@string/repeat_password"
-                android:inputType="textPassword"
-                android:textColorHint="@color/dark_blue"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/editText_line" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/register_DOBLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_below="@id/register_RepeatPasswordLayout">
-            <ImageView
-                android:id="@+id/register_DOBImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_calendar_range"
-                android:scaleX="0.75"
-                android:scaleY="0.75" />
-            <EditText
-                android:id="@+id/register_DOBField"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_below="@id/register_PasswordLayout">
+                <ImageView
+                    android:id="@+id/register_RepeatPasswordImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_lock"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
+                <EditText
+                    android:id="@+id/register_RepeatPasswordField"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/register_RepeatPasswordImage"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:hint="@string/repeat_password"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/dark_blue"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light"
+                    android:background="@drawable/editText_line" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/register_DOBLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/register_DOBImage"
-                android:maxLines="1"
-                android:gravity="center"
-                android:hint="@string/DOB"
-                android:focusable="false"
-                android:editable="false"
-                android:textColorHint="@color/dark_blue"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/editText_line" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/register_GenderLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_below="@id/register_DOBLayout">
-            <ImageView
-                android:id="@+id/register_GenderImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_gender_male_female"
-                android:scaleX="0.75"
-                android:scaleY="0.75" />
-            <Spinner
-                android:id="@+id/register_GenderSpinner"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_below="@id/register_RepeatPasswordLayout">
+                <ImageView
+                    android:id="@+id/register_DOBImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_calendar_range"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
+                <EditText
+                    android:id="@+id/register_DOBField"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/register_DOBImage"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:hint="@string/DOB"
+                    android:focusable="false"
+                    android:editable="false"
+                    android:textColorHint="@color/dark_blue"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light"
+                    android:background="@drawable/editText_line" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/register_GenderLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/register_GenderImage"
-                android:gravity="center"
-                android:spinnerMode="dropdown"
-                android:background="@drawable/editText_line" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/register_NRICLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_below="@id/register_GenderLayout">
-            <ImageView
-                android:id="@+id/register_NRICImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_card_details"
-                android:scaleX="0.75"
-                android:scaleY="0.75" />
-            <EditText
-                android:id="@+id/register_NRICField"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_below="@id/register_DOBLayout">
+                <ImageView
+                    android:id="@+id/register_GenderImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_gender_male_female"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
+                <Spinner
+                    android:id="@+id/register_GenderSpinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/register_GenderImage"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    android:background="@drawable/editText_line" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/register_NRICLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/register_NRICImage"
-                android:maxLines="1"
-                android:gravity="center"
-                android:hint="@string/NRIC"
-                android:inputType="text"
-                android:textColorHint="@color/dark_blue"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/editText_line" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/register_MobileLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_below="@id/register_NRICLayout">
-            <ImageView
-                android:id="@+id/register_MobileImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_phone"
-                android:scaleX="0.75"
-                android:scaleY="0.75" />
-            <EditText
-                android:id="@+id/register_MobileField"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_below="@id/register_GenderLayout">
+                <ImageView
+                    android:id="@+id/register_NRICImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_account_card_details"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
+                <EditText
+                    android:id="@+id/register_NRICField"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/register_NRICImage"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:hint="@string/NRIC"
+                    android:inputType="text"
+                    android:textColorHint="@color/dark_blue"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light"
+                    android:background="@drawable/editText_line" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/register_MobileLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/register_MobileImage"
-                android:maxLines="1"
-                android:gravity="center"
-                android:hint="@string/mobile"
-                android:inputType="phone"
-                android:textColorHint="@color/dark_blue"
-                android:textColor="@color/dark_blue"
-                android:fontFamily="sans-serif-light"
-                android:background="@drawable/editText_line" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/register_PdpaLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/register_MobileLayout"
-            android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true"
-            android:scaleX="0.80"
-            android:scaleY="0.80">
-            <CheckBox
-                android:id="@+id/register_PdpaChkbox"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_below="@id/register_NRICLayout">
+                <ImageView
+                    android:id="@+id/register_MobileImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
+                <EditText
+                    android:id="@+id/register_MobileField"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/register_MobileImage"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:hint="@string/mobile"
+                    android:inputType="phone"
+                    android:textColorHint="@color/dark_blue"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light"
+                    android:background="@drawable/editText_line" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/register_PdpaLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/register_PdpaText"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/register_PdpaChkbox"
-                android:layout_centerVertical="true"
-                android:textColor="@color/dark_blue"
-                android:text="@string/pdpa"
-                android:clickable="true" />
+                android:layout_below="@id/register_MobileLayout"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:scaleX="0.80"
+                android:scaleY="0.80">
+                <CheckBox
+                    android:id="@+id/register_PdpaChkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/register_PdpaText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/register_PdpaChkbox"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/pdpa"
+                    android:clickable="true" />
+            </RelativeLayout>
+            <Button
+                android:id="@+id/register_RegisterBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/register_PdpaLayout"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:textColor="@color/white"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                android:background="@color/blue" />
         </RelativeLayout>
-        <Button
-            android:id="@+id/register_RegisterBtn"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@id/register_PdpaLayout"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/white"
-            android:text="@string/register"
-            android:textAllCaps="false"
-            android:background="@color/blue" />
-    </RelativeLayout>
-</ScrollView>
+    </ScrollView>
+</RelativeLayout>
