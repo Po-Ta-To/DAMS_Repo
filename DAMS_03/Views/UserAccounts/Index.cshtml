@@ -11,7 +11,7 @@
         <div class="panel-heading clearfix">
             <div class="panel-title">
                 List of Public User Accounts
-                <button class="btn btn-success" type="button" style="float: right"
+                <button class="btn btn-default" type="button" style="float: right"
                         onclick="location.href='@Url.Action("Create", "UserAccounts")'">Create an Account</button>
             </div>
         </div>
@@ -25,10 +25,10 @@
                                     @Html.DisplayNameFor(model => model.ID)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.NRIC)
+                                    @Html.DisplayNameFor(model => model.Name)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Name)
+                                    @Html.DisplayNameFor(model => model.NRIC)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.DOB)
@@ -40,8 +40,9 @@
                                     @Html.DisplayNameFor(model => model.Mobile)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Addrress)
+                                    Address
                                 </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="userAccountTableBody">
@@ -52,11 +53,11 @@
                                         @Html.DisplayFor(modelItem => item.ID)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.NRIC)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.Name)
                                     </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NRIC)
+                                    </td> 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.DOB)
                                     </td>
@@ -70,11 +71,11 @@
                                         @Html.DisplayFor(modelItem => item.Addrress)
                                     </td>
                                     <td>
-                                        <button class="btn btn-info" type="button"
+                                        <button class="btn btn-primary" type="button"
                                                 onclick="location.href='@Url.Action("Details", "UserAccounts", new { id = item.ID })'">
                                             Details
                                         </button>
-                                        <button class="btn btn-primary" type="button"
+                                        <button class="btn btn-success" type="button"
                                                 onclick="location.href='@Url.Action("Edit", "UserAccounts", new { id = item.ID })'">
                                             Update
                                         </button>

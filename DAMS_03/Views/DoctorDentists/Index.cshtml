@@ -4,36 +4,64 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>View Doctor/Dentist Accounts</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DoctorDentistID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DoctorDentistID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <div class="panel-title">
+                List of Doctor Dentists
+                <button class="btn btn-default" type="button" style="float: right"
+                        onclick="location.href='@Url.Action("Create", "DoctorDentists")'">
+                    Create a Doctor/Dentist
+                </button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sieve">
+                       <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DoctorDentistID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th></th>
+                             </tr>
+                        </thead>
+                        <tbody id="doctordentistAccountTableBody">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                         @Html.DisplayFor(modelItem => item.DoctorDentistID)
+                                    </td>
+                                    <td>
+                                         @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                   <td>
+                                        <button class="btn btn-primary" type="button"
+                                                onclick="location.href='@Url.Action("Details", "DoctorDentists", new { id = item.ID })'">
+                                            Details
+                                        </button>
+                                        <button class="btn btn-success" type="button"
+                                                onclick="location.href='@Url.Action("Edit", "DoctorDentists", new { id = item.ID })'">
+                                            Update
+                                        </button>
+                                        <button class="btn btn-danger" type="button"
+                                                onclick="location.href='@Url.Action("Delete", "DoctorDentists", new { id = item.ID })'">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
