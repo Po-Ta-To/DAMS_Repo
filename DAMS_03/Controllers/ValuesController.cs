@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace DAMS_03.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     public class ValuesController : ApiController
     {
         // GET api/values

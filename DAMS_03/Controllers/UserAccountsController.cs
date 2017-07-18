@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace DAMS_03.Controllers
 {
+    [Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     public class UserAccountsController : Controller
     {
         private DAMS_01Entities db = new DAMS_01Entities();
@@ -71,7 +72,7 @@ namespace DAMS_03.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

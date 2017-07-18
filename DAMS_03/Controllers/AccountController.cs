@@ -12,11 +12,14 @@ using DAMS_03.Models;
 
 namespace DAMS_03.Controllers
 {
+    //[Authorize(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
     [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        private DAMS_01Entities db = new DAMS_01Entities();
 
         public AccountController()
         {
@@ -79,6 +82,13 @@ namespace DAMS_03.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+
+                    //string aspID = (from AspNetUsers in db.AspNetUsers
+                    //                where AspNetUsers.UserName == model.UserName
+                    //                select AspNetUsers.Id).First().ToString();
+
+
+                    
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

@@ -37,7 +37,6 @@ CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex]
     ON [dbo].[AspNetRoles]([Name] ASC);
 
 
-
 CREATE TABLE [dbo].[AspNetUserRoles] (
     [UserId] NVARCHAR (128) NOT NULL,
     [RoleId] NVARCHAR (128) NOT NULL,
@@ -222,3 +221,39 @@ Create table AppointmentTreatment
 	TreatmentID INT FOREIGN KEY REFERENCES Treatment(ID) NOT NULL
 )
 
+
+INSERT INTO [dbo].[AspNetRoles]
+Values (1, 'User');
+
+INSERT INTO [dbo].[AspNetRoles] (Id, Name)
+Values (2, 'SysAdmin')
+
+INSERT INTO [dbo].[AspNetRoles]
+Values (3, 'HospAdmin');
+
+INSERT INTO [dbo].[AspNetRoles]
+Values (4, 'ClerkAdmin');
+
+INSERT INTO [dbo].[AspNetUsers]
+Values ('38ddb20f-d142-437b-ab96-403a7c4949b6', 
+'Default@Admin.com',
+0,
+'AGUn6XB/MLNcRM+kQOJNcdusPu6tTnOWzIQ7VP/4/S/eK0bRR5Sn82uUIcMk9Zjwwg==',
+'932a25a4-8fe6-4aa3-a644-bc7d731b6211',
+NULL,
+0,
+0,
+NULL,
+0,
+0,
+'Admin');
+
+INSERT INTO [dbo].[AspNetUserRoles]
+Values ('38ddb20f-d142-437b-ab96-403a7c4949b6', 2);
+
+INSERT INTO [dbo].[AdminAccount]
+Values (1,
+'DefaultAdminID',
+'Default@Admin.com',
+1,
+'38ddb20f-d142-437b-ab96-403a7c4949b6');
