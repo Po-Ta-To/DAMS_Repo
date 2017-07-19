@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dental_IT.Android", "Dental
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Dental_IT", "Dental-IT\Dental_IT\Dental_IT.shproj", "{12DD7D42-B425-44B7-AB4A-1BB58C8A9B01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialCalendar", "C:\Users\User\Desktop\material-calendarview-xamarin-android-master\Binding\MaterialCalendar.csproj", "{F6AEF2A2-E137-40D0-B124-16580B6763E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialCalendar_BindingLibrary", "BindingLibrary\MaterialCalendar_BindingLibrary.csproj", "{F6AEF2A2-E137-40D0-B124-16580B6763E1}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
