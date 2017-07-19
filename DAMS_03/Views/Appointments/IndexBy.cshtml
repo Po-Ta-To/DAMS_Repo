@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>View Appointments</h2>
+<h2>View Appointment Requests</h2>
 
 <div class="row">
     <div class="form-group col-md-8">
@@ -21,15 +21,12 @@
         <div class="panel-heading clearfix">
             <div class="panel-title">
                 List of Appointments
-                <button class="btn btn-success" type="button" style="float: right"
+                <button class="btn btn-default" type="button" style="float: right"
                         onclick="location.href='@Url.Action("Create", "Appointments")'">
                     Create an Appointment
                 </button>
             </div>
         </div>
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
@@ -112,11 +109,11 @@
                                         @Html.DisplayFor(modelItem => item.UserAccount.ID)
                                     </td>
                                     <td>
-                                        <button class="btn btn-info" type="button"
+                                        <button class="btn btn-primary" type="button"
                                                 onclick="location.href='@Url.Action("Details", "Appointments", new { id = item.ID })'">
                                             Details
                                         </button>
-                                        <button class="btn btn-primary" type="button"
+                                        <button class="btn btn-success" type="button"
                                                 onclick="location.href='@Url.Action("Edit", "Appointments", new { id = item.ID })'">
                                             Update
                                         </button>

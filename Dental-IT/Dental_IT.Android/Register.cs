@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -11,7 +10,7 @@ using Dental_IT.Droid.Adapters;
 namespace Dental_IT.Droid
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Register : Activity
+    public class Register : Android.Support.V7.App.AppCompatActivity
     {
         private string TAG = "DatePickerFragment";
 
@@ -86,12 +85,13 @@ namespace Dental_IT.Droid
             };
 
             //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
-            ActionBar.Title = "Registration";
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            toolbar.SetTitle(Resource.String.register_title);
+            SetSupportActionBar(toolbar);
 
             //Set backarrow as Default
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
         }
 
         //Implement menus in the action bar; backarrow
@@ -107,7 +107,7 @@ namespace Dental_IT.Droid
             Intent intent = new Intent(this, typeof(Sign_In));
             StartActivity(intent);
 
-            Toast.MakeText(this, "Sign In" + item.TitleFormatted,
+            Toast.MakeText(this, "Sign In" ,
                 ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }

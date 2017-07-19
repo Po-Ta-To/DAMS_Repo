@@ -50,4 +50,13 @@
   <string name="treatments_offered">Treatments offered</string>
   <string name="request">Request Appointment</string>
   <string name="drawer_header">Insert Logo</string>
+  <string name="register_title">Registration</string>
+  <string name="requestappt_title">Request Appointment</string>
+  <string name="HCDetails_title">Hospital/Clinics Details</string>
+  <string name="selectHC_title">Select Hospital/Clinics</string>
+  <string name="treatmentinfo_title">Treatment Information</string>
+  <string name="apptdetails_title">Appointment Details</string>
+
+
+
 </resources>

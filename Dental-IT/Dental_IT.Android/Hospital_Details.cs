@@ -9,11 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Support.V7.App;
 
 namespace Dental_IT.Droid
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Hospital_Details : Activity
+    public class Hospital_Details : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,12 +44,12 @@ namespace Dental_IT.Droid
             });
 
             //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
-            ActionBar.Title = "Hospital/Clinics Details";
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            toolbar.SetTitle(Resource.String.HCDetails_title);
+            SetSupportActionBar(toolbar);
 
             //Set backarrow as Default
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
         //Implement menus in the action bar; backarrow
@@ -63,7 +64,7 @@ namespace Dental_IT.Droid
             Intent intent = new Intent(this, typeof(Select_Hospital));
             StartActivity(intent);
 
-            Toast.MakeText(this, "Main Menu" + item.TitleFormatted,
+            Toast.MakeText(this, "Select Hospital/Clinics",
                 ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }

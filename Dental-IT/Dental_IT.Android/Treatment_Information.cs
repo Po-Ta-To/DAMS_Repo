@@ -7,11 +7,12 @@ using Dental_IT.Droid.Adapters;
 using Android.Widget;
 using Android.Views;
 using Android.Content;
+using Android.Support.V7.App;
 
 namespace Dental_IT.Droid
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Treatment_Information : Activity
+    public class Treatment_Information : AppCompatActivity
     {
         public static int LIST_HEIGHT;
 
@@ -57,12 +58,12 @@ namespace Dental_IT.Droid
             });
 
             //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
-            ActionBar.Title = "Treatment Information";
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            toolbar.SetTitle(Resource.String.treatmentinfo_title);
+            SetSupportActionBar(toolbar);
 
             //Set backarrow as Default
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
         }
 
@@ -79,7 +80,7 @@ namespace Dental_IT.Droid
             Intent intent = new Intent(this, typeof(Main_Menu));
             StartActivity(intent);
 
-            Toast.MakeText(this, "Main Menu" + item.TitleFormatted,
+            Toast.MakeText(this, "Main Menu",
                 ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }
