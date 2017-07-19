@@ -23,6 +23,17 @@ namespace DAMS_03.Controllers
             return View(appointments.ToList());
         }
 
+        // GET: Appointment Requests
+        public ActionResult IndexBy()
+        {
+            // If ApprovalState was 2 for "Appointment Requests"
+            var getAppointmentsBySecId = from Appointments in db.Appointments
+                                          where Appointments.ApprovalState == 2
+                                          select Appointments;
+
+            return View(getAppointmentsBySecId.ToList());
+        }
+
         // GET: Appointments/Details/5
         public ActionResult Details(int? id)
         {
@@ -142,22 +153,5 @@ namespace DAMS_03.Controllers
             }
             base.Dispose(disposing);
         }
-
-        public ActionResult IndexBy(int? id)
-        {
-
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var getApptBySecId = from Appointment in db.Appointments
-                                          where Appointment.ApprovalState == id
-                                          select Appointment;
-
-            return View(getApptBySecId.ToList());
-        }
-
-
     }
 }
