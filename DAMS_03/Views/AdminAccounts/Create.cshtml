@@ -1,7 +1,6 @@
 ﻿@model DAMS_03.Models.AdminAccountCreateModel
 @using MvcCheckBoxList.Model
 
-
 @{
     ViewBag.Title = "Create";
 }
@@ -42,32 +41,42 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SecurityLevel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-
-                @{
-                    List<SelectListItem> listItems = new List<SelectListItem>();
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "System Account",
-                        Value = "1"
-                    });
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "Admin Account",
-                        Value = "2"
-                        
-                    });
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "Clerk Account",
-                        Value = "3",
-                        Selected = true
-                    });
-                }
-
-                @Html.DropDownListFor(model => model.SecurityLevel, listItems, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SecurityLevel, "", new { @class = "text-danger" })
+                <select id="accountLevelInput" class="form-control input-group-sm">
+                    <option value="1">System Account</option>
+                    <option value="2">Admin Account</option>
+                    <option value="3" selected="selected">Clerk Account</option>
+                </select>
             </div>
         </div>
+
+        @*<div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.SecurityLevel, htmlAttributes: new { @class = "control-label col-md-2" })   
+                    @{
+                        List<SelectListItem> listItems = new List<SelectListItem>();
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "System Account",
+                            Value = "1"
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Admin Account",
+                            Value = "2"
+                        
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Clerk Account",
+                            Value = "3",
+                            Selected = true
+                        });
+                    }
+
+                @Html.DropDownListFor(model => model.SecurityLevel, listItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @Html.ValidationMessageFor(model => model.SecurityLevel, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
