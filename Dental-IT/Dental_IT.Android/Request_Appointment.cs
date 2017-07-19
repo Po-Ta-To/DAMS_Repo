@@ -5,11 +5,12 @@ using Android.Widget;
 using Android.OS;
 using Dental_IT.Droid.Fragments;
 using System;
+using Android.Support.V7.App;
 
 namespace Dental_IT.Droid
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Request_Appointment : Activity
+    public class Request_Appointment : AppCompatActivity
     {
         private string TAG = "DatePickerFragment";
 
@@ -63,12 +64,12 @@ namespace Dental_IT.Droid
 
 
             //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
-            ActionBar.Title = "Request Appointment";
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            toolbar.SetTitle(Resource.String.requestappt_title);
+            SetSupportActionBar(toolbar);
 
             //Set backarrow as Default
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
 
@@ -85,7 +86,7 @@ namespace Dental_IT.Droid
             Intent intent = new Intent(this, typeof(Select_Hospital));
             StartActivity(intent);
 
-            Toast.MakeText(this, "Sign In" + item.TitleFormatted,
+            Toast.MakeText(this, "Select Hospital/Clinics",
                 ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }

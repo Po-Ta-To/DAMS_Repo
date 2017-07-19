@@ -3282,6 +3282,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f080030
 			public const int DOB = 2131230768;
 			
+			// aapt resource value: 0x7f080051
+			public const int HCDetails_title = 2131230801;
+			
 			// aapt resource value: 0x7f080032
 			public const int NRIC = 2131230770;
 			
@@ -3387,6 +3390,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f080021
 			public const int appbar_scrolling_view_behavior = 2131230753;
 			
+			// aapt resource value: 0x7f080054
+			public const int apptdetails_title = 2131230804;
+			
 			// aapt resource value: 0x7f080022
 			public const int bottom_sheet_behavior = 2131230754;
 			
@@ -3465,6 +3471,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08002e
 			public const int register_text = 2131230766;
 			
+			// aapt resource value: 0x7f08004f
+			public const int register_title = 2131230799;
+			
 			// aapt resource value: 0x7f080040
 			public const int remarks = 2131230784;
 			
@@ -3477,8 +3486,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08004d
 			public const int request = 2131230797;
 			
+			// aapt resource value: 0x7f080050
+			public const int requestappt_title = 2131230800;
+			
 			// aapt resource value: 0x7f080013
 			public const int search_menu_title = 2131230739;
+			
+			// aapt resource value: 0x7f080052
+			public const int selectHC_title = 2131230802;
 			
 			// aapt resource value: 0x7f08003a
 			public const int select_date = 2131230778;
@@ -3506,6 +3521,9 @@ namespace Dental_IT.Droid
 			
 			// aapt resource value: 0x7f080041
 			public const int submit = 2131230785;
+			
+			// aapt resource value: 0x7f080053
+			public const int treatmentinfo_title = 2131230803;
 			
 			// aapt resource value: 0x7f080045
 			public const int treatments = 2131230789;
