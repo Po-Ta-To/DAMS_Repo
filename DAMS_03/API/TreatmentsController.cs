@@ -17,9 +17,18 @@ namespace DAMS_03.API
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: api/Treatments
-        public IQueryable<Treatment> GetTreatments()
+        public IHttpActionResult GetTreatments()
         {
-            return db.Treatments;
+            var treatments = from Treatment in db.Treatments
+                             select new
+                             {
+                                 Treatment.ID,
+                                 Treatment.TreatmentName,
+                                 Treatment.TreatmentDesc,
+                                 Treatment.IsFollowUp
+                             };
+
+            return Ok(treatments);
         }
 
         // GET: api/Treatments/5
@@ -32,7 +41,17 @@ namespace DAMS_03.API
                 return NotFound();
             }
 
-            return Ok(treatment);
+            var returntreatment = from Treatment in db.Treatments
+                                  where Treatment.ID == id
+                                  select new
+                                  {
+                                      Treatment.ID,
+                                      Treatment.TreatmentName,
+                                      Treatment.TreatmentDesc,
+                                      Treatment.IsFollowUp
+                                  };
+
+            return Ok(returntreatment);
         }
 
         // PUT: api/Treatments/5

@@ -12,83 +12,100 @@
 
 <h2>Edit Treatments</h2>
 
+@using (Html.BeginForm())
+{
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.AntiForgeryToken()
 
-<div class="row">
-    <div class="panel panel-primary">
-        <div class="panel-heading clearfix">
-            <div class="panel-title">
-                List of Treatments
-                
 
-                <div class="form-group"  style="float: right">
-                    
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading clearfix">
+                <div class="panel-title">
+                    List of Treatments
+
+
+                    <div class="form-group" style="float: right">
+
                         <input type="submit" value="Save" class="btn btn-default" />
-                    
+
+                        
+
+                    </div>
+
                 </div>
-
             </div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-hover table-sieve">
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model[0].TreatmentID)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model[0].TreatmentName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model[0].TreatmentDesc)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model[0].IsFollowUp)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model[0].Price)
-                                </th>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model[0].IsChecked)
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody id="treatmentTableBody">
-                            @foreach (var item in Model)
-                            {
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <table class="table table-hover table-sieve">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TreatmentID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TreatmentName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TreatmentDesc)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IsFollowUp)
-                                    </td>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model[0].TreatmentID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model[0].TreatmentName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model[0].TreatmentDesc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model[0].IsFollowUp)
+                                    </th>
 
-                                    <td>
-                                        @Html.EditorFor(modelItem => item.Price)
-                                    </td>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model[0].Price)
+                                    </th>
 
-                                    <td>
-                                        @Html.EditorFor(modelItem => item.IsChecked)
-                                    </td>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model[0].IsChecked)
+                                    </th>
 
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="treatmentTableBody">
+                                @for(int i = 0; i< Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model[i].TreatmentID)
+                                            @Html.HiddenFor(modelItem => Model[i].TreatmentID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model[i].TreatmentName)
+                                            @Html.HiddenFor(modelItem => Model[i].TreatmentName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model[i].TreatmentDesc)
+                                            @Html.HiddenFor(modelItem => Model[i].TreatmentDesc)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model[i].IsFollowUp)
+                                            @Html.HiddenFor(modelItem => Model[i].IsFollowUp)
+                                        </td>
+
+                                        <td>
+                                            <div class="form-group">
+                                                @Html.EditorFor(modelItem => Model[i].Price, new { htmlAttributes = new { @class = "form-control" } })
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="form-group">
+                                                @Html.EditorFor(modelItem => Model[i].IsChecked, new { htmlAttributes = new { @class = "form-control" } })
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+}
