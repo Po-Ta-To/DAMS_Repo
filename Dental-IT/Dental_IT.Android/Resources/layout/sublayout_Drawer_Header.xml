@@ -3,12 +3,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@color/dark_blue"
+    android:background="@color/light_blue"
     android:padding="16dp"
     android:theme="@style/MyTheme"
     android:gravity="bottom">
-  <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/drawer_header"/>
+  <RelativeLayout
+    android:id="@+id/headerRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+          android:id="@+id/MedisysLogo_Image"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:src="@drawable/ic_medisys_logo"
+          android:scaleX="2.0"
+          android:scaleY="2.0" />
+  </RelativeLayout>
+
 </LinearLayout>

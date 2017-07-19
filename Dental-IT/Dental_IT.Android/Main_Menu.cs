@@ -19,8 +19,8 @@ namespace Dental_IT.Droid
         public static int ACTIONBAR_HEIGHT;
         public static int GRID_HEIGHT;
 
-        //DrawerLayout drawerLayout;
-        //NavigationView navigationView;
+        DrawerLayout drawerLayout;
+        NavigationView navigationView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -58,20 +58,29 @@ namespace Dental_IT.Droid
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            //drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            //navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+            navigationView.InflateMenu(Resource.Menu.nav_menu);
+
+            navigationView.NavigationItemSelected += (sender, e) =>
+            {
+                e.MenuItem.SetChecked(true);
+                //react to click here and swap fragments or navigate
+                drawerLayout.CloseDrawers();
+            };
         }
 
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    switch (item.ItemId)
-        //    {
-        //        case Android.Resource.Id.Home:
-        //            drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
-        //            return true;
-        //    }
-        //    return base.OnOptionsItemSelected(item);
-        //}
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+          switch (item.ItemId)
+           {
+               case Android.Resource.Id.Home:
+                   drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                  return true;
+           }
+            return base.OnOptionsItemSelected(item);
+        }
 
 
         //  List of button texts to popular grid adapter

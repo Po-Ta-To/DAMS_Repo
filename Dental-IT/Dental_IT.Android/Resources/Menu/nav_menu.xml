@@ -12,12 +12,11 @@
     <item
       android:id="@+id/nav_TreatmentInfo"
       android:title="Treatment Info" />
-
     <item
       android:id="@+id/nav_Search"
       android:title="Search" />
   </group>
-  <item android:title="Sub items">
+  <item android:title="Others">
     <menu>
       <item
         android:title="Settings" />
