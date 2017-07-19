@@ -14,7 +14,7 @@ namespace DAMS_03.Models
         //public int ID { get; set; }
 
         [Required]
-        public string TreatmentID { get; set; }
+        public int TreatmentID { get; set; }
 
         [Required]
         public string TreatmentName { get; set; }
@@ -41,15 +41,15 @@ namespace DAMS_03.Models
 
 
         [Required]
-        public string TreatmentID { get; set; }
+        public int TreatmentID { get; set; }
 
-        [Required]
+        [Required]//may not req for post
         public string TreatmentName { get; set; }
 
-        [Required]
+        [Required]//may not req for post
         public string TreatmentDesc { get; set; }
 
-        [Required]
+        [Required]//may not req for post
         public bool IsFollowUp { get; set; }
 
         [Required]
