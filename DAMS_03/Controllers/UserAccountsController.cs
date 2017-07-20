@@ -89,7 +89,7 @@ namespace DAMS_03.Controllers
 
                     UserAccount addUserAccount = new UserAccount();
 
-                    addUserAccount.ID = 1;
+                    //addUserAccount.ID = 1;
                     addUserAccount.NRIC = model.NRIC;
                     addUserAccount.Name = model.Name;
                     addUserAccount.DOB = model.DOB;

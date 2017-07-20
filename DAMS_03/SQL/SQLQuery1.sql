@@ -123,6 +123,13 @@ Create table ClinicHospital
 	MaxBookings NVARCHAR(50) NOT NULL
 )
 
+Create table AdminAccountClinicHospital
+(
+	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
+	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL,
+	AdminID INT FOREIGN KEY REFERENCES AdminAccount(ID) NOT NULL
+)
+
 Create table ClinicHospitalDoctorDentist
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,

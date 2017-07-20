@@ -6,168 +6,180 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-  <include
-      android:id="@+id/toolbar"
-      layout="@layout/sublayout_Toolbar" />
-  <ScrollView
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent">
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingBottom="35dp">
-      <LinearLayout
-          android:id="@+id/request_HospitalLayout"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="25dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginRight="50dp"
-          android:orientation="vertical">
-        <TextView
-            android:id="@+id/request_HospitalLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dark_blue"
-            android:text="@string/hospital" />
-        <EditText
-            android:id="@+id/request_HospitalField"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/sublayout_Toolbar" />
+    <android.support.v4.widget.DrawerLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:editable="false"
-            android:textColorHint="@color/dark_blue"
-            android:textColor="@color/dark_blue"
-            android:fontFamily="sans-serif-light"
-            android:background="@drawable/editText_line" />
-      </LinearLayout>
-      <LinearLayout
-          android:id="@+id/request_DateLayout"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="35dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginRight="50dp"
-          android:orientation="vertical"
-          android:layout_below="@id/request_HospitalLayout">
-        <TextView
-            android:id="@+id/request_DateLabel"
+            android:layout_height="fill_parent">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingBottom="35dp">
+                <LinearLayout
+                    android:id="@+id/request_HospitalLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/request_HospitalLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/hospital" />
+                    <EditText
+                        android:id="@+id/request_HospitalField"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:editable="false"
+                        android:textColorHint="@color/dark_blue"
+                        android:textColor="@color/dark_blue"
+                        android:fontFamily="sans-serif-light"
+                        android:background="@drawable/editText_line" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/request_DateLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical"
+                    android:layout_below="@id/request_HospitalLayout">
+                    <TextView
+                        android:id="@+id/request_DateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/pref_date" />
+                    <EditText
+                        android:id="@+id/request_DateField"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="1"
+                        android:hint="@string/select_date"
+                        android:focusable="false"
+                        android:editable="false"
+                        android:textColorHint="@color/dark_blue"
+                        android:textColor="@color/dark_blue"
+                        android:fontFamily="sans-serif-light"
+                        android:background="@drawable/editText_line" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/request_DentistLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical"
+                    android:layout_below="@id/request_DateLayout">
+                    <TextView
+                        android:id="@+id/request_DentistLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/pref_dentist" />
+                    <Spinner
+                        android:id="@+id/request_DentistSpinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:spinnerMode="dropdown"
+                        android:prompt="@string/select_dentist"
+                        android:background="@drawable/editText_line" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/request_SessionLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical"
+                    android:layout_below="@id/request_DentistLayout">
+                    <TextView
+                        android:id="@+id/request_SessionLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/pref_session" />
+                    <Spinner
+                        android:id="@+id/request_SessionSpinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:spinnerMode="dropdown"
+                        android:prompt="@string/select_session"
+                        android:background="@drawable/editText_line" />
+                </LinearLayout>
+                <Button
+                    android:id="@+id/request_TreatmentsBtn"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/request_SessionLayout"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/select_treatments"
+                    android:textAllCaps="false"
+                    android:background="@color/transparent" />
+                <LinearLayout
+                    android:id="@+id/request_RemarksLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical"
+                    android:layout_below="@id/request_TreatmentsBtn">
+                    <TextView
+                        android:id="@+id/request_RemarksLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/remarks" />
+                    <EditText
+                        android:id="@+id/request_RemarksField"
+                        android:layout_width="fill_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="10dp"
+                        android:padding="5dp"
+                        android:gravity="top|left"
+                        android:textColor="@color/dark_blue"
+                        android:fontFamily="sans-serif-light"
+                        android:background="@color/.8_white" />
+                </LinearLayout>
+                <Button
+                    android:id="@+id/request_SubmitBtn"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/request_RemarksLayout"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:textColor="@color/white"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:background="@color/blue" />
+            </RelativeLayout>
+        </ScrollView>
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dark_blue"
-            android:text="@string/pref_date" />
-        <EditText
-            android:id="@+id/request_DateField"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:maxLines="1"
-            android:hint="@string/select_date"
-            android:focusable="false"
-            android:editable="false"
-            android:textColorHint="@color/dark_blue"
-            android:textColor="@color/dark_blue"
-            android:fontFamily="sans-serif-light"
-            android:background="@drawable/editText_line" />
-      </LinearLayout>
-      <LinearLayout
-          android:id="@+id/request_DentistLayout"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="35dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginRight="50dp"
-          android:orientation="vertical"
-          android:layout_below="@id/request_DateLayout">
-        <TextView
-            android:id="@+id/request_DentistLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dark_blue"
-            android:text="@string/pref_dentist" />
-        <Spinner
-            android:id="@+id/request_DentistSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:spinnerMode="dropdown"
-            android:prompt="@string/select_dentist"
-            android:background="@drawable/editText_line" />
-      </LinearLayout>
-      <LinearLayout
-          android:id="@+id/request_SessionLayout"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="35dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginRight="50dp"
-          android:orientation="vertical"
-          android:layout_below="@id/request_DentistLayout">
-        <TextView
-            android:id="@+id/request_SessionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dark_blue"
-            android:text="@string/pref_session" />
-        <Spinner
-            android:id="@+id/request_SessionSpinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:spinnerMode="dropdown"
-            android:prompt="@string/select_session"
-            android:background="@drawable/editText_line" />
-      </LinearLayout>
-      <Button
-          android:id="@+id/request_TreatmentsBtn"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/request_SessionLayout"
-          android:layout_marginTop="35dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginRight="50dp"
-          android:textColor="@color/dark_blue"
-          android:text="@string/select_treatments"
-          android:textAllCaps="false"
-          android:background="@color/transparent" />
-      <LinearLayout
-          android:id="@+id/request_RemarksLayout"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="35dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginRight="50dp"
-          android:orientation="vertical"
-          android:layout_below="@id/request_TreatmentsBtn">
-        <TextView
-            android:id="@+id/request_RemarksLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dark_blue"
-            android:text="@string/remarks" />
-        <EditText
-            android:id="@+id/request_RemarksField"
-            android:layout_width="fill_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="10dp"
-            android:padding="5dp"
-            android:gravity="top|left"
-            android:textColor="@color/dark_blue"
-            android:fontFamily="sans-serif-light"
-            android:background="@color/.8_white" />
-      </LinearLayout>
-      <Button
-          android:id="@+id/request_SubmitBtn"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/request_RemarksLayout"
-          android:layout_marginTop="35dp"
-          android:layout_marginLeft="50dp"
-          android:layout_marginRight="50dp"
-          android:textColor="@color/white"
-          android:text="@string/submit"
-          android:textAllCaps="false"
-          android:background="@color/blue" />
-    </RelativeLayout>
-  </ScrollView>
+            android:layout_gravity="start"
+            android:background="@color/light_blue" />
+    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

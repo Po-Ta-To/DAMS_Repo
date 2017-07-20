@@ -79,7 +79,29 @@ namespace DAMS_03.Controllers
         public ActionResult Create()
         {
             //var tuple = new Tuple<AdminAccount, RegisterViewModel>(new AdminAccount(), new RegisterViewModel());
-            return View();
+
+            AdminAccountCreateModel returnmodel = new AdminAccountCreateModel();
+
+            returnmodel.itemSelection = new List<SelectListItem>();
+
+            var listOfHosp = from ClinHosp in db.ClinicHospitals
+                             select new SelectListItem()
+                             {
+                                 Value = ClinHosp.ID.ToString(),
+                                 Text = ClinHosp.ClinicHospitalName
+                             };
+
+            returnmodel.itemSelection.Add(new SelectListItem()
+            {
+                Value = "notselected",
+                Text = " - "
+            });
+
+            returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+
+
+
+            return View(returnmodel);
         }
 
         // POST: AdminAccounts/Create
@@ -102,31 +124,6 @@ namespace DAMS_03.Controllers
                         return RedirectToAction("Unauthorized", "Account");
                     }
                 }
-
-                //switch (model.SecurityLevel)
-                //{
-                //    case 1:
-                //        if (User.IsInRole("Admin"))
-                //        {
-
-                //        }
-                //        else
-                //        {
-                //            return RedirectToAction("Unauthorized", "Account");
-                //        }
-                //        break;
-                //    case 2:
-
-                //        break;
-                //    case 3:
-
-                //        break;
-                //    default:
-
-                //        break;
-                //}
-
-
 
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -186,9 +183,24 @@ namespace DAMS_03.Controllers
                     addAdminAccount.AspNetID = aspID;
 
                     db.AdminAccounts.Add(addAdminAccount);
-                    db.SaveChanges();
-                    //return RedirectToAction("Index");
 
+                    db.SaveChanges();
+
+                    if (!model.HospClinID.Equals("notselected"))
+                    {
+                        AdminAccountClinicHospital newrelation = new AdminAccountClinicHospital();
+
+                        int currentid = (int)(from adminAccounts in db.AdminAccounts
+                                              where adminAccounts.AspNetID == aspID
+                                              select adminAccounts.ID).First();
+
+                        newrelation.ClinicHospitalID = Int32.Parse(model.HospClinID);
+                        newrelation.AdminID = currentid;
+                        db.AdminAccountClinicHospitals.Add(newrelation);
+                        db.SaveChanges();
+                    }
+
+                    //return RedirectToAction("Index");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -196,6 +208,26 @@ namespace DAMS_03.Controllers
 
 
             }
+
+
+            model.itemSelection = new List<SelectListItem>();
+
+            var listOfHosp = from ClinHosp in db.ClinicHospitals
+                             select new SelectListItem()
+                             {
+                                 Value = ClinHosp.ID.ToString(),
+                                 Text = ClinHosp.ClinicHospitalName
+                             };
+
+            model.itemSelection.Add(new SelectListItem()
+            {
+                Value = "notselected",
+                Text = " - "
+            });
+
+            model.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+
+
 
             return View(model);
         }
