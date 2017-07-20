@@ -48,6 +48,8 @@ namespace DAMS_03.Models
 
         //public string AspNetID { get; set; }
 
+
+
         [Display(Name = "Hospital/Clinic")]
         public List<System.Web.Mvc.SelectListItem> itemSelection { get; set; }
 

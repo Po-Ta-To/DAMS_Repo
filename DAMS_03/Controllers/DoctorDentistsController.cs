@@ -40,7 +40,29 @@ namespace DAMS_03.Controllers
         // GET: DoctorDentists/Create
         public ActionResult Create()
         {
-            return View();
+
+            DoctorDentistCreateModel returnmodel = new DoctorDentistCreateModel();
+
+            returnmodel.itemSelection = new List<SelectListItem>();
+
+            var listOfHosp = from ClinHosp in db.ClinicHospitals
+                             select new SelectListItem()
+                             {
+                                 Value = ClinHosp.ID.ToString(),
+                                 Text = ClinHosp.ClinicHospitalName
+                             };
+
+            //Doctor/Dentist MUST belong to a Hospital/Clinic
+            //returnmodel.itemSelection.Add(new SelectListItem()
+            //{
+            //    Value = "notselected",
+            //    Text = " - "
+            //});
+
+            returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+
+            return View(returnmodel);
+
         }
 
         // POST: DoctorDentists/Create
@@ -48,16 +70,58 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,DoctorDentistID,Name")] DoctorDentist doctorDentist)
+        public ActionResult Create(DoctorDentistCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                db.DoctorDentists.Add(doctorDentist);
+
+                DoctorDentist addDoctorDentist = new DoctorDentist()
+                {
+                    DoctorDentistID = model.DoctorDentistID,
+                    Name = model.Name
+                };
+
+                db.DoctorDentists.Add(addDoctorDentist);
                 db.SaveChanges();
+
+
+                ClinicHospitalDoctorDentist addRelation = new ClinicHospitalDoctorDentist()
+                {
+                    ClinicHospitalID = Int32.Parse(model.HospClinID),
+                    DoctorDentistID = addDoctorDentist.ID
+                };
+
+                db.ClinicHospitalDoctorDentists.Add(addRelation);
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            return View(doctorDentist);
+
+            //
+            DoctorDentistCreateModel returnmodel = new DoctorDentistCreateModel();
+
+            returnmodel.itemSelection = new List<SelectListItem>();
+
+            var listOfHosp = from ClinHosp in db.ClinicHospitals
+                             select new SelectListItem()
+                             {
+                                 Value = ClinHosp.ID.ToString(),
+                                 Text = ClinHosp.ClinicHospitalName
+                             };
+
+            //Doctor/Dentist MUST belong to a Hospital/Clinic
+            //returnmodel.itemSelection.Add(new SelectListItem()
+            //{
+            //    Value = "notselected",
+            //    Text = " - "
+            //});
+
+            returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+
+            return View(returnmodel);
+
+            //return View(doctorDentist);
         }
 
         // GET: DoctorDentists/Edit/5
