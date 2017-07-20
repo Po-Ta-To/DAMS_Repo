@@ -109,13 +109,16 @@
   <ItemGroup>
     <Compile Include="Adapters\GridAdapter_MainMenu.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_TreatmentInformation.cs" />
+    <Compile Include="Adapters\RecyclerViewAdapter_SearchHospital.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Appointment_Details.cs" />
+    <Compile Include="Calendar.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
     <Compile Include="Fragments\SearchHospitalFragment.cs" />
     <Compile Include="Fragments\SearchTreatmentFragment.cs" />
     <Compile Include="Hospital_Details.cs" />
+    <Compile Include="Search.cs" />
     <Compile Include="Sign_In.cs" />
     <Compile Include="Main_Menu.cs" />
     <Compile Include="Register.cs" />
@@ -160,6 +163,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\sublayout_Treatment_Info_List_Item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Calendar.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Search_Hospital.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Search.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -25,4 +25,10 @@
   <activity
     android:name="Treatment_Information">
   </activity>
+  <activity
+    android:name="Calendar">
+  </activity>
+  <activity
+    android:name="Search">
+  </activity>
 </manifest>

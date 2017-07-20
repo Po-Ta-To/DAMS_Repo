@@ -8,7 +8,7 @@ using Android.Preferences;
 
 namespace Dental_IT.Droid.Adapters
 {
-    class RecyclerViewAdapter_SelectHospital : RecyclerView.Adapter
+    class RecyclerViewAdapter_SearchHospital : RecyclerView.Adapter
     {
         private readonly Context context;
         private List<Hospital> hospitalList;
@@ -17,7 +17,7 @@ namespace Dental_IT.Droid.Adapters
         public event EventHandler<int> ItemClick;
         ISharedPreferences prefs;
 
-        public RecyclerViewAdapter_SelectHospital(Context c, List<Hospital> l, List<int> f, List<Favourite> temp)
+        public RecyclerViewAdapter_SearchHospital(Context c, List<Hospital> l, List<int> f, List<Favourite> temp)
         {
             context = c;
             hospitalList = l;
@@ -70,7 +70,7 @@ namespace Dental_IT.Droid.Adapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            SelectHospital_ViewHolder vh = holder as SelectHospital_ViewHolder;
+            SearchHospital_ViewHolder vh = holder as SearchHospital_ViewHolder;
 
             //  Set height of row
             vh.ItemView.LayoutParameters.Height = (Main_Menu.SCREEN_HEIGHT - Main_Menu.ACTIONBAR_HEIGHT) / 6;
@@ -90,15 +90,15 @@ namespace Dental_IT.Droid.Adapters
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Hospital_List_Item, parent, false);
-            SelectHospital_ViewHolder holder = new SelectHospital_ViewHolder(view, OnClick);
+            SearchHospital_ViewHolder holder = new SearchHospital_ViewHolder(view, OnClick);
 
             //  Get list of favourites from shared preferences
             prefs = PreferenceManager.GetDefaultSharedPreferences(context);
 
             holder.ItemView.Click += delegate
             {
-                Intent intent = new Intent(context, typeof(Request_Appointment));
-                intent.PutExtra("request_HospitalName", holder.hospitalName.Text);
+                Intent intent = new Intent(context, typeof(Hospital_Details));
+                intent.PutExtra("details_HospitalName", holder.hospitalName.Text);
                 context.StartActivity(intent);
             };
 
@@ -109,12 +109,12 @@ namespace Dental_IT.Droid.Adapters
         }
     }
 
-    class SelectHospital_ViewHolder : RecyclerView.ViewHolder
+    class SearchHospital_ViewHolder : RecyclerView.ViewHolder
     {
         public TextView hospitalName { get; set; }
         public ToggleButton hospitalFavourites { get; set; }
 
-        public SelectHospital_ViewHolder(View view, Action<int> listener) : base(view)
+        public SearchHospital_ViewHolder(View view, Action<int> listener) : base(view)
         {
             hospitalName = view.FindViewById<TextView>(Resource.Id.list_HospitalText);
             hospitalFavourites = view.FindViewById<ToggleButton>(Resource.Id.list_FavouritesToggle);
