@@ -266,6 +266,9 @@
     <Compile Include="Models\AdminAccount.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminAccountClinicHospital.cs">
+      <DependentUpon>DAMS_Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AdminAccountDoctorDentist.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>

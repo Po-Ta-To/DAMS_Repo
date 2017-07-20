@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace DAMS_03.Models
 {
     public class AdminAccountCreateModel
@@ -42,11 +43,19 @@ namespace DAMS_03.Models
         //public string Email { get; set; }
 
         [Required]
-        [Range (1, 3)]
+        [Range(1, 3)]
         public int SecurityLevel { get; set; }
 
         //public string AspNetID { get; set; }
-    }
+
+        [Display(Name = "Hospital/Clinic")]
+        public List<System.Web.Mvc.SelectListItem> itemSelection { get; set; }
+
+        [Required]
+        public string HospClinID { get; set; }
+
+
+}
 
     public class AdminAccountEditModel
     {
@@ -91,4 +100,20 @@ namespace DAMS_03.Models
 
     }
 
+
+
+    #region HelperClasses
+
+    //public class listItemHospSelection
+    //{
+    //    public string ID { get; set; }
+
+    //    public string Name { get; set; }
+
+    //}
+
+    #endregion
+
+
 }
+

@@ -17,12 +17,13 @@ namespace DAMS_03.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ClinicHospital()
         {
+            this.AdminAccountClinicHospitals = new HashSet<AdminAccountClinicHospital>();
             this.Appointments = new HashSet<Appointment>();
             this.Bookings = new HashSet<Booking>();
+            this.ClinicHospitalTreatments = new HashSet<ClinicHospitalTreatment>();
             this.ClinicHospitalDoctorDentists = new HashSet<ClinicHospitalDoctorDentist>();
             this.ClinicHospitalOpeningHours = new HashSet<ClinicHospitalOpeningHour>();
             this.ClinicHospitalAdvertisements = new HashSet<ClinicHospitalAdvertisement>();
-            this.ClinicHospitalTreatments = new HashSet<ClinicHospitalTreatment>();
         }
     
         public int ID { get; set; }
@@ -35,16 +36,18 @@ namespace DAMS_03.Models
         public string MaxBookings { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AdminAccountClinicHospital> AdminAccountClinicHospitals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClinicHospitalTreatment> ClinicHospitalTreatments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClinicHospitalDoctorDentist> ClinicHospitalDoctorDentists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClinicHospitalOpeningHour> ClinicHospitalOpeningHours { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClinicHospitalAdvertisement> ClinicHospitalAdvertisements { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClinicHospitalTreatment> ClinicHospitalTreatments { get; set; }
     }
 }
