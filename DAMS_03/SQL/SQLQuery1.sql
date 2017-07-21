@@ -97,20 +97,6 @@ Create table AdminAccount
 	 AspNetID NVARCHAR (128) FOREIGN KEY REFERENCES AspNetUsers(Id) NOT NULL
 )
 
-Create table DoctorDentist
-(
-	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
-	DoctorDentistID NVARCHAR(50) NOT NULL,
-    Name NVARCHAR(50) NOT NULL
-)
-
-Create table AdminAccountDoctorDentist
-(
-	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
-	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NOT NULL,
-	AdminID INT FOREIGN KEY REFERENCES AdminAccount(ID) NOT NULL
-)
-
 Create table ClinicHospital
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
@@ -120,7 +106,16 @@ Create table ClinicHospital
 	ClinicHospitalOpenHours NVARCHAR(50) NOT NULL,
 	ClinicHospitalTel NVARCHAR(50) NOT NULL,
 	ClinicHospitalEmail NVARCHAR(50) NOT NULL,
-	MaxBookings NVARCHAR(50) NOT NULL
+	IsStringOpenHours bit NOT NULL
+)
+
+Create table DoctorDentist
+(
+	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
+	DoctorDentistID NVARCHAR(50) NOT NULL,
+    Name NVARCHAR(50) NOT NULL,
+	MaxBookings INT NOT NULL,
+	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL
 )
 
 Create table AdminAccountClinicHospital
@@ -128,13 +123,6 @@ Create table AdminAccountClinicHospital
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL,
 	AdminID INT FOREIGN KEY REFERENCES AdminAccount(ID) NOT NULL
-)
-
-Create table ClinicHospitalDoctorDentist
-(
-	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
-	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NOT NULL,
-	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL
 )
 
 Create table Bookings
@@ -150,7 +138,7 @@ Create table OpeningHours
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	OpeningHoursDay INT NOT NULL,
 	TimeRangeStart TIME NOT NULL,
-	TimeRangeENd TIME NOT NULL
+	TimeRangeEnd TIME NOT NULL
 )
 
 Create table ClinicHospitalOpeningHours
@@ -183,7 +171,8 @@ Create table UserAccount
 	Gender NVARCHAR(50) NOT NULL,
 	Mobile NVARCHAR(50) NOT NULL,
 	Addrress NVARCHAR(50) NOT NULL,
-	AspNetID NVARCHAR (128) FOREIGN KEY REFERENCES AspNetUsers(Id) NOT NULL
+	AspNetID NVARCHAR (128) FOREIGN KEY REFERENCES AspNetUsers(Id) NOT NULL,
+	IsDeleted BIT NOT NULL
 )
 
 Create table Appointment
@@ -259,8 +248,8 @@ INSERT INTO [dbo].[AspNetUserRoles]
 Values ('38ddb20f-d142-437b-ab96-403a7c4949b6', 2);
 
 INSERT INTO [dbo].[AdminAccount]
-Values (1,
-'DefaultAdminID',
+Values ('DefaultAdminID',
+'DefaultAdminIDName',
 'Default@Admin.com',
 1,
 '38ddb20f-d142-437b-ab96-403a7c4949b6');

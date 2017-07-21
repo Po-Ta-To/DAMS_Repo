@@ -17,7 +17,6 @@ namespace DAMS_03.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AdminAccount()
         {
-            this.AdminAccountDoctorDentists = new HashSet<AdminAccountDoctorDentist>();
             this.AdminAccountClinicHospitals = new HashSet<AdminAccountClinicHospital>();
         }
     
@@ -28,8 +27,6 @@ namespace DAMS_03.Models
         public string SecurityLevel { get; set; }
         public string AspNetID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdminAccountDoctorDentist> AdminAccountDoctorDentists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdminAccountClinicHospital> AdminAccountClinicHospitals { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }

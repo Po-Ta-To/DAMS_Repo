@@ -80,6 +80,9 @@ namespace DAMS_03.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    UserManager.AddToRole(currentUser.Id, "User");
 
 
 
@@ -97,6 +100,7 @@ namespace DAMS_03.Controllers
                     addUserAccount.Mobile = model.Mobile.ToString();
                     addUserAccount.Addrress = model.Addrress;
                     addUserAccount.AspNetID = aspID;
+                    addUserAccount.IsDeleted = false;
 
                     db.UserAccounts.Add(addUserAccount);
                     db.SaveChanges();

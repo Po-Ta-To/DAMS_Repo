@@ -40,7 +40,21 @@ namespace DAMS_03.Controllers
         // GET: ClinicHospitals/Create
         public ActionResult Create()
         {
-            return View();
+            ClinicHospitalCreateModel model = new ClinicHospitalCreateModel();
+
+            
+
+            model.OpeningHours = new List<OpeningHour>();
+
+            for (int i = 1; i <= 3; i++)
+            {
+                model.OpeningHours.Add(new OpeningHour()
+                {
+                    OpeningHoursDay = i
+                });
+            }
+            
+            return View(model);
         }
 
         // POST: ClinicHospitals/Create
@@ -48,16 +62,19 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ClinicHospitalID,ClinicHospitalName,ClinicHospitalAddress,ClinicHospitalOpenHours,ClinicHospitalTel,ClinicHospitalEmail,MaxBookings")] ClinicHospital clinicHospital)
+        public ActionResult Create(ClinicHospitalCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                db.ClinicHospitals.Add(clinicHospital);
+
+                
+
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(clinicHospital);
+            return View(model);
         }
 
         //get treatment by hospital

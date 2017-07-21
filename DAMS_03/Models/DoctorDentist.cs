@@ -17,23 +17,20 @@ namespace DAMS_03.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DoctorDentist()
         {
-            this.AdminAccountDoctorDentists = new HashSet<AdminAccountDoctorDentist>();
             this.Appointments = new HashSet<Appointment>();
             this.Appointments1 = new HashSet<Appointment>();
-            this.ClinicHospitalDoctorDentists = new HashSet<ClinicHospitalDoctorDentist>();
         }
     
         public int ID { get; set; }
         public string DoctorDentistID { get; set; }
         public string Name { get; set; }
+        public int MaxBookings { get; set; }
+        public int ClinicHospitalID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdminAccountDoctorDentist> AdminAccountDoctorDentists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClinicHospitalDoctorDentist> ClinicHospitalDoctorDentists { get; set; }
+        public virtual ClinicHospital ClinicHospital { get; set; }
     }
 }

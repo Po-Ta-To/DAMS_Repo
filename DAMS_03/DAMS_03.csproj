@@ -269,9 +269,6 @@
     <Compile Include="Models\AdminAccountClinicHospital.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdminAccountDoctorDentist.cs">
-      <DependentUpon>DAMS_Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AdminAccountsViewModels.cs" />
     <Compile Include="Models\Advertisement.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
@@ -301,9 +298,6 @@
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClinicHospitalAdvertisement.cs">
-      <DependentUpon>DAMS_Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ClinicHospitalDoctorDentist.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClinicHospitalOpeningHour.cs">

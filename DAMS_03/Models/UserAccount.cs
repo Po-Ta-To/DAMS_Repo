@@ -28,6 +28,7 @@ namespace DAMS_03.Models
         public string Mobile { get; set; }
         public string Addrress { get; set; }
         public string AspNetID { get; set; }
+        public bool IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
