@@ -209,6 +209,7 @@
     <Compile Include="API\AccountController.cs" />
     <Compile Include="API\ClinicHospitalsController.cs" />
     <Compile Include="API\DoctorDentistsController.cs" />
+    <Compile Include="API\TreatmentsByHController.cs" />
     <Compile Include="API\TreatmentsController.cs" />
     <Compile Include="API\UserAccountsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -298,9 +299,6 @@
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClinicHospitalAdvertisement.cs">
-      <DependentUpon>DAMS_Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ClinicHospitalOpeningHour.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClinicHospitalTreatment.cs">

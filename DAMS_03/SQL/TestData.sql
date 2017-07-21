@@ -34,6 +34,24 @@ Values ('H111', 'Hospital One',
 'HospOne@hosp.com',
 1);
 
+INSERT INTO OpeningHours
+Values(1,
+'01:00:00',
+'02:00:00',
+1)
+
+INSERT INTO OpeningHours
+Values(2,
+'03:00:00',
+'04:00:00',
+1)
+
+INSERT INTO OpeningHours
+Values(3,
+'00:00:00',
+'00:00:00',
+1)
+
 INSERT INTO ClinicHospital
 Values ('H222', 'Hospital Two',
 'Hospital Two Address at Singapore 222222',
@@ -42,6 +60,24 @@ Values ('H222', 'Hospital Two',
 'HospTwo@hosp.com',
 1);
 
+INSERT INTO OpeningHours
+Values(1,
+'05:00:00',
+'06:00:00',
+2)
+
+INSERT INTO OpeningHours
+Values(2,
+'07:00:00',
+'08:00:00',
+2)
+
+INSERT INTO OpeningHours
+Values(3,
+'09:00:00',
+'10:00:00',
+2)
+
 INSERT INTO ClinicHospital
 Values ('H333', 'Hospital Three',
 'Hospital Three Address at Singapore 333333',
@@ -49,6 +85,24 @@ Values ('H333', 'Hospital Three',
 'Hosp Three Tel: 1234666',
 'HospThree@hosp.com',
 1);
+
+INSERT INTO OpeningHours
+Values(1,
+'11:00:00',
+'12:00:00',
+3)
+
+INSERT INTO OpeningHours
+Values(2,
+'13:00:00',
+'14:00:00',
+3)
+
+INSERT INTO OpeningHours
+Values(3,
+'15:00:00',
+'16:00:00',
+3)
 
 INSERT INTO [dbo].[AspNetUsers]
 Values ('2a6e9769-165b-4ca1-939f-7b32c1402835', 
