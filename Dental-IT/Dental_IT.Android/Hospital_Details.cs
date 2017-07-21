@@ -51,7 +51,7 @@ namespace Dental_IT.Droid
 
             //Implement CustomTheme ActionBar
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.HCDetails_title);
+            toolbar.SetTitle(Resource.String.hospDetails_title);
             SetSupportActionBar(toolbar);
 
             //Set backarrow as Default

@@ -49,10 +49,37 @@ namespace Dental_IT.Droid
                 apptDetails_StatusLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
             });
 
+            //  Intent to redirect to update appointment page
+            apptDetails_UpdateBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Update_Appointment));
+                intent.PutExtra("update_HospitalName", apptDetails_HospitalText.Text);
+                StartActivity(intent);
+            };
+
+            //  Handle delete button
+            apptDetails_DeleteBtn.Click += delegate
+            {
+                Android.App.AlertDialog.Builder delConfirm = new Android.App.AlertDialog.Builder(this);
+                delConfirm.SetTitle(Resource.String.delete_title);
+                delConfirm.SetMessage(Resource.String.delete_text);
+                delConfirm.SetNegativeButton(Resource.String.confirm_delete, delegate
+                {
+                    Toast.MakeText(this, Resource.String.delete_OK, ToastLength.Short).Show();
+
+                    Intent intent = new Intent(this, typeof(My_Appointments));
+                    StartActivity(intent);
+                });
+                delConfirm.SetNeutralButton(Resource.String.cancel, delegate
+                {
+                    delConfirm.Dispose();
+                });
+                delConfirm.Show();
+            };
 
             //Implement CustomTheme ActionBar
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.apptdetails_title);
+            toolbar.SetTitle(Resource.String.apptDetails_title);
             SetSupportActionBar(toolbar);
 
             //Set backarrow as Default

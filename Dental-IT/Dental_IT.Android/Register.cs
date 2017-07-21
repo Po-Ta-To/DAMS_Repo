@@ -66,12 +66,13 @@ namespace Dental_IT.Droid
                     AlertDialog.Builder pdpa = new AlertDialog.Builder(this);
                     pdpa.SetTitle(Resource.String.pdpa_title);
                     pdpa.SetMessage(Resource.String.pdpa_text);
-                    pdpa.SetNeutralButton("Close", delegate
+                    pdpa.SetNeutralButton(Resource.String.close, delegate
                     {
                         pdpa.Dispose();
                     });
 
                     var alert = pdpa.Show();
+
                     TextView alertMessage = (TextView)alert.Window.DecorView.FindViewById(Android.Resource.Id.Message);
                     alertMessage.SetTextSize(Android.Util.ComplexUnitType.Px, Convert.ToSingle(register_RegisterBtn.TextSize * 0.8));
                 };

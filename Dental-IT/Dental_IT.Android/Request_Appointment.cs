@@ -3,8 +3,6 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Dental_IT.Droid.Fragments;
-using System;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
@@ -14,8 +12,6 @@ namespace Dental_IT.Droid
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Request_Appointment : AppCompatActivity
     {
-        private string TAG = "DatePickerFragment";
-
         DrawerLayout drawerLayout;
         NavigationView navigationView;
 
@@ -68,10 +64,18 @@ namespace Dental_IT.Droid
                 StartActivity(intent);
             };
 
+            //  Handle request button
+            request_SubmitBtn.Click += delegate
+            {
+                Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
+
+                Intent intent = new Intent(this, typeof(My_Appointments));
+                StartActivity(intent);
+            };
 
             //Implement CustomTheme ActionBar
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.requestappt_title);
+            toolbar.SetTitle(Resource.String.request_title);
             SetSupportActionBar(toolbar);
 
             //Set menu hambuger
