@@ -84,8 +84,6 @@ namespace DAMS_03.Controllers
 
                     UserManager.AddToRole(currentUser.Id, "User");
 
-
-
                     string aspID = (from AspNetUsers in db.AspNetUsers
                                     where AspNetUsers.UserName == model.UserName
                                     select AspNetUsers.Id).First().ToString();
@@ -112,6 +110,13 @@ namespace DAMS_03.Controllers
             }
 
             return View(model);
+        }
+
+        // POST : api/AddUserAccountMobile
+        [Route("api/AddUserAccountMobile")]
+        public string AddUserAccount()
+        {
+            return "";
         }
 
         // GET: UserAccounts/Edit/5

@@ -15,9 +15,6 @@ namespace Dental_IT.Droid
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Select_Hospital : AppCompatActivity
     {
-        public static int LIST_HEIGHT;
-        //public static List<Favourite> favouriteList;
-
         private Hospital a = new Hospital(1, "Hospital 1");
         private Hospital b = new Hospital(2, "Hospital 2");
         private Hospital c = new Hospital(3, "Hospital 3");
@@ -60,6 +57,13 @@ namespace Dental_IT.Droid
             hospitalList.Add(l);
             hospitalList.Add(m);
 
+            List<Hospital> tempHospitalList = new List<Hospital>();
+
+            foreach (Hospital h in hospitalList)
+            {
+                tempHospitalList.Add(h);
+            }
+
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 
             //  Uncomment to clear shared preferences
@@ -73,28 +77,37 @@ namespace Dental_IT.Droid
                 //  Retrieve list of hospital ids that are favourited
                 prefList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(prefs.GetString("favourites", "null"));
 
-                //  Create a temporary list of favourites with all the hospitals
-                foreach (Hospital hosp in hospitalList)
+                //  If favourites shared preferences is empty
+                if (prefList.Count == 0)
                 {
-                    Favourite tempFav = new Favourite(hosp.id);
-
-                    //  Set favourited to true if hospital id corresponds with id in shared preferences
-                    if (prefList.Exists(e => (e == hosp.id)))
-                    {
-                        tempFav.favourited = true;
-                    }
-
-                    tempFavouriteList.Add(tempFav);
+                    hospitalList.Clear();
                 }
+                else
+                {
+                    //  Loop through all hospitals
+                    foreach (Hospital hosp in hospitalList)
+                    {
+                        //  Add to favourites list if hospital id corresponds with id in shared preferences
+                        if (prefList.Exists(e => (e == hosp.id)))
+                        {
+                            Favourite tempFav = new Favourite(hosp.id, true);
+                            tempFavouriteList.Add(tempFav);
+                        }
+                        //  Remove from hospital list if hospital id does not correspond with id in shared preferences
+                        else
+                        {
+                            tempHospitalList.Remove(tempHospitalList.Find(e => (e.id == hosp.id)));
+                        }
+                    }
+                }
+
+                hospitalList = tempHospitalList;
             }
 
-            //  Else if shared preferences is empty, create a temporary list of favourites with all the hospitals, setting all favourited to false by default
+            //  Else if shared preferences is empty, don't display any hospitals
             else
             {
-                foreach (Hospital hosp in hospitalList)
-                {
-                    tempFavouriteList.Add(new Favourite(hosp.id));
-                }
+                hospitalList.Clear();
             }
 
             RunOnUiThread(() =>
@@ -102,7 +115,6 @@ namespace Dental_IT.Droid
                 //  Configure custom adapter for recyclerview
                 selectHospital_RecyclerView.Post(() =>
                 {
-                    LIST_HEIGHT = selectHospital_RecyclerView.Height;
                     selectHospital_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
                     RecyclerViewAdapter_SelectHospital adapter = new RecyclerViewAdapter_SelectHospital(this, hospitalList, prefList, tempFavouriteList);

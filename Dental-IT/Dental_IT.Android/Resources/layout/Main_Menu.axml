@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:weightSum="1"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -10,27 +9,32 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
-  <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4" />
-    <android.support.v4.widget.DrawerLayout 
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.6">
-            <GridView
-                android:id="@+id/mainMenu_GridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:numColumns="2"
-                android:listSelector="@null"
-                android:verticalSpacing="0dp"
-                android:horizontalSpacing="0dp" />
+                android:layout_height="0dp"
+                android:layout_weight="0.4" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.6">
+                <GridView
+                    android:id="@+id/mainMenu_GridView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:numColumns="2"
+                    android:listSelector="@null"
+                    android:verticalSpacing="0dp"
+                    android:horizontalSpacing="0dp" />
+            </LinearLayout>
         </LinearLayout>
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"

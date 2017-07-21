@@ -1,0 +1,87 @@
+﻿@model DAMS_03.Models.DoctorDentist
+
+@{
+    ViewBag.Title = "ViewSchedule";
+}
+
+<!-- jQuery CDN -->
+<script src="~/scripts/jquery.min.js"></script>
+
+<!-- Bootstrap CDN -->
+<link href="~/content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/scripts/bootstrap.min.js"></script>
+
+<!-- Zabuto -->
+<link rel="stylesheet" type="text/css" href="//zabuto.com/assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="//zabuto.com/assets/css/examples.css">
+
+<!-- Zabuto Calendar -->
+<script src="~/scripts/zabuto_calendar.js"></script>
+<script src="~/scripts/zabuto_calendar.min.js"></script>
+<link href="~/content/zabuto_calendar.css" rel="stylesheet" />
+<link href="~/content/zabuto_calendar.min.css" rel="stylesheet" />
+
+<h2>View Dentist Schedule</h2>
+
+<div class="container example">
+        <div class="row">
+            <div class="col-xs-5">
+                <div id="my-calendar"></div>
+                <style>
+                    .grade-1 {
+                        background-color: #FA2601;
+                    }
+
+                    .grade-2 {
+                        background-color: #FA8A00;
+                    }
+
+                    .grade-3 {
+                        background-color: #FFEB00;
+                    }
+
+                    .grade-4 {
+                        background-color: #27AB00;
+                    }
+
+                    .purple {
+                        background-color: purple;
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script>
+    $(document).ready(function () {
+        $("#my-calendar").zabuto_calendar({
+            legend: [
+                { type: "text", label: "Special event", badge: "00" },
+                { type: "block", label: "Regular event", classname: 'purple' },
+                { type: "spacer" },
+                { type: "text", label: "Bad" },
+                { type: "list", list: ["grade-1", "grade-2", "grade-3", "grade-4"] },
+                { type: "text", label: "Good" }
+            ],
+            ajax: {
+                url: "show_data.php?grade=1"
+            }
+        });
+
+        var twotwo = 22;
+        var two2 = "-" + 22 + "_day";
+
+        var date = $('[id^="zabuto_calendar"][id$="-22_day"]');
+        date.removeClass('day');
+        date.addClass('day grade-1');
+
+        var date = $('[id^="zabuto_calendar"][id$="-25_day"]');
+        date.removeClass('day');
+        date.addClass('day grade-3');
+    });     
+</script>

@@ -43,6 +43,10 @@
                         onclick="location.href='@Url.Action("Index", "DoctorDentists")'">
                     Back to List
                 </button>
+                <button class="btn btn-default" type="button"
+                        onclick="location.href='@Url.Action("ViewSchedule", "DoctorDentists", new { id = Model.ID})'">
+                    View Dentist's Schedule
+                </button>
             </div>
         </div>
     </div>
