@@ -40,7 +40,23 @@ namespace DAMS_03.Controllers
         // GET: ClinicHospitals/Create
         public ActionResult Create()
         {
-            return View();
+            ClinicHospitalCreateModel model = new ClinicHospitalCreateModel();
+
+            
+
+            model.OpeningHours = new List<OpeningHour>();
+
+            for (int i = 1; i <= 3; i++)
+            {
+                model.OpeningHours.Add(new OpeningHour()
+                {
+                    OpeningHoursDay = i
+                });
+            }
+
+
+            
+            return View(model);
         }
 
         // POST: ClinicHospitals/Create
@@ -48,16 +64,35 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ClinicHospitalID,ClinicHospitalName,ClinicHospitalAddress,ClinicHospitalOpenHours,ClinicHospitalTel,ClinicHospitalEmail,MaxBookings")] ClinicHospital clinicHospital)
+        public ActionResult Create(ClinicHospitalCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                db.ClinicHospitals.Add(clinicHospital);
+                ClinicHospital addClinicHospital = new ClinicHospital()
+                {
+                    ClinicHospitalID = model.ClinicHospitalID,
+                    ClinicHospitalName = model.ClinicHospitalName,
+                    ClinicHospitalAddress = model.ClinicHospitalAddress,
+                    ClinicHospitalOpenHours = model.ClinicHospitalOpenHours,
+                    ClinicHospitalTel = model.ClinicHospitalTel,
+                    ClinicHospitalEmail = model.ClinicHospitalEmail,
+                    IsStringOpenHours = model.IsStringOpenHours
+                };
+
+                for (int i = 0; i < 3; i++)
+                {
+                    OpeningHour addOpenHr = new OpeningHour()
+                    {
+
+                    };
+                }
+
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(clinicHospital);
+            return View(model);
         }
 
         //get treatment by hospital
@@ -85,7 +120,7 @@ namespace DAMS_03.Controllers
                                  where cht.ClinicHospitalID == id
                                  select new AddTreatmentsModel()
                                  {
-                                     TreatmentID = t.TreatmentID,
+                                     TreatmentID = t.ID,
                                      //TreatmentName = t.TreatmentName,
                                      //TreatmentDesc = t.TreatmentDesc,
                                      //IsFollowUp = t.IsFollowUp,
@@ -97,7 +132,7 @@ namespace DAMS_03.Controllers
             var allTreatments = from t in db.Treatments
                                 select new AddTreatmentsModel()
                                 {
-                                    TreatmentID = t.TreatmentID,
+                                    TreatmentID = t.ID,
                                     TreatmentName = t.TreatmentName,
                                     TreatmentDesc = t.TreatmentDesc,
                                     IsFollowUp = t.IsFollowUp,
@@ -144,7 +179,7 @@ namespace DAMS_03.Controllers
                         IsChecked = false
 
                     });
-                    
+
                 }
 
             }
@@ -161,7 +196,7 @@ namespace DAMS_03.Controllers
         // GET: ClinicHospitals/EditTreatments/5
         public ActionResult EditTreatments(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -182,7 +217,7 @@ namespace DAMS_03.Controllers
                                  where cht.ClinicHospitalID == id
                                  select new AddTreatmentsModel()
                                  {
-                                     TreatmentID = t.TreatmentID,
+                                     TreatmentID = t.ID,
                                      //TreatmentName = t.TreatmentName,
                                      //TreatmentDesc = t.TreatmentDesc,
                                      //IsFollowUp = t.IsFollowUp,
@@ -194,7 +229,7 @@ namespace DAMS_03.Controllers
             var allTreatments = from t in db.Treatments
                                 select new AddTreatmentsModel()
                                 {
-                                    TreatmentID = t.TreatmentID,
+                                    TreatmentID = t.ID,
                                     TreatmentName = t.TreatmentName,
                                     TreatmentDesc = t.TreatmentDesc,
                                     IsFollowUp = t.IsFollowUp,
@@ -256,23 +291,54 @@ namespace DAMS_03.Controllers
         }
 
 
-        // POST: ClinicHospitals/AddTreatments/5
+        // POST: ClinicHospitals/EditTreatments/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditTreatments(EditTreatmentsModel EditTreatmentsModel)
+        public ActionResult EditTreatments(List<EditTreatmentsModel> editTreatmentsList)
         {
+
+            if (editTreatmentsList == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             if (ModelState.IsValid)
             {
 
+                var url = Url.RequestContext.RouteData.Values["id"];
+                int hospid = Int32.Parse((string)url);
 
 
+                var dellist = from cht in db.ClinicHospitalTreatments
+                              join ch in db.ClinicHospitals on cht.ClinicHospitalID equals ch.ID
+                              where cht.ClinicHospitalID == hospid
+                              select cht;
+
+                db.ClinicHospitalTreatments.RemoveRange(dellist);
+
+                foreach (EditTreatmentsModel editTreatment in editTreatmentsList)
+                {
+                    if(editTreatment.IsChecked == true)
+                    {
+                        db.ClinicHospitalTreatments.Add(new ClinicHospitalTreatment()
+                        {
+                            TreatmentID = editTreatment.TreatmentID,
+                            ClinicHospitalID = hospid,
+                            Price = editTreatment.Price
+                        });
+                    }
+                    
+                    
+                }
+
+                
                 //db.Entry(clinicHospital).State = EntityState.Modified;
-                //db.SaveChanges();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(EditTreatmentsModel);
+            return View(editTreatmentsList);
         }
 
 
@@ -343,4 +409,7 @@ namespace DAMS_03.Controllers
             base.Dispose(disposing);
         }
     }
+
+    
+
 }

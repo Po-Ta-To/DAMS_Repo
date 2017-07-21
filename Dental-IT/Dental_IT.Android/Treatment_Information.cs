@@ -8,6 +8,8 @@ using Android.Widget;
 using Android.Views;
 using Android.Content;
 using Android.Support.V7.App;
+using Android.Support.V4.Widget;
+using Android.Support.Design.Widget;
 
 namespace Dental_IT.Droid
 {
@@ -25,6 +27,9 @@ namespace Dental_IT.Droid
         private Treatment g = new Treatment(7, "Treatment 7", 500, 1000);
 
         private List<Treatment> list = new List<Treatment>();
+
+        DrawerLayout drawerLayout;
+        NavigationView navigationView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -62,8 +67,22 @@ namespace Dental_IT.Droid
             toolbar.SetTitle(Resource.String.treatmentinfo_title);
             SetSupportActionBar(toolbar);
 
-            //Set backarrow as Default
+
+            //Set menu hambuger
+            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+            navigationView.InflateMenu(Resource.Menu.nav_menu);
+
+            navigationView.NavigationItemSelected += (sender, e) =>
+            {
+                e.MenuItem.SetChecked(true);
+                //react to click here and swap fragments or navigate
+                drawerLayout.CloseDrawers();
+            };
 
         }
 
@@ -77,11 +96,12 @@ namespace Dental_IT.Droid
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            Intent intent = new Intent(this, typeof(Main_Menu));
-            StartActivity(intent);
-
-            Toast.MakeText(this, "Main Menu",
-                ToastLength.Short).Show();
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    return true;
+            }
             return base.OnOptionsItemSelected(item);
         }
     }

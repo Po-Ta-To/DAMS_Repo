@@ -6,6 +6,8 @@ using Android.OS;
 using Dental_IT.Droid.Fragments;
 using System;
 using Android.Support.V7.App;
+using Android.Support.V4.Widget;
+using Android.Support.Design.Widget;
 
 namespace Dental_IT.Droid
 {
@@ -13,6 +15,9 @@ namespace Dental_IT.Droid
     public class Request_Appointment : AppCompatActivity
     {
         private string TAG = "DatePickerFragment";
+
+        DrawerLayout drawerLayout;
+        NavigationView navigationView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -22,7 +27,7 @@ namespace Dental_IT.Droid
             SetContentView(Resource.Layout.Request_Appointment);
 
             //  Receive data from select_hospital
-            string hospitalName = Intent.GetStringExtra("hospitalName") ?? "Data not available";
+            string hospitalName = Intent.GetStringExtra("request_HospitalName") ?? "Data not available";
 
             //  Create widgets
             TextView request_HospitalLabel = FindViewById<TextView>(Resource.Id.request_HospitalLabel);
@@ -54,13 +59,14 @@ namespace Dental_IT.Droid
 
                 //  Set hospital name
                 request_HospitalField.Text = hospitalName;
-
-                //  Set date field onClick to show and implement DatePicker
-                request_DateField.Click += delegate
-                {
-                    SelectDate(request_DateField);
-                };
             });
+
+            //  Intent to redirect to calendar page
+            request_DateField.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Calendar));
+                StartActivity(intent);
+            };
 
 
             //Implement CustomTheme ActionBar
@@ -68,8 +74,21 @@ namespace Dental_IT.Droid
             toolbar.SetTitle(Resource.String.requestappt_title);
             SetSupportActionBar(toolbar);
 
-            //Set backarrow as Default
+            //Set menu hambuger
+            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+            navigationView.InflateMenu(Resource.Menu.nav_menu);
+
+            navigationView.NavigationItemSelected += (sender, e) =>
+            {
+                e.MenuItem.SetChecked(true);
+                //react to click here and swap fragments or navigate
+                drawerLayout.CloseDrawers();
+            };
         }
 
 
@@ -83,23 +102,13 @@ namespace Dental_IT.Droid
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            Intent intent = new Intent(this, typeof(Select_Hospital));
-            StartActivity(intent);
-
-            Toast.MakeText(this, "Select Hospital/Clinics",
-                ToastLength.Short).Show();
-            return base.OnOptionsItemSelected(item);
-        }
-
-        //  Method to call DatePickerFragment
-        private void SelectDate(EditText request_DateField)
-        {
-            DatePickerFragment fragment = DatePickerFragment.NewInstance(delegate (DateTime time)
+            switch (item.ItemId)
             {
-                request_DateField.Text = time.ToLongDateString();
-            });
-
-            fragment.Show(FragmentManager, TAG);
+                case Android.Resource.Id.Home:
+                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
         }
     }
 }

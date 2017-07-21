@@ -9,9 +9,20 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/treatmentInformation_RecyclerView"
-        android:scrollbars="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+    <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/treatmentInformation_RecyclerView"
+            android:scrollbars="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="start"
+            android:background="@color/light_blue" />
+    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

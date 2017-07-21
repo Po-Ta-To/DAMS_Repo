@@ -80,8 +80,9 @@ namespace DAMS_03.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var currentUser = UserManager.FindByName(user.UserName);
 
-
+                    UserManager.AddToRole(currentUser.Id, "User");
 
                     string aspID = (from AspNetUsers in db.AspNetUsers
                                     where AspNetUsers.UserName == model.UserName
@@ -89,7 +90,7 @@ namespace DAMS_03.Controllers
 
                     UserAccount addUserAccount = new UserAccount();
 
-                    addUserAccount.ID = 1;
+                    //addUserAccount.ID = 1;
                     addUserAccount.NRIC = model.NRIC;
                     addUserAccount.Name = model.Name;
                     addUserAccount.DOB = model.DOB;
@@ -97,6 +98,7 @@ namespace DAMS_03.Controllers
                     addUserAccount.Mobile = model.Mobile.ToString();
                     addUserAccount.Addrress = model.Addrress;
                     addUserAccount.AspNetID = aspID;
+                    addUserAccount.IsDeleted = false;
 
                     db.UserAccounts.Add(addUserAccount);
                     db.SaveChanges();
@@ -108,6 +110,13 @@ namespace DAMS_03.Controllers
             }
 
             return View(model);
+        }
+
+        // POST : api/AddUserAccountMobile
+        [Route("api/AddUserAccountMobile")]
+        public string AddUserAccount()
+        {
+            return "";
         }
 
         // GET: UserAccounts/Edit/5

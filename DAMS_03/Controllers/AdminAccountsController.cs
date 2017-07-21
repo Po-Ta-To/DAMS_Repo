@@ -69,7 +69,54 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            return View(adminAccount);
+
+            string UserName = (from AspNetUsers in db.AspNetUsers
+                               where AspNetUsers.Id == adminAccount.AspNetID
+                               select AspNetUsers.UserName).First().ToString();
+
+
+            AdminAccountDetailModel adminAccountEdit = new AdminAccountDetailModel();
+
+            adminAccountEdit.ID = adminAccount.ID;
+            adminAccountEdit.AdminID = adminAccount.AdminID;
+            adminAccountEdit.Name = adminAccount.Name;
+            adminAccountEdit.Email = adminAccount.Email;
+            //adminAccountEdit.SecurityLevel = adminAccount.SecurityLevel;
+
+            switch (adminAccount.SecurityLevel)
+            {
+                case "1":
+                    adminAccountEdit.SecurityLevel = "System Admin";
+                    break;
+                case "2":
+                    adminAccountEdit.SecurityLevel = "Hospital/Clinic Admin";
+                    break;
+                case "3":
+                    adminAccountEdit.SecurityLevel = "Hospital/Clinic Clerk";
+                    break;
+                default:
+                    adminAccountEdit.SecurityLevel = "Error : not defined";
+                    break;
+            }
+
+            adminAccountEdit.UserName = UserName;
+
+            try
+            {
+                string clinhospname = (from ch in db.ClinicHospitals
+                                       join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                       join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                       where aa.ID == id
+                                       select ch.ClinicHospitalName).First().ToString();
+
+                adminAccountEdit.HospClin = clinhospname;
+            }
+            catch (Exception)
+            {
+                adminAccountEdit.HospClin = " - ";
+            }
+
+            return View(adminAccountEdit);
         }
 
 
@@ -79,7 +126,29 @@ namespace DAMS_03.Controllers
         public ActionResult Create()
         {
             //var tuple = new Tuple<AdminAccount, RegisterViewModel>(new AdminAccount(), new RegisterViewModel());
-            return View();
+
+            AdminAccountCreateModel returnmodel = new AdminAccountCreateModel();
+
+            returnmodel.itemSelection = new List<SelectListItem>();
+
+            var listOfHosp = from ClinHosp in db.ClinicHospitals
+                             select new SelectListItem()
+                             {
+                                 Value = ClinHosp.ID.ToString(),
+                                 Text = ClinHosp.ClinicHospitalName
+                             };
+
+            returnmodel.itemSelection.Add(new SelectListItem()
+            {
+                Value = "notselected",
+                Text = " - "
+            });
+
+            returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+
+
+
+            return View(returnmodel);
         }
 
         // POST: AdminAccounts/Create
@@ -95,38 +164,13 @@ namespace DAMS_03.Controllers
             {
 
                 //Only system admin can create system admin accounts
-                if (model.SecurityLevel == 1)
+                if (model.SecurityLevel.Equals("1"))
                 {
                     if (!User.IsInRole("Admin"))
                     {
                         return RedirectToAction("Unauthorized", "Account");
                     }
                 }
-
-                //switch (model.SecurityLevel)
-                //{
-                //    case 1:
-                //        if (User.IsInRole("Admin"))
-                //        {
-
-                //        }
-                //        else
-                //        {
-                //            return RedirectToAction("Unauthorized", "Account");
-                //        }
-                //        break;
-                //    case 2:
-
-                //        break;
-                //    case 3:
-
-                //        break;
-                //    default:
-
-                //        break;
-                //}
-
-
 
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -147,17 +191,17 @@ namespace DAMS_03.Controllers
 
                     switch (model.SecurityLevel)
                     {
-                        case 1:
+                        case "1":
                             UserManager.AddToRole(currentUser.Id, "SysAdmin");
                             break;
-                        case 2:
+                        case "2":
                             UserManager.AddToRole(currentUser.Id, "HospAdmin");
                             break;
-                        case 3:
+                        case "3":
                             UserManager.AddToRole(currentUser.Id, "ClerkAdmin");
                             break;
                         default:
-                            UserManager.AddToRole(currentUser.Id, "User");
+                            UserManager.AddToRole(currentUser.Id, "User");//
                             break;
                     }
 
@@ -186,16 +230,51 @@ namespace DAMS_03.Controllers
                     addAdminAccount.AspNetID = aspID;
 
                     db.AdminAccounts.Add(addAdminAccount);
+
                     db.SaveChanges();
+
+                    if (!model.HospClinID.Equals("notselected"))
+                    {
+                        AdminAccountClinicHospital newrelation = new AdminAccountClinicHospital();
+
+                        int currentid = (int)(from adminAccounts in db.AdminAccounts
+                                              where adminAccounts.AspNetID == aspID
+                                              select adminAccounts.ID).First();
+
+                        newrelation.ClinicHospitalID = Int32.Parse(model.HospClinID);
+                        newrelation.AdminID = currentid;
+                        db.AdminAccountClinicHospitals.Add(newrelation);
+                        db.SaveChanges();
+                    }
+
                     //return RedirectToAction("Index");
 
-
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "AdminAccounts");
                 }
                 AddErrors(result);
 
 
             }
+
+
+            model.itemSelection = new List<SelectListItem>();
+
+            var listOfHosp = from ClinHosp in db.ClinicHospitals
+                             select new SelectListItem()
+                             {
+                                 Value = ClinHosp.ID.ToString(),
+                                 Text = ClinHosp.ClinicHospitalName
+                             };
+
+            model.itemSelection.Add(new SelectListItem()
+            {
+                Value = "notselected",
+                Text = " - "
+            });
+
+            model.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+
+
 
             return View(model);
         }
@@ -225,9 +304,40 @@ namespace DAMS_03.Controllers
             adminAccountEdit.AdminID = adminAccount.AdminID;
             adminAccountEdit.Name = adminAccount.Name;
             adminAccountEdit.Email = adminAccount.Email;
-            adminAccountEdit.SecurityLevel = Int32.Parse(adminAccount.SecurityLevel);
+            //adminAccountEdit.SecurityLevel = adminAccount.SecurityLevel;
+
+            switch (adminAccount.SecurityLevel)
+            {
+                case "1":
+                    adminAccountEdit.SecurityLevel = "System Admin";
+                    break;
+                case "2":
+                    adminAccountEdit.SecurityLevel = "Hospital/Clinic Admin";
+                    break;
+                case "3":
+                    adminAccountEdit.SecurityLevel = "Hospital/Clinic Clerk";
+                    break;
+                default:
+                    adminAccountEdit.SecurityLevel = "Error : not defined";
+                    break;
+            }
 
             adminAccountEdit.UserName = UserName;
+
+            try
+            {
+                string clinhospname = (from ch in db.ClinicHospitals
+                                       join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                       join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                       where aa.ID == id
+                                       select ch.ClinicHospitalName).First().ToString();
+
+                adminAccountEdit.HospClin = clinhospname;
+            }
+            catch (Exception)
+            {
+                adminAccountEdit.HospClin = " - ";
+            }
 
             return View(adminAccountEdit);
         }
@@ -257,13 +367,22 @@ namespace DAMS_03.Controllers
                 editAdminAccount.AdminID = model.AdminID;
                 editAdminAccount.Name = model.Name;
                 editAdminAccount.Email = model.Email;
-                editAdminAccount.SecurityLevel = model.SecurityLevel.ToString();
+                //editAdminAccount.SecurityLevel = model.SecurityLevel.ToString();
                 //editAdminAccount.AspNetID = aspID;
 
 
                 db.Entry(editAdminAccount).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                AspNetUser editAspNetUser = (from anu in db.AspNetUsers
+                                             where anu.Id == editAdminAccount.AspNetID
+                                             select anu).SingleOrDefault();
+
+                editAspNetUser.Email = model.Email;
+                db.Entry(editAspNetUser).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index", "AdminAccounts");
             }
             return View(model);
         }
@@ -281,7 +400,55 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            return View(adminAccount);
+
+
+            string UserName = (from AspNetUsers in db.AspNetUsers
+                               where AspNetUsers.Id == adminAccount.AspNetID
+                               select AspNetUsers.UserName).First().ToString();
+
+
+            AdminAccountDetailModel adminAccountEdit = new AdminAccountDetailModel();
+
+            adminAccountEdit.ID = adminAccount.ID;
+            adminAccountEdit.AdminID = adminAccount.AdminID;
+            adminAccountEdit.Name = adminAccount.Name;
+            adminAccountEdit.Email = adminAccount.Email;
+            //adminAccountEdit.SecurityLevel = adminAccount.SecurityLevel;
+
+            switch (adminAccount.SecurityLevel)
+            {
+                case "1":
+                    adminAccountEdit.SecurityLevel = "System Admin";
+                    break;
+                case "2":
+                    adminAccountEdit.SecurityLevel = "Hospital/Clinic Admin";
+                    break;
+                case "3":
+                    adminAccountEdit.SecurityLevel = "Hospital/Clinic Clerk";
+                    break;
+                default:
+                    adminAccountEdit.SecurityLevel = "Error : not defined";
+                    break;
+            }
+
+            adminAccountEdit.UserName = UserName;
+
+            try
+            {
+                string clinhospname = (from ch in db.ClinicHospitals
+                                       join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                       join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                       where aa.ID == id
+                                       select ch.ClinicHospitalName).First().ToString();
+
+                adminAccountEdit.HospClin = clinhospname;
+            }
+            catch (Exception)
+            {
+                adminAccountEdit.HospClin = " - ";
+            }
+
+            return View(adminAccountEdit);
         }
 
         // POST: AdminAccounts/Delete/5
@@ -291,9 +458,34 @@ namespace DAMS_03.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             AdminAccount adminAccount = db.AdminAccounts.Find(id);
+
+
+            AdminAccountClinicHospital deleteRelationtoCh = (from aach in db.AdminAccountClinicHospitals
+                                                             join aa in db.AdminAccounts on aach.AdminID equals aa.ID
+                                                             where aa.ID == adminAccount.ID
+                                                             select aach).SingleOrDefault();
+
+            AspNetUser deleteRelationToAnu = (from anu in db.AspNetUsers
+                                              join aa in db.AdminAccounts on anu.Id equals aa.AspNetID
+                                              where aa.ID == adminAccount.ID
+                                              select anu).FirstOrDefault(); ;
+
+            //AdminAccountDoctorDentist
+
+            if(deleteRelationtoCh != null)
+            {
+                db.AdminAccountClinicHospitals.Remove(deleteRelationtoCh);
+            }
+
+            if (deleteRelationtoCh != null)
+            {
+                db.AspNetUsers.Remove(deleteRelationToAnu);
+            }
+
             db.AdminAccounts.Remove(adminAccount);
+
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "AdminAccounts");
         }
 
         protected override void Dispose(bool disposing)

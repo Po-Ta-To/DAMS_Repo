@@ -12,13 +12,13 @@ namespace DAMS_03.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AdminAccountDoctorDentist
+    public partial class AdminAccountClinicHospital
     {
         public int ID { get; set; }
-        public int DoctorDentistID { get; set; }
+        public int ClinicHospitalID { get; set; }
         public int AdminID { get; set; }
     
         public virtual AdminAccount AdminAccount { get; set; }
-        public virtual DoctorDentist DoctorDentist { get; set; }
+        public virtual ClinicHospital ClinicHospital { get; set; }
     }
 }

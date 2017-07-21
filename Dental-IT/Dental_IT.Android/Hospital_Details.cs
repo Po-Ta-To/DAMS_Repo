@@ -23,6 +23,9 @@ namespace Dental_IT.Droid
             //  Set view to request appointment layout
             SetContentView(Resource.Layout.Hospital_Details);
 
+            //  Receive data from search_hospital
+            string hospitalName = Intent.GetStringExtra("details_HospitalName") ?? "Data not available";
+
             //  Create widgets
             TextView hospDetails_HospitalText = FindViewById<TextView>(Resource.Id.hospDetails_HospitalText);
             TextView hospDetails_AddressLabel = FindViewById<TextView>(Resource.Id.hospDetails_AddressLabel);
@@ -41,6 +44,9 @@ namespace Dental_IT.Droid
                 hospDetails_AddressLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 hospDetails_OpeningHoursLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 hospDetails_ContactLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+
+                //  Set hospital name
+                hospDetails_HospitalText.Text = hospitalName;
             });
 
             //Implement CustomTheme ActionBar

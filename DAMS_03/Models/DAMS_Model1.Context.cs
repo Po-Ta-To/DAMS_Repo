@@ -26,7 +26,7 @@ namespace DAMS_03.Models
         }
     
         public virtual DbSet<AdminAccount> AdminAccounts { get; set; }
-        public virtual DbSet<AdminAccountDoctorDentist> AdminAccountDoctorDentists { get; set; }
+        public virtual DbSet<AdminAccountClinicHospital> AdminAccountClinicHospitals { get; set; }
         public virtual DbSet<Advertisement> Advertisements { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<AppointmentTreatment> AppointmentTreatments { get; set; }
@@ -37,7 +37,6 @@ namespace DAMS_03.Models
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<ClinicHospital> ClinicHospitals { get; set; }
         public virtual DbSet<ClinicHospitalAdvertisement> ClinicHospitalAdvertisements { get; set; }
-        public virtual DbSet<ClinicHospitalDoctorDentist> ClinicHospitalDoctorDentists { get; set; }
         public virtual DbSet<ClinicHospitalOpeningHour> ClinicHospitalOpeningHours { get; set; }
         public virtual DbSet<ClinicHospitalTreatment> ClinicHospitalTreatments { get; set; }
         public virtual DbSet<DoctorDentist> DoctorDentists { get; set; }

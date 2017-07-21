@@ -15,6 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
@@ -109,13 +110,16 @@
   <ItemGroup>
     <Compile Include="Adapters\GridAdapter_MainMenu.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_TreatmentInformation.cs" />
+    <Compile Include="Adapters\RecyclerViewAdapter_SearchHospital.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Appointment_Details.cs" />
+    <Compile Include="Calendar.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
     <Compile Include="Fragments\SearchHospitalFragment.cs" />
     <Compile Include="Fragments\SearchTreatmentFragment.cs" />
     <Compile Include="Hospital_Details.cs" />
+    <Compile Include="Search.cs" />
     <Compile Include="Sign_In.cs" />
     <Compile Include="Main_Menu.cs" />
     <Compile Include="Register.cs" />
@@ -160,6 +164,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\sublayout_Treatment_Info_List_Item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Calendar.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Search_Hospital.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Search.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -402,9 +415,24 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_calendar_range.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\User\Desktop\material-calendarview-xamarin-android-master\Binding\MaterialCalendar.csproj">
+    <AndroidResource Include="Resources\drawable-hdpi\ic_medisys_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_medisys_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_medisys_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_medisys_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_medisys_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BindingLibrary\MaterialCalendar_BindingLibrary.csproj">
       <Project>{f6aef2a2-e137-40d0-b124-16580b6763e1}</Project>
-      <Name>MaterialCalendar</Name>
+      <Name>MaterialCalendar_BindingLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />

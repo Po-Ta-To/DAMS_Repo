@@ -44,7 +44,7 @@ namespace Dental_IT.Droid.Adapters
             {
                 tempFavouriteList[position].favourited = true;
 
-                prefList.Add(position + 1);
+                prefList.Add(tempFavouriteList[position].id);
 
                 Toast.MakeText(context, hospitalList[position].name + " added to favourites!", ToastLength.Short).Show();
             }
@@ -52,7 +52,7 @@ namespace Dental_IT.Droid.Adapters
             {
                 tempFavouriteList[position].favourited = false;
 
-                prefList.Remove(prefList.Find(e => (e == position + 1)));
+                prefList.Remove(prefList.Find(e => (e == tempFavouriteList[position].id)));
 
                 Toast.MakeText(context, hospitalList[position].name + " removed from favourites!", ToastLength.Short).Show();
             }
@@ -73,7 +73,7 @@ namespace Dental_IT.Droid.Adapters
             SelectHospital_ViewHolder vh = holder as SelectHospital_ViewHolder;
 
             //  Set height of row
-            vh.ItemView.LayoutParameters.Height = Select_Hospital.LIST_HEIGHT / 6;
+            vh.ItemView.LayoutParameters.Height = (Main_Menu.SCREEN_HEIGHT - Main_Menu.ACTIONBAR_HEIGHT) / 6;
 
             //  Set alternating background of row
             int type = GetItemViewType(position);
@@ -98,7 +98,7 @@ namespace Dental_IT.Droid.Adapters
             holder.ItemView.Click += delegate
             {
                 Intent intent = new Intent(context, typeof(Request_Appointment));
-                intent.PutExtra("hospitalName", holder.hospitalName.Text);
+                intent.PutExtra("request_HospitalName", holder.hospitalName.Text);
                 context.StartActivity(intent);
             };
 
@@ -116,8 +116,8 @@ namespace Dental_IT.Droid.Adapters
 
         public SelectHospital_ViewHolder(View view, Action<int> listener) : base(view)
         {
-            hospitalName = view.FindViewById<TextView>(Resource.Id.selectHospital_HospitalText);
-            hospitalFavourites = view.FindViewById<ToggleButton>(Resource.Id.selectHospital_FavouritesToggle);
+            hospitalName = view.FindViewById<TextView>(Resource.Id.list_HospitalText);
+            hospitalFavourites = view.FindViewById<ToggleButton>(Resource.Id.list_FavouritesToggle);
 
             hospitalFavourites.Click += (sender, e) => listener(AdapterPosition);
         }
