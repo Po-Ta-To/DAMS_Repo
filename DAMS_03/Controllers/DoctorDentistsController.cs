@@ -38,9 +38,7 @@ namespace DAMS_03.Controllers
                     HospClin = returnDocHospName,
                     MaxBookings = doctorDentist.MaxBookings
                 };
-
                 returnListofDoc.Add(returnModel);
-
             }
 
             return View(returnListofDoc);
