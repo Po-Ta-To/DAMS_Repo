@@ -27,7 +27,7 @@ namespace Dental_IT.Droid
             SetContentView(Resource.Layout.Request_Appointment);
 
             //  Receive data from select_hospital
-            string hospitalName = Intent.GetStringExtra("hospitalName") ?? "Data not available";
+            string hospitalName = Intent.GetStringExtra("request_HospitalName") ?? "Data not available";
 
             //  Create widgets
             TextView request_HospitalLabel = FindViewById<TextView>(Resource.Id.request_HospitalLabel);
@@ -59,13 +59,14 @@ namespace Dental_IT.Droid
 
                 //  Set hospital name
                 request_HospitalField.Text = hospitalName;
-
-                //  Set date field onClick to show and implement DatePicker
-                request_DateField.Click += delegate
-                {
-                    SelectDate(request_DateField);
-                };
             });
+
+            //  Intent to redirect to calendar page
+            request_DateField.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Calendar));
+                StartActivity(intent);
+            };
 
 
             //Implement CustomTheme ActionBar
@@ -108,17 +109,6 @@ namespace Dental_IT.Droid
                     return true;
             }
             return base.OnOptionsItemSelected(item);
-        }
-
-        //  Method to call DatePickerFragment
-        private void SelectDate(EditText request_DateField)
-        {
-            DatePickerFragment fragment = DatePickerFragment.NewInstance(delegate (DateTime time)
-            {
-                request_DateField.Text = time.ToLongDateString();
-            });
-
-            fragment.Show(FragmentManager, TAG);
         }
     }
 }

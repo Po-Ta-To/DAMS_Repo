@@ -15,7 +15,7 @@ namespace Dental_IT.Droid.Fragments
 {
     public class SearchTreatmentFragment : Fragment
     {
-        public override void OnCreate(Bundle savedInstanceState)
+        public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 

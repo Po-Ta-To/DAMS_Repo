@@ -26,6 +26,7 @@ namespace DAMS_03.Models
         }
     
         public virtual DbSet<AdminAccount> AdminAccounts { get; set; }
+        public virtual DbSet<AdminAccountClinicHospital> AdminAccountClinicHospitals { get; set; }
         public virtual DbSet<AdminAccountDoctorDentist> AdminAccountDoctorDentists { get; set; }
         public virtual DbSet<Advertisement> Advertisements { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
