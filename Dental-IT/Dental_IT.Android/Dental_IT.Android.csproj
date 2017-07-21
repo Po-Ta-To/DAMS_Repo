@@ -428,6 +428,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_medisys_logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BindingLibrary\MaterialCalendar_BindingLibrary.csproj">
+      <Project>{f6aef2a2-e137-40d0-b124-16580b6763e1}</Project>
+      <Name>MaterialCalendar_BindingLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
