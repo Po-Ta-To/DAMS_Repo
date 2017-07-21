@@ -53,6 +53,7 @@ namespace Dental_IT.Droid.Adapters
                 vh.ItemView.SetBackgroundResource(Resource.Color._8_white);
             }
 
+            // Set view data
             vh.treatmentName.Text = list[position].name;
             vh.treatmentPrice.Text = "$" + list[position].minPrice + "  -  $" + list[position].maxPrice;
         }

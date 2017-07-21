@@ -10,22 +10,21 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Fragments;
-using Android.Support.V7.Widget;
 
 namespace Dental_IT.Droid
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Search : Activity
+    public class My_Appointments : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            //  Set view to search layout
-            SetContentView(Resource.Layout.Search);
+            // Set view to my appointments layout
+            SetContentView(Resource.Layout.My_Appointments);
 
-            //  Create and launch search hospital fragment
-            SearchHospitalFragment fragment = new SearchHospitalFragment();
+            //  Create and launch upcoming appointments fragment
+            AppointmentsUpcomingFragment fragment = new AppointmentsUpcomingFragment();
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             transaction.Add(Resource.Id.fragmentContainer, fragment);
             transaction.Commit();

@@ -9,6 +9,7 @@
     <Import_RootNamespace>Dental_IT</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Appointment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Favourite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hospital.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Treatment.cs" />
