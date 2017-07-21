@@ -53,6 +53,8 @@ namespace DAMS_03.Controllers
                     OpeningHoursDay = i
                 });
             }
+
+
             
             return View(model);
         }
@@ -66,8 +68,24 @@ namespace DAMS_03.Controllers
         {
             if (ModelState.IsValid)
             {
+                ClinicHospital addClinicHospital = new ClinicHospital()
+                {
+                    ClinicHospitalID = model.ClinicHospitalID,
+                    ClinicHospitalName = model.ClinicHospitalName,
+                    ClinicHospitalAddress = model.ClinicHospitalAddress,
+                    ClinicHospitalOpenHours = model.ClinicHospitalOpenHours,
+                    ClinicHospitalTel = model.ClinicHospitalTel,
+                    ClinicHospitalEmail = model.ClinicHospitalEmail,
+                    IsStringOpenHours = model.IsStringOpenHours
+                };
 
-                
+                for (int i = 0; i < 3; i++)
+                {
+                    OpeningHour addOpenHr = new OpeningHour()
+                    {
+
+                    };
+                }
 
 
                 db.SaveChanges();
