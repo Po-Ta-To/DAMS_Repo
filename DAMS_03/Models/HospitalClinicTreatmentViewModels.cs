@@ -7,6 +7,39 @@ using System.ComponentModel.DataAnnotations;
 namespace DAMS_03.Models
 {
 
+    public class ClinicHospitalCreateModel
+    {
+        [Required]
+        public int ID { get; set; }
+        [Required]
+        [Display(Name = "Organisational ID")]
+        public string ClinicHospitalID { get; set; }
+        [Required]
+        [Display(Name = "Name")]
+        public string ClinicHospitalName { get; set; }
+        [Required]
+        [Display(Name = "Address")]
+        public string ClinicHospitalAddress { get; set; }
+        [Required]
+        [Display(Name = "Opening Hours String")]
+        public string ClinicHospitalOpenHours { get; set; }
+        [Required]
+        [Display(Name = "Tel")]
+        public string ClinicHospitalTel { get; set; }
+        [Required]
+        [Display(Name = "Email")]
+        public string ClinicHospitalEmail { get; set; }
+        [Required]
+        [Display(Name = "Use Opening Hours String")]
+        public bool IsStringOpenHours { get; set; }
+
+
+        //[Display(Name = "")]
+        //public List<System.Web.Mvc.SelectListItem> itemSelection { get; set; }
+
+        public List<OpeningHour> OpeningHours { get; set; }
+
+    }
 
     public class AddTreatmentsModel
     {

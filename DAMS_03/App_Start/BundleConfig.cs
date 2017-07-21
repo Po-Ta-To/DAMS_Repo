@@ -23,6 +23,15 @@ namespace DAMS_03
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // ** For calendar master
+            //bundles.Add(new StyleBundle("~/Content/bootstrap/css")
+            //            .Include("~/Content/zabuto_calendar.css")
+            //            .Include("~/Content/zabuto_calendar.min.css"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap")
+            //      .Include("~/Scripts/zabuto_calendar.js",
+            //       "~/Scripts/zabuto_calendar.min.js"));
         }
     }
 }

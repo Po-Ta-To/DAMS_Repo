@@ -21,7 +21,41 @@ namespace DAMS_03.Models
         [Required]
         public string HospClinID { get; set; }
 
+        [Required]
+        public int MaxBookings { get; set; }
+
     }
-    
+
+    public class DoctorDentistDetailModel
+    {
+
+        public int ID { get; set; }
+        public string DoctorDentistID { get; set; }
+        public string Name { get; set; }
+
+
+        [Display(Name = "Hospital/Clinic")]
+        public string HospClin { get; set; }
+        
+        public int MaxBookings { get; set; }
+
+    }
+
+    public class DoctorDentistEditModel
+    {
+
+        public int ID { get; set; }
+        public string DoctorDentistID { get; set; }
+        public string Name { get; set; }
+        
+        //[Required]
+        [Display(Name = "Hospital/Clinic")]
+        public string HospClin { get; set; }
+
+        [Required]
+        public int MaxBookings { get; set; }
+
+    }
+
 }
 

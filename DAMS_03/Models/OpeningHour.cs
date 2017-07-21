@@ -23,7 +23,7 @@ namespace DAMS_03.Models
         public int ID { get; set; }
         public int OpeningHoursDay { get; set; }
         public System.TimeSpan TimeRangeStart { get; set; }
-        public System.TimeSpan TimeRangeENd { get; set; }
+        public System.TimeSpan TimeRangeEnd { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClinicHospitalOpeningHour> ClinicHospitalOpeningHours { get; set; }
