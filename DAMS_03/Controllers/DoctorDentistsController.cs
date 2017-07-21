@@ -75,6 +75,23 @@ namespace DAMS_03.Controllers
             return View(doctorDentist);
         }
 
+        // GET: DoctorDentists/ViewSchedule
+        public ActionResult ViewSchedule(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Change the "Find" later 
+            DoctorDentist doctorDentist = db.DoctorDentists.Find(id);
+            if (doctorDentist == null)
+            {
+                return HttpNotFound();
+            }
+            return View(doctorDentist);
+        }
+
+
         // POST: DoctorDentists/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

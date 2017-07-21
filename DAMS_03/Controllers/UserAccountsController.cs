@@ -81,8 +81,6 @@ namespace DAMS_03.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-
-
                     string aspID = (from AspNetUsers in db.AspNetUsers
                                     where AspNetUsers.UserName == model.UserName
                                     select AspNetUsers.Id).First().ToString();
@@ -108,6 +106,13 @@ namespace DAMS_03.Controllers
             }
 
             return View(model);
+        }
+
+        // POST : api/AddUserAccountMobile
+        [Route("api/AddUserAccountMobile")]
+        public string AddUserAccount()
+        {
+            return "";
         }
 
         // GET: UserAccounts/Edit/5
