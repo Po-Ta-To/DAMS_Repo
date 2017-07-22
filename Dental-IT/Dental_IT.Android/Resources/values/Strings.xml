@@ -65,4 +65,5 @@
   <string name="request_OK">Request successful!</string>
   <string name="update_OK">Update successful!</string>
   <string name="delete_OK">Appointment deleted.</string>
+  <string name="price">Price information :</string>
 </resources>

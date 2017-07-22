@@ -6,16 +6,21 @@ using Android.Widget;
 using Android.Support.V7.Widget;
 using System.Collections;
 using System.Collections.Generic;
+using Dental_IT.Droid.Fragments;
+using Android.OS;
 
 namespace Dental_IT.Droid.Adapters
 {
     class RecyclerViewAdapter_TreatmentInformation : RecyclerView.Adapter
     {
+        private readonly Activity activity;
         private readonly Context context;
         private List<Treatment> list;
+        Bundle bundle = new Bundle();
 
-        public RecyclerViewAdapter_TreatmentInformation(Context c, List<Treatment> l)
+        public RecyclerViewAdapter_TreatmentInformation(Activity a, Context c, List<Treatment> l)
         {
+            activity = a;
             context = c;
             list = l;
         }
@@ -62,6 +67,17 @@ namespace Dental_IT.Droid.Adapters
         {
             View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Treatment_Info_List_Item, parent, false);
             TreatmentInformation_ViewHolder holder = new TreatmentInformation_ViewHolder(view);
+
+            //  Display information dialog fragment on click
+            holder.ItemView.Click += delegate
+            {
+                bundle.PutString("treatmentName", list[holder.AdapterPosition].name);
+
+                TreatmentDialogFragment fragment = new TreatmentDialogFragment();
+                FragmentTransaction transaction = activity.FragmentManager.BeginTransaction();
+                fragment.Arguments = bundle;
+                fragment.Show(transaction, "dialog_fragment");
+            };
 
             return holder;
         }

@@ -211,6 +211,7 @@
     <Compile Include="API\DoctorDentistsController.cs" />
     <Compile Include="API\TreatmentsController.cs" />
     <Compile Include="API\UserAccountsController.cs" />
+    <Compile Include="Appointment.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />

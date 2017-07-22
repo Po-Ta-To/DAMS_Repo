@@ -57,7 +57,7 @@ namespace Dental_IT.Droid
                     LIST_HEIGHT = treatmentInformation_RecyclerView.Height;
                     treatmentInformation_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
-                    RecyclerViewAdapter_TreatmentInformation adapter = new RecyclerViewAdapter_TreatmentInformation(this, list);
+                    RecyclerViewAdapter_TreatmentInformation adapter = new RecyclerViewAdapter_TreatmentInformation(this, this, list);
                     treatmentInformation_RecyclerView.SetAdapter(adapter);
                 });
             });
