@@ -54,6 +54,32 @@ namespace DAMS_03.API
             return Ok(returntreatment);
         }
 
+        //// GET: api/TreatmentsByHid/5
+        //[ResponseType(typeof(Treatment))]
+        //[Route("byhid/{id:int}")]
+        //public IHttpActionResult GetTreatmentsByHid(int id)
+        //{
+        //    Treatment treatment = db.Treatments.Find(id);
+        //    if (treatment == null)
+        //    {
+        //        return NotFound();
+        //    }
+            
+        //    var returntreatment = from Treatment in db.Treatments
+        //                          join ClinHospTreat in db.ClinicHospitalTreatments on Treatment.ID equals ClinHospTreat.TreatmentID
+        //                          join ClinHosp in db.ClinicHospitals on ClinHospTreat.ClinicHospitalID equals ClinHosp.ID
+        //                          where ClinHosp.ID == id
+        //                          select new
+        //                          {
+        //                              Treatment.ID,
+        //                              Treatment.TreatmentName,
+        //                              Treatment.TreatmentDesc,
+        //                              Treatment.IsFollowUp
+        //                          };
+
+        //    return Ok(returntreatment);
+        //}
+
         // PUT: api/Treatments/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutTreatment(int id, Treatment treatment)

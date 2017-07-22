@@ -138,13 +138,7 @@ Create table OpeningHours
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	OpeningHoursDay INT NOT NULL,
 	TimeRangeStart TIME NOT NULL,
-	TimeRangeEnd TIME NOT NULL
-)
-
-Create table ClinicHospitalOpeningHours
-(
-	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
-	OpeningHoursID INT FOREIGN KEY REFERENCES OpeningHours(ID) NOT NULL,
+	TimeRangeEnd TIME NOT NULL,
 	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL
 )
 
