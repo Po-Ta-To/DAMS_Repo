@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Dental_IT.Droid.Fragments
 {
-    public class SearchTreatmentFragment : Fragment
+    public class SearchTreatmentFragment : Android.Support.V4.App.Fragment
     {
         public override void OnActivityCreated(Bundle savedInstanceState)
         {

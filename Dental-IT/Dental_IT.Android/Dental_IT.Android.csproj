@@ -114,6 +114,7 @@
     <Compile Include="Adapters\RecyclerViewAdapter_SearchHospital.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
+    <Compile Include="Adapters\TabsAdapter.cs" />
     <Compile Include="Appointment_Details.cs" />
     <Compile Include="Calendar.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
@@ -458,6 +459,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\dialog_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\actionBar_background.xml" />
   </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
