@@ -49,6 +49,14 @@ namespace Dental_IT.Droid
                 hospDetails_HospitalText.Text = hospitalName;
             });
 
+            //  Intent to redirect to request page
+            hospDetails_RequestBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Request_Appointment));
+                intent.PutExtra("request_HospitalName", hospDetails_HospitalText.Text);
+                StartActivity(intent);
+            };
+
             //Implement CustomTheme ActionBar
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             toolbar.SetTitle(Resource.String.hospDetails_title);
