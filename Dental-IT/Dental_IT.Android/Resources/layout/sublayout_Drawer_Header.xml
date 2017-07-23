@@ -16,9 +16,7 @@
           android:id="@+id/MedisysLogo_Image"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"
-          android:src="@drawable/ic_medisys_logo"
-          android:scaleX="2.0"
-          android:scaleY="2.0" />
+          android:src="@drawable/ic_medisys_logo"/>
   </RelativeLayout>
 
 </LinearLayout>

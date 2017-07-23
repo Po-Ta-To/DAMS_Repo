@@ -62,14 +62,14 @@ namespace Dental_IT.Droid
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
-            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            SetupDrawerContent(navigationView);
-            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
-            navigationView.InflateMenu(Resource.Menu.nav_menu);
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                SetupDrawerContent(navigationView);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
 
+            });
         }
-
+          
             private void SetupDrawerContent(NavigationView navigationView)
              {
             navigationView.NavigationItemSelected += (sender, e) =>

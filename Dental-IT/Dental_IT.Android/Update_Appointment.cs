@@ -84,12 +84,12 @@ namespace Dental_IT.Droid
                 };
             });
 
-            //  Intent to redirect to calendar page
-            update_DateField.Click += delegate
-            {
-                Intent intent = new Intent(this, typeof(Calendar));
-                StartActivity(intent);
-            };
+            ////  Intent to redirect to calendar page
+            //update_DateField.Click += delegate
+            //{
+            //    Intent intent = new Intent(this, typeof(Calendar));
+            //    StartActivity(intent);
+            //};
 
             //  Handle update button
             update_SubmitBtn.Click += delegate
