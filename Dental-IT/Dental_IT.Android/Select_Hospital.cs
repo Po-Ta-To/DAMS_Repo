@@ -121,15 +121,15 @@ namespace Dental_IT.Droid
                     selectHospital_RecyclerView.SetAdapter(adapter);
                 });
 
-                //Implement CustomTheme ActionBar
-                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-                toolbar.SetTitle(Resource.String.selectHC_title);
-                SetSupportActionBar(toolbar);
+                   //Implement CustomTheme ActionBar
+                   var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                   toolbar.SetTitle(Resource.String.selectHC_title);
+                   SetSupportActionBar(toolbar);
 
-                //Set backarrow as Default
-                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            });
-        }
+                   //Set backarrow as Default
+                    SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                });
+            }            
 
         //Readonly of list of hospitals in search bars
         private readonly List<string> Hospitals = new List<string>

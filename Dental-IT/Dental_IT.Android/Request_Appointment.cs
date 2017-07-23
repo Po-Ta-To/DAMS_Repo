@@ -61,12 +61,12 @@ namespace Dental_IT.Droid
                 request_HospitalField.Text = hospitalName;
             });
 
-            //  Intent to redirect to calendar page
-            request_DateField.Click += delegate
-            {
-                Intent intent = new Intent(this, typeof(Calendar));
-                StartActivity(intent);
-            };
+            ////  Intent to redirect to calendar page
+            //request_DateField.Click += delegate
+            //{
+            //    Intent intent = new Intent(this, typeof(Calendar));
+            //    StartActivity(intent);
+            //};
 
 
             //Implement CustomTheme ActionBar
