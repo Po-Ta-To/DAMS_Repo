@@ -77,7 +77,7 @@
                     android:fontFamily="sans-serif-light" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/hospDetails_ContactLayout"
+                android:id="@+id/hospDetails_TelephoneLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
@@ -86,13 +86,36 @@
                 android:orientation="horizontal"
                 android:layout_below="@id/hospDetails_OpeningHoursLayout">
                 <TextView
-                    android:id="@+id/hospDetails_ContactLabel"
+                    android:id="@+id/hospDetails_TelephoneLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_blue"
-                    android:text="@string/contact" />
+                    android:text="@string/telephone" />
                 <TextView
-                    android:id="@+id/hospDetails_ContactText"
+                    android:id="@+id/hospDetails_TelephoneText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-light" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hospDetails_EmailLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/hospDetails_TelephoneLayout">
+                <TextView
+                    android:id="@+id/hospDetails_EmailLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/email" />
+                <TextView
+                    android:id="@+id/hospDetails_EmailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -103,7 +126,7 @@
                 android:id="@+id/hospDetails_TreatmentsBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/hospDetails_ContactLayout"
+                android:layout_below="@id/hospDetails_EmailLayout"
                 android:layout_marginTop="35dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"

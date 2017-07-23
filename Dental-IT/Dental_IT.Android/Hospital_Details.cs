@@ -32,8 +32,10 @@ namespace Dental_IT.Droid
             TextView hospDetails_AddressText = FindViewById<TextView>(Resource.Id.hospDetails_AddressText);
             TextView hospDetails_OpeningHoursLabel = FindViewById<TextView>(Resource.Id.hospDetails_OpeningHoursLabel);
             TextView hospDetails_OpeningHoursText = FindViewById<TextView>(Resource.Id.hospDetails_OpeningHoursText);
-            TextView hospDetails_ContactLabel = FindViewById<TextView>(Resource.Id.hospDetails_ContactLabel);
-            TextView hospDetails_ContactText = FindViewById<TextView>(Resource.Id.hospDetails_ContactText);
+            TextView hospDetails_TelephoneLabel = FindViewById<TextView>(Resource.Id.hospDetails_TelephoneLabel);
+            TextView hospDetails_TelephoneText = FindViewById<TextView>(Resource.Id.hospDetails_TelephoneText);
+            TextView hospDetails_EmailLabel = FindViewById<TextView>(Resource.Id.hospDetails_EmailLabel);
+            TextView hospDetails_EmailText = FindViewById<TextView>(Resource.Id.hospDetails_EmailText);
             Button hospDetails_TreatmentsBtn = FindViewById<Button>(Resource.Id.hospDetails_TreatmentsBtn);
             Button hospDetails_RequestBtn = FindViewById<Button>(Resource.Id.hospDetails_RequestBtn);
 
@@ -43,7 +45,8 @@ namespace Dental_IT.Droid
                 hospDetails_HospitalText.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 hospDetails_AddressLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 hospDetails_OpeningHoursLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
-                hospDetails_ContactLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+                hospDetails_TelephoneLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+                hospDetails_EmailLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
 
                 //  Set hospital name
                 hospDetails_HospitalText.Text = hospitalName;
