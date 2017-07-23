@@ -6,6 +6,7 @@ using Android.OS;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
+using Android.Preferences;
 
 namespace Dental_IT.Droid
 {
@@ -14,6 +15,8 @@ namespace Dental_IT.Droid
     {
         DrawerLayout drawerLayout;
         NavigationView navigationView;
+        private string hospitalName;
+        private bool isUsed;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -21,9 +24,6 @@ namespace Dental_IT.Droid
 
             //  Set view to request appointment layout
             SetContentView(Resource.Layout.Request_Appointment);
-
-            //  Receive data from select_hospital
-            string hospitalName = Intent.GetStringExtra("request_HospitalName") ?? "Data not available";
 
             //  Create widgets
             TextView request_HospitalLabel = FindViewById<TextView>(Resource.Id.request_HospitalLabel);
@@ -38,6 +38,33 @@ namespace Dental_IT.Droid
             TextView request_RemarksLabel = FindViewById<TextView>(Resource.Id.request_RemarksLabel);
             EditText request_RemarksField = FindViewById<EditText>(Resource.Id.request_RemarksField);
             Button request_SubmitBtn = FindViewById<Button>(Resource.Id.request_SubmitBtn);
+
+            //  Shared preferences
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+
+            //  Check if redirected from select_hospital or from calendar
+            Intent i = this.Intent;
+
+            if (i.GetStringExtra("request_HospitalName") != null)
+            {
+                //  Receive data from select_hospital
+                hospitalName = i.GetStringExtra("request_HospitalName");
+            }
+            else
+            {
+                //  If shared preferences contains hospital name
+                if (prefs.Contains("hospitalName"))
+                {
+                    //  Receive data from bundle
+                    hospitalName = prefs.GetString("hospitalName", "Data not available");
+
+                    if (i.GetStringExtra("calendar_Date") != null)
+                    {
+                        //  Receive data from calendar
+                        request_DateField.Text = i.GetStringExtra("calendar_Date");
+                    }
+                }
+            }
 
             RunOnUiThread(() =>
             {
@@ -113,6 +140,18 @@ namespace Dental_IT.Droid
                     return true;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        // Save hospital name as instance state
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            //  Save hospital name to shared preferences
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutString("hospitalName", hospitalName);
+            editor.Apply();
         }
     }
 }

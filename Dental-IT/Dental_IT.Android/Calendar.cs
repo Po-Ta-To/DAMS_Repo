@@ -18,14 +18,22 @@ namespace Dental_IT.Droid
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Calendar : Activity
     {
+        private static Java.Text.DateFormat formatter = Java.Text.DateFormat.DateInstance;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
+            //  Set view to calendar layout
             SetContentView(Resource.Layout.Calendar);
 
+            //  Create widgets
             MaterialCalendarView calendar = FindViewById<MaterialCalendarView>(Resource.Id.calendarView);
+            TextView calendar_DateText = FindViewById<TextView>(Resource.Id.calendar_DateText);
+            Button calendar_ConfirmBtn = FindViewById<Button>(Resource.Id.calendar_ConfirmBtn);
+
             calendar.SetSelectedDate(Java.Util.Calendar.GetInstance(Java.Util.Locale.English));
+            calendar_DateText.Text = formatter.Format(calendar.SelectedDate.Date);
 
             List<CalendarDay> dates = new List<CalendarDay>();
 
@@ -56,6 +64,17 @@ namespace Dental_IT.Droid
             calendar.AddDecorators(new EventDecorator(Color.Red, dates));
             calendar.AddDecorators(new EventDecorator(Color.Green, dates2));
 
+            calendar.DateChanged += delegate
+            {
+                calendar_DateText.Text = formatter.Format(calendar.SelectedDate.Date);
+            };
+
+            calendar_ConfirmBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Request_Appointment));
+                intent.PutExtra("calendar_Date", formatter.Format(calendar.SelectedDate.Date));
+                StartActivity(intent);
+            };
         }
     }
 
