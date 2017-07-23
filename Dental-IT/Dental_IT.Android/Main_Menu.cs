@@ -48,27 +48,27 @@ namespace Dental_IT.Droid
                     GRID_HEIGHT = mainMenu_GridView.Height;
                     mainMenu_GridView.Adapter = new GridAdapter_MainMenu(this, buttonTexts);
                 });
+
+                //Implement CustomTheme ActionBar(toolbar)
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                SetSupportActionBar(toolbar);
+
+                //Set menu hambuger
+                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
+
+                navigationView.NavigationItemSelected += (sender, e) =>
+                {
+                    e.MenuItem.SetChecked(true);
+                    //react to click here and swap fragments or navigate
+                    drawerLayout.CloseDrawers();
+                };
             });
-
-            //Implement CustomTheme ActionBar(toolbar)
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            //Set menu hambuger
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
-            navigationView.InflateMenu(Resource.Menu.nav_menu);
-
-            navigationView.NavigationItemSelected += (sender, e) =>
-            {
-                e.MenuItem.SetChecked(true);
-                //react to click here and swap fragments or navigate
-                drawerLayout.CloseDrawers();
-            };
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

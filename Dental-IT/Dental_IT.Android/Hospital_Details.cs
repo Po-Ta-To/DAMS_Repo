@@ -47,6 +47,14 @@ namespace Dental_IT.Droid
 
                 //  Set hospital name
                 hospDetails_HospitalText.Text = hospitalName;
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.hospDetails_title);
+                SetSupportActionBar(toolbar);
+
+                //Set backarrow as Default
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
 
             //  Intent to redirect to request page
@@ -56,14 +64,6 @@ namespace Dental_IT.Droid
                 intent.PutExtra("request_HospitalName", hospDetails_HospitalText.Text);
                 StartActivity(intent);
             };
-
-            //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.hospDetails_title);
-            SetSupportActionBar(toolbar);
-
-            //Set backarrow as Default
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
         //Implement menus in the action bar; backarrow

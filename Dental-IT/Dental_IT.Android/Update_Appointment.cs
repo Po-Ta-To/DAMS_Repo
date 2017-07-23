@@ -61,6 +61,27 @@ namespace Dental_IT.Droid
 
                 //  Set hospital name
                 update_HospitalField.Text = hospitalName;
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.update_title);
+                SetSupportActionBar(toolbar);
+
+                //Set menu hambuger
+                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
+
+                navigationView.NavigationItemSelected += (sender, e) =>
+                {
+                    e.MenuItem.SetChecked(true);
+                    //react to click here and swap fragments or navigate
+                    drawerLayout.CloseDrawers();
+                };
             });
 
             //  Intent to redirect to calendar page
@@ -77,27 +98,6 @@ namespace Dental_IT.Droid
 
                 Intent intent = new Intent(this, typeof(My_Appointments));
                 StartActivity(intent);
-            };
-
-            //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.update_title);
-            SetSupportActionBar(toolbar);
-
-            //Set menu hambuger
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
-            navigationView.InflateMenu(Resource.Menu.nav_menu);
-
-            navigationView.NavigationItemSelected += (sender, e) =>
-            {
-                e.MenuItem.SetChecked(true);
-                //react to click here and swap fragments or navigate
-                drawerLayout.CloseDrawers();
             };
         }
 
