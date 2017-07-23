@@ -19,7 +19,29 @@ namespace DAMS_03.Controllers
         // GET: DoctorDentists
         public ActionResult Index()
         {
-            return View(db.DoctorDentists.ToList());
+
+            List<DoctorDentistDetailModel> returnListofDoc = new List<DoctorDentistDetailModel>();
+
+            foreach (DoctorDentist doctorDentist in db.DoctorDentists)
+            {
+
+                string returnDocHospName = (from hc in db.ClinicHospitals
+                                            join d in db.DoctorDentists on hc.ID equals d.ClinicHospitalID
+                                            where d.ID == doctorDentist.ID
+                                            select hc.ClinicHospitalName).First().ToString();
+
+                DoctorDentistDetailModel returnModel = new DoctorDentistDetailModel()
+                {
+                    ID = doctorDentist.ID,
+                    DoctorDentistID = doctorDentist.DoctorDentistID,
+                    Name = doctorDentist.Name,
+                    HospClin = returnDocHospName,
+                    MaxBookings = doctorDentist.MaxBookings
+                };
+                returnListofDoc.Add(returnModel);
+            }
+
+            return View(returnListofDoc);
         }
 
         // GET: DoctorDentists/Details/5
@@ -34,7 +56,26 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            return View(doctorDentist);
+
+            DoctorDentist returnDoc = (from d in db.DoctorDentists
+                                       where d.ID == id
+                                       select d).SingleOrDefault();
+
+            string returnDocHospName = (from hc in db.ClinicHospitals
+                                        join d in db.DoctorDentists on hc.ID equals d.ClinicHospitalID
+                                        where d.ID == id
+                                        select hc.ClinicHospitalName).First().ToString();
+
+            DoctorDentistDetailModel returnModel = new DoctorDentistDetailModel()
+            {
+                ID = returnDoc.ID,
+                DoctorDentistID = returnDoc.DoctorDentistID,
+                Name = returnDoc.Name,
+                HospClin = returnDocHospName,
+                MaxBookings = returnDoc.MaxBookings
+            };
+
+            return View(returnModel);
         }
 
         // GET: DoctorDentists/Create
@@ -78,23 +119,25 @@ namespace DAMS_03.Controllers
                 DoctorDentist addDoctorDentist = new DoctorDentist()
                 {
                     DoctorDentistID = model.DoctorDentistID,
-                    Name = model.Name
+                    Name = model.Name,
+                    MaxBookings = model.MaxBookings,
+                    ClinicHospitalID = Int32.Parse(model.HospClinID)
                 };
 
                 db.DoctorDentists.Add(addDoctorDentist);
                 db.SaveChanges();
 
 
-                ClinicHospitalDoctorDentist addRelation = new ClinicHospitalDoctorDentist()
-                {
-                    ClinicHospitalID = Int32.Parse(model.HospClinID),
-                    DoctorDentistID = addDoctorDentist.ID
-                };
+                //ClinicHospitalDoctorDentist addRelation = new ClinicHospitalDoctorDentist()
+                //{
+                //    ClinicHospitalID = Int32.Parse(model.HospClinID),
+                //    DoctorDentistID = addDoctorDentist.ID
+                //};
 
-                db.ClinicHospitalDoctorDentists.Add(addRelation);
+                //db.ClinicHospitalDoctorDentists.Add(addRelation);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "DoctorDentists");
             }
 
 
@@ -136,23 +179,65 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            string hospClinName = (from hc in db.ClinicHospitals
+                                   join d in db.DoctorDentists on hc.ID equals d.ClinicHospitalID
+                                   where d.ID == id
+                                   select hc.ClinicHospitalName).First().ToString();
+
+            DoctorDentistEditModel returnModel = new DoctorDentistEditModel()
+            {
+                ID = doctorDentist.ID,
+                DoctorDentistID = doctorDentist.DoctorDentistID,
+                Name = doctorDentist.Name,
+                MaxBookings = doctorDentist.MaxBookings,
+                HospClin = hospClinName
+            };
+
+            return View(returnModel);
+        }
+
+        // GET: DoctorDentists/ViewSchedule
+        public ActionResult ViewSchedule(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Change the "Find" later 
+            DoctorDentist doctorDentist = db.DoctorDentists.Find(id);
+            if (doctorDentist == null)
+            {
+                return HttpNotFound();
+            }
             return View(doctorDentist);
         }
+
 
         // POST: DoctorDentists/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,DoctorDentistID,Name")] DoctorDentist doctorDentist)
+        public ActionResult Edit(DoctorDentistEditModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(doctorDentist).State = EntityState.Modified;
+                DoctorDentist editDoctorDentist = (from d in db.DoctorDentists
+                                                   where d.ID == model.ID
+                                                   select d).SingleOrDefault();
+
+                editDoctorDentist.DoctorDentistID = model.DoctorDentistID;
+                editDoctorDentist.Name = model.Name;
+                editDoctorDentist.MaxBookings = model.MaxBookings;
+
+                db.Entry(editDoctorDentist).State = EntityState.Modified;
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index" , "DoctorDentists");
             }
-            return View(doctorDentist);
+
+            return View(model);
         }
 
         // GET: DoctorDentists/Delete/5
@@ -178,7 +263,7 @@ namespace DAMS_03.Controllers
             DoctorDentist doctorDentist = db.DoctorDentists.Find(id);
             db.DoctorDentists.Remove(doctorDentist);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "DoctorDentists");
         }
 
         protected override void Dispose(bool disposing)

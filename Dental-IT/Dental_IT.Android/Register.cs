@@ -66,15 +66,24 @@ namespace Dental_IT.Droid
                     AlertDialog.Builder pdpa = new AlertDialog.Builder(this);
                     pdpa.SetTitle(Resource.String.pdpa_title);
                     pdpa.SetMessage(Resource.String.pdpa_text);
-                    pdpa.SetNeutralButton("Close", delegate
+                    pdpa.SetNeutralButton(Resource.String.close, delegate
                     {
                         pdpa.Dispose();
                     });
 
                     var alert = pdpa.Show();
+
                     TextView alertMessage = (TextView)alert.Window.DecorView.FindViewById(Android.Resource.Id.Message);
                     alertMessage.SetTextSize(Android.Util.ComplexUnitType.Px, Convert.ToSingle(register_RegisterBtn.TextSize * 0.8));
                 };
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.register_title);
+                SetSupportActionBar(toolbar);
+
+                //Set backarrow as Default
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
 
             //  Intent to redirect to main menu page
@@ -83,15 +92,6 @@ namespace Dental_IT.Droid
                 Intent intent = new Intent(this, typeof(Main_Menu));
                 StartActivity(intent);
             };
-
-            //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.register_title);
-            SetSupportActionBar(toolbar);
-
-            //Set backarrow as Default
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
         }
 
         //Implement menus in the action bar; backarrow
@@ -99,8 +99,7 @@ namespace Dental_IT.Droid
         {
             return true;
         }
-
-
+        
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {

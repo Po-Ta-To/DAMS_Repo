@@ -83,6 +83,7 @@ namespace Dental_IT.Droid.Adapters
                 vh.ItemView.SetBackgroundResource(Resource.Color._8_white);
             }
 
+            // Set view data
             vh.hospitalName.Text = hospitalList[position].name;
             vh.hospitalFavourites.Checked = tempFavouriteList[position].favourited;
         }

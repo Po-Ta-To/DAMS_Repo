@@ -49,16 +49,19 @@ namespace Dental_IT.Droid
                     GRID_HEIGHT = mainMenu_GridView.Height;
                     mainMenu_GridView.Adapter = new GridAdapter_MainMenu(this, buttonTexts);
                 });
-            });
 
-            //Implement CustomTheme ActionBar(toolbar)
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
+                //Implement CustomTheme ActionBar(toolbar)
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                SetSupportActionBar(toolbar);
 
-            //Set menu hambuger
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                //Set menu hambuger
+                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             SetupDrawerContent(navigationView);

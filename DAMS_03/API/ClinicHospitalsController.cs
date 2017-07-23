@@ -32,7 +32,66 @@ namespace DAMS_03.API
                 return NotFound();
             }
 
-            return Ok(clinicHospital);
+
+            List<OpeningHour> openingHours = new List<OpeningHour>();
+
+            openingHours = (from oh in db.OpeningHours
+                            where oh.ClinicHospitalID == clinicHospital.ID
+                            orderby oh.OpeningHoursDay ascending
+                            select oh).ToList();
+
+
+            ClinicHospitalDetailsModel detailedModel = new ClinicHospitalDetailsModel()
+            {
+                ID = clinicHospital.ID,
+                ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                ClinicHospitalAddress = clinicHospital.ClinicHospitalAddress,
+                ClinicHospitalOpenHours = clinicHospital.ClinicHospitalOpenHours,
+                ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
+                ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
+                IsStringOpenHours = clinicHospital.IsStringOpenHours,
+                //OpeningHours = openingHours
+            };
+
+
+
+            if (detailedModel.IsStringOpenHours == true)
+            {
+                var returnModel = new
+                {
+                    ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                    ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                    ClinicHospitalAddress = clinicHospital.ClinicHospitalAddress,
+                    ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
+                    ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
+                    ClinicHospitalOpenHours = clinicHospital.ClinicHospitalOpenHours
+                };
+
+                return Ok(returnModel);
+
+            }
+            else
+            {
+                string openinghours = "Monday to Friday " + openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n" +
+                    "Saturday " + openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n" +
+                    "Sundays and Public Holidays " + openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "";
+
+
+                var returnModel = new
+                {
+                    ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                    ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                    ClinicHospitalAddress = clinicHospital.ClinicHospitalAddress,
+                    ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
+                    ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
+                    ClinicHospitalOpenHours = openinghours
+                };
+
+                return Ok(returnModel);
+            }
+
+            return BadRequest();
         }
 
         // PUT: api/ClinicHospitals/5

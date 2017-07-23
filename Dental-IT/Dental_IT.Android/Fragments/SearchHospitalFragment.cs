@@ -16,10 +16,8 @@ using Dental_IT.Droid.Adapters;
 
 namespace Dental_IT.Droid.Fragments
 {
-    public class SearchHospitalFragment : Fragment
+    public class SearchHospitalFragment : Android.Support.V4.App.Fragment
     {
-        public static int LIST_HEIGHT;
-
         private Hospital a = new Hospital(1, "Hospital 1");
         private Hospital b = new Hospital(2, "Hospital 2");
         private Hospital c = new Hospital(3, "Hospital 3");

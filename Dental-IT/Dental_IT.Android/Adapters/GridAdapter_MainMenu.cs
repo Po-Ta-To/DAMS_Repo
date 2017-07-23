@@ -67,7 +67,7 @@ namespace Dental_IT.Droid.Adapters
                     case 1:
                         button.Click += delegate
                         {
-                            Intent intent = new Intent(context, typeof(Appointment_Details));
+                            Intent intent = new Intent(context, typeof(My_Appointments));
                             context.StartActivity(intent);
                         };
                         break;

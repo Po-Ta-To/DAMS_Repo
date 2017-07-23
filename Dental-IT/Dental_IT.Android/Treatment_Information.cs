@@ -57,33 +57,31 @@ namespace Dental_IT.Droid
                     LIST_HEIGHT = treatmentInformation_RecyclerView.Height;
                     treatmentInformation_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
-                    RecyclerViewAdapter_TreatmentInformation adapter = new RecyclerViewAdapter_TreatmentInformation(this, list);
+                    RecyclerViewAdapter_TreatmentInformation adapter = new RecyclerViewAdapter_TreatmentInformation(this, this, list);
                     treatmentInformation_RecyclerView.SetAdapter(adapter);
                 });
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.treatmentInfo_title);
+                SetSupportActionBar(toolbar);
+
+                //Set menu hambuger
+                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
+
+                navigationView.NavigationItemSelected += (sender, e) =>
+                {
+                    e.MenuItem.SetChecked(true);
+                    //react to click here and swap fragments or navigate
+                    drawerLayout.CloseDrawers();
+                };
             });
-
-            //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.treatmentinfo_title);
-            SetSupportActionBar(toolbar);
-
-
-            //Set menu hambuger
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
-            navigationView.InflateMenu(Resource.Menu.nav_menu);
-
-            navigationView.NavigationItemSelected += (sender, e) =>
-            {
-                e.MenuItem.SetChecked(true);
-                //react to click here and swap fragments or navigate
-                drawerLayout.CloseDrawers();
-            };
-
         }
 
         //Implement menus in the action bar; backarrow

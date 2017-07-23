@@ -3,21 +3,20 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Dental_IT.Droid.Fragments;
-using System;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
+using Android.Preferences;
 
 namespace Dental_IT.Droid
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Request_Appointment : AppCompatActivity
     {
-        private string TAG = "DatePickerFragment";
-
         DrawerLayout drawerLayout;
         NavigationView navigationView;
+        private string hospitalName;
+        private bool isUsed;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,9 +24,6 @@ namespace Dental_IT.Droid
 
             //  Set view to request appointment layout
             SetContentView(Resource.Layout.Request_Appointment);
-
-            //  Receive data from select_hospital
-            string hospitalName = Intent.GetStringExtra("request_HospitalName") ?? "Data not available";
 
             //  Create widgets
             TextView request_HospitalLabel = FindViewById<TextView>(Resource.Id.request_HospitalLabel);
@@ -42,6 +38,33 @@ namespace Dental_IT.Droid
             TextView request_RemarksLabel = FindViewById<TextView>(Resource.Id.request_RemarksLabel);
             EditText request_RemarksField = FindViewById<EditText>(Resource.Id.request_RemarksField);
             Button request_SubmitBtn = FindViewById<Button>(Resource.Id.request_SubmitBtn);
+
+            //  Shared preferences
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+
+            //  Check if redirected from select_hospital or from calendar
+            Intent i = this.Intent;
+
+            if (i.GetStringExtra("request_HospitalName") != null)
+            {
+                //  Receive data from select_hospital
+                hospitalName = i.GetStringExtra("request_HospitalName");
+            }
+            else
+            {
+                //  If shared preferences contains hospital name
+                if (prefs.Contains("hospitalName"))
+                {
+                    //  Receive data from bundle
+                    hospitalName = prefs.GetString("hospitalName", "Data not available");
+
+                    if (i.GetStringExtra("calendar_Date") != null)
+                    {
+                        //  Receive data from calendar
+                        request_DateField.Text = i.GetStringExtra("calendar_Date");
+                    }
+                }
+            }
 
             RunOnUiThread(() =>
             {
@@ -59,6 +82,27 @@ namespace Dental_IT.Droid
 
                 //  Set hospital name
                 request_HospitalField.Text = hospitalName;
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.request_title);
+                SetSupportActionBar(toolbar);
+
+                //Set menu hambuger
+                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
+
+                navigationView.NavigationItemSelected += (sender, e) =>
+                {
+                    e.MenuItem.SetChecked(true);
+                    //react to click here and swap fragments or navigate
+                    drawerLayout.CloseDrawers();
+                };
             });
 
             ////  Intent to redirect to calendar page
@@ -68,36 +112,21 @@ namespace Dental_IT.Droid
             //    StartActivity(intent);
             //};
 
-
-            //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.requestappt_title);
-            SetSupportActionBar(toolbar);
-
-            //Set menu hambuger
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
-            navigationView.InflateMenu(Resource.Menu.nav_menu);
-
-            navigationView.NavigationItemSelected += (sender, e) =>
+            //  Handle request button
+            request_SubmitBtn.Click += delegate
             {
-                e.MenuItem.SetChecked(true);
-                //react to click here and swap fragments or navigate
-                drawerLayout.CloseDrawers();
+                Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
+
+                Intent intent = new Intent(this, typeof(My_Appointments));
+                StartActivity(intent);
             };
         }
-
 
         //Implement menus in the action bar; backarrow
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return true;
         }
-
 
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -109,6 +138,18 @@ namespace Dental_IT.Droid
                     return true;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        // Save hospital name as instance state
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            //  Save hospital name to shared preferences
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutString("hospitalName", hospitalName);
+            editor.Apply();
         }
     }
 }

@@ -47,15 +47,23 @@ namespace Dental_IT.Droid
 
                 //  Set hospital name
                 hospDetails_HospitalText.Text = hospitalName;
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.hospDetails_title);
+                SetSupportActionBar(toolbar);
+
+                //Set backarrow as Default
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
 
-            //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.HCDetails_title);
-            SetSupportActionBar(toolbar);
-
-            //Set backarrow as Default
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            //  Intent to redirect to request page
+            hospDetails_RequestBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Request_Appointment));
+                intent.PutExtra("request_HospitalName", hospDetails_HospitalText.Text);
+                StartActivity(intent);
+            };
         }
 
         //Implement menus in the action bar; backarrow

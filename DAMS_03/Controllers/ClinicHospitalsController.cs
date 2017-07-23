@@ -34,13 +34,50 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            return View(clinicHospital);
+
+            List<OpeningHour> openingHours = new List<OpeningHour>();
+
+            openingHours = (from oh in db.OpeningHours
+                            where oh.ClinicHospitalID == clinicHospital.ID
+                            select oh).ToList();
+
+
+            ClinicHospitalDetailsModel returnModel = new ClinicHospitalDetailsModel()
+            {
+                ID = clinicHospital.ID,
+                ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                ClinicHospitalAddress = clinicHospital.ClinicHospitalAddress,
+                ClinicHospitalOpenHours = clinicHospital.ClinicHospitalOpenHours,
+                ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
+                ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
+                IsStringOpenHours = clinicHospital.IsStringOpenHours,
+                OpeningHours = openingHours
+            };
+
+            return View(returnModel);
         }
 
         // GET: ClinicHospitals/Create
         public ActionResult Create()
         {
-            return View();
+            ClinicHospitalCreateModel model = new ClinicHospitalCreateModel();
+
+
+
+            model.OpeningHours = new List<OpeningHour>();
+
+            for (int i = 1; i <= 3; i++)
+            {
+                model.OpeningHours.Add(new OpeningHour()
+                {
+                    OpeningHoursDay = i
+                });
+            }
+
+
+
+            return View(model);
         }
 
         // POST: ClinicHospitals/Create
@@ -48,16 +85,43 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ClinicHospitalID,ClinicHospitalName,ClinicHospitalAddress,ClinicHospitalOpenHours,ClinicHospitalTel,ClinicHospitalEmail,MaxBookings")] ClinicHospital clinicHospital)
+        public ActionResult Create(ClinicHospitalCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                db.ClinicHospitals.Add(clinicHospital);
+                ClinicHospital addClinicHospital = new ClinicHospital()
+                {
+                    ClinicHospitalID = model.ClinicHospitalID,
+                    ClinicHospitalName = model.ClinicHospitalName,
+                    ClinicHospitalAddress = model.ClinicHospitalAddress,
+                    ClinicHospitalOpenHours = model.ClinicHospitalOpenHours,
+                    ClinicHospitalTel = model.ClinicHospitalTel,
+                    ClinicHospitalEmail = model.ClinicHospitalEmail,
+                    IsStringOpenHours = model.IsStringOpenHours
+                };
+
+                db.ClinicHospitals.Add(addClinicHospital);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    OpeningHour addOpenHr = new OpeningHour()
+                    {
+                        OpeningHoursDay = (i + 1),
+                        TimeRangeStart = model.OpeningHours[i].TimeRangeStart,
+                        TimeRangeEnd = model.OpeningHours[i].TimeRangeEnd,
+                        ClinicHospitalID = addClinicHospital.ID
+                    };
+
+                    db.OpeningHours.Add(addOpenHr);
+
+                }
+
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(clinicHospital);
+            return View(model);
         }
 
         //get treatment by hospital
@@ -285,7 +349,7 @@ namespace DAMS_03.Controllers
 
                 foreach (EditTreatmentsModel editTreatment in editTreatmentsList)
                 {
-                    if(editTreatment.IsChecked == true)
+                    if (editTreatment.IsChecked == true)
                     {
                         db.ClinicHospitalTreatments.Add(new ClinicHospitalTreatment()
                         {
@@ -294,11 +358,11 @@ namespace DAMS_03.Controllers
                             Price = editTreatment.Price
                         });
                     }
-                    
-                    
+
+
                 }
 
-                
+
                 //db.Entry(clinicHospital).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -320,7 +384,28 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            return View(clinicHospital);
+
+            List<OpeningHour> openingHours = new List<OpeningHour>();
+
+            openingHours = (from oh in db.OpeningHours
+                            where oh.ClinicHospitalID == clinicHospital.ID
+                            select oh).ToList();
+
+
+            ClinicHospitalEditModel returnModel = new ClinicHospitalEditModel()
+            {
+                ID = clinicHospital.ID,
+                ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                ClinicHospitalAddress = clinicHospital.ClinicHospitalAddress,
+                ClinicHospitalOpenHours = clinicHospital.ClinicHospitalOpenHours,
+                ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
+                ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
+                IsStringOpenHours = clinicHospital.IsStringOpenHours,
+                OpeningHours = openingHours
+            };
+
+            return View(returnModel);
         }
 
         // POST: ClinicHospitals/Edit/5
@@ -328,15 +413,57 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ClinicHospitalID,ClinicHospitalName,ClinicHospitalAddress,ClinicHospitalOpenHours,ClinicHospitalTel,ClinicHospitalEmail,MaxBookings")] ClinicHospital clinicHospital)
+        public ActionResult Edit(ClinicHospitalEditModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(clinicHospital).State = EntityState.Modified;
+
+                ClinicHospital editClinicHospital = (from ch in db.ClinicHospitals
+                                                     where ch.ID == model.ID
+                                                     select ch).SingleOrDefault();
+
+
+                editClinicHospital.ClinicHospitalID = model.ClinicHospitalID;
+                editClinicHospital.ClinicHospitalName = model.ClinicHospitalName;
+                editClinicHospital.ClinicHospitalAddress = model.ClinicHospitalAddress;
+                editClinicHospital.ClinicHospitalOpenHours = model.ClinicHospitalOpenHours;
+                editClinicHospital.ClinicHospitalTel = model.ClinicHospitalTel;
+                editClinicHospital.ClinicHospitalEmail = model.ClinicHospitalEmail;
+                editClinicHospital.IsStringOpenHours = model.IsStringOpenHours;
+
+                db.Entry(editClinicHospital).State = EntityState.Modified;
+
+                List<OpeningHour> editOpeningHour = (from oh in db.OpeningHours
+                                                 join ch in db.ClinicHospitals on oh.ClinicHospitalID equals ch.ID
+                                                 where ch.ID == model.ID
+                                                 select oh).ToList();
+
+
+
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (editOpeningHour[i].OpeningHoursDay == model.OpeningHours[j].OpeningHoursDay)
+                        {
+                            editOpeningHour[i].TimeRangeStart = model.OpeningHours[j].TimeRangeStart;
+                            editOpeningHour[i].TimeRangeEnd = model.OpeningHours[j].TimeRangeEnd;
+                            db.Entry(editOpeningHour[i]).State = EntityState.Modified;
+                            break;
+                        }
+                    }
+
+                }
+
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(clinicHospital);
+
+
+
+            return View(model);
         }
 
         // GET: ClinicHospitals/Delete/5
@@ -375,6 +502,6 @@ namespace DAMS_03.Controllers
         }
     }
 
-    
+
 
 }

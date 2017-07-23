@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
@@ -47,16 +42,43 @@ namespace Dental_IT.Droid
                 apptDetails_SessionLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 apptDetails_TreatmentLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 apptDetails_StatusLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.apptDetails_title);
+                SetSupportActionBar(toolbar);
+
+                //Set backarrow as Default
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
 
+            //  Intent to redirect to update appointment page
+            apptDetails_UpdateBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Update_Appointment));
+                intent.PutExtra("update_HospitalName", apptDetails_HospitalText.Text);
+                StartActivity(intent);
+            };
 
-            //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.apptdetails_title);
-            SetSupportActionBar(toolbar);
+            //  Handle delete button
+            apptDetails_DeleteBtn.Click += delegate
+            {
+                Android.App.AlertDialog.Builder delConfirm = new Android.App.AlertDialog.Builder(this);
+                delConfirm.SetTitle(Resource.String.delete_title);
+                delConfirm.SetMessage(Resource.String.delete_text);
+                delConfirm.SetNegativeButton(Resource.String.confirm_delete, delegate
+                {
+                    Toast.MakeText(this, Resource.String.delete_OK, ToastLength.Short).Show();
 
-            //Set backarrow as Default
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                    Intent intent = new Intent(this, typeof(My_Appointments));
+                    StartActivity(intent);
+                });
+                delConfirm.SetNeutralButton(Resource.String.cancel, delegate
+                {
+                    delConfirm.Dispose();
+                });
+                delConfirm.Show();
+            };
         }
 
 
