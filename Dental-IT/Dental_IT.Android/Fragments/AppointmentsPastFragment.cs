@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Dental_IT.Droid.Fragments
 {
-    public class AppointmentsPastFragment : Fragment
+    public class AppointmentsPastFragment : Android.Support.V4.App.Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {

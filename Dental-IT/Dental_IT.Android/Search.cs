@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Dental_IT.Droid.Fragments;
-using Android.Support.V7.Widget;
 using Java.Lang;
 using Android.Support.V4.View;
 using Dental_IT.Droid.Adapters;
-using Android.Support.V4.App;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 
