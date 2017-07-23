@@ -57,6 +57,7 @@
   <string name="selectHosp_title">Select Hospital/Clinics</string>
   <string name="treatmentInfo_title">Treatment Information</string>
   <string name="apptDetails_title">Appointment Details</string>
+  <string name="search_title">Search</string>
   <string name="close">Close</string>
   <string name="confirm_delete">Delete</string>
   <string name="cancel">Cancel</string>
@@ -67,6 +68,6 @@
   <string name="delete_OK">Appointment deleted.</string>
   <string name="price">Price information :</string>
   <string name="hospital_tab">Hospitals</string>
-  <string name="clinic_tab">Clinics</string>
+  <string name="treatment_tab">Treatments</string>
   <string name="confirm">Confirm</string>
 </resources>
