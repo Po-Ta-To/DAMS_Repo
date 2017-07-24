@@ -1,4 +1,4 @@
-﻿@model DAMS_03.Models.Appointment
+﻿@model DAMS_03.Models.AppointmentCreateViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -22,17 +22,19 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.UserID, Model.selectUser, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ClinicHospitalID, "ClinicHospitalID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ClinicHospitalID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ClinicHospitalID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.ClinicHospitalID, Model.selectClinicHospital, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.EditorFor(model => model.ClinicHospitalID, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.ClinicHospitalID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -40,7 +42,42 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ApprovalState, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ApprovalState, new { htmlAttributes = new { @class = "form-control" } })
+
+                @{
+                    List<SelectListItem> secListItems = new List<SelectListItem>();
+                    secListItems.Add(new SelectListItem
+                    {
+                        Text = "Pending",
+                        Value = "1",
+                        Selected = true
+                    });
+                    secListItems.Add(new SelectListItem
+                    {
+                        Text = "Cancelled",
+                        Value = "2"
+
+                    });
+                    secListItems.Add(new SelectListItem
+                    {
+                        Text = "Confirmed",
+                        Value = "3"
+                    });
+                    secListItems.Add(new SelectListItem
+                    {
+                        Text = "Declined",
+                        Value = "4"
+
+                    });
+                    secListItems.Add(new SelectListItem
+                    {
+                        Text = "Completed",
+                        Value = "5"
+                    });
+                }
+
+                @Html.DropDownListFor(model => model.ApprovalState, secListItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+
+                @*@Html.EditorFor(model => model.ApprovalState, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.ApprovalState, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,7 +85,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PreferredDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PreferredDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PreferredDate, new { htmlAttributes = new { @class = "datefield form-control", @placeholder = "Enter start date..." } })
                 @Html.ValidationMessageFor(model => model.PreferredDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,17 +99,19 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DoctorDentistID, "DoctorDentistID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DoctorDentistID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("DoctorDentistID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.DoctorDentistID, Model.selectDoctorDentist, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.EditorFor(model => model.DoctorDentistID, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.DoctorDentistID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RequestDoctorDentistID, "RequestDoctorDentistID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RequestDoctorDentistID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("RequestDoctorDentistID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.RequestDoctorDentistID, Model.selectDoctorDentist, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.EditorFor(model => model.RequestDoctorDentistID, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.RequestDoctorDentistID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -88,7 +127,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AppointmentDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AppointmentDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.AppointmentDate, new { htmlAttributes = new { @class = "datefield form-control", @placeholder = "Enter start date..." } })
                 @Html.ValidationMessageFor(model => model.AppointmentDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -105,7 +144,7 @@
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
                 <button class="btn btn-primary" type="button"
-                        onclick="location.href='@Url.Action("Index", "AdminAccounts", new { id = Model.ID })'">Back to List</button>
+                        onclick="location.href='@Url.Action("Index", "Appointments")'">Back to List</button>
             </div>
         </div>
     </div>

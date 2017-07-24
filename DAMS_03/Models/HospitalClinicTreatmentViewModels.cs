@@ -107,6 +107,8 @@ namespace DAMS_03.Models
 
     }
 
+
+
     public class AddTreatmentsModel
     {
         //[Required]
@@ -124,13 +126,17 @@ namespace DAMS_03.Models
         [Required]
         public bool IsFollowUp { get; set; }
 
+        [Required]
         [Display(Name = "Offers Treatment")]
         public bool IsChecked { get; set; }
 
+        [Required]
+        public decimal PriceLow { get; set; }
 
-        public decimal Price { get; set; }
+        [Required]
+        public decimal PriceHigh { get; set; }
 
-        
+
 
     }
 
@@ -156,7 +162,10 @@ namespace DAMS_03.Models
         public bool IsChecked { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public decimal PriceLow { get; set; }
+
+        [Required]
+        public decimal PriceHigh { get; set; }
 
 
 

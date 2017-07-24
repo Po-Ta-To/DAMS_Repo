@@ -178,11 +178,11 @@ Create table Appointment
 	ApprovalState INT NOT NULL,
 	PreferredDate DATE NOT NULL,
 	PreferredTime INT NOT NULL,
-	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NOT NULL,
-	RequestDoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NOT NULL,
+	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NULL,
+	RequestDoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NULL,
 	Remarks NVARCHAR(50) NOT NULL,
-	AppointmentDate DATE NOT NULL,
-	AppointmentTime INT NOT NULL
+	AppointmentDate DATE NULL,
+	AppointmentTime INT NULL
 )
 
 Create table Treatment
@@ -201,7 +201,8 @@ Create table ClinicHospitalTreatment
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	TreatmentID INT FOREIGN KEY REFERENCES Treatment(ID) NOT NULL,
 	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL,
-	Price MONEY NOT NULL
+	PriceLow MONEY NOT NULL,
+	PriceHigh MONEY NOT NULL
 )
 
 Create table AppointmentTreatment

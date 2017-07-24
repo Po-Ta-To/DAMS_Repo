@@ -15,16 +15,16 @@ Values ('T333', 'Treatment Three',
 'Treatment one desc Three three', 1);
 
 INSERT INTO Treatment
-Values ('T444', 'Treatment Three', 
+Values ('T444', 'Treatment Four', 
 'Treatment one desc Fout four', 0);
 
 INSERT INTO Treatment
 Values ('T555', 'Treatment Five', 
-'Treatment one desc Fout four', 0);
+'Treatment one desc Five five', 0);
 
 INSERT INTO Treatment
 Values ('T666', 'Treatment Six', 
-'Treatment one desc Fout four', 0);
+'Treatment one desc Six six', 0);
 
 INSERT INTO ClinicHospital
 Values ('H111', 'Hospital One',

@@ -1,4 +1,4 @@
-﻿@model DAMS_03.Models.Appointment
+﻿@model DAMS_03.Models.AppointmentDetailViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -17,9 +17,23 @@
         </div>
         
         <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.ApprovalState, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ApprovalState, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClinicHospitalName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClinicHospitalName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
         </div>
 
@@ -38,13 +52,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.AppointmentDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.AppointmentDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
@@ -59,30 +66,23 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ClinicHospital.ClinicHospitalID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DoctorDentistName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ClinicHospital.ClinicHospitalID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                @Html.EditorFor(model => model.DoctorDentistName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DoctorDentist.DoctorDentistID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RequestDoctorDentistName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DoctorDentist.DoctorDentistID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                @Html.EditorFor(model => model.RequestDoctorDentistName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DoctorDentist1.DoctorDentistID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DoctorDentist1.DoctorDentistID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserAccount.ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserAccount.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
         </div>
 

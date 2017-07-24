@@ -17,7 +17,8 @@ namespace DAMS_03.Models
         public int ID { get; set; }
         public int TreatmentID { get; set; }
         public int ClinicHospitalID { get; set; }
-        public decimal Price { get; set; }
+        public decimal PriceLow { get; set; }
+        public decimal PriceHigh { get; set; }
     
         public virtual ClinicHospital ClinicHospital { get; set; }
         public virtual Treatment Treatment { get; set; }
