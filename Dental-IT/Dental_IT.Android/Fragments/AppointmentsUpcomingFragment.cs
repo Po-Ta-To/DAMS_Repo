@@ -15,7 +15,7 @@ using Dental_IT.Droid.Adapters;
 
 namespace Dental_IT.Droid.Fragments
 {
-    public class AppointmentsUpcomingFragment : Fragment
+    public class AppointmentsUpcomingFragment : Android.Support.V4.App.Fragment
     {
         private Appointment a = new Appointment(1, "Teeth cleaning, Braces", "Dr Tan KK", "6/7/2017", "1.00pm");
         private Appointment b = new Appointment(2, "Fillings", "Dr Ang Boon Lye", "18/7/2017", "12.00am");

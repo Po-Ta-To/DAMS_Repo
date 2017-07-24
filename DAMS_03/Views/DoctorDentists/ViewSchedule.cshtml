@@ -4,82 +4,141 @@
     ViewBag.Title = "ViewSchedule";
 }
 
-<!-- jQuery CDN -->
-<script src="~/scripts/jquery.min.js"></script>
+<!-- Container.css -->
+<link rel="stylesheet" href="~/Content/Container.css" type="text/css" />
 
-<!-- Bootstrap CDN -->
+<!-- jQuery & Bootstrap CDN -->
+<script src="~/scripts/jquery.min.js"></script>
 <link href="~/content/bootstrap.min.css" rel="stylesheet" />
 <script src="~/scripts/bootstrap.min.js"></script>
 
-<!-- Zabuto -->
-<link rel="stylesheet" type="text/css" href="//zabuto.com/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="//zabuto.com/assets/css/examples.css">
-
 <!-- Zabuto Calendar -->
-<script src="~/scripts/zabuto_calendar.js"></script>
 <script src="~/scripts/zabuto_calendar.min.js"></script>
-<link href="~/content/zabuto_calendar.css" rel="stylesheet" />
 <link href="~/content/zabuto_calendar.min.css" rel="stylesheet" />
 
 <h2>View Dentist Schedule</h2>
+<hr />
+<div>
+    <div class="row">
+        <div class="form-group col-xs-8">
+            <div id="date-popover" class="popover top">
+                <div id="date-popover-content" class="popover-content"></div>
+            </div>
 
-        <div class="row">
-            <div class="col-xs-5">
-                <div id="my-calendar"></div>
+            <div id="dentist-schedule"></div>
                 <style>
-                    .grade-1 {
-                        background-color: #FA2601;
+                    .white {
+                        background-color: whitesmoke;
                     }
 
-                    .grade-2 {
-                        background-color: #FA8A00;
+                    .red {
+                        background-color: red;
                     }
 
-                    .grade-3 {
-                        background-color: #FFEB00;
-                    }
-
-                    .grade-4 {
-                        background-color: #27AB00;
-                    }
-
-                    .purple {
-                        background-color: purple;
+                    .darkgrey {
+                        background-color: darkgrey;
                     }
                 </style>
+
+            <script type="application/javascript">
+         $(document).ready(function () {
+         $("#dentist-schedule").zabuto_calendar({
+                action: function () {
+                    return onClickDate(this.id, false);
+                },
+                ajax: {
+                    url: "show_data.php?action=1",
+                    modal: true
+                },
+                show_previous: false,
+                legend: [
+                    {type: "block", label: "Available", classname: 'white'},
+                    {type: "block", label: "Fully Booked", classname: 'red'},
+                    {type: "block", label: "Off Day", classname: 'darkgrey'}
+                ]
+            });
+           });
+    </script>
+        </div>
+        <br /><br /><br />
+        <div class="form-group col-xs-offset-4  ">
+            <div id="apptDetails"> 
+                <h2><b>Schedule Details </b></h2>
+                <div>
+                    <p>
+                        <label>Date : </label>
+                        <label id="lblDate"></label>
+                    </p>
+                    <p>
+                        <label>Time Slot : </label>
+                        <select id="timeSlotSelect" name="timeSlotSelect">
+                            <option value="item1">9am-10am</option>
+                            <option value="item2">10am-11am</option>
+                            <option value="item3">11am-12pm</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label>Status :</label>
+                        <label id="lblStatus"></label>
+                    </p>
+                    <p>
+                        <label>Appointment ID :</label>
+                        <label id="lblApptID"></label>
+                    </p>
+                </div>
             </div>
         </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <button class="btn btn-success" type="button"
+                onclick="location.href='@Url.Action("Index", "DoctorDentists")'">
+            Back to Doctor/Dentist Details
+        </button>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <script>
+        $(document).ready(function () {
+            // rmb to put 0 in front of the integer 1-9
+            var date1 = $('[id^="zabuto_calendar"][id$="-07_day"]');
+            date1.removeClass('day');
+            date1.addClass('day red');
+           
+            for (sunday = 2; sunday < 31; sunday = sunday + 7) {
+                var offDay = $('[id^="zabuto_calendar"][id$="-' + sunday + '_day"]');
 
-<script>
-    $(document).ready(function () {
-        $("#my-calendar").zabuto_calendar({
-            legend: [
-                { type: "text", label: "Special event", badge: "00" },
-                { type: "block", label: "Regular event", classname: 'purple' },
-                { type: "spacer" },
-                { type: "text", label: "Bad" },
-                { type: "list", list: ["grade-1", "grade-2", "grade-3", "grade-4"] },
-                { type: "text", label: "Good" }
-            ],
-            ajax: {
-                url: "show_data.php?grade=1"
+                if (sunday < 10) {
+                    offDay = $('[id^="zabuto_calendar"][id$="-0' + sunday + '_day"]');
+                }
+
+                offDay.removeClass('day');
+                offDay.addClass('day darkgrey');
             }
         });
 
-        var twotwo = 22;
-        var two2 = "-" + 22 + "_day";
+        document.getElementById("timeSlotSelect").onchange = function () {
+            updateApptStatus($('#timeSlotSelect').val());
+        }
 
-        var date = $('[id^="zabuto_calendar"][id$="-22_day"]');
-        date.removeClass('day');
-        date.addClass('day grade-1');
+        function onClickDate(id) {
+            // Updating the DATE
+            var selectedDate = $("#" + id).data("date");
+            $('#lblDate').html(selectedDate);
 
-        var date = $('[id^="zabuto_calendar"][id$="-25_day"]');
-        date.removeClass('day');
-        date.addClass('day grade-3');
-    });     
-</script>
+            // Popover view for selected date
+            $("#date-popover").hide();
+            $("#date-popover-content").html('You clicked on date ' + selectedDate);
+            $("#date-popover").show();
+
+            return true;
+        }
+
+        function updateApptStatus(selectedTimeSlot) {
+            if (selectedTimeSlot == "item1") {
+                $('#lblStatus').html("Available");
+            } else {
+                $('#lblStatus').html("Booked");
+            }
+        }
+    </script>

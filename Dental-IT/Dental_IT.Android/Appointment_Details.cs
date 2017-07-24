@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
@@ -47,6 +42,14 @@ namespace Dental_IT.Droid
                 apptDetails_SessionLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 apptDetails_TreatmentLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 apptDetails_StatusLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.apptDetails_title);
+                SetSupportActionBar(toolbar);
+
+                //Set backarrow as Default
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
 
             //  Intent to redirect to update appointment page
@@ -76,14 +79,6 @@ namespace Dental_IT.Droid
                 });
                 delConfirm.Show();
             };
-
-            //Implement CustomTheme ActionBar
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetTitle(Resource.String.apptDetails_title);
-            SetSupportActionBar(toolbar);
-
-            //Set backarrow as Default
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
 

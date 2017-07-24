@@ -6,9 +6,24 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/searchHospital_RecyclerView"
-      android:scrollbars="vertical"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent" />
+    <!--<android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?android:attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_magnify"
+            android:hint="Search Hospital or Clinics" />
+    </android.support.v7.widget.Toolbar>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/searchHospital_RecyclerView"
+        android:scrollbars="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 </LinearLayout>

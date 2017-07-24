@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-  <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/calendarView"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    app:mcv_showOtherDates="all"
-    app:mcv_selectionColor="#00F" />
-</LinearLayout>
+    android:layout_height="fill_parent"
+                android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendarView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"        
+        app:mcv_showOtherDates="all"
+        app:mcv_selectionColor="@color/blue" />
+    <TextView
+        android:id="@+id/calendar_DateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_below="@id/calendarView"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/dark_blue"
+        android:fontFamily="sans-serif-medium"
+        android:scaleX="1.2"
+        android:scaleY="1.2" />
+    <Button
+        android:id="@+id/calendar_ConfirmBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendar_DateText"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/white"
+        android:text="@string/confirm"
+        android:textAllCaps="false"
+        android:background="@color/blue" />
+</RelativeLayout>

@@ -2,7 +2,6 @@
 }
 
 .bluebox {
-
     border: 2px solid grey;
     background-color: Highlight;
     width: 60%;
@@ -11,8 +10,6 @@
     margin-left: 10%; 
     margin-bottom: 10%;
     padding-bottom: 30%;
-    
-     
 }
 
 .bluebox2 {
@@ -49,7 +46,6 @@
 }
 
 .accbox {
-
     border: 2px solid grey;
     background-color: Highlight;
     width: 35%;

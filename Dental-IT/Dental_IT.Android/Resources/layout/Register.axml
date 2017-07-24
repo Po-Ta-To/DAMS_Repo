@@ -246,7 +246,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:textColor="@color/white"
-                android:text="@string/register"
+                android:text="@string/confirm"
                 android:textAllCaps="false"
                 android:background="@color/blue" />
         </RelativeLayout>

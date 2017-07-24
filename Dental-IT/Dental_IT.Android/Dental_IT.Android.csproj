@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
@@ -110,17 +110,21 @@
   <ItemGroup>
     <Compile Include="Adapters\GridAdapter_MainMenu.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_Appointments.cs" />
+    <Compile Include="Adapters\RecyclerViewAdapter_SearchTreatment.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_TreatmentInformation.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SearchHospital.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
+    <Compile Include="Adapters\TabsAdapter.cs" />
     <Compile Include="Appointment_Details.cs" />
     <Compile Include="Calendar.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
+    <Compile Include="Fragments\NavFragment.cs" />
     <Compile Include="Fragments\AppointmentsPastFragment.cs" />
     <Compile Include="Fragments\SearchHospitalFragment.cs" />
     <Compile Include="Fragments\SearchTreatmentFragment.cs" />
     <Compile Include="Fragments\AppointmentsUpcomingFragment.cs" />
+    <Compile Include="Fragments\TreatmentDialogFragment.cs" />
     <Compile Include="Hospital_Details.cs" />
     <Compile Include="My_Appointments.cs" />
     <Compile Include="Search.cs" />
@@ -171,9 +175,6 @@
     <AndroidResource Include="Resources\layout\sublayout_Treatment_Info_List_Item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Calendar.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\Search_Hospital.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -190,6 +191,16 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\sublayout_Appointments_List_Item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\sublayout_Treatment_Info_Dialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Calendar.axml" />
+    <AndroidResource Include="Resources\layout\Search_Treatment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\sublayout_Treatment_List_Item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -432,19 +443,46 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_calendar_range.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_medisys_logo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_request_appt.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\ic_medisys_logo.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_request_appt.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_medisys_logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_request_appt.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_medisys_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_request_appt.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_medisys_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_request_appt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-ldpi\ic_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\dialog_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\actionBar_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_medisys_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BindingLibrary\MaterialCalendar_BindingLibrary.csproj">

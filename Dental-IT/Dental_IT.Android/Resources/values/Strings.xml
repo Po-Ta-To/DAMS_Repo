@@ -46,7 +46,8 @@
   <string name="delete">Delete</string>
   <string name="address">Address :</string>
   <string name="opening_hours">Opening hours :</string>
-  <string name="contact">Contact :</string>
+  <string name="telephone">Telephone :</string>
+  <string name="email">Email :</string>
   <string name="treatments_offered">Treatments offered</string>
   <string name="request">Request Appointment</string>
   <string name="drawer_header">Insert Logo</string>
@@ -57,6 +58,8 @@
   <string name="selectHosp_title">Select Hospital/Clinics</string>
   <string name="treatmentInfo_title">Treatment Information</string>
   <string name="apptDetails_title">Appointment Details</string>
+  <string name="search_title">Search</string>
+  <string name="myAppts_title">My Appointments</string>
   <string name="close">Close</string>
   <string name="confirm_delete">Delete</string>
   <string name="cancel">Cancel</string>
@@ -65,4 +68,10 @@
   <string name="request_OK">Request successful!</string>
   <string name="update_OK">Update successful!</string>
   <string name="delete_OK">Appointment deleted.</string>
+  <string name="price">Price information :</string>
+  <string name="hospital_tab">Hospitals</string>
+  <string name="treatment_tab">Treatments</string>
+  <string name="confirm">Confirm</string>
+  <string name="upcoming_tab">Upcoming</string>
+  <string name="past_tab">Past</string>
 </resources>

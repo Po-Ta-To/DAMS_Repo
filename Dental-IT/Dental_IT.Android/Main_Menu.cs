@@ -21,6 +21,7 @@ namespace Dental_IT.Droid
 
         DrawerLayout drawerLayout;
         NavigationView navigationView;
+        Android.Support.V4.App.FragmentTransaction fragmentTransaction;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -48,41 +49,88 @@ namespace Dental_IT.Droid
                     GRID_HEIGHT = mainMenu_GridView.Height;
                     mainMenu_GridView.Adapter = new GridAdapter_MainMenu(this, buttonTexts);
                 });
+
+                //Implement CustomTheme ActionBar(toolbar)
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                SetSupportActionBar(toolbar);
+
+                //Set menu hambuger
+                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                SetupDrawerContent(navigationView);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
+
             });
-
-            //Implement CustomTheme ActionBar(toolbar)
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            //Set menu hambuger
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
-            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
-            navigationView.InflateMenu(Resource.Menu.nav_menu);
-
+        }
+          
+            private void SetupDrawerContent(NavigationView navigationView)
+             {
             navigationView.NavigationItemSelected += (sender, e) =>
             {
                 e.MenuItem.SetChecked(true);
+
+                Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
+                switch (e.MenuItem.ItemId)
+                {
+                    case Resource.Id.nav_home:
+                        Android.Support.V4.App.Fragment home = new Android.Support.V4.App.Fragment();
+                        transaction.Replace(Resource.Id.frame_container, home).Commit();
+                        break;
+
+                    case Resource.Id.nav_RequestAppt:
+                        Android.Support.V4.App.Fragment requestAppt = new Android.Support.V4.App.Fragment();
+                        transaction.Replace(Resource.Id.frame_container, requestAppt).Commit();
+                        break;
+
+                }
                 //react to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers();
             };
         }
+ 
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-          switch (item.ItemId)
+           switch (item.ItemId)
            {
                case Android.Resource.Id.Home:
                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                   return true;
-           }
+
+                //case Resource.Id.nav_home:
+                //    intent = new Intent(this, typeof(Main_Menu));
+                //    break;
+
+                //case Resource.Id.nav_RequestAppt:
+                //    intent = new Intent(this, typeof(Request_Appointment));
+                //    break;
+
+                //case Resource.Id.nav_MyAppt:
+                //    intent = new Intent(this, typeof(Appointment_Details));
+                //    break;
+
+                //case Resource.Id.nav_TreatmentInfo:
+                //    intent = new Intent(this, typeof(Treatment_Information));
+                //    break;
+
+                //case Resource.Id.nav_Search:
+                //    intent = new Intent(this, typeof(Select_Hospital));
+                //    break;
+
+                //default:
+                //      intent = new Intent(this, typeof(Main_Menu));
+                //    break;
+            }
+            //StartActivity(intent);
             return base.OnOptionsItemSelected(item);
         }
-
-
         //  List of button texts to popular grid adapter
         private readonly string[] buttonTexts =
         {
