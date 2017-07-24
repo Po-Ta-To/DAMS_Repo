@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
@@ -117,9 +117,7 @@
     <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Adapters\TabsAdapter.cs" />
     <Compile Include="Appointment_Details.cs" />
-    <Compile Include="Calendar.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
-    <Compile Include="Fragments\NavFragment.cs" />
     <Compile Include="Fragments\AppointmentsPastFragment.cs" />
     <Compile Include="Fragments\SearchHospitalFragment.cs" />
     <Compile Include="Fragments\SearchTreatmentFragment.cs" />
@@ -196,7 +194,6 @@
     <AndroidResource Include="Resources\layout\sublayout_Treatment_Info_Dialog.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Calendar.axml" />
     <AndroidResource Include="Resources\layout\Search_Treatment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -293,7 +290,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\menu\nav_menu.xml" />
+    <AndroidResource Include="Resources\menu\nav_menu.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_menu.png" />
@@ -485,10 +484,12 @@
     <AndroidResource Include="Resources\drawable\ic_medisys_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BindingLibrary\MaterialCalendar_BindingLibrary.csproj">
-      <Project>{f6aef2a2-e137-40d0-b124-16580b6763e1}</Project>
-      <Name>MaterialCalendar_BindingLibrary</Name>
-    </ProjectReference>
+    <AndroidResource Include="Resources\drawable\navmenu_selector.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\light_blue.xml" />
   </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

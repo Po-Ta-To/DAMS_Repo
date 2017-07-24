@@ -62,40 +62,57 @@ namespace Dental_IT.Droid
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
-                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-                SetupDrawerContent(navigationView);
-                navigationView.InflateMenu(Resource.Menu.nav_menu);
-
             });
-        }
-          
-            private void SetupDrawerContent(NavigationView navigationView)
-             {
+        
+             
             navigationView.NavigationItemSelected += (sender, e) =>
             {
                 e.MenuItem.SetChecked(true);
 
-                Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
+                Intent intent;
+
                 switch (e.MenuItem.ItemId)
                 {
+
                     case Resource.Id.nav_home:
-                        Android.Support.V4.App.Fragment home = new Android.Support.V4.App.Fragment();
-                        transaction.Replace(Resource.Id.frame_container, home).Commit();
+                         intent = new Intent(this, typeof(Main_Menu));
+                        StartActivity(intent);
+                        Toast.MakeText(this, Resource.String.mainmenu, ToastLength.Short).Show();
                         break;
 
-                    case Resource.Id.nav_RequestAppt:
-                        Android.Support.V4.App.Fragment requestAppt = new Android.Support.V4.App.Fragment();
-                        transaction.Replace(Resource.Id.frame_container, requestAppt).Commit();
+                        case Resource.Id.nav_RequestAppt:
+                            intent = new Intent(this, typeof(Request_Appointment));
+                        StartActivity(intent);
+
+                        Toast.MakeText(this, Resource.String.request_title, ToastLength.Short).Show();
+                        break;
+
+                       case Resource.Id.nav_MyAppt:
+                           intent = new Intent(this, typeof(My_Appointments));
+                        StartActivity(intent);
+
+                        Toast.MakeText(this, Resource.String.myAppts_title, ToastLength.Short).Show();
+                        break;
+
+                        case Resource.Id.nav_TreatmentInfo:
+                            intent = new Intent(this, typeof(Treatment_Information));
+                        StartActivity(intent);
+
+                        Toast.MakeText(this, Resource.String.treatmentInfo_title, ToastLength.Short).Show();
+                        break;
+
+                        case Resource.Id.nav_Search:
+                            intent = new Intent(this, typeof(Search));
+                        StartActivity(intent);
+
+                        Toast.MakeText(this, Resource.String.search_title, ToastLength.Short).Show();
                         break;
 
                 }
                 //react to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers();
-            };
-        }
- 
-
+            };  
+       }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
            switch (item.ItemId)
@@ -103,32 +120,8 @@ namespace Dental_IT.Droid
                case Android.Resource.Id.Home:
                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                   return true;
-
-                //case Resource.Id.nav_home:
-                //    intent = new Intent(this, typeof(Main_Menu));
-                //    break;
-
-                //case Resource.Id.nav_RequestAppt:
-                //    intent = new Intent(this, typeof(Request_Appointment));
-                //    break;
-
-                //case Resource.Id.nav_MyAppt:
-                //    intent = new Intent(this, typeof(Appointment_Details));
-                //    break;
-
-                //case Resource.Id.nav_TreatmentInfo:
-                //    intent = new Intent(this, typeof(Treatment_Information));
-                //    break;
-
-                //case Resource.Id.nav_Search:
-                //    intent = new Intent(this, typeof(Select_Hospital));
-                //    break;
-
-                //default:
-                //      intent = new Intent(this, typeof(Main_Menu));
-                //    break;
             }
-            //StartActivity(intent);
+     
             return base.OnOptionsItemSelected(item);
         }
         //  List of button texts to popular grid adapter
