@@ -17,7 +17,7 @@ namespace DAMS_03
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Slcripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -25,13 +25,13 @@ namespace DAMS_03
                       "~/Content/site.css"));
 
             // ** For calendar master
-            //bundles.Add(new StyleBundle("~/Content/bootstrap/css")
-            //            .Include("~/Content/zabuto_calendar.css")
-            //            .Include("~/Content/zabuto_calendar.min.css"));
+            bundles.Add(new StyleBundle("~/Content/bootstrap/css").Include(
+                      "~/Content/zabuto_calendar.css",
+                      "~/Content/zabuto_calendar.min.css"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/bootstrap")
-            //      .Include("~/Scripts/zabuto_calendar.js",
-            //       "~/Scripts/zabuto_calendar.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap")
+                  .Include("~/Scripts/zabuto_calendar.js",
+                   "~/Scripts/zabuto_calendar.min.js"));
         }
     }
 }

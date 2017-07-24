@@ -8,7 +8,7 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Preferences;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Request_Appointment : AppCompatActivity
@@ -16,7 +16,6 @@ namespace Dental_IT.Droid
         DrawerLayout drawerLayout;
         NavigationView navigationView;
         private string hospitalName;
-        private bool isUsed;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -42,12 +41,12 @@ namespace Dental_IT.Droid
             //  Shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 
-            //  Check if redirected from select_hospital or from calendar
+            //  Check if redirected from select hospital or from calendar
             Intent i = this.Intent;
 
             if (i.GetStringExtra("request_HospitalName") != null)
             {
-                //  Receive data from select_hospital
+                //  Receive data from select hospital
                 hospitalName = i.GetStringExtra("request_HospitalName");
             }
             else

@@ -10,7 +10,7 @@ using Dental_IT.Droid.Adapters;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Search : AppCompatActivity

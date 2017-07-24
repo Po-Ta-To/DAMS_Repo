@@ -1,5 +1,4 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
@@ -10,7 +9,7 @@ using Dental_IT.Droid.Adapters;
 using Android.Preferences;
 using Android.Support.V7.App;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Select_Hospital : AppCompatActivity
@@ -99,9 +98,9 @@ namespace Dental_IT.Droid
                             tempHospitalList.Remove(tempHospitalList.Find(e => (e.id == hosp.id)));
                         }
                     }
-                }
 
-                hospitalList = tempHospitalList;
+                    hospitalList = tempHospitalList;
+                }
             }
 
             //  Else if shared preferences is empty, don't display any hospitals

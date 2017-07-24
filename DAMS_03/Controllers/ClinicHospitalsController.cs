@@ -153,7 +153,8 @@ namespace DAMS_03.Controllers
                                      //TreatmentName = t.TreatmentName,
                                      //TreatmentDesc = t.TreatmentDesc,
                                      //IsFollowUp = t.IsFollowUp,
-                                     Price = cht.Price
+                                     PriceLow = cht.PriceLow,
+                                     PriceHigh = cht.PriceHigh
 
                                  };
 
@@ -186,7 +187,8 @@ namespace DAMS_03.Controllers
                             TreatmentName = treatment.TreatmentName,
                             TreatmentDesc = treatment.TreatmentDesc,
                             IsFollowUp = treatment.IsFollowUp,
-                            Price = someTreatment.Price,
+                            PriceLow = someTreatment.PriceLow,
+                            PriceHigh = someTreatment.PriceHigh,
                             IsChecked = true
 
                         });
@@ -204,7 +206,8 @@ namespace DAMS_03.Controllers
                         TreatmentName = treatment.TreatmentName,
                         TreatmentDesc = treatment.TreatmentDesc,
                         IsFollowUp = treatment.IsFollowUp,
-                        Price = 0,
+                        PriceLow = 0,
+                        PriceHigh = 0,
                         IsChecked = false
 
                     });
@@ -250,7 +253,8 @@ namespace DAMS_03.Controllers
                                      //TreatmentName = t.TreatmentName,
                                      //TreatmentDesc = t.TreatmentDesc,
                                      //IsFollowUp = t.IsFollowUp,
-                                     Price = cht.Price
+                                     PriceLow = cht.PriceLow,
+                                     PriceHigh = cht.PriceHigh
 
                                  };
 
@@ -283,7 +287,8 @@ namespace DAMS_03.Controllers
                             TreatmentName = treatment.TreatmentName,
                             TreatmentDesc = treatment.TreatmentDesc,
                             IsFollowUp = treatment.IsFollowUp,
-                            Price = someTreatment.Price,
+                            PriceLow = someTreatment.PriceLow,
+                            PriceHigh = someTreatment.PriceHigh,
                             IsChecked = true
 
                         });
@@ -301,7 +306,8 @@ namespace DAMS_03.Controllers
                         TreatmentName = treatment.TreatmentName,
                         TreatmentDesc = treatment.TreatmentDesc,
                         IsFollowUp = treatment.IsFollowUp,
-                        Price = 0,
+                        PriceLow = 0,
+                        PriceHigh = 0,
                         IsChecked = false
 
                     });
@@ -355,7 +361,8 @@ namespace DAMS_03.Controllers
                         {
                             TreatmentID = editTreatment.TreatmentID,
                             ClinicHospitalID = hospid,
-                            Price = editTreatment.Price
+                            PriceLow = editTreatment.PriceLow,
+                            PriceHigh = editTreatment.PriceHigh
                         });
                     }
 

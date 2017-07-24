@@ -1,5 +1,14 @@
-﻿using System.Collections.Generic;
+﻿
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
 using Android.Content;
+using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
@@ -7,22 +16,23 @@ using Dental_IT.Droid.Main;
 
 namespace Dental_IT.Droid.Adapters
 {
-    class RecyclerViewAdapter_SearchTreatment : RecyclerView.Adapter
+    class RecyclerViewAdapter_OfferedBy : RecyclerView.Adapter
     {
         private readonly Context context;
-        private List<Treatment> treatmentList;
+        private List<Hospital> hospitalList;
 
-        public RecyclerViewAdapter_SearchTreatment(Context c, List<Treatment> l)
+        public RecyclerViewAdapter_OfferedBy(Context c, List<Hospital> l)
         {
             context = c;
-            treatmentList = l;
+            hospitalList = l;
         }
+
 
         public override int ItemCount
         {
             get
             {
-                return treatmentList.Count;
+                return hospitalList.Count;
             }
         }
 
@@ -38,7 +48,7 @@ namespace Dental_IT.Droid.Adapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            SearchTreatment_ViewHolder vh = holder as SearchTreatment_ViewHolder;
+            OfferedBy_ViewHolder vh = holder as OfferedBy_ViewHolder;
 
             //  Set height of row
             vh.ItemView.LayoutParameters.Height = (Main_Menu.SCREEN_HEIGHT - Main_Menu.ACTIONBAR_HEIGHT) / 6;
@@ -52,18 +62,19 @@ namespace Dental_IT.Droid.Adapters
             }
 
             // Set view data
-            vh.treatmentName.Text = treatmentList[position].name;
-            vh.treatmentPrice.Text = "$" + treatmentList[position].minPrice + "  -  $" + treatmentList[position].maxPrice;
+            vh.hospitalName.Text = hospitalList[position].name;
+            vh.treatmentPrice.Text = "$1000 - $2000";
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Treatment_List_Item, parent, false);
-            SearchTreatment_ViewHolder holder = new SearchTreatment_ViewHolder(view);
+            View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Offered_List_Item, parent, false);
+            OfferedBy_ViewHolder holder = new OfferedBy_ViewHolder(view);
 
             holder.ItemView.Click += delegate
             {
-                Intent intent = new Intent(context, typeof(Offered_By));
+                Intent intent = new Intent(context, typeof(Hospital_Details));
+                intent.PutExtra("offered_HospitalName", holder.hospitalName.Text);
                 context.StartActivity(intent);
             };
 
@@ -72,15 +83,15 @@ namespace Dental_IT.Droid.Adapters
 
     }
 
-    class SearchTreatment_ViewHolder : RecyclerView.ViewHolder
+    class OfferedBy_ViewHolder : RecyclerView.ViewHolder
     {
-        public TextView treatmentName { get; set; }
+        public TextView hospitalName { get; set; }
         public TextView treatmentPrice { get; set; }
 
-        public SearchTreatment_ViewHolder(View view) : base(view)
+        public OfferedBy_ViewHolder(View view) : base(view)
         {
-            treatmentName = view.FindViewById<TextView>(Resource.Id.list_TreatmentNameText);
-            treatmentPrice = view.FindViewById<TextView>(Resource.Id.list_TreatmentPriceText);
+            hospitalName = view.FindViewById<TextView>(Resource.Id.list_HospitalNameText);
+            treatmentPrice = view.FindViewById<TextView>(Resource.Id.list_HospitalPriceText);
         }
     }
 }
