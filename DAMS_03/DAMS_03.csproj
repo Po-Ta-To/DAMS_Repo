@@ -281,6 +281,7 @@
     <Compile Include="Models\AppointmentTreatment.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppointmentViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
@@ -387,6 +388,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bower.json" />
+    <Content Include="wwwroot\images\account icon.png" />
+    <Content Include="wwwroot\images\listing icon.png" />
+    <Content Include="wwwroot\images\potato.jpg" />
+    <Content Include="wwwroot\images\view accounts.png" />
+    <Content Include="wwwroot\images\view appt requests.png" />
+    <Content Include="wwwroot\images\view appt update requests.png" />
+    <Content Include="wwwroot\images\view booked appts.png" />
     <EntityDeploy Include="Models\DAMS_Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DAMS_Model1.Designer.cs</LastGenOutput>
@@ -487,10 +495,10 @@
     <Content Include="Views\ClinicHospitals\Treatments.cshtml" />
     <Content Include="Views\ClinicHospitals\EditTreatments.cshtml" />
     <Content Include="Views\DoctorDentists\ViewSchedule.cshtml" />
+    <Content Include="Views\Appointments\CreateTreatments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

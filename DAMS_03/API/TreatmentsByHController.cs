@@ -38,19 +38,32 @@ namespace DAMS_03.API
 
             foreach (helperReturnTreatment t in returntreatment)
             {
-                decimal getprice = (from treat in db.Treatments
+                var getprice = (from treat in db.Treatments
                                     join price in db.ClinicHospitalTreatments on treat.ID equals price.TreatmentID
                                     join hosp in db.ClinicHospitals on price.ClinicHospitalID equals hosp.ID
                                     where treat.ID == t.ID && hosp.ID == id
-                                    select price.Price).SingleOrDefault();
+                                    select new
+                                    {
+                                        price.PriceLow,
+                                        price.PriceHigh
 
-                t.Price = getprice;
+                                    }).SingleOrDefault();
+
+
+                if(getprice.PriceLow == getprice.PriceHigh)
+                {
+                    t.Price = getprice.PriceLow.ToString();
+                }
+                else
+                {
+                    t.Price = getprice.PriceLow + " - " + getprice.PriceHigh;
+                }
+                
+                //t.PriceLow = getprice.PriceLow;
+                //t.PriceHigh = getprice.PriceHigh;
 
             }
-
-
-
-
+            
             return Ok(returntreatment);
         }
 
@@ -63,5 +76,7 @@ public class helperReturnTreatment
     public string TreatmentName { get; set; }
     public string TreatmentDesc { get; set; }
     public bool IsFollowUp { get; set; }
-    public decimal Price { get; set; }
+    public string Price { get; set; }
+    //public decimal PriceLow { get; set; }
+    //public decimal PriceHigh { get; set; }
 }

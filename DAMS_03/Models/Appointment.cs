@@ -27,11 +27,11 @@ namespace DAMS_03.Models
         public int ApprovalState { get; set; }
         public System.DateTime PreferredDate { get; set; }
         public int PreferredTime { get; set; }
-        public int DoctorDentistID { get; set; }
-        public int RequestDoctorDentistID { get; set; }
+        public Nullable<int> DoctorDentistID { get; set; }
+        public Nullable<int> RequestDoctorDentistID { get; set; }
         public string Remarks { get; set; }
-        public System.DateTime AppointmentDate { get; set; }
-        public int AppointmentTime { get; set; }
+        public Nullable<System.DateTime> AppointmentDate { get; set; }
+        public Nullable<int> AppointmentTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentTreatment> AppointmentTreatments { get; set; }
