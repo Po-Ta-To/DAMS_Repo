@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
@@ -110,12 +110,14 @@
   <ItemGroup>
     <Compile Include="Adapters\GridAdapter_MainMenu.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_Appointments.cs" />
+    <Compile Include="Adapters\RecyclerViewAdapter_SearchTreatment.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_TreatmentInformation.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SearchHospital.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Adapters\TabsAdapter.cs" />
     <Compile Include="Appointment_Details.cs" />
+    <Compile Include="Calendar.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
     <Compile Include="Fragments\NavFragment.cs" />
     <Compile Include="Fragments\AppointmentsPastFragment.cs" />
@@ -179,9 +181,6 @@
     <AndroidResource Include="Resources\layout\Search.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\grid_mainmenu.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\Update_Appointment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -195,6 +194,13 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\sublayout_Treatment_Info_Dialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Calendar.axml" />
+    <AndroidResource Include="Resources\layout\Search_Treatment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\sublayout_Treatment_List_Item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -477,6 +483,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_medisys_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BindingLibrary\MaterialCalendar_BindingLibrary.csproj">
+      <Project>{f6aef2a2-e137-40d0-b124-16580b6763e1}</Project>
+      <Name>MaterialCalendar_BindingLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
