@@ -1,13 +1,12 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
-using System.Collections;
 using System.Collections.Generic;
 using Dental_IT.Droid.Fragments;
 using Android.OS;
+using Dental_IT.Droid.Main;
 
 namespace Dental_IT.Droid.Adapters
 {

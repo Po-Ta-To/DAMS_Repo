@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_blue"
-                    android:text="@string/email" />
+                    android:text="@string/hosp_email" />
                 <TextView
                     android:id="@+id/hospDetails_EmailText"
                     android:layout_width="wrap_content"

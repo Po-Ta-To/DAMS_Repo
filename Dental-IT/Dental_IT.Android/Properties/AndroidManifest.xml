@@ -31,4 +31,7 @@
   <activity
     android:name="Search">
   </activity>
+  <activity
+    android:name="Offered_By">
+  </activity>
 </manifest>

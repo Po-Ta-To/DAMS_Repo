@@ -2,16 +2,13 @@
 using Android.OS;
 using Android.Support.V7.Widget;
 using System.Collections.Generic;
-using System.Collections;
 using Dental_IT.Droid.Adapters;
-using Android.Widget;
 using Android.Views;
-using Android.Content;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Treatment_Information : AppCompatActivity
@@ -62,7 +59,7 @@ namespace Dental_IT.Droid
                 });
 
                 //Implement CustomTheme ActionBar
-                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
                 toolbar.SetTitle(Resource.String.treatmentInfo_title);
                 SetSupportActionBar(toolbar);
 
