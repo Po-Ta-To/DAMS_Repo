@@ -140,6 +140,58 @@
             </div>
         </div>
 
+
+        <hr />
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sieve">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.listOfTreatments[0].TreatmentName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.listOfTreatments[0].TreatmentDesc)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.listOfTreatments[0].IsFollowUp)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.listOfTreatments[0].IsChecked)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="treatmentTableBody">
+                            @for (int i = 0; i < Model.listOfTreatments.Count; i++)
+                            {
+                                @Html.HiddenFor(modelItem => Model.listOfTreatments[i].ID)
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.listOfTreatments[i].TreatmentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.listOfTreatments[i].TreatmentDesc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.listOfTreatments[i].IsFollowUp)
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(modelItem => Model.listOfTreatments[i].IsChecked, new { htmlAttributes = new { @class = "form-control" } })
+                                    </td>
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-success" />

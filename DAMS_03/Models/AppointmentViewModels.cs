@@ -37,6 +37,8 @@ namespace DAMS_03.Models
         [Display(Name = "Appointment Timeslot")]
         public int? AppointmentTime { get; set; }
 
+        public List<Treatment> listOfTreatments { get; set; }
+
 
     }
 
@@ -56,11 +58,11 @@ namespace DAMS_03.Models
         public string UserID { get; set; }//
 
         //public string ClinicHospitalName { get; set; }
-        public List<System.Web.Mvc.SelectListItem> selectClinicHospital { get; set; }
+        //public List<System.Web.Mvc.SelectListItem> selectClinicHospital { get; set; }
 
-        [Required]
-        [Display(Name = "Clinic/Hospital Name")]
-        public string ClinicHospitalID { get; set; }//
+        //[Required]
+        //[Display(Name = "Clinic/Hospital Name")]
+        //public string ClinicHospitalID { get; set; }//
 
         [Display(Name = "Approval State")]
         [Range(1, 5)]
@@ -98,11 +100,8 @@ namespace DAMS_03.Models
 
         //public List<Treatment> listOfTreatments { get; set; }
 
-    }
-
-    public class AppointmentTreatmentsCreateModel
-    {
         public List<TreatmentHelperModel> listOfTreatments { get; set; }
+
     }
 
     public class AppointmentEditViewModel
@@ -163,6 +162,9 @@ namespace DAMS_03.Models
 
         [Display(Name = "Appointment Timeslot")]
         public int? AppointmentTime { get; set; }
+
+
+        public List<TreatmentHelperModel> listOfTreatments { get; set; }
 
 
     }

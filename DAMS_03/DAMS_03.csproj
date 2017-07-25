@@ -450,7 +450,7 @@
     <Content Include="Views\DoctorDentists\Details.cshtml" />
     <Content Include="Views\DoctorDentists\Edit.cshtml" />
     <Content Include="Views\DoctorDentists\Index.cshtml" />
-    <Content Include="Views\Appointments\Create.cshtml" />
+    <Content Include="Views\Appointments\CreateSelection.cshtml" />
     <Content Include="Views\Appointments\Delete.cshtml" />
     <Content Include="Views\Appointments\Details.cshtml" />
     <Content Include="Views\Appointments\Edit.cshtml" />
@@ -495,7 +495,7 @@
     <Content Include="Views\ClinicHospitals\Treatments.cshtml" />
     <Content Include="Views\ClinicHospitals\EditTreatments.cshtml" />
     <Content Include="Views\DoctorDentists\ViewSchedule.cshtml" />
-    <Content Include="Views\Appointments\CreateTreatments.cshtml" />
+    <Content Include="Views\Appointments\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

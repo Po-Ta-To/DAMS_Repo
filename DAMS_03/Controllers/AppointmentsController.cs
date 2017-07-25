@@ -288,16 +288,34 @@ namespace DAMS_03.Controllers
                 //addModel.DoctorDentistID = 0;
             }
 
+            returnAppt.listOfTreatments = (from t in db.Treatments
+                                           join at in db.AppointmentTreatments on t.ID equals at.TreatmentID
+                                           join a in db.Appointments on at.AppointmentID equals a.ID
+                                           where a.ID == returnAppt.ID
+                                           select t).ToList();
+
             return View(returnAppt);
         }
 
-        // GET: Appointments/Create
-        public ActionResult Create()
+        // GET: Appointments/CreateSelection
+        public ActionResult CreateSelection()
         {
             //ViewBag.ClinicHospitalID = new SelectList(db.ClinicHospitals, "ID", "ClinicHospitalID");
             //ViewBag.DoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID");
             //ViewBag.RequestDoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID");
             //ViewBag.UserID = new SelectList(db.UserAccounts, "ID", "ID");
+
+            //returnModel.listOfTreatments = (from t in db.Treatments
+            //                                select new Treatment()).ToList();
+
+            return View(db.ClinicHospitals.ToList());
+
+            //return View(returnModel);
+        }
+
+        // GET: Appointments/Create
+        public ActionResult Create(int? id)
+        {
 
             AppointmentCreateViewModel returnModel = new AppointmentCreateViewModel()
             {
@@ -305,22 +323,22 @@ namespace DAMS_03.Controllers
                 PreferredDate = System.DateTime.Now
             };
 
-            returnModel.selectClinicHospital = new List<SelectListItem>();
+            //returnModel.selectClinicHospital = new List<SelectListItem>();
             returnModel.selectDoctorDentist = new List<SelectListItem>();
             returnModel.selectUser = new List<SelectListItem>();
 
-            var listOfHosp = from ClinHosp in db.ClinicHospitals
-                             select new SelectListItem()
-                             {
-                                 Value = ClinHosp.ID.ToString(),
-                                 Text = ClinHosp.ClinicHospitalName
-                             };
-            returnModel.selectClinicHospital.Add(new SelectListItem()
-            {
-                Value = "",
-                Text = " - "
-            });
-            returnModel.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
+            //var listOfHosp = from ClinHosp in db.ClinicHospitals
+            //                 select new SelectListItem()
+            //                 {
+            //                     Value = ClinHosp.ID.ToString(),
+            //                     Text = ClinHosp.ClinicHospitalName
+            //                 };
+            //returnModel.selectClinicHospital.Add(new SelectListItem()
+            //{
+            //    Value = "",
+            //    Text = " - "
+            //});
+            //returnModel.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
 
             var listOfDoc = from doc in db.DoctorDentists
                             select new SelectListItem()
@@ -348,8 +366,36 @@ namespace DAMS_03.Controllers
             });
             returnModel.selectUser.AddRange(listOfUser.ToList<SelectListItem>());
 
-            //returnModel.listOfTreatments = (from t in db.Treatments
-            //                                select new Treatment()).ToList();
+            //AppointmentTreatmentsCreateModel returnModel = new AppointmentTreatmentsCreateModel();
+            returnModel.listOfTreatments = (from t in db.Treatments
+                                            join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
+                                            join hc in db.ClinicHospitals on cht.ClinicHospitalID equals hc.ID
+                                            where hc.ID == id
+                                            select new TreatmentHelperModel()
+                                            {
+                                                ID = t.ID,
+                                                TreatmentID = t.TreatmentID,
+                                                TreatmentName = t.TreatmentName,
+                                                TreatmentDesc = t.TreatmentDesc,
+                                                IsFollowUp = t.IsFollowUp,
+                                                PriceLow = cht.PriceLow,
+                                                PriceHigh = cht.PriceHigh,
+                                                IsChecked = false
+                                            }).ToList();
+
+            foreach (TreatmentHelperModel t in returnModel.listOfTreatments)
+            {
+                string priceLow = String.Format("{0:C}", t.PriceLow);
+                if (t.PriceHigh == t.PriceLow)
+                {
+                    t.Price = priceLow;
+                }
+                else
+                {
+                    string priceHigh = String.Format("{0:C}", t.PriceHigh);
+                    t.Price = priceLow + " - " + priceHigh;
+                }
+            }
 
             return View(returnModel);
         }
@@ -364,11 +410,14 @@ namespace DAMS_03.Controllers
             if (ModelState.IsValid)
             {
 
+                var url = Url.RequestContext.RouteData.Values["id"];
+                int hospid = Int32.Parse((string)url);
+
                 Appointment addAppointment = new Appointment()
                 {
                     AppointmentID = newAppointment.AppointmentID,
                     UserID = Int32.Parse(newAppointment.UserID),
-                    ClinicHospitalID = Int32.Parse(newAppointment.ClinicHospitalID),
+                    ClinicHospitalID = hospid,//Int32.Parse(newAppointment.ClinicHospitalID),
                     ApprovalState = newAppointment.ApprovalState,
                     PreferredDate = newAppointment.PreferredDate,
                     PreferredTime = newAppointment.PreferredTime,
@@ -395,29 +444,45 @@ namespace DAMS_03.Controllers
 
                 db.Appointments.Add(addAppointment);
                 db.SaveChanges();
-                return RedirectToAction("CreateTreatments", "Appointments", new { id = "1" });
+
+                foreach (TreatmentHelperModel treatment in newAppointment.listOfTreatments)
+                {
+                    if (treatment.IsChecked == true)
+                    {
+                        AppointmentTreatment addNewRelation = new AppointmentTreatment()
+                        {
+                            TreatmentID = treatment.ID,
+                            AppointmentID = addAppointment.ID
+                        };
+                        db.AppointmentTreatments.Add(addNewRelation);
+                    }
+
+                }
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Appointments");
             }
             else
             {
                 newAppointment.AppointmentDate = System.DateTime.Now;
                 newAppointment.PreferredDate = System.DateTime.Now;
 
-                newAppointment.selectClinicHospital = new List<SelectListItem>();
+                //newAppointment.selectClinicHospital = new List<SelectListItem>();
                 newAppointment.selectDoctorDentist = new List<SelectListItem>();
                 newAppointment.selectUser = new List<SelectListItem>();
 
-                var listOfHosp = from ClinHosp in db.ClinicHospitals
-                                 select new SelectListItem()
-                                 {
-                                     Value = ClinHosp.ID.ToString(),
-                                     Text = ClinHosp.ClinicHospitalName
-                                 };
-                newAppointment.selectClinicHospital.Add(new SelectListItem()
-                {
-                    Value = "",
-                    Text = " - "
-                });
-                newAppointment.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
+                //var listOfHosp = from ClinHosp in db.ClinicHospitals
+                //                 select new SelectListItem()
+                //                 {
+                //                     Value = ClinHosp.ID.ToString(),
+                //                     Text = ClinHosp.ClinicHospitalName
+                //                 };
+                //newAppointment.selectClinicHospital.Add(new SelectListItem()
+                //{
+                //    Value = "",
+                //    Text = " - "
+                //});
+                //newAppointment.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
 
                 var listOfDoc = from doc in db.DoctorDentists
                                 select new SelectListItem()
@@ -444,62 +509,6 @@ namespace DAMS_03.Controllers
                     Text = " - "
                 });
                 newAppointment.selectUser.AddRange(listOfUser.ToList<SelectListItem>());
-            }
-            ////ViewBag.ClinicHospitalID = new SelectList(db.ClinicHospitals, "ID", "ClinicHospitalID", appointment.ClinicHospitalID);
-            //ViewBag.DoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.DoctorDentistID);
-            //ViewBag.RequestDoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.RequestDoctorDentistID);
-            //ViewBag.UserID = new SelectList(db.UserAccounts, "ID", "ID", appointment.UserID);
-
-            return View(newAppointment);
-        }
-
-        // GET: Appointments/CreateTreatments
-        public ActionResult CreateTreatments(int? id)
-        {
-
-            AppointmentTreatmentsCreateModel returnModel = new AppointmentTreatmentsCreateModel();
-            returnModel.listOfTreatments = (from t in db.Treatments
-                                            join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
-                                            join hc in db.ClinicHospitals on cht.ClinicHospitalID equals hc.ID
-                                            select new TreatmentHelperModel()
-                                            {
-                                                ID = t.ID,
-                                                TreatmentID = t.TreatmentID,
-                                                TreatmentName = t.TreatmentName,
-                                                TreatmentDesc = t.TreatmentDesc,
-                                                IsFollowUp = t.IsFollowUp,
-                                                PriceLow = cht.PriceLow,
-                                                PriceHigh = cht.PriceHigh,
-                                                IsChecked = false
-                                            }).ToList();
-
-            foreach (TreatmentHelperModel t in returnModel.listOfTreatments)
-            {
-                string priceLow = String.Format("{0:C}", t.PriceLow);
-                if (t.PriceHigh == t.PriceLow)
-                {
-                    t.Price = priceLow;
-                }
-                else
-                {
-                    string priceHigh = String.Format("{0:C}", t.PriceHigh);
-                    t.Price = priceLow + " - " + priceHigh;
-                }
-            }
-            
-            return View(returnModel);
-        }
-
-        // POST: Appointments/CreateTreatments
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateTreatments(AppointmentCreateViewModel newAppointment)
-        {
-            if (ModelState.IsValid)
-            {
-
             }
 
 
@@ -646,6 +655,63 @@ namespace DAMS_03.Controllers
             });
             returnAppt.selectUser.AddRange(listOfUser.ToList<SelectListItem>());
 
+
+            List<Treatment> treatmentRelation = (from t in db.Treatments
+                                                 join at in db.AppointmentTreatments on t.ID equals at.TreatmentID
+                                                 join a in db.Appointments on at.AppointmentID equals a.ID
+                                                 where a.ID == returnAppt.ID
+                                                 select t).ToList();
+
+            var listOfTreatments = (from t in db.Treatments
+                                    select new
+                                    {
+                                        ID = t.ID,
+                                        TreatmentID = t.TreatmentID,
+                                        TreatmentName = t.TreatmentName,
+                                        TreatmentDesc = t.TreatmentDesc,
+                                        IsFollowUp = t.IsFollowUp
+                                    }).ToList();
+
+            returnAppt.listOfTreatments = new List<TreatmentHelperModel>();
+
+            foreach (var t in listOfTreatments)
+            {
+                bool added = false;
+                foreach (Treatment r in treatmentRelation)
+                {
+                    if (t.ID == r.ID)
+                    {
+                        TreatmentHelperModel addTreatment = new TreatmentHelperModel()
+                        {
+                            ID = t.ID,
+                            TreatmentID = t.TreatmentID,
+                            TreatmentName = t.TreatmentName,
+                            TreatmentDesc = t.TreatmentDesc,
+                            IsFollowUp = t.IsFollowUp,
+                            IsChecked = true
+                        };
+                        returnAppt.listOfTreatments.Add(addTreatment);
+                        added = true;
+                        break;
+                    }
+                }//end foreach
+                if (added == false)
+                {
+                    TreatmentHelperModel addTreatment = new TreatmentHelperModel()
+                    {
+                        ID = t.ID,
+                        TreatmentID = t.TreatmentID,
+                        TreatmentName = t.TreatmentName,
+                        TreatmentDesc = t.TreatmentDesc,
+                        IsFollowUp = t.IsFollowUp,
+                        IsChecked = false
+                    };
+                    returnAppt.listOfTreatments.Add(addTreatment);
+                }
+            }//end foreach
+
+
+
             return View(returnAppt);
         }
 
@@ -690,8 +756,30 @@ namespace DAMS_03.Controllers
                 //}
 
                 db.Entry(appointment).State = EntityState.Modified;
+
+                List<AppointmentTreatment> listDelRel = (from at in db.AppointmentTreatments
+                                                         join a in db.Appointments on at.AppointmentID equals a.ID
+                                                         where a.ID == appointment.ID
+                                                         select at).ToList();
+
+                db.AppointmentTreatments.RemoveRange(listDelRel);
+
+                foreach (TreatmentHelperModel treatment in model.listOfTreatments)
+                {
+                    if (treatment.IsChecked == true)
+                    {
+                        AppointmentTreatment addNewRelation = new AppointmentTreatment()
+                        {
+                            TreatmentID = treatment.ID,
+                            AppointmentID = appointment.ID
+                        };
+                        db.AppointmentTreatments.Add(addNewRelation);
+                    }
+
+                }
+
                 db.SaveChanges();
-                return RedirectToAction("Index", "Appointments");
+                return RedirectToAction("Details", "Appointments");
             }
             else
             {
