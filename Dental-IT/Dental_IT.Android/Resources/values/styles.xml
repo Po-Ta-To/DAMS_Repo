@@ -4,5 +4,6 @@
     <item name="windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
     <item name="colorPrimary">@color/dark_blue</item>
+     <item name="android:activatedBackgroundIndicator">@drawable/navmenu_selector</item>  
   </style>
 </resources>
