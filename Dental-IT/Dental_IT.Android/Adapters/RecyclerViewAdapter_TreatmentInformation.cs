@@ -47,7 +47,7 @@ namespace Dental_IT.Droid.Adapters
             TreatmentInformation_ViewHolder vh = holder as TreatmentInformation_ViewHolder;
 
             //  Set height of row
-            vh.ItemView.LayoutParameters.Height = Treatment_Information.LIST_HEIGHT / 6;
+            vh.ItemView.LayoutParameters.Height = (Main_Menu.SCREEN_HEIGHT - Main_Menu.ACTIONBAR_HEIGHT) / 6;
 
             //  Set alternating background of row
             int type = GetItemViewType(position);

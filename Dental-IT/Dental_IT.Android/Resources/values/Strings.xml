@@ -61,6 +61,7 @@
   <string name="search_title">Search</string>
   <string name="myAppts_title">My Appointments</string>
   <string name="offeredBy_title">Offered By</string>
+  <string name="selectTreatment_title">Select Treatment(s)</string>
   <string name="close">Close</string>
   <string name="confirm_delete">Delete</string>
   <string name="cancel">Cancel</string>

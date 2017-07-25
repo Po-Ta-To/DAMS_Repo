@@ -13,8 +13,6 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Treatment_Information : AppCompatActivity
     {
-        public static int LIST_HEIGHT;
-
         private Treatment a = new Treatment(1, "Treatment 1", 100, 500);
         private Treatment b = new Treatment(2, "Treatment 2", 200, 800);
         private Treatment c = new Treatment(3, "Treatment 3", 1350, 5400);
@@ -51,7 +49,6 @@ namespace Dental_IT.Droid.Main
                 //  Configure custom adapter for recyclerview
                 treatmentInformation_RecyclerView.Post(() =>
                 {
-                    LIST_HEIGHT = treatmentInformation_RecyclerView.Height;
                     treatmentInformation_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
                     RecyclerViewAdapter_TreatmentInformation adapter = new RecyclerViewAdapter_TreatmentInformation(this, this, list);

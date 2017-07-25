@@ -25,8 +25,8 @@ namespace Dental_IT.Droid.Fragments
         private Hospital m = new Hospital(13, "Hospital 13");
 
         private List<Hospital> hospitalList = new List<Hospital>();
-        private List<Favourite> tempFavouriteList = new List<Favourite>();
         private List<int> prefList = new List<int>();
+        private List<ToggleState> tempFavouriteList = new List<ToggleState>();
         private RecyclerView searchHospital_RecyclerView;
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -58,12 +58,12 @@ namespace Dental_IT.Droid.Fragments
                 //  Create a temporary list of favourites with all the hospitals
                 foreach (Hospital hosp in hospitalList)
                 {
-                    Favourite tempFav = new Favourite(hosp.id);
+                    ToggleState tempFav = new ToggleState(hosp.id);
 
                     //  Set favourited to true if hospital id corresponds with id in shared preferences
                     if (prefList.Exists(e => (e == hosp.id)))
                     {
-                        tempFav.favourited = true;
+                        tempFav.toggled = true;
                     }
 
                     tempFavouriteList.Add(tempFav);
@@ -75,7 +75,7 @@ namespace Dental_IT.Droid.Fragments
             {
                 foreach (Hospital hosp in hospitalList)
                 {
-                    tempFavouriteList.Add(new Favourite(hosp.id));
+                    tempFavouriteList.Add(new ToggleState(hosp.id));
                 }
             }
         }

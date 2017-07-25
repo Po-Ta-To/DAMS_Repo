@@ -111,6 +111,13 @@ namespace Dental_IT.Droid.Main
             //    StartActivity(intent);
             //};
 
+            //  Handle select treatments button
+            request_TreatmentsBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Select_Treatment));
+                StartActivity(intent);
+            };
+
             //  Handle request button
             request_SubmitBtn.Click += delegate
             {
@@ -139,7 +146,6 @@ namespace Dental_IT.Droid.Main
             return base.OnOptionsItemSelected(item);
         }
 
-        // Save hospital name as instance state
         protected override void OnStop()
         {
             base.OnStop();
@@ -148,6 +154,13 @@ namespace Dental_IT.Droid.Main
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutString("hospitalName", hospitalName);
+
+            //  Remove selected treatments from shared preferences on leaving request page
+            if (prefs.Contains("treatments"))
+            {
+                editor.Remove("treatments");
+            }
+
             editor.Apply();
         }
     }
