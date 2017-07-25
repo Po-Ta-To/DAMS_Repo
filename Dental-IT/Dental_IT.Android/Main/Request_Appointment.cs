@@ -58,7 +58,7 @@ namespace Dental_IT.Droid.Main
             {
                 //  Receive data from shared preferences
                 hospitalName = prefs.GetString("hospitalName", "Data not available");
-                request_DateField.Text = prefs.GetString("date", GetString(Resource.String.pref_date));
+                request_DateField.Text = prefs.GetString("date", GetString(Resource.String.select_date));
             }
 
             RunOnUiThread(() =>
