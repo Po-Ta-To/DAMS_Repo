@@ -31,4 +31,10 @@
   <activity
     android:name="Search">
   </activity>
+  <activity
+    android:name="Offered_By">
+  </activity>
+  <activity
+    android:name="Select_Treatment">
+  </activity>
 </manifest>

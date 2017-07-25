@@ -4,7 +4,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class Sign_In : Activity

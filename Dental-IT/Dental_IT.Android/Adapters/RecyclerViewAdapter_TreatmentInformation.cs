@@ -1,13 +1,12 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
-using System.Collections;
 using System.Collections.Generic;
 using Dental_IT.Droid.Fragments;
 using Android.OS;
+using Dental_IT.Droid.Main;
 
 namespace Dental_IT.Droid.Adapters
 {
@@ -48,7 +47,7 @@ namespace Dental_IT.Droid.Adapters
             TreatmentInformation_ViewHolder vh = holder as TreatmentInformation_ViewHolder;
 
             //  Set height of row
-            vh.ItemView.LayoutParameters.Height = Treatment_Information.LIST_HEIGHT / 6;
+            vh.ItemView.LayoutParameters.Height = (Main_Menu.SCREEN_HEIGHT - Main_Menu.ACTIONBAR_HEIGHT) / 6;
 
             //  Set alternating background of row
             int type = GetItemViewType(position);

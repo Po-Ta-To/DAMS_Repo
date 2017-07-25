@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Appointment.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Favourite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToggleState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hospital.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Treatment.cs" />
   </ItemGroup>

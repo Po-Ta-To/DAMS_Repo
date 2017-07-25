@@ -7,7 +7,7 @@ using Android.Widget;
 using Dental_IT.Droid.Fragments;
 using Dental_IT.Droid.Adapters;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Register : Android.Support.V7.App.AppCompatActivity

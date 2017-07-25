@@ -4,7 +4,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using System.Collections.Generic;
-using Android.Preferences;
+using Dental_IT.Droid.Main;
 
 namespace Dental_IT.Droid.Adapters
 {
@@ -13,15 +13,14 @@ namespace Dental_IT.Droid.Adapters
         private readonly Context context;
         private List<Hospital> hospitalList;
         public static List<int> prefList;
-        private List<Favourite> tempFavouriteList;
+        private List<ToggleState> tempFavouriteList;
         public event EventHandler<int> ItemClick;
-        ISharedPreferences prefs;
 
-        public RecyclerViewAdapter_SelectHospital(Context c, List<Hospital> l, List<int> f, List<Favourite> temp)
+        public RecyclerViewAdapter_SelectHospital(Context c, List<Hospital> l, List<int> p, List<ToggleState> temp)
         {
             context = c;
             hospitalList = l;
-            prefList = f;
+            prefList = p;
             tempFavouriteList = temp;
         }
 
@@ -40,9 +39,9 @@ namespace Dental_IT.Droid.Adapters
 
         private void OnItemClick(object sender, int position)
         {
-            if (tempFavouriteList[position].favourited == false)
+            if (tempFavouriteList[position].toggled == false)
             {
-                tempFavouriteList[position].favourited = true;
+                tempFavouriteList[position].toggled = true;
 
                 prefList.Add(tempFavouriteList[position].id);
 
@@ -50,7 +49,7 @@ namespace Dental_IT.Droid.Adapters
             }
             else
             {
-                tempFavouriteList[position].favourited = false;
+                tempFavouriteList[position].toggled = false;
 
                 prefList.Remove(prefList.Find(e => (e == tempFavouriteList[position].id)));
 
@@ -85,16 +84,13 @@ namespace Dental_IT.Droid.Adapters
 
             // Set view data
             vh.hospitalName.Text = hospitalList[position].name;
-            vh.hospitalFavourites.Checked = tempFavouriteList[position].favourited;
+            vh.hospitalFavourites.Checked = tempFavouriteList[position].toggled;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Hospital_List_Item, parent, false);
             SelectHospital_ViewHolder holder = new SelectHospital_ViewHolder(view, OnClick);
-
-            //  Get list of favourites from shared preferences
-            prefs = PreferenceManager.GetDefaultSharedPreferences(context);
 
             holder.ItemView.Click += delegate
             {

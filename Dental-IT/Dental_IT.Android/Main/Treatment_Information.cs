@@ -2,22 +2,19 @@
 using Android.OS;
 using Android.Support.V7.Widget;
 using System.Collections.Generic;
-using System.Collections;
 using Dental_IT.Droid.Adapters;
-using Android.Widget;
 using Android.Views;
-using Android.Content;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
+using Android.Widget;
+using Android.Content;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Treatment_Information : AppCompatActivity
     {
-        public static int LIST_HEIGHT;
-
         private Treatment a = new Treatment(1, "Treatment 1", 100, 500);
         private Treatment b = new Treatment(2, "Treatment 2", 200, 800);
         private Treatment c = new Treatment(3, "Treatment 3", 1350, 5400);
@@ -54,7 +51,6 @@ namespace Dental_IT.Droid
                 //  Configure custom adapter for recyclerview
                 treatmentInformation_RecyclerView.Post(() =>
                 {
-                    LIST_HEIGHT = treatmentInformation_RecyclerView.Height;
                     treatmentInformation_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
                     RecyclerViewAdapter_TreatmentInformation adapter = new RecyclerViewAdapter_TreatmentInformation(this, this, list);
@@ -78,6 +74,47 @@ namespace Dental_IT.Droid
                 navigationView.NavigationItemSelected += (sender, e) =>
                 {
                     e.MenuItem.SetChecked(true);
+
+                    Intent intent;
+
+                    switch (e.MenuItem.ItemId)
+                    {
+
+                        case Resource.Id.nav_home:
+                            intent = new Intent(this, typeof(Main_Menu));
+                            StartActivity(intent);
+                            Toast.MakeText(this, Resource.String.mainmenu, ToastLength.Short).Show();
+                            break;
+
+                        case Resource.Id.nav_RequestAppt:
+                            intent = new Intent(this, typeof(Request_Appointment));
+                            StartActivity(intent);
+
+                            Toast.MakeText(this, Resource.String.request_title, ToastLength.Short).Show();
+                            break;
+
+                        case Resource.Id.nav_MyAppt:
+                            intent = new Intent(this, typeof(My_Appointments));
+                            StartActivity(intent);
+
+                            Toast.MakeText(this, Resource.String.myAppts_title, ToastLength.Short).Show();
+                            break;
+
+                        case Resource.Id.nav_TreatmentInfo:
+                            intent = new Intent(this, typeof(Treatment_Information));
+                            StartActivity(intent);
+
+                            Toast.MakeText(this, Resource.String.treatmentInfo_title, ToastLength.Short).Show();
+                            break;
+
+                        case Resource.Id.nav_Search:
+                            intent = new Intent(this, typeof(Search));
+                            StartActivity(intent);
+
+                            Toast.MakeText(this, Resource.String.search_title, ToastLength.Short).Show();
+                            break;
+
+                    }
                     //react to click here and swap fragments or navigate
                     drawerLayout.CloseDrawers();
                 };

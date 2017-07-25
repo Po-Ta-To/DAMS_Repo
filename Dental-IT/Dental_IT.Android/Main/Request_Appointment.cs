@@ -8,7 +8,7 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Preferences;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Request_Appointment : AppCompatActivity
@@ -16,7 +16,6 @@ namespace Dental_IT.Droid
         DrawerLayout drawerLayout;
         NavigationView navigationView;
         private string hospitalName;
-        private bool isUsed;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -42,12 +41,12 @@ namespace Dental_IT.Droid
             //  Shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 
-            //  Check if redirected from select_hospital or from calendar
+            //  Check if redirected from select hospital or from calendar
             Intent i = this.Intent;
 
             if (i.GetStringExtra("request_HospitalName") != null)
             {
-                //  Receive data from select_hospital
+                //  Receive data from select hospital
                 hospitalName = i.GetStringExtra("request_HospitalName");
             }
             else
@@ -100,6 +99,47 @@ namespace Dental_IT.Droid
                 navigationView.NavigationItemSelected += (sender, e) =>
                 {
                     e.MenuItem.SetChecked(true);
+
+                    Intent intent;
+                    switch (e.MenuItem.ItemId)
+                    {
+
+                        case Resource.Id.nav_home:
+                            intent = new Intent(this, typeof(Main_Menu));
+                            StartActivity(intent);
+                            Toast.MakeText(this, Resource.String.mainmenu, ToastLength.Short).Show();
+                            break;
+
+                        case Resource.Id.nav_RequestAppt:
+                            intent = new Intent(this, typeof(Request_Appointment));
+                            StartActivity(intent);
+
+                            Toast.MakeText(this, Resource.String.request_title, ToastLength.Short).Show();
+                            break;
+
+                        case Resource.Id.nav_MyAppt:
+                            intent = new Intent(this, typeof(My_Appointments));
+                            StartActivity(intent);
+
+                            Toast.MakeText(this, Resource.String.myAppts_title, ToastLength.Short).Show();
+                            break;
+
+                        case Resource.Id.nav_TreatmentInfo:
+                            intent = new Intent(this, typeof(Treatment_Information));
+                            StartActivity(intent);
+
+                            Toast.MakeText(this, Resource.String.treatmentInfo_title, ToastLength.Short).Show();
+                            break;
+
+                        case Resource.Id.nav_Search:
+                            intent = new Intent(this, typeof(Search));
+                            StartActivity(intent);
+
+                            Toast.MakeText(this, Resource.String.search_title, ToastLength.Short).Show();
+                            break;
+
+                    }
+
                     //react to click here and swap fragments or navigate
                     drawerLayout.CloseDrawers();
                 };
@@ -111,6 +151,13 @@ namespace Dental_IT.Droid
             //    Intent intent = new Intent(this, typeof(Calendar));
             //    StartActivity(intent);
             //};
+
+            //  Handle select treatments button
+            request_TreatmentsBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Select_Treatment));
+                StartActivity(intent);
+            };
 
             //  Handle request button
             request_SubmitBtn.Click += delegate
@@ -140,7 +187,6 @@ namespace Dental_IT.Droid
             return base.OnOptionsItemSelected(item);
         }
 
-        // Save hospital name as instance state
         protected override void OnStop()
         {
             base.OnStop();
@@ -149,6 +195,13 @@ namespace Dental_IT.Droid
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutString("hospitalName", hospitalName);
+
+            //  Remove selected treatments from shared preferences on leaving request page
+            if (prefs.Contains("treatments"))
+            {
+                editor.Remove("treatments");
+            }
+
             editor.Apply();
         }
     }

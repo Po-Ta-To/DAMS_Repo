@@ -1,5 +1,4 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
@@ -10,7 +9,7 @@ using Dental_IT.Droid.Adapters;
 using Android.Preferences;
 using Android.Support.V7.App;
 
-namespace Dental_IT.Droid
+namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Select_Hospital : AppCompatActivity
@@ -30,8 +29,9 @@ namespace Dental_IT.Droid
         private Hospital m = new Hospital(13, "Hospital 13");
 
         private List<Hospital> hospitalList = new List<Hospital>();
-        private List<Favourite> tempFavouriteList = new List<Favourite>();
+        private List<Hospital> tempHospitalList = new List<Hospital>();
         private List<int> prefList = new List<int>();
+        private List<ToggleState> tempFavouriteList = new List<ToggleState>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,8 +57,7 @@ namespace Dental_IT.Droid
             hospitalList.Add(l);
             hospitalList.Add(m);
 
-            List<Hospital> tempHospitalList = new List<Hospital>();
-
+            //  Add hospitals to temp list
             foreach (Hospital h in hospitalList)
             {
                 tempHospitalList.Add(h);
@@ -90,7 +89,7 @@ namespace Dental_IT.Droid
                         //  Add to favourites list if hospital id corresponds with id in shared preferences
                         if (prefList.Exists(e => (e == hosp.id)))
                         {
-                            Favourite tempFav = new Favourite(hosp.id, true);
+                            ToggleState tempFav = new ToggleState(hosp.id, true);
                             tempFavouriteList.Add(tempFav);
                         }
                         //  Remove from hospital list if hospital id does not correspond with id in shared preferences
@@ -99,9 +98,9 @@ namespace Dental_IT.Droid
                             tempHospitalList.Remove(tempHospitalList.Find(e => (e.id == hosp.id)));
                         }
                     }
-                }
 
-                hospitalList = tempHospitalList;
+                    hospitalList = tempHospitalList;
+                }
             }
 
             //  Else if shared preferences is empty, don't display any hospitals
