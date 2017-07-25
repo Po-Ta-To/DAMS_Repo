@@ -95,7 +95,7 @@ namespace Dental_IT.Droid.Adapters
             holder.ItemView.Click += delegate
             {
                 Intent intent = new Intent(context, typeof(Request_Appointment));
-                intent.PutExtra("request_HospitalName", holder.hospitalName.Text);
+                intent.PutExtra("newRequest_HospitalName", holder.hospitalName.Text);
                 context.StartActivity(intent);
             };
 

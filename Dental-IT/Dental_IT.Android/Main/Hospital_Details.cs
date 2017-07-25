@@ -75,7 +75,7 @@ namespace Dental_IT.Droid.Main
             hospDetails_RequestBtn.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Request_Appointment));
-                intent.PutExtra("request_HospitalName", hospDetails_HospitalText.Text);
+                intent.PutExtra("newRequest_HospitalName", hospDetails_HospitalText.Text);
                 StartActivity(intent);
             };
         }

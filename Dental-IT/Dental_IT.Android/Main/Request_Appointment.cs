@@ -40,29 +40,25 @@ namespace Dental_IT.Droid.Main
 
             //  Shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
 
-            //  Check if redirected from select hospital or from calendar
-            Intent i = this.Intent;
+            //  Get intents
+            Intent i = Intent;
 
-            if (i.GetStringExtra("request_HospitalName") != null)
+            //  If redirected from select hospital or hospital details page (New request)
+            if (i.GetStringExtra("newRequest_HospitalName") != null)
             {
-                //  Receive data from select hospital
-                hospitalName = i.GetStringExtra("request_HospitalName");
+                //  Remove old shared preferences
+                RemoveFromPreferences(prefs, editor);
+
+                //  Receive hospital name data from intent
+                hospitalName = i.GetStringExtra("newRequest_HospitalName");
             }
             else
             {
-                //  If shared preferences contains hospital name
-                if (prefs.Contains("hospitalName"))
-                {
-                    //  Receive data from bundle
-                    hospitalName = prefs.GetString("hospitalName", "Data not available");
-
-                    if (i.GetStringExtra("calendar_Date") != null)
-                    {
-                        //  Receive data from calendar
-                        request_DateField.Text = i.GetStringExtra("calendar_Date");
-                    }
-                }
+                //  Receive data from shared preferences
+                hospitalName = prefs.GetString("hospitalName", "Data not available");
+                request_DateField.Text = prefs.GetString("date", GetString(Resource.String.pref_date));
             }
 
             RunOnUiThread(() =>
@@ -145,12 +141,12 @@ namespace Dental_IT.Droid.Main
                 };
             });
 
-            ////  Intent to redirect to calendar page
-            //request_DateField.Click += delegate
-            //{
-            //    Intent intent = new Intent(this, typeof(Calendar));
-            //    StartActivity(intent);
-            //};
+            //  Intent to redirect to calendar page
+            request_DateField.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Calendar));
+                StartActivity(intent);
+            };
 
             //  Handle select treatments button
             request_TreatmentsBtn.Click += delegate
@@ -195,11 +191,28 @@ namespace Dental_IT.Droid.Main
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutString("hospitalName", hospitalName);
+            editor.Apply();
+        }
 
-            //  Remove selected treatments from shared preferences on leaving request page
+        //  Method to remove old shared preferences
+        public void RemoveFromPreferences(ISharedPreferences prefs, ISharedPreferencesEditor editor)
+        {
+            //  Remove hospital name from shared preferences
+            if (prefs.Contains("hospitalName"))
+            {
+                editor.Remove("hospitalName");
+            }
+
+            //  Remove selected treatments from shared preferences
             if (prefs.Contains("treatments"))
             {
                 editor.Remove("treatments");
+            }
+
+            //  Remove selected date from shared preferences
+            if (prefs.Contains("date"))
+            {
+                editor.Remove("date");
             }
 
             editor.Apply();

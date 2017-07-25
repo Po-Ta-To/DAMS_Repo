@@ -3711,20 +3711,23 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f080029
 			public const int calendar = 2131230761;
 			
-			// aapt resource value: 0x7f080060
-			public const int cancel = 2131230816;
+			// aapt resource value: 0x7f08005e
+			public const int calendar_title = 2131230814;
+			
+			// aapt resource value: 0x7f080061
+			public const int cancel = 2131230817;
 			
 			// aapt resource value: 0x7f080023
 			public const int character_counter_pattern = 2131230755;
 			
-			// aapt resource value: 0x7f08005e
-			public const int close = 2131230814;
-			
-			// aapt resource value: 0x7f080069
-			public const int confirm = 2131230825;
-			
 			// aapt resource value: 0x7f08005f
-			public const int confirm_delete = 2131230815;
+			public const int close = 2131230815;
+			
+			// aapt resource value: 0x7f08006a
+			public const int confirm = 2131230826;
+			
+			// aapt resource value: 0x7f080060
+			public const int confirm_delete = 2131230816;
 			
 			// aapt resource value: 0x7f080045
 			public const int date = 2131230789;
@@ -3732,14 +3735,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08004b
 			public const int delete = 2131230795;
 			
-			// aapt resource value: 0x7f080065
-			public const int delete_OK = 2131230821;
+			// aapt resource value: 0x7f080066
+			public const int delete_OK = 2131230822;
+			
+			// aapt resource value: 0x7f080063
+			public const int delete_text = 2131230819;
 			
 			// aapt resource value: 0x7f080062
-			public const int delete_text = 2131230818;
-			
-			// aapt resource value: 0x7f080061
-			public const int delete_title = 2131230817;
+			public const int delete_title = 2131230818;
 			
 			// aapt resource value: 0x7f080046
 			public const int dentist = 2131230790;
@@ -3762,11 +3765,11 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08003b
 			public const int hospital = 2131230779;
 			
-			// aapt resource value: 0x7f080067
-			public const int hospital_tab = 2131230823;
+			// aapt resource value: 0x7f080068
+			public const int hospital_tab = 2131230824;
 			
-			// aapt resource value: 0x7f08006c
-			public const int mainmenu = 2131230828;
+			// aapt resource value: 0x7f08006d
+			public const int mainmenu = 2131230829;
 			
 			// aapt resource value: 0x7f080036
 			public const int mobile = 2131230774;
@@ -3789,8 +3792,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f080024
 			public const int password_toggle_content_description = 2131230756;
 			
-			// aapt resource value: 0x7f08006b
-			public const int past_tab = 2131230827;
+			// aapt resource value: 0x7f08006c
+			public const int past_tab = 2131230828;
 			
 			// aapt resource value: 0x7f080025
 			public const int path_password_eye = 2131230757;
@@ -3825,8 +3828,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08002b
 			public const int previous = 2131230763;
 			
-			// aapt resource value: 0x7f080066
-			public const int price = 2131230822;
+			// aapt resource value: 0x7f080067
+			public const int price = 2131230823;
 			
 			// aapt resource value: 0x7f08003a
 			public const int register = 2131230778;
@@ -3849,8 +3852,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f080051
 			public const int request = 2131230801;
 			
-			// aapt resource value: 0x7f080063
-			public const int request_OK = 2131230819;
+			// aapt resource value: 0x7f080064
+			public const int request_OK = 2131230820;
 			
 			// aapt resource value: 0x7f080054
 			public const int request_title = 2131230804;
@@ -3900,8 +3903,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f080058
 			public const int treatmentInfo_title = 2131230808;
 			
-			// aapt resource value: 0x7f080068
-			public const int treatment_tab = 2131230824;
+			// aapt resource value: 0x7f080069
+			public const int treatment_tab = 2131230825;
 			
 			// aapt resource value: 0x7f080048
 			public const int treatments = 2131230792;
@@ -3909,14 +3912,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f080050
 			public const int treatments_offered = 2131230800;
 			
-			// aapt resource value: 0x7f08006a
-			public const int upcoming_tab = 2131230826;
+			// aapt resource value: 0x7f08006b
+			public const int upcoming_tab = 2131230827;
 			
 			// aapt resource value: 0x7f08004a
 			public const int update = 2131230794;
 			
-			// aapt resource value: 0x7f080064
-			public const int update_OK = 2131230820;
+			// aapt resource value: 0x7f080065
+			public const int update_OK = 2131230821;
 			
 			// aapt resource value: 0x7f080055
 			public const int update_title = 2131230805;

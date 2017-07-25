@@ -6,13 +6,17 @@ using Android.Widget;
 using MaterialCalendarLibrary;
 using Com.Prolificinteractive.Materialcalendarview.Spans;
 using Android.Graphics;
+using Android.Preferences;
+using Android.Support.V7.App;
+using Android.Views;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Calendar : Activity
+    public class Calendar : AppCompatActivity
     {
         private static Java.Text.DateFormat formatter = Java.Text.DateFormat.DateInstance;
+        private string selectedDate;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,7 +31,7 @@ namespace Dental_IT.Droid.Main
             Button calendar_ConfirmBtn = FindViewById<Button>(Resource.Id.calendar_ConfirmBtn);
 
             calendar.SetSelectedDate(Java.Util.Calendar.GetInstance(Java.Util.Locale.English));
-            calendar_DateText.Text = formatter.Format(calendar.SelectedDate.Date);
+            selectedDate = formatter.Format(calendar.SelectedDate.Date);
 
             List<CalendarDay> dates = new List<CalendarDay>();
 
@@ -58,17 +62,54 @@ namespace Dental_IT.Droid.Main
             calendar.AddDecorators(new EventDecorator(Color.Red, dates));
             calendar.AddDecorators(new EventDecorator(Color.Green, dates2));
 
-            calendar.DateChanged += delegate
+            RunOnUiThread(() =>
             {
-                calendar_DateText.Text = formatter.Format(calendar.SelectedDate.Date);
-            };
+                //  Set inital date
+                calendar_DateText.Text = selectedDate;
+
+                //  Set date on date change
+                calendar.DateChanged += delegate
+                {
+                    selectedDate = formatter.Format(calendar.SelectedDate.Date);
+                    calendar_DateText.Text = selectedDate;
+                };
+
+                //Implement CustomTheme ActionBar
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                toolbar.SetTitle(Resource.String.calendar_title);
+                SetSupportActionBar(toolbar);
+
+                //Set backarrow as Default
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            });
 
             calendar_ConfirmBtn.Click += delegate
             {
+                //  Save selected date to shared preferences
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                editor.PutString("date", selectedDate);
+                editor.Apply();
+
                 Intent intent = new Intent(this, typeof(Request_Appointment));
-                intent.PutExtra("calendar_Date", formatter.Format(calendar.SelectedDate.Date));
                 StartActivity(intent);
             };
+        }
+
+        //Implement menus in the action bar; backarrow
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            return true;
+        }
+
+
+        //Redirect to request appointment page when back arrow is tapped
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Intent intent = new Intent(this, typeof(Request_Appointment));
+            StartActivity(intent);
+
+            return base.OnOptionsItemSelected(item);
         }
     }
 

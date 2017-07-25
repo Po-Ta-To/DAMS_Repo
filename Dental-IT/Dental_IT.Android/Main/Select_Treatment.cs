@@ -136,7 +136,7 @@ namespace Dental_IT.Droid.Main
         {
             base.OnStop();
 
-            //  Save favourites to shared preferences
+            //  Save selected treatments to shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutString("treatments", Newtonsoft.Json.JsonConvert.SerializeObject(RecyclerViewAdapter_SelectTreatment.prefList));
