@@ -10,6 +10,7 @@ using Android.Support.V4.View;
 using Dental_IT.Droid.Adapters;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
+using Android.Widget;
 
 namespace Dental_IT.Droid.Main
 {

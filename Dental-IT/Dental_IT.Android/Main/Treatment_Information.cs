@@ -7,6 +7,8 @@ using Android.Views;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
+using Android.Widget;
+using Android.Content;
 
 namespace Dental_IT.Droid.Main
 {
@@ -56,7 +58,7 @@ namespace Dental_IT.Droid.Main
                 });
 
                 //Implement CustomTheme ActionBar
-                var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 toolbar.SetTitle(Resource.String.treatmentInfo_title);
                 SetSupportActionBar(toolbar);
 
