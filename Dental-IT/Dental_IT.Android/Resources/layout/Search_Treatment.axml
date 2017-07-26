@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-  <android.support.v7.widget.RecyclerView
+    <xamarin.rangeslider.RangeSliderControl
+        android:id="@+id/slider"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="7dp"
+        app:absoluteMinValue="1"
+        app:absoluteMaxValue="9999"
+        app:stepValue="100"
+        app:stepValueContinuously="true"
+        app:activateOnDefaultValues="true"
+        app:barHeight="2dp"
+        app:showRangeLabels="false"
+        app:textAboveThumbsColor="@color/dark_blue" />
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/searchTreatment_RecyclerView"
         android:scrollbars="vertical"
         android:layout_width="fill_parent"

@@ -46,7 +46,7 @@ namespace Dental_IT.Droid.Adapters
             //  Set alternating background of row
             int type = GetItemViewType(position);
 
-            if (type == 0)
+            if (type == 1)
             {
                 vh.ItemView.SetBackgroundResource(Resource.Color._8_white);
             }

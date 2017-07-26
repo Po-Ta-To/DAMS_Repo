@@ -1,40 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-  <uses-sdk android:minSdkVersion="15" />
-  <application android:label="Dental-IT"
-               android:icon="@drawable/ic_launcher"  android:theme="@style/MyTheme">
-  </application>
-  <activity
-    android:name="Register">
-  </activity>
-  <activity
-    android:name="Main_Menu">
-  </activity>
-  <activity
-    android:name="Select_Hospital">
-  </activity>
-  <activity
-    android:name="Request_Appointment">
-  </activity>
-  <activity
-    android:name="Appointment_Details">
-  </activity>
-  <activity
-    android:name="Hospital_Details">
-  </activity>
-  <activity
-    android:name="Treatment_Information">
-  </activity>
-  <activity
-    android:name="Calendar">
-  </activity>
-  <activity
-    android:name="Search">
-  </activity>
-  <activity
-    android:name="Offered_By">
-  </activity>
-  <activity
-    android:name="Select_Treatment">
-  </activity>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="preferExternal">
+	<uses-sdk android:minSdkVersion="15" />
+	<application android:label="Dental-IT" android:icon="@drawable/ic_launcher" android:theme="@style/MyTheme"></application>
+	<activity android:name="Register"></activity>
+	<activity android:name="Main_Menu"></activity>
+	<activity android:name="Select_Hospital"></activity>
+	<activity android:name="Request_Appointment"></activity>
+	<activity android:name="Appointment_Details"></activity>
+	<activity android:name="Hospital_Details"></activity>
+	<activity android:name="Treatment_Information"></activity>
+	<activity android:name="Calendar"></activity>
+	<activity android:name="Search"></activity>
+	<activity android:name="Offered_By"></activity>
+	<activity android:name="Select_Treatment"></activity>
 </manifest>

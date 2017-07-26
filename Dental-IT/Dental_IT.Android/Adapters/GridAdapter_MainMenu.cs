@@ -8,7 +8,6 @@ namespace Dental_IT.Droid.Adapters
     class GridAdapter_MainMenu : BaseAdapter
     {
         private readonly Context context;
-        private int numRows = 2;
         private int[] items;
 
         public GridAdapter_MainMenu(Context c, int[] i)
@@ -40,15 +39,11 @@ namespace Dental_IT.Droid.Adapters
             {
                 button = new ImageButton(context);
 
-
-                //button.SetBackgroundColor(new Android.Graphics.Color(Resource.Color.blue));
-                //button.SetTextColor(new Android.Graphics.Color(Resource.Color.white));
-                //button.SetHeight(Main_Menu.GRID_HEIGHT / numRows);
-                //button.SetAllCaps(false);
-
                 button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-                button.SetMinimumHeight(Main_Menu.GRID_HEIGHT / numRows);
                 button.SetImageResource(items[position]);
+                button.SetScaleType(ImageView.ScaleType.CenterCrop);
+                button.Background = null;
+                button.SetPadding(0, 0, 0, 0);
 
                 switch (position)
                 {

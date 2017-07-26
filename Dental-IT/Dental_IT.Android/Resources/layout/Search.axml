@@ -6,35 +6,36 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true">>
-  <android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/actionBarSize"
-    android:background="?android:attr/colorPrimary"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-    <ImageButton
-        android:id="@+id/SearchImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/ic_magnify"
-        android:layout_gravity="right"
-        android:scaleX="0.75"
-        android:scaleY="0.75"
-        android:background="@color/transparent"/>
-    <EditText
-        android:id="@+id/searchEditText"
+    android:focusableInTouchMode="true">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_alignBottom="@id/SearchImage"
-        android:hint="Search Hospital or Treatment"/>
-  </android.support.v7.widget.Toolbar>
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?android:attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        <ImageButton
+            android:id="@+id/searchImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_magnify"
+            android:layout_gravity="right"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:background="@color/transparent" />
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/searchImage"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:gravity="center"
+            android:hint="@string/search"
+            android:inputType="text" />
+    </android.support.v7.widget.Toolbar>
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="fill_parent"

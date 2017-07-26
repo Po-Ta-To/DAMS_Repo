@@ -25,6 +25,9 @@ namespace Dental_IT.Droid.Fragments
         private List<Treatment> treatmentList = new List<Treatment>();
         private RecyclerView searchTreatment_RecyclerView;
 
+        private int minPrice;
+        private int maxPrice;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -54,6 +57,12 @@ namespace Dental_IT.Droid.Fragments
             View v = inflater.Inflate(Resource.Layout.Search_Treatment, container, false);
 
             searchTreatment_RecyclerView = v.FindViewById<RecyclerView>(Resource.Id.searchTreatment_RecyclerView);
+            Xamarin.RangeSlider.RangeSliderControl slider = v.FindViewById<Xamarin.RangeSlider.RangeSliderControl>(Resource.Id.slider);
+
+            slider.TextFormat = "$0";
+
+            minPrice = (int)slider.GetSelectedMinValue();
+            maxPrice = (int)slider.GetSelectedMaxValue();
 
             //  Configure custom adapter for recyclerview
             searchTreatment_RecyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
