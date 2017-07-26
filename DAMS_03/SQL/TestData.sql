@@ -3,79 +3,86 @@ Go
 
 
 INSERT INTO Treatment
-Values ('T111', 'Treatment One', 
-'Treatment one desc One one', 0)
+Values ('T111', 'Bonding', 
+'Applying composite tooth bonding is a restorative procedure that uses tooth enamel-coloured composite resin (plastic)
+to repair teeth that are decayed, chipped, fractured or discoloured. Tooth gaps can also be closed. Unlike veneers, which
+require laboratory work, bonding is done in the dental office', 0)
 
 INSERT INTO Treatment
-Values ('T222', 'Treatment Two', 
-'Treatment one desc Two two', 1);
+Values ('T222', 'Braces', 
+'A dental brace is a device used to correct the alignment of teeth and bite-related problems (including underbite,
+overbite, etc.). Braces straighten teeth by exerting steady pressure on the teeth.', 1);
 
 INSERT INTO Treatment
-Values ('T333', 'Treatment Three', 
-'Treatment one desc Three three', 1);
+Values ('T333', 'Bridges and Implants', 
+'Bridges and implants are two ways to replace a missing tooth or teeth. Bridges are false anchored in place by neighbouring
+teeth. The bridge consists of two crowns on the anchoring teeth along with the false tooth in the centre. Dental implants are
+artificial roots used to support replacement teeth.', 1);
 
 INSERT INTO Treatment
-Values ('T444', 'Treatment Four', 
-'Treatment one desc Fout four', 0);
+Values ('T444', 'Crowns and Caps', 
+'Crowns are dental restorations that protect damaged, cracked or broken teeth. Dental crowns, often referred to as caps, 
+sit over the entire part of the tooth that lies above the gum line.', 0);
 
 INSERT INTO Treatment
-Values ('T555', 'Treatment Five', 
-'Treatment one desc Five five', 0);
+Values ('T555', 'Dentures ', 
+'Dentures are prosthetic devices replacing lost teeth. There are two types of dentures – partial and full.
+Full dentures are often referred to as “false teeth”', 0);
 
 INSERT INTO Treatment
-Values ('T666', 'Treatment Six', 
-'Treatment one desc Six six', 0);
+Values ('T666', 'Extractions', 
+'A severely damaged tooth may need to be extracted. Permanent teeth may also need to be removed for orthodontic treatment.', 0);
 
 INSERT INTO ClinicHospital
-Values ('H111', 'Hospital One',
-'Hospital One Address at Singapore 111111',
-'Hospital One opening hrs desc',
-'Hosp One Tel: 1234556',
-'HospOne@hosp.com',
+Values ('H111', 'Novena Medical Centre',
+'10, Sinaran Drive, Singapore 307506',
+'8am to 6pm',
+'6397 6861',
+'enquiries@novenamedicalcenter.com',
 1);
 
 INSERT INTO OpeningHours
 Values(1,
-'01:00:00',
-'02:00:00',
-1)
-
-INSERT INTO OpeningHours
-Values(2,
-'03:00:00',
-'04:00:00',
-1)
-
-INSERT INTO OpeningHours
-Values(3,
-'00:00:00',
-'00:00:00',
-1)
-
-INSERT INTO ClinicHospital
-Values ('H222', 'Hospital Two',
-'Hospital Two Address at Singapore 222222',
-'Hospital Two opening hrs desc',
-'Hosp Two Tel: 1234566',
-'HospTwo@hosp.com',
-1);
-
-INSERT INTO OpeningHours
-Values(1,
-'05:00:00',
-'06:00:00',
-2)
-
-INSERT INTO OpeningHours
-Values(2,
-'07:00:00',
 '08:00:00',
+'18:00:00',
+1)
+
+INSERT INTO OpeningHours
+Values(2,
+'08:00:00',
+'18:00:00',
+1)
+
+INSERT INTO OpeningHours
+Values(3,
+'08:00:00',
+'18:00:00',
+1)
+
+INSERT INTO ClinicHospital
+Values ('H222', 'About Braces',
+'8, Sinaran Drive, NSC,#06-01 Singapore 307470',
+'1-6, 8-6, 8-1.30',
+'6397 7177',
+'enquiry@aboutbraces.org',
+1);
+
+INSERT INTO OpeningHours
+Values(1,
+'13:00:00',
+'18:00:00',
+2)
+
+INSERT INTO OpeningHours
+Values(2,
+'08:00:00',
+'18:00:00',
 2)
 
 INSERT INTO OpeningHours
 Values(3,
-'09:00:00',
-'10:00:00',
+'08:00:00',
+'13:30:00',
 2)
 
 INSERT INTO ClinicHospital
