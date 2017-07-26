@@ -9,9 +9,9 @@ namespace Dental_IT.Droid.Adapters
     {
         private readonly Context context;
         private int numRows = 2;
-        private string[] items;
+        private int[] items;
 
-        public GridAdapter_MainMenu(Context c, string[] i)
+        public GridAdapter_MainMenu(Context c, int[] i)
         {
             context = c;
             items = i;
@@ -34,18 +34,21 @@ namespace Dental_IT.Droid.Adapters
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            Button button;
+            ImageButton button;
 
             if (convertView == null)
             {
-                button = new Button(context);
+                button = new ImageButton(context);
+
+
+                //button.SetBackgroundColor(new Android.Graphics.Color(Resource.Color.blue));
+                //button.SetTextColor(new Android.Graphics.Color(Resource.Color.white));
+                //button.SetHeight(Main_Menu.GRID_HEIGHT / numRows);
+                //button.SetAllCaps(false);
 
                 button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-                button.SetBackgroundColor(new Android.Graphics.Color(Resource.Color.blue));
-                button.SetTextColor(new Android.Graphics.Color(Resource.Color.white));
-                button.SetHeight(Main_Menu.GRID_HEIGHT / numRows);
-                button.SetAllCaps(false);
-                button.Text = items[position];
+                button.SetMinimumHeight(Main_Menu.GRID_HEIGHT / numRows);
+                button.SetImageResource(items[position]);
 
                 switch (position)
                 {
@@ -82,7 +85,7 @@ namespace Dental_IT.Droid.Adapters
             }
             else
             {
-                button = (Button)convertView;
+                button = (ImageButton)convertView;
             }
 
             return button;

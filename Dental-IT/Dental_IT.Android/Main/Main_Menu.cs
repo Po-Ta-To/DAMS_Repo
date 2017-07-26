@@ -123,12 +123,12 @@ namespace Dental_IT.Droid.Main
             return base.OnOptionsItemSelected(item);
         }
         //  List of button texts to popular grid adapter
-        private readonly string[] buttonTexts =
+        private readonly int[] buttonTexts =
         {
-            "Request Appointment",
-            "My Appointments",
-            "Treatment Info",
-            "Search"
+            Resource.Drawable.ic_request_appt,
+            Resource.Drawable.ic_my_appt,
+            Resource.Drawable.ic_treatment_info,
+            Resource.Drawable.ic_search
         };
 
         int[] imageid =

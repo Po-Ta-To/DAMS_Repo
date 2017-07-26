@@ -58,7 +58,7 @@
   <string name="selectHosp_title">Select Hospital/Clinics</string>
   <string name="treatmentInfo_title">Treatment Information</string>
   <string name="apptDetails_title">Appointment Details</string>
-  <string name="search_title">Search</string>
+  <string name="search_title">Search Hospital/Clinics</string>
   <string name="myAppts_title">My Appointments</string>
   <string name="offeredBy_title">Offered By</string>
   <string name="selectTreatment_title">Select Treatment(s)</string>

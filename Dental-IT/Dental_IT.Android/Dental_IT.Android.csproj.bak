@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
@@ -112,6 +112,7 @@
     <Compile Include="Adapters\RecyclerViewAdapter_Appointments.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_OfferedBy.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SearchTreatment.cs" />
+    <Compile Include="Adapters\RecyclerViewAdapter_SelectTreatment.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_TreatmentInformation.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SearchHospital.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
@@ -120,7 +121,6 @@
     <Compile Include="Main\Appointment_Details.cs" />
     <Compile Include="Main\Calendar.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
-    <Compile Include="Fragments\NavFragment.cs" />
     <Compile Include="Fragments\AppointmentsPastFragment.cs" />
     <Compile Include="Fragments\SearchHospitalFragment.cs" />
     <Compile Include="Fragments\SearchTreatmentFragment.cs" />
@@ -130,6 +130,7 @@
     <Compile Include="Main\My_Appointments.cs" />
     <Compile Include="Main\Offered_By.cs" />
     <Compile Include="Main\Search.cs" />
+    <Compile Include="Main\Select_Treatment.cs" />
     <Compile Include="Main\Sign_In.cs" />
     <Compile Include="Main\Main_Menu.cs" />
     <Compile Include="Main\Register.cs" />
@@ -198,7 +199,6 @@
     <AndroidResource Include="Resources\layout\sublayout_Treatment_Info_Dialog.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Calendar.axml" />
     <AndroidResource Include="Resources\layout\Search_Treatment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -209,6 +209,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\sublayout_Offered_List_Item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\sublayout_Treatment_Select_List_Item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Select_Treatment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Calendar.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -493,12 +502,11 @@
     <AndroidResource Include="Resources\drawable\ic_medisys_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BindingLibrary\MaterialCalendar_BindingLibrary.csproj">
+    <ProjectReference Include="..\..\Binding\MaterialCalendar.csproj">
       <Project>{f6aef2a2-e137-40d0-b124-16580b6763e1}</Project>
-      <Name>MaterialCalendar_BindingLibrary</Name>
+      <Name>MaterialCalendar</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
