@@ -34,35 +34,35 @@ Values ('T666', 'Extractions',
 'A severely damaged tooth may need to be extracted. Permanent teeth may also need to be removed for orthodontic treatment.', 0);
 
 INSERT INTO ClinicHospital
-Values ('H111', 'Novena Medical Centre',
-'10, Sinaran Drive, Singapore 307506',
-'8am to 6pm',
-'6397 6861',
-'enquiries@novenamedicalcenter.com',
+Values ('H111', 'National Dental Centre Singapore',
+'5 Second Hospital Avenue Singapore 168938',
+'mon-fri',
+'6324 8802',
+'appointment@ndcs.com.sg',
 1);
 
 INSERT INTO OpeningHours
 Values(1,
 '08:00:00',
-'18:00:00',
+'17:30:00',
 1)
 
 INSERT INTO OpeningHours
 Values(2,
-'08:00:00',
-'18:00:00',
+'00:00:00',
+'00:00:00',
 1)
 
 INSERT INTO OpeningHours
 Values(3,
-'08:00:00',
-'18:00:00',
+'00:00:00',
+'00:00:00',
 1)
 
 INSERT INTO ClinicHospital
 Values ('H222', 'About Braces',
 '8, Sinaran Drive, NSC,#06-01 Singapore 307470',
-'1-6, 8-6, 8-1.30',
+'mon, tue-fri, sat, closed',
 '6397 7177',
 'enquiry@aboutbraces.org',
 1);
@@ -86,29 +86,29 @@ Values(3,
 2)
 
 INSERT INTO ClinicHospital
-Values ('H333', 'Hospital Three',
-'Hospital Three Address at Singapore 333333',
-'Hospital Three opening hrs desc',
-'Hosp Three Tel: 1234666',
+Values ('H333', 'Mount Elizabeth Hospital',
+'3 Mount Elizabeth, Singapore 228510',
+'24 Hours Daily',
+'6737 2666',
 'HospThree@hosp.com',
 1);
 
 INSERT INTO OpeningHours
 Values(1,
-'11:00:00',
-'12:00:00',
+'00:00:00',
+'23:59:00',
 3)
 
 INSERT INTO OpeningHours
 Values(2,
-'13:00:00',
-'14:00:00',
+'00:00:00',
+'00:00:00',
 3)
 
 INSERT INTO OpeningHours
 Values(3,
-'15:00:00',
-'16:00:00',
+'00:00:00',
+'00:00:00',
 3)
 
 INSERT INTO [dbo].[AspNetUsers]
