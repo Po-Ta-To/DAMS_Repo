@@ -102,10 +102,10 @@ Create table ClinicHospital
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	ClinicHospitalID NVARCHAR(50) NOT NULL,
     ClinicHospitalName NVARCHAR(50) NOT NULL,
-	ClinicHospitalAddress NVARCHAR(50) NOT NULL,
-	ClinicHospitalOpenHours NVARCHAR(50) NOT NULL,
+	ClinicHospitalAddress NVARCHAR(350) NOT NULL,
+	ClinicHospitalOpenHours NVARCHAR(100) NOT NULL,
 	ClinicHospitalTel NVARCHAR(50) NOT NULL,
-	ClinicHospitalEmail NVARCHAR(50) NOT NULL,
+	ClinicHospitalEmail NVARCHAR(100) NOT NULL,
 	IsStringOpenHours bit NOT NULL
 )
 
@@ -190,7 +190,7 @@ Create table Treatment
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	TreatmentID NVARCHAR(50) NOT NULL,
 	TreatmentName NVARCHAR(50) NOT NULL,
-	TreatmentDesc NVARCHAR(50) NOT NULL,
+	TreatmentDesc NVARCHAR(1000) NOT NULL,
 	IsFollowUp BIT NOT NULL
 )
 
