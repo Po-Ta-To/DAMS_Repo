@@ -11,7 +11,6 @@ namespace DAMS_03.API
 {
     public class TreatmentsByHController : ApiController
     {
-
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: api/TreatmentsByH/5
