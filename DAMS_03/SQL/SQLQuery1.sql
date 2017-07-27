@@ -109,6 +109,14 @@ Create table ClinicHospital
 	IsStringOpenHours bit NOT NULL
 )
 
+Create table ClinicHospitalTimeslot
+(
+	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
+	TimeslotIndex int NOT NULL,
+	TimeRangeSlotString VARCHAR(50) NOT NULL,
+	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL
+)
+
 Create table DoctorDentist
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
