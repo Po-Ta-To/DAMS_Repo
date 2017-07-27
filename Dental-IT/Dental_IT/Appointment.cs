@@ -1,14 +1,16 @@
-﻿namespace Dental_IT
+﻿using System;
+
+namespace Dental_IT
 {
     class Appointment
     {
         private int _id;
         private string _treatments;
         private string _dentist;
-        private string _date;
+        private DateTime _date;
         private string _time;
 
-        public Appointment(int id, string treatments, string dentist, string date, string time)
+        public Appointment(int id, string treatments, string dentist, DateTime date, string time)
         {
             _id = id;
             _treatments = treatments;
@@ -35,7 +37,7 @@
             set { _dentist = value; }
         }
 
-        public string date
+        public DateTime date
         {
             get { return _date; }
             set { _date = value; }

@@ -17,9 +17,16 @@ namespace DAMS_03.API
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: api/ClinicHospitals
-        public IQueryable<ClinicHospital> GetClinicHospitals()
+        public IHttpActionResult GetClinicHospitals()
         {
-            return db.ClinicHospitals;
+            var clinicHospitals = from ClinicHospital in db.ClinicHospitals
+                                  select new
+                                  {
+                                      ClinicHospital.ID,
+                                      ClinicHospital.ClinicHospitalName
+                                  };
+
+            return Ok(clinicHospitals);
         }
 
         // GET: api/ClinicHospitals/5
@@ -31,7 +38,6 @@ namespace DAMS_03.API
             {
                 return NotFound();
             }
-
 
             List<OpeningHour> openingHours = new List<OpeningHour>();
 

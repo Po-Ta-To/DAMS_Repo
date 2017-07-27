@@ -12,6 +12,7 @@ using DAMS_03.Models;
 
 namespace DAMS_03.API
 {
+    [RoutePrefix("api/Appointments")]
     public class AppointmentsController : ApiController
     {
         private DAMS_01Entities db = new DAMS_01Entities();
@@ -32,7 +33,57 @@ namespace DAMS_03.API
                 return NotFound();
             }
 
-            return Ok(appointment);
+            var returnAppointment = from Appointment in db.Appointments
+                                    where Appointment.ID == id
+                                    select new
+                                    {
+                                        Appointment.ID,
+                                        Appointment.AppointmentID,
+                                        Appointment.UserID,
+                                        Appointment.ClinicHospitalID,
+                                        Appointment.ApprovalState,
+                                        //Appointment.PreferredDate,
+                                        //Appointment.PreferredTime,
+                                        Appointment.DoctorDentistID,
+                                        //Appointment.RequestDoctorDentistID,
+                                        Appointment.Remarks,
+                                        Appointment.AppointmentDate,
+                                        Appointment.AppointmentTime
+                                    };
+
+            return Ok(returnAppointment);
+        }
+
+        // #KK    
+        // GET: api/Appointments/GetAppointmentsByUserID/2
+        [Route("GetAppointmentsByUserID")]
+        //[ResponseType(typeof(Appointment))]
+        public IHttpActionResult GetAppointmentsByUserID(int id)
+        {
+            var appointments = from Appointment in db.Appointments
+                               where Appointment.UserID == id
+                               select new
+                               {
+                                   Appointment.ID,
+                                   Appointment.AppointmentID,
+                                   Appointment.UserID,
+                                   Appointment.ClinicHospitalID,
+                                   Appointment.ApprovalState,
+                                   //Appointment.PreferredDate,
+                                   //Appointment.PreferredTime,
+                                   Appointment.DoctorDentistID,
+                                   //Appointment.RequestDoctorDentistID,
+                                   Appointment.Remarks,
+                                   Appointment.AppointmentDate,
+                                   Appointment.AppointmentTime
+                               };
+
+            if (appointments == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(appointments);
         }
 
         // PUT: api/Appointments/5

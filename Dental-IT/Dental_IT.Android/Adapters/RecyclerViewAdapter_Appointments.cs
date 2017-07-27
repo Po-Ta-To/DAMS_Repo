@@ -11,11 +11,13 @@ namespace Dental_IT.Droid.Adapters
     {
         private readonly Context context;
         private List<Appointment> appointmentList;
+        private bool greyed;
 
-        public RecyclerViewAdapter_Appointments(Context c, List<Appointment> l)
+        public RecyclerViewAdapter_Appointments(Context c, List<Appointment> l, bool g)
         {
             context = c;
             appointmentList = l;
+            greyed = g;
         }
 
         public override int ItemCount
@@ -54,12 +56,23 @@ namespace Dental_IT.Droid.Adapters
             // Set view data
             vh.treatmentsName.Text = appointmentList[position].treatments;
             vh.dentistName.Text = appointmentList[position].dentist;
-            vh.dateTime.Text = appointmentList[position].date + ", " + appointmentList[position].time;
+            vh.dateTime.Text = appointmentList[position].date.ToString("dd/MM/yyyy") + ", " + appointmentList[position].time;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            View view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Appointments_List_Item, parent, false);
+            View view;
+
+            //  Set colour overlay
+            if (greyed == true)
+            {
+                view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Appointments_List_Item_Grey, parent, false);
+            }
+            else
+            {
+                view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.sublayout_Appointments_List_Item, parent, false);
+            }
+            
             Appointments_ViewHolder holder = new Appointments_ViewHolder(view);
 
             holder.ItemView.Click += delegate
