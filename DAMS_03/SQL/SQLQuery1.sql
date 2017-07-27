@@ -91,8 +91,8 @@ Create table AdminAccount
 (
      ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	 AdminID NVARCHAR(50) NOT NULL,
-     Name NVARCHAR(50) NOT NULL,
-     Email NVARCHAR(50) NOT NULL,
+     Name NVARCHAR(255) NOT NULL,
+     Email NVARCHAR(255) NOT NULL,
      SecurityLevel NVARCHAR(50) NOT NULL,
 	 AspNetID NVARCHAR (128) FOREIGN KEY REFERENCES AspNetUsers(Id) NOT NULL
 )
@@ -101,11 +101,11 @@ Create table ClinicHospital
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	ClinicHospitalID NVARCHAR(50) NOT NULL,
-    ClinicHospitalName NVARCHAR(50) NOT NULL,
-	ClinicHospitalAddress NVARCHAR(50) NOT NULL,
-	ClinicHospitalOpenHours NVARCHAR(50) NOT NULL,
+    ClinicHospitalName NVARCHAR(255) NOT NULL,
+	ClinicHospitalAddress NVARCHAR(255) NOT NULL,
+	ClinicHospitalOpenHours NVARCHAR(255) NOT NULL,
 	ClinicHospitalTel NVARCHAR(50) NOT NULL,
-	ClinicHospitalEmail NVARCHAR(50) NOT NULL,
+	ClinicHospitalEmail NVARCHAR(255) NOT NULL,
 	IsStringOpenHours bit NOT NULL
 )
 
@@ -113,7 +113,7 @@ Create table DoctorDentist
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	DoctorDentistID NVARCHAR(50) NOT NULL,
-    Name NVARCHAR(50) NOT NULL,
+    Name NVARCHAR(255) NOT NULL,
 	MaxBookings INT NOT NULL,
 	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL
 )
@@ -146,7 +146,7 @@ Create table Advertisement
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	AdvImage VARBINARY NOT NULL,
-	AdvDesc NVARCHAR(50) NOT NULL
+	AdvDesc NVARCHAR(255) NOT NULL
 )
 
 Create table ClinicHospitalAdvertisement
@@ -160,11 +160,11 @@ Create table UserAccount
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	NRIC NVARCHAR(50) NOT NULL,
-	Name NVARCHAR(50) NOT NULL,
+	Name NVARCHAR(255) NOT NULL,
 	DOB NVARCHAR(50) NOT NULL,
 	Gender NVARCHAR(50) NOT NULL,
 	Mobile NVARCHAR(50) NOT NULL,
-	Addrress NVARCHAR(50) NOT NULL,
+	Addrress NVARCHAR(255) NOT NULL,
 	AspNetID NVARCHAR (128) FOREIGN KEY REFERENCES AspNetUsers(Id) NOT NULL,
 	IsDeleted BIT NOT NULL
 )
@@ -180,7 +180,7 @@ Create table Appointment
 	PreferredTime INT NOT NULL,
 	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NULL,
 	RequestDoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NULL,
-	Remarks NVARCHAR(50) NOT NULL,
+	Remarks NVARCHAR(255) NOT NULL,
 	AppointmentDate DATE NULL,
 	AppointmentTime INT NULL
 )
@@ -189,8 +189,8 @@ Create table Treatment
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
 	TreatmentID NVARCHAR(50) NOT NULL,
-	TreatmentName NVARCHAR(50) NOT NULL,
-	TreatmentDesc NVARCHAR(50) NOT NULL,
+	TreatmentName NVARCHAR(255) NOT NULL,
+	TreatmentDesc NVARCHAR(500) NOT NULL,
 	IsFollowUp BIT NOT NULL
 )
 
