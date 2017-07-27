@@ -33,16 +33,31 @@ INSERT INTO Treatment
 Values ('T666', 'Extractions', 
 'A severely damaged tooth may need to be extracted. Permanent teeth may also need to be removed for orthodontic treatment.', 0);
 
+INSERT INTO Treatment
+Values ('T777', 'Filling and Repairs', 
+'Dental fillings and repairs use restorative materials used to repair teeth which have been compromised due to cavities or trauma', 0);
+
+INSERT INTO Treatment
+Values ('T888', 'Gum Surgery', 
+'Periodontal or gum disease is an infection that affects the gums and jaw bone, which can lead to a loss of gum and teeth. 
+There are two major stages — gingivitis and periodontitis. Gingivitis is the milder and reversible form; periodontal disease
+is often more severe.', 0);
+
+INSERT INTO Treatment
+Values ('T999', 'Teeth Whitening', 
+'Teeth naturally darken with age, however staining may be caused by various foods and beverages such as coffee, tea and berries, some drugs such as tetracycline, smoking, or a trauma to a tooth', 0);
+
+
 INSERT INTO ClinicHospital
 Values ('H111', 'National Dental Centre Singapore',
 '5 Second Hospital Avenue Singapore 168938',
-'mon-fri',
+'Closed on Weekends',
 '6324 8802',
 'appointment@ndcs.com.sg',
 1);
 
 INSERT INTO OpeningHours
-Values(1,
+Values(12345,
 '08:00:00',
 '17:30:00',
 1)
@@ -62,7 +77,7 @@ Values(1,
 INSERT INTO ClinicHospital
 Values ('H222', 'About Braces',
 '8, Sinaran Drive, Novena Specialist Centre,#06-01 Singapore 307470',
-'mon, tue-fri, sat',
+'Closed on Sundays and PH',
 '6397 7177',
 'enquiry@aboutbraces.org',
 1);
@@ -74,36 +89,36 @@ Values(1,
 2)
 
 INSERT INTO OpeningHours
-Values(2,
+Values(2345,
 '08:00:00',
 '18:00:00',
 2)
 
 INSERT INTO OpeningHours
-Values(3,
+Values(6,
 '08:00:00',
 '13:30:00',
 2)
 
 INSERT INTO ClinicHospital
-Values ('H333', 'Mount Elizabeth Hospital',
-'3 Mount Elizabeth, Singapore 228510',
-'24 Hours Daily',
-'6737 2666',
-'HospThree@hosp.com',
+Values ('H333', 'LQ Dental',
+'10 Sinaran Drive #11-20/21, 307506',
+'Closed on Sundays and PH',
+'6538 0890',
+'askus@lqdent.com.sg',
 1);
 
 INSERT INTO OpeningHours
-Values(1,
-'00:00:00',
-'23:59:00',
+Values(12345,
+'09:00:00',
+'19:00:00',
 3)
 
---INSERT INTO OpeningHours
---Values(2,
---'00:00:00',
---'00:00:00',
---3)
+INSERT INTO OpeningHours
+Values(6,
+'09:00:00',
+'13:00:00',
+3)
 
 --INSERT INTO OpeningHours
 --Values(3,
@@ -315,20 +330,26 @@ Values ('S9421207G',
 
 INSERT INTO [dbo].[DoctorDentist]
 Values('D111',
-'Dr Vaz',
+'Dr Stefan Vaz',
 10,
 2);
 
 INSERT INTO [dbo].[DoctorDentist]
 Values('D222',
-'Dr Audrey Tan',
+'Dr Agnes Wong',
 11,
 3);
 
 INSERT INTO [dbo].[DoctorDentist]
 Values('D333',
-'Dr Alfred Cheng',
+'Dr Claire Chen',
 12,
+3);
+
+INSERT INTO [dbo].[DoctorDentist]
+Values('D444',
+'Dr Darren Lee',
+13,
 3);
 
 INSERT INTO [dbo].[ClinicHospitalTreatment]
@@ -343,11 +364,56 @@ Values(2,
 3500,
 6000);
 
+
 INSERT INTO [dbo].[ClinicHospitalTreatment]
 Values(2,
 1,
 4500,
 6000);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(3,
+3,
+2100,
+4500);
+
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(4,
+3,
+300,
+2000);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(5,
+1,
+600,
+800);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(6,
+3,
+75,
+650);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(7,
+1,
+110,
+240);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(8,
+3,
+500,
+9999);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(9,
+2,
+650,
+650);
+
 
 INSERT INTO [dbo].[Bookings]
 Values('20171230',
@@ -358,6 +424,11 @@ INSERT INTO [dbo].[Bookings]
 Values('20171121',
 0,
 2);
+
+INSERT INTO [dbo].[Bookings]
+Values('20171014',
+0,
+3);
 
 INSERT INTO [dbo].[Appointment]
 Values('AP111',
@@ -370,4 +441,30 @@ Values('AP111',
 1,
 'Allergic to painkillers',
 '20170828',
-1330);
+1400);
+
+INSERT INTO [dbo].[Appointment]
+Values('AP222',
+2,
+2,
+1,
+'20170912',
+1200,
+1,
+1,
+'No Remarks',
+'20170913',
+1300);
+
+INSERT INTO [dbo].[Appointment]
+Values('AP333',
+2,
+3,
+1,
+'20171020',
+1200,
+1,
+2,
+'No Remarks',
+'20171019',
+1200);
