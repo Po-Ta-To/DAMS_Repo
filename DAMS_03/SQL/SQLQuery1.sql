@@ -180,7 +180,7 @@ Create table Appointment
 	PreferredTime INT NOT NULL,
 	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NULL,
 	RequestDoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NULL,
-	Remarks NVARCHAR(50) NOT NULL,
+	Remarks NVARCHAR(500) NOT NULL,
 	AppointmentDate DATE NULL,
 	AppointmentTime INT NULL
 )

@@ -47,17 +47,17 @@ Values(1,
 '17:30:00',
 1)
 
-INSERT INTO OpeningHours
-Values(2,
-'00:00:00',
-'00:00:00',
-1)
+--INSERT INTO OpeningHours
+--Values(2,
+--'00:00:00',
+--'00:00:00',
+--1)
 
-INSERT INTO OpeningHours
-Values(3,
-'00:00:00',
-'00:00:00',
-1)
+--INSERT INTO OpeningHours
+--Values(3,
+--'00:00:00',
+--'00:00:00',
+--1)
 
 INSERT INTO ClinicHospital
 Values ('H222', 'About Braces',
@@ -99,17 +99,17 @@ Values(1,
 '23:59:00',
 3)
 
-INSERT INTO OpeningHours
-Values(2,
-'00:00:00',
-'00:00:00',
-3)
+--INSERT INTO OpeningHours
+--Values(2,
+--'00:00:00',
+--'00:00:00',
+--3)
 
-INSERT INTO OpeningHours
-Values(3,
-'00:00:00',
-'00:00:00',
-3)
+--INSERT INTO OpeningHours
+--Values(3,
+--'00:00:00',
+--'00:00:00',
+--3)
 
 INSERT INTO [dbo].[AspNetUsers]
 Values ('2a6e9769-165b-4ca1-939f-7b32c1402835', 
@@ -258,7 +258,7 @@ Values (
 
 INSERT INTO [dbo].[AspNetUsers]
 Values ('82c2540d-ef60-4681-9a0b-abbfad07339f', 
-'UserTwo@gmail.com',
+'TomT91@gmail.com',
 0,
 'AKxueI098MrJGAhs+W66iW5el55ipTcmRIF0VD3uzHrd/5j5O8OFTkbQP7MdIq2B4Q==',
 'ddec61d2-c492-466f-92f8-9f3fd3029621',
@@ -274,18 +274,18 @@ INSERT INTO [dbo].[AspNetUserRoles]
 Values ('82c2540d-ef60-4681-9a0b-abbfad07339f', 1);
 
 INSERT INTO [dbo].[UserAccount]
-Values ('U1111111A',
-'UserOneName',
-'UserOneDob',
-'UserOneGender',
-'123456789',
-'UserOneAddress',
+Values ('S9125721A',
+'Tommy Tan',
+'January 30, 1991',
+'Male',
+'97275398',
+'2 Ang Mo Kio Avenue',
 '82c2540d-ef60-4681-9a0b-abbfad07339f',
 0);
 
 INSERT INTO [dbo].[AspNetUsers]
 Values ('009115f3-68ed-4215-bba7-d48551dc4e5f', 
-'UserTwo@gmail.com',
+'Harrylim94@gmail.com',
 0,
 'ANgyghUp901j/H0PnM4MgFXB+8895RtnDutvyDdRnRtvOxwGSMq4iub0ZpbVSs/+FQ==',
 '002ff1ee-5134-4528-b552-acd41f7f470f',
@@ -301,12 +301,12 @@ INSERT INTO [dbo].[AspNetUserRoles]
 Values ('009115f3-68ed-4215-bba7-d48551dc4e5f', 1);
 
 INSERT INTO [dbo].[UserAccount]
-Values ('U2222222A',
-'UserTwoName',
-'UserTwoDob',
-'UserTwoGender',
-'223456789',
-'UserTwoAddress',
+Values ('S9421207G',
+'Harry Lim',
+'May 15, 1994',
+'Male',
+'84236923',
+'1 Tai Seng Drive',
 '009115f3-68ed-4215-bba7-d48551dc4e5f',
 0);
 
@@ -330,3 +330,44 @@ Values('D333',
 'Dr Alfred Cheng',
 12,
 3);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(1,
+1,
+300,
+600);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(2,
+2,
+3500,
+6000);
+
+INSERT INTO [dbo].[ClinicHospitalTreatment]
+Values(2,
+1,
+4500,
+6000);
+
+INSERT INTO [dbo].[Bookings]
+Values('20171230',
+1,
+1);
+
+INSERT INTO [dbo].[Bookings]
+Values('20171121',
+0,
+2);
+
+INSERT INTO [dbo].[Appointment]
+Values('AP111',
+1,
+1,
+1,
+'20170828',
+1400,
+1,
+1,
+'Allergic to painkillers',
+'20170828',
+1330);
