@@ -63,6 +63,7 @@
   <string name="offeredBy_title">Offered By</string>
   <string name="selectTreatment_title">Select Treatment(s)</string>
   <string name="calendar_title">Select Date</string>
+  <string name="treatmentsOffered_title">Treatments Offered</string>
   <string name="close">Close</string>
   <string name="confirm_delete">Delete</string>
   <string name="cancel">Cancel</string>

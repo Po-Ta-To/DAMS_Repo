@@ -61,7 +61,6 @@ namespace DAMS_03.API
                 
                 //t.PriceLow = getprice.PriceLow;
                 //t.PriceHigh = getprice.PriceHigh;
-
             }
             
             return Ok(returntreatment);

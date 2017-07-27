@@ -32,12 +32,12 @@ namespace Dental_IT.Droid.Main
             Button hospDetails_TreatmentsBtn = FindViewById<Button>(Resource.Id.hospDetails_TreatmentsBtn);
             Button hospDetails_RequestBtn = FindViewById<Button>(Resource.Id.hospDetails_RequestBtn);
 
-            //  Check if redirected from search hospital or offered by
-            Intent i = this.Intent;
+            //  Check if redirected from search hospital, treatments offered or offered by
+            Intent i = Intent;
 
             if (i.GetStringExtra("details_HospitalName") != null)
             {
-                //  Receive data from search hospital
+                //  Receive data from search hospital or treatments offered
                 hospitalName = i.GetStringExtra("details_HospitalName");
             }
             else if (i.GetStringExtra("offered_HospitalName") != null)
@@ -71,6 +71,14 @@ namespace Dental_IT.Droid.Main
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
 
+            //  Intent to redirect to treatments offered page
+            hospDetails_TreatmentsBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Treatments_Offered));
+                intent.PutExtra("details_HospitalName", hospDetails_HospitalText.Text);
+                StartActivity(intent);
+            };
+
             //  Intent to redirect to request page
             hospDetails_RequestBtn.Click += delegate
             {
@@ -86,14 +94,12 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        //Redirect to search page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            Intent intent = new Intent(this, typeof(Select_Hospital));
+            Intent intent = new Intent(this, typeof(Search));
             StartActivity(intent);
 
-            Toast.MakeText(this, "Select Hospital/Clinics",
-                ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }
     }
