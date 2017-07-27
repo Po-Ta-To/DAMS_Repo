@@ -324,6 +324,9 @@
     <Compile Include="Models\DoctorDentist.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DoctorDentistDateBooking.cs">
+      <DependentUpon>DAMS_Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DoctorDentistViewModels.cs" />
     <Compile Include="Models\HospitalClinicTreatmentViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />

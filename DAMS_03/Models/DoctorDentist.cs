@@ -19,6 +19,7 @@ namespace DAMS_03.Models
         {
             this.Appointments = new HashSet<Appointment>();
             this.Appointments1 = new HashSet<Appointment>();
+            this.DoctorDentistDateBookings = new HashSet<DoctorDentistDateBooking>();
         }
     
         public int ID { get; set; }
@@ -32,5 +33,7 @@ namespace DAMS_03.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments1 { get; set; }
         public virtual ClinicHospital ClinicHospital { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DoctorDentistDateBooking> DoctorDentistDateBookings { get; set; }
     }
 }

@@ -118,6 +118,14 @@ Create table DoctorDentist
 	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL
 )
 
+Create table DoctorDentistDateBooking
+(
+	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
+    DateOfBookings Date NOT NULL,
+	Bookings INT NOT NULL,
+	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NOT NULL
+)
+
 Create table AdminAccountClinicHospital
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
