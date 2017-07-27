@@ -2862,8 +2862,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f0800bb
 			public const int mainMenu_GridView = 2131230907;
 			
-			// aapt resource value: 0x7f080135
-			public const int masked = 2131231029;
+			// aapt resource value: 0x7f080136
+			public const int masked = 2131231030;
 			
 			// aapt resource value: 0x7f080046
 			public const int match_parent = 2131230790;
@@ -2889,20 +2889,20 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08001b
 			public const int multiply = 2131230747;
 			
-			// aapt resource value: 0x7f080138
-			public const int nav_MyAppt = 2131231032;
+			// aapt resource value: 0x7f080139
+			public const int nav_MyAppt = 2131231033;
 			
-			// aapt resource value: 0x7f080137
-			public const int nav_RequestAppt = 2131231031;
+			// aapt resource value: 0x7f080138
+			public const int nav_RequestAppt = 2131231032;
+			
+			// aapt resource value: 0x7f08013b
+			public const int nav_Search = 2131231035;
 			
 			// aapt resource value: 0x7f08013a
-			public const int nav_Search = 2131231034;
+			public const int nav_TreatmentInfo = 2131231034;
 			
-			// aapt resource value: 0x7f080139
-			public const int nav_TreatmentInfo = 2131231033;
-			
-			// aapt resource value: 0x7f080136
-			public const int nav_home = 2131231030;
+			// aapt resource value: 0x7f080137
+			public const int nav_home = 2131231031;
 			
 			// aapt resource value: 0x7f0800bc
 			public const int nav_view = 2131230908;
@@ -3306,62 +3306,65 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08011e
 			public const int treatmentInformation_TreatmentPriceText = 2131231006;
 			
+			// aapt resource value: 0x7f080123
+			public const int treatmentsOffered_RecyclerView = 2131231011;
+			
 			// aapt resource value: 0x7f08004c
 			public const int tuesday = 2131230796;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
 			
+			// aapt resource value: 0x7f080129
+			public const int update_DateField = 2131231017;
+			
 			// aapt resource value: 0x7f080128
-			public const int update_DateField = 2131231016;
+			public const int update_DateLabel = 2131231016;
 			
 			// aapt resource value: 0x7f080127
-			public const int update_DateLabel = 2131231015;
-			
-			// aapt resource value: 0x7f080126
-			public const int update_DateLayout = 2131231014;
-			
-			// aapt resource value: 0x7f08012a
-			public const int update_DentistLabel = 2131231018;
-			
-			// aapt resource value: 0x7f080129
-			public const int update_DentistLayout = 2131231017;
+			public const int update_DateLayout = 2131231015;
 			
 			// aapt resource value: 0x7f08012b
-			public const int update_DentistSpinner = 2131231019;
+			public const int update_DentistLabel = 2131231019;
 			
-			// aapt resource value: 0x7f080125
-			public const int update_HospitalField = 2131231013;
-			
-			// aapt resource value: 0x7f080124
-			public const int update_HospitalLabel = 2131231012;
-			
-			// aapt resource value: 0x7f080123
-			public const int update_HospitalLayout = 2131231011;
-			
-			// aapt resource value: 0x7f080132
-			public const int update_RemarksField = 2131231026;
-			
-			// aapt resource value: 0x7f080131
-			public const int update_RemarksLabel = 2131231025;
-			
-			// aapt resource value: 0x7f080130
-			public const int update_RemarksLayout = 2131231024;
-			
-			// aapt resource value: 0x7f08012d
-			public const int update_SessionLabel = 2131231021;
+			// aapt resource value: 0x7f08012a
+			public const int update_DentistLayout = 2131231018;
 			
 			// aapt resource value: 0x7f08012c
-			public const int update_SessionLayout = 2131231020;
+			public const int update_DentistSpinner = 2131231020;
 			
-			// aapt resource value: 0x7f08012e
-			public const int update_SessionSpinner = 2131231022;
+			// aapt resource value: 0x7f080126
+			public const int update_HospitalField = 2131231014;
+			
+			// aapt resource value: 0x7f080125
+			public const int update_HospitalLabel = 2131231013;
+			
+			// aapt resource value: 0x7f080124
+			public const int update_HospitalLayout = 2131231012;
 			
 			// aapt resource value: 0x7f080133
-			public const int update_SubmitBtn = 2131231027;
+			public const int update_RemarksField = 2131231027;
+			
+			// aapt resource value: 0x7f080132
+			public const int update_RemarksLabel = 2131231026;
+			
+			// aapt resource value: 0x7f080131
+			public const int update_RemarksLayout = 2131231025;
+			
+			// aapt resource value: 0x7f08012e
+			public const int update_SessionLabel = 2131231022;
+			
+			// aapt resource value: 0x7f08012d
+			public const int update_SessionLayout = 2131231021;
 			
 			// aapt resource value: 0x7f08012f
-			public const int update_TreatmentsBtn = 2131231023;
+			public const int update_SessionSpinner = 2131231023;
+			
+			// aapt resource value: 0x7f080134
+			public const int update_SubmitBtn = 2131231028;
+			
+			// aapt resource value: 0x7f080130
+			public const int update_TreatmentsBtn = 2131231024;
 			
 			// aapt resource value: 0x7f080019
 			public const int useLogo = 2131230745;
@@ -3375,8 +3378,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08000e
 			public const int view_offset_helper = 2131230734;
 			
-			// aapt resource value: 0x7f080134
-			public const int visible = 2131231028;
+			// aapt resource value: 0x7f080135
+			public const int visible = 2131231029;
 			
 			// aapt resource value: 0x7f08004d
 			public const int wednesday = 2131230797;
@@ -3711,7 +3714,10 @@ namespace Dental_IT.Droid
 			public const int Treatment_Information = 2130903128;
 			
 			// aapt resource value: 0x7f030059
-			public const int Update_Appointment = 2130903129;
+			public const int Treatments_Offered = 2130903129;
+			
+			// aapt resource value: 0x7f03005a
+			public const int Update_Appointment = 2130903130;
 			
 			static Layout()
 			{
@@ -3862,20 +3868,20 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060060
 			public const int calendar_title = 2131099744;
 			
-			// aapt resource value: 0x7f060063
-			public const int cancel = 2131099747;
+			// aapt resource value: 0x7f060064
+			public const int cancel = 2131099748;
 			
 			// aapt resource value: 0x7f060026
 			public const int character_counter_pattern = 2131099686;
 			
-			// aapt resource value: 0x7f060061
-			public const int close = 2131099745;
-			
-			// aapt resource value: 0x7f06006c
-			public const int confirm = 2131099756;
-			
 			// aapt resource value: 0x7f060062
-			public const int confirm_delete = 2131099746;
+			public const int close = 2131099746;
+			
+			// aapt resource value: 0x7f06006d
+			public const int confirm = 2131099757;
+			
+			// aapt resource value: 0x7f060063
+			public const int confirm_delete = 2131099747;
 			
 			// aapt resource value: 0x7f060047
 			public const int date = 2131099719;
@@ -3883,14 +3889,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06004d
 			public const int delete = 2131099725;
 			
-			// aapt resource value: 0x7f060068
-			public const int delete_OK = 2131099752;
+			// aapt resource value: 0x7f060069
+			public const int delete_OK = 2131099753;
+			
+			// aapt resource value: 0x7f060066
+			public const int delete_text = 2131099750;
 			
 			// aapt resource value: 0x7f060065
-			public const int delete_text = 2131099749;
-			
-			// aapt resource value: 0x7f060064
-			public const int delete_title = 2131099748;
+			public const int delete_title = 2131099749;
 			
 			// aapt resource value: 0x7f060002
 			public const int demo_max_label = 2131099650;
@@ -3919,11 +3925,11 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06003d
 			public const int hospital = 2131099709;
 			
-			// aapt resource value: 0x7f06006a
-			public const int hospital_tab = 2131099754;
+			// aapt resource value: 0x7f06006b
+			public const int hospital_tab = 2131099755;
 			
-			// aapt resource value: 0x7f06006f
-			public const int mainmenu = 2131099759;
+			// aapt resource value: 0x7f060070
+			public const int mainmenu = 2131099760;
 			
 			// aapt resource value: 0x7f060038
 			public const int mobile = 2131099704;
@@ -3946,8 +3952,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060027
 			public const int password_toggle_content_description = 2131099687;
 			
-			// aapt resource value: 0x7f06006e
-			public const int past_tab = 2131099758;
+			// aapt resource value: 0x7f06006f
+			public const int past_tab = 2131099759;
 			
 			// aapt resource value: 0x7f060028
 			public const int path_password_eye = 2131099688;
@@ -3982,8 +3988,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06002e
 			public const int previous = 2131099694;
 			
-			// aapt resource value: 0x7f060069
-			public const int price = 2131099753;
+			// aapt resource value: 0x7f06006a
+			public const int price = 2131099754;
 			
 			// aapt resource value: 0x7f06003c
 			public const int register = 2131099708;
@@ -4006,14 +4012,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060053
 			public const int request = 2131099731;
 			
-			// aapt resource value: 0x7f060066
-			public const int request_OK = 2131099750;
+			// aapt resource value: 0x7f060067
+			public const int request_OK = 2131099751;
 			
 			// aapt resource value: 0x7f060056
 			public const int request_title = 2131099734;
 			
-			// aapt resource value: 0x7f060070
-			public const int search = 2131099760;
+			// aapt resource value: 0x7f060071
+			public const int search = 2131099761;
 			
 			// aapt resource value: 0x7f060016
 			public const int search_menu_title = 2131099670;
@@ -4060,23 +4066,26 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06005a
 			public const int treatmentInfo_title = 2131099738;
 			
-			// aapt resource value: 0x7f06006b
-			public const int treatment_tab = 2131099755;
+			// aapt resource value: 0x7f06006c
+			public const int treatment_tab = 2131099756;
 			
 			// aapt resource value: 0x7f06004a
 			public const int treatments = 2131099722;
 			
+			// aapt resource value: 0x7f060061
+			public const int treatmentsOffered_title = 2131099745;
+			
 			// aapt resource value: 0x7f060052
 			public const int treatments_offered = 2131099730;
 			
-			// aapt resource value: 0x7f06006d
-			public const int upcoming_tab = 2131099757;
+			// aapt resource value: 0x7f06006e
+			public const int upcoming_tab = 2131099758;
 			
 			// aapt resource value: 0x7f06004c
 			public const int update = 2131099724;
 			
-			// aapt resource value: 0x7f060067
-			public const int update_OK = 2131099751;
+			// aapt resource value: 0x7f060068
+			public const int update_OK = 2131099752;
 			
 			// aapt resource value: 0x7f060057
 			public const int update_title = 2131099735;

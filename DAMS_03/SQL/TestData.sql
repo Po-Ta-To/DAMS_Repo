@@ -61,8 +61,8 @@ Values(3,
 
 INSERT INTO ClinicHospital
 Values ('H222', 'About Braces',
-'8, Sinaran Drive, NSC,#06-01 Singapore 307470',
-'mon, tue-fri, sat, closed',
+'8, Sinaran Drive, Novena Specialist Centre,#06-01 Singapore 307470',
+'mon, tue-fri, sat',
 '6397 7177',
 'enquiry@aboutbraces.org',
 1);
@@ -315,18 +315,18 @@ Values ('U2222222A',
 
 INSERT INTO [dbo].[DoctorDentist]
 Values('D111',
-'Dentist One',
+'Dr Vaz',
 10,
-1);
-
-INSERT INTO [dbo].[DoctorDentist]
-Values('D222',
-'Dentist Two',
-11,
 2);
 
 INSERT INTO [dbo].[DoctorDentist]
+Values('D222',
+'Dr Audrey Tan',
+11,
+3);
+
+INSERT INTO [dbo].[DoctorDentist]
 Values('D333',
-'Dentist Three',
+'Dr Alfred Cheng',
 12,
 3);
