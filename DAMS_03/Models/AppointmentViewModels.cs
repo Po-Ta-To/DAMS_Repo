@@ -93,6 +93,7 @@ namespace DAMS_03.Models
 
         [Display(Name = "Appointment Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        //[Required]
         public System.DateTime AppointmentDate { get; set; }
 
         [Display(Name = "Appointment Timeslot")]
@@ -100,6 +101,7 @@ namespace DAMS_03.Models
 
         //public List<Treatment> listOfTreatments { get; set; }
 
+        [Required]
         public List<TreatmentHelperModel> listOfTreatments { get; set; }
 
     }

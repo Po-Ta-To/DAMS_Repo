@@ -1,137 +1,97 @@
-﻿@model IEnumerable<DAMS_03.Models.Appointment>
+﻿@model List<DAMS_03.Models.AppointmentDetailViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>View Appointment Requests</h2>
-
-<div class="row">
-    <div class="form-group col-md-8">
-        <label class="control-label col-md-4" for="accountInput">Appointments</label>
-        <select id="accountInput" class="form-control input-group-sm">
-            <option value="appointments">Appointments</option>
-            <option value="appointmentRequests">Appointment Requests</option>
-        </select>
-    </div>
-</div>
+<h2>View Appointments</h2>
 
 <div class="row">
     <div class="panel panel-primary pull-right">
         <div class="panel-heading clearfix">
-            <div class="panel-title">
+            <div class="panel-title" width="100%">
                 List of Appointments
                 <button class="btn btn-default" type="button" style="float: right"
-                        onclick="location.href='@Url.Action("Create", "Appointments")'">
+                        onclick="location.href='@Url.Action("CreateSelection", "Appointments")'">
                     Create an Appointment
                 </button>
             </div>
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-hover table-sieve">
-                        <thead>
-                            <tr>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.AppointmentID)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.ApprovalState)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.PreferredDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.PreferredTime)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Remarks)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.AppointmentDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.AppointmentTime)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.ClinicHospital.ClinicHospitalID)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DoctorDentist.DoctorDentistID)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DoctorDentist1.DoctorDentistID)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.UserAccount.ID)
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
+            <div class="table-responsive">
+                <table class="table table-hover table-sieve">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].AppointmentID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].UserName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].ApprovalState)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].PreferredDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].PreferredTime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].ClinicHospitalName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].RequestDoctorDentistName)
+                            </th>
 
-                        <tbody id="appointmentTableBody">
-                            @foreach (var item in Model)
-            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AppointmentID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ApprovalState)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.PreferredDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.PreferredTime)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Remarks)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AppointmentDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AppointmentTime)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ClinicHospital.ClinicHospitalID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DoctorDentist.DoctorDentistID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DoctorDentist1.DoctorDentistID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UserAccount.ID)
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary" type="button"
-                                                onclick="location.href='@Url.Action("Details", "Appointments", new { id = item.ID })'">
-                                            Details
-                                        </button>
-                                        <button class="btn btn-success" type="button"
-                                                onclick="location.href='@Url.Action("Edit", "Appointments", new { id = item.ID })'">
-                                            Update
-                                        </button>
-                                        <button class="btn btn-danger" type="button"
-                                                onclick="location.href='@Url.Action("Delete", "Appointments", new { id = item.ID })'">
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentTableBody">
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].AppointmentID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].ApprovalState)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].PreferredDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].PreferredTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].ClinicHospitalName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-primary" type="button"
+                                            onclick="location.href='@Url.Action("Details", "Appointments", new { id = Model[i].ID })'">
+                                        Details
+                                    </button>
+                                    <button class="btn btn-success" type="button"
+                                            onclick="location.href='@Url.Action("Edit", "Appointments", new { id = Model[i].ID })'">
+                                        Update
+                                    </button>
+                                    <button class="btn btn-danger" type="button"
+                                            onclick="location.href='@Url.Action("Delete", "Appointments", new { id = Model[i].ID })'">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-
-</script>
