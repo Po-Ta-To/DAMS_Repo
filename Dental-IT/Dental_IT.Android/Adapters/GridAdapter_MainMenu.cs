@@ -8,17 +8,18 @@ namespace Dental_IT.Droid.Adapters
     class GridAdapter_MainMenu : BaseAdapter
     {
         private readonly Context context;
-        private int[] items;
+        private int[] buttonImages;
+        private int numRows = 2;
 
         public GridAdapter_MainMenu(Context c, int[] i)
         {
             context = c;
-            items = i;
+            buttonImages = i;
         }
 
         public override int Count
         {
-            get { return items.Length; }
+            get { return buttonImages.Length; }
         }
 
         public override Java.Lang.Object GetItem(int position)
@@ -40,7 +41,8 @@ namespace Dental_IT.Droid.Adapters
                 button = new ImageButton(context);
 
                 button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-                button.SetImageResource(items[position]);
+                button.SetImageResource(buttonImages[position]);
+                button.SetMinimumHeight(Main_Menu.GRID_HEIGHT / numRows);
                 button.SetScaleType(ImageView.ScaleType.CenterCrop);
                 button.Background = null;
                 button.SetPadding(0, 0, 0, 0);

@@ -45,7 +45,7 @@ namespace Dental_IT.Droid.Main
                 mainMenu_GridView.Post(() =>
                 {
                     GRID_HEIGHT = mainMenu_GridView.Height;
-                    mainMenu_GridView.Adapter = new GridAdapter_MainMenu(this, buttonTexts);
+                    mainMenu_GridView.Adapter = new GridAdapter_MainMenu(this, buttonImages);
                 });
 
                 //Implement CustomTheme ActionBar(toolbar)
@@ -122,18 +122,14 @@ namespace Dental_IT.Droid.Main
      
             return base.OnOptionsItemSelected(item);
         }
-        //  List of button texts to popular grid adapter
-        private readonly int[] buttonTexts =
+
+        //  List of button image resources to use as icons
+        private readonly int[] buttonImages =
         {
             Resource.Drawable.ic_request_appt,
             Resource.Drawable.ic_my_appt,
             Resource.Drawable.ic_treatment_info,
             Resource.Drawable.ic_search
-        };
-
-        int[] imageid =
-        {
-            //Add icons here (e.g Resource.Drawable.image.png)
         };
     }
 }

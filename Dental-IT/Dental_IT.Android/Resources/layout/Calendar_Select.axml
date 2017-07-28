@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/sublayout_Toolbar" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:paddingBottom="35dp">
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/calendar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:mcv_showOtherDates="all"
+                app:mcv_selectionColor="@color/blue" />
+            <TextView
+                android:id="@+id/legendTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_below="@id/calendar"
+                android:textColor="@color/dark_blue"
+                android:text="@string/legend" />
+            <RelativeLayout
+                android:id="@+id/legendContent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/legendTitle"
+                android:gravity="center_horizontal">
+                <LinearLayout
+                    android:id="@+id/legendRow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:background="@drawable/legend_iconSquare"
+                            android:backgroundTint="@color/.5_grey" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/dark_blue"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/closed" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="60dp"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:background="@drawable/legend_iconSquare"
+                            android:backgroundTint="@color/.5_red" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/dark_blue"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/fully_booked" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/calendar_DateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_below="@id/legendContent"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/dark_blue"
+                android:fontFamily="sans-serif-medium"
+                android:text="test" />
+            <Button
+                android:id="@+id/calendar_ConfirmBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calendar_DateText"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/white"
+                android:text="@string/confirm"
+                android:textAllCaps="false"
+                android:background="@color/blue" />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

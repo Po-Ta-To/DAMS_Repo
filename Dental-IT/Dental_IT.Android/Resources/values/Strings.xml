@@ -62,7 +62,8 @@
   <string name="myAppts_title">My Appointments</string>
   <string name="offeredBy_title">Offered By</string>
   <string name="selectTreatment_title">Select Treatment(s)</string>
-  <string name="calendar_title">Select Date</string>
+  <string name="calendarSelect_title">Select Date</string>
+  <string name="calendarView_title">View Appointments</string>
   <string name="treatmentsOffered_title">Treatments Offered</string>
   <string name="close">Close</string>
   <string name="confirm_delete">Delete</string>
@@ -79,5 +80,11 @@
   <string name="upcoming_tab">Upcoming</string>
   <string name="past_tab">Past</string>
   <string name="mainmenu">Main Menu</string>
+  <string name="legend">Legend :</string>
   <string name="search">Search</string>
+  <string name="pending">Pending</string>
+  <string name="confirmed">Confirmed</string>
+  <string name="pending_confirmed">Has both pending and confirmed</string>
+  <string name="closed">Closed</string>
+  <string name="fully_booked">Fully booked</string>
 </resources>
