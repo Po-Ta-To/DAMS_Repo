@@ -397,6 +397,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bower.json" />
+    <Content Include="SQL\TestData2.sql" />
     <Content Include="wwwroot\images\account icon.png" />
     <Content Include="wwwroot\images\listing icon.png" />
     <Content Include="wwwroot\images\potato.jpg" />
