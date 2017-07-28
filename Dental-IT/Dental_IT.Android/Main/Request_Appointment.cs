@@ -7,7 +7,6 @@ using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Preferences;
-using Android.Content.Res;
 using Dental_IT.Droid.Adapters;
 
 namespace Dental_IT.Droid.Main

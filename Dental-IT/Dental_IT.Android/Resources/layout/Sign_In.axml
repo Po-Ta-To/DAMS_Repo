@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/login_background">
@@ -17,7 +17,7 @@
         android:layout_centerInParent="true">
       <EditText
           android:id="@+id/signIn_EmailField"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="20dp"
           android:layout_marginRight="20dp"
@@ -31,7 +31,7 @@
           android:background="@drawable/editText_line" />
       <EditText
           android:id="@+id/signIn_PasswordField"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/signIn_EmailField"
           android:layout_marginTop="20dp"
@@ -47,7 +47,7 @@
           android:background="@drawable/editText_line" />
       <Button
           android:id="@+id/signIn_SignInBtn"
-          android:layout_width="fill_parent"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/signIn_PasswordField"
           android:layout_marginTop="30dp"

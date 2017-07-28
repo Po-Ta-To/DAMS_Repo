@@ -9,14 +9,17 @@ using Android.Support.V4.View;
 using Dental_IT.Droid.Adapters;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
+using Android.Support.V7.Widget;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Search : AppCompatActivity
+    public class Search : AppCompatActivity, SearchView.IOnQueryTextListener, TabLayout.IOnTabSelectedListener
     {
-        Android.Support.V4.App.Fragment[] fragments;
-        ICharSequence[] titles;
+        private Android.Support.V4.App.Fragment[] fragments;
+        private ICharSequence[] titles;
+        private int position;
+        private SearchView searchView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -24,6 +27,10 @@ namespace Dental_IT.Droid.Main
 
             //  Set view to search layout
             SetContentView(Resource.Layout.Search);
+
+            //  Set searchview listener
+            searchView = FindViewById<SearchView>(Resource.Id.searchView);
+            searchView.SetOnQueryTextListener(this);
 
             fragments = new Android.Support.V4.App.Fragment[]
             {
@@ -44,10 +51,11 @@ namespace Dental_IT.Droid.Main
                 viewpager.Adapter = new TabsAdapter(SupportFragmentManager, fragments, titles);
 
                 TabLayout tablayout = FindViewById<TabLayout>(Resource.Id.tabLayout);
+                tablayout.AddOnTabSelectedListener(this);
                 tablayout.SetupWithViewPager(viewpager);
 
                 //Implement CustomTheme ActionBar
-                var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+                var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
                 toolbar.SetTitle(Resource.String.search_title);
                 SetSupportActionBar(toolbar);
 
@@ -62,13 +70,66 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-        //Toast displayed and redirected to MainMenu page when back arrow is tapped
+        //Redirect to main menu when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Main_Menu));
             StartActivity(intent);
 
             return base.OnOptionsItemSelected(item);
+        }
+
+        public void OnTabReselected(TabLayout.Tab tab)
+        {
+            position = tab.Position;
+        }
+
+        public void OnTabSelected(TabLayout.Tab tab)
+        {
+            position = tab.Position;
+        }
+
+        public void OnTabUnselected(TabLayout.Tab tab)
+        {
+            
+        }
+
+        public bool OnQueryTextChange(string query)
+        {
+            if (position == 0)
+            {
+                SearchHospitalFragment.filter(query);
+                return true;
+            }
+            else if (position == 1)
+            {
+                SearchTreatmentFragment.filter(query);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool OnQueryTextSubmit(string query)
+        {
+            if (position == 0)
+            {
+                SearchHospitalFragment.filter(query);
+                searchView.ClearFocus();
+                return true;
+            }
+            else if (position == 1)
+            {
+                SearchTreatmentFragment.filter(query);
+                searchView.ClearFocus();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -28,6 +28,8 @@ namespace Dental_IT.Droid.Fragments
         private List<int> prefList = new List<int>();
         private List<ToggleState> tempFavouriteList = new List<ToggleState>();
         private RecyclerView searchHospital_RecyclerView;
+        private static RecyclerViewAdapter_SearchHospital adapter;
+        private static List<Hospital> tempHospitalList = new List<Hospital>();
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -46,6 +48,12 @@ namespace Dental_IT.Droid.Fragments
             hospitalList.Add(k);
             hospitalList.Add(l);
             hospitalList.Add(m);
+
+            //  Populate temp list for search
+            foreach (Hospital hosp in hospitalList)
+            {
+                tempHospitalList.Add(hosp);
+            }
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Activity);
 
@@ -94,7 +102,7 @@ namespace Dental_IT.Droid.Fragments
             //  Configure custom adapter for recyclerview
             searchHospital_RecyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
 
-            RecyclerViewAdapter_SearchHospital adapter = new RecyclerViewAdapter_SearchHospital(Activity, hospitalList, prefList, tempFavouriteList);
+            adapter = new RecyclerViewAdapter_SearchHospital(Activity, hospitalList, prefList, tempFavouriteList);
             searchHospital_RecyclerView.SetAdapter(adapter);
 
             return v;
@@ -109,6 +117,25 @@ namespace Dental_IT.Droid.Fragments
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutString("favourites", Newtonsoft.Json.JsonConvert.SerializeObject(RecyclerViewAdapter_SearchHospital.prefList));
             editor.Apply();
+        }
+
+        //  Search filter logic
+        public static void filter(string query)
+        {
+            string lowerCaseQuery = query.ToLower();
+
+            List<Hospital> filteredList = new List<Hospital>();
+
+            foreach (Hospital hosp in tempHospitalList)
+            {
+                string text = hosp.name.ToLower();
+                if (text.Contains(lowerCaseQuery))
+                {
+                    filteredList.Add(hosp);
+                }
+            }
+
+            adapter.Replace(filteredList);
         }
     }
 }

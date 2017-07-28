@@ -70,6 +70,11 @@ namespace Dental_IT.Droid.Adapters
             return holder;
         }
 
+        internal void Replace(List<Treatment> filteredList)
+        {
+            treatmentList = filteredList;
+            NotifyDataSetChanged();
+        }
     }
 
     class SearchTreatment_ViewHolder : RecyclerView.ViewHolder

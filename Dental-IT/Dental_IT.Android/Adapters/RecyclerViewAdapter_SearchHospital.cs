@@ -104,6 +104,12 @@ namespace Dental_IT.Droid.Adapters
 
             return holder;
         }
+
+        public void Replace(List<Hospital> filteredList)
+        {
+            hospitalList = filteredList;
+            NotifyDataSetChanged();
+        }
     }
 
     class SearchHospital_ViewHolder : RecyclerView.ViewHolder
