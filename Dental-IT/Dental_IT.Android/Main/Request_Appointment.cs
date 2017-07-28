@@ -144,7 +144,7 @@ namespace Dental_IT.Droid.Main
             //  Intent to redirect to calendar page
             request_DateField.Click += delegate
             {
-                Intent intent = new Intent(this, typeof(Calendar));
+                Intent intent = new Intent(this, typeof(Calendar_Select));
                 StartActivity(intent);
             };
 

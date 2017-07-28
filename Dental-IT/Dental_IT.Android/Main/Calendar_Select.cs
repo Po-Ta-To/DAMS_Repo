@@ -4,16 +4,18 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using MaterialCalendarLibrary;
-using Com.Prolificinteractive.Materialcalendarview.Spans;
 using Android.Graphics;
 using Android.Preferences;
 using Android.Support.V7.App;
 using Android.Views;
+using Android.Support.V4.Content;
+using Java.Util;
+using Android.Graphics.Drawables;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Calendar : AppCompatActivity
+    public class Calendar_Select : AppCompatActivity
     {
         private static Java.Text.DateFormat formatter = Java.Text.DateFormat.DateInstance;
         private string selectedDate;
@@ -22,16 +24,13 @@ namespace Dental_IT.Droid.Main
         {
             base.OnCreate(savedInstanceState);
 
-            //  Set view to calendar layout
-            SetContentView(Resource.Layout.Calendar);
+            //  Set view to calendar select layout
+            SetContentView(Resource.Layout.Calendar_Select);
 
             //  Create widgets
-            MaterialCalendarView calendar = FindViewById<MaterialCalendarView>(Resource.Id.calendarView);
+            MaterialCalendarView calendar = FindViewById<MaterialCalendarView>(Resource.Id.calendar);
             TextView calendar_DateText = FindViewById<TextView>(Resource.Id.calendar_DateText);
             Button calendar_ConfirmBtn = FindViewById<Button>(Resource.Id.calendar_ConfirmBtn);
-
-            calendar.SetSelectedDate(Java.Util.Calendar.GetInstance(Java.Util.Locale.English));
-            selectedDate = formatter.Format(calendar.SelectedDate.Date);
 
             List<CalendarDay> dates = new List<CalendarDay>();
 
@@ -59,13 +58,17 @@ namespace Dental_IT.Droid.Main
             dates2.Add(g);
             dates2.Add(h);
 
-            calendar.AddDecorators(new EventDecorator(Color.Red, dates));
-            calendar.AddDecorators(new EventDecorator(Color.Green, dates2));
-
             RunOnUiThread(() =>
             {
-                //  Set inital date
+                //  Set initial select date
+                calendar.SetSelectedDate(Calendar.GetInstance(Java.Util.TimeZone.GetTimeZone("Asia / Singapore")));
+                selectedDate = formatter.Format(calendar.SelectedDate.Date);
+
                 calendar_DateText.Text = selectedDate;
+
+                //  Set background decoration on event dates
+                calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_red)), dates));
+                calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_grey)), dates2));
 
                 //  Set date on date change
                 calendar.DateChanged += delegate
@@ -76,7 +79,7 @@ namespace Dental_IT.Droid.Main
 
                 //Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-                toolbar.SetTitle(Resource.String.calendar_title);
+                toolbar.SetTitle(Resource.String.calendarSelect_title);
                 SetSupportActionBar(toolbar);
 
                 //Set backarrow as Default
@@ -113,28 +116,49 @@ namespace Dental_IT.Droid.Main
         }
     }
 
-    class EventDecorator : Java.Lang.Object, IDayViewDecorator
+    class EventDecoratorSelect : Java.Lang.Object, IDayViewDecorator
     {
+        private Context context;
         private int color;
         private List<CalendarDay> dates;
 
-        public EventDecorator(int color, List<CalendarDay> dates)
+        public EventDecoratorSelect(Context context, int color, List<CalendarDay> dates)
         {
+            this.context = context;
             this.color = color;
             this.dates = dates;
         }
 
         public void Decorate(DayViewFacade view)
         {
-            view.AddSpan(new DotSpan(10, color));
+            Drawable dateBg = ContextCompat.GetDrawable(context, Resource.Drawable.legend_iconSquare);
+            dateBg.Mutate();    //To allow applying individual filters without affecting the rest
+            dateBg.SetTint(color);
+            view.SetBackgroundDrawable(dateBg);
+
             view.SetDaysDisabled(true);
         }
 
         public bool ShouldDecorate(CalendarDay day)
         {
-            if (dates[0].ToString() == day.ToString() || dates[1].ToString() == day.ToString() || dates[2].ToString() == day.ToString() || dates[3].ToString() == day.ToString())
+            bool b = false;
+
+            if (day != null)
             {
-                return true;
+                foreach (CalendarDay cDay in dates)
+                {
+                    if (cDay.ToString() == day.ToString())
+                    {
+                        b = true;
+                        break;
+                    }
+                    else
+                    {
+                        b = false;
+                    }
+                }
+
+                return b;
             }
             else
             {
