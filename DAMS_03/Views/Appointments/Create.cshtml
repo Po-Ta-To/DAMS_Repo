@@ -1,4 +1,5 @@
 ﻿@model DAMS_03.Models.AppointmentCreateViewModel
+@using DAMS_03.HtmlHelpers
 
 @{
     ViewBag.Title = "Create";
@@ -25,8 +26,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.UserID, Model.selectUser, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.DropDownListFor(model => model.UserID, Model.selectUser, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
                 @*@Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @BootstrapHtml.Dropdown("UserID", Model.selectUser)
                 @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,9 +69,9 @@
                     });
                 }
 
-                @Html.DropDownListFor(model => model.ApprovalState, secListItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
-
+                @*@Html.DropDownListFor(model => model.ApprovalState, secListItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
                 @*@Html.EditorFor(model => model.ApprovalState, new { htmlAttributes = new { @class = "form-control" } })*@
+                @BootstrapHtml.Dropdown("ApprovalState", secListItems)
                 @Html.ValidationMessageFor(model => model.ApprovalState, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -93,8 +95,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DoctorDentistID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.DoctorDentistID, Model.selectDoctorDentist, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.DropDownListFor(model => model.DoctorDentistID, Model.selectDoctorDentist, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
                 @*@Html.EditorFor(model => model.DoctorDentistID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @BootstrapHtml.Dropdown("DoctorDentistID", Model.selectDoctorDentist)
                 @Html.ValidationMessageFor(model => model.DoctorDentistID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -102,8 +105,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RequestDoctorDentistID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.RequestDoctorDentistID, Model.selectDoctorDentist, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.DropDownListFor(model => model.RequestDoctorDentistID, Model.selectDoctorDentist, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
                 @*@Html.EditorFor(model => model.RequestDoctorDentistID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @BootstrapHtml.Dropdown("RequestDoctorDentistID", Model.selectDoctorDentist)
                 @Html.ValidationMessageFor(model => model.RequestDoctorDentistID, "", new { @class = "text-danger" })
             </div>
         </div>
