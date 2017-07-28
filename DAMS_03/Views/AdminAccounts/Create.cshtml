@@ -1,5 +1,6 @@
 ﻿@model DAMS_03.Models.AdminAccountCreateModel
 @*@using MvcCheckBoxList.Model*@
+@using DAMS_03.HtmlHelpers
 
 @{
     ViewBag.Title = "Create";
@@ -41,11 +42,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SecurityLevel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*<select id="accountLevelInput" class="form-control input-group-sm">
-                    <option value="1">System Account</option>
-                    <option value="2">Admin Account</option>
-                    <option value="3" selected="selected">Clerk Account</option>
-                </select>*@
+                @*<select id="SecurityLevel" class="form-control input-group-sm" name="SecurityLevel">
+                        <option value="1">System Account</option>
+                        <option value="2">Admin Account</option>
+                        <option value="3" selected="selected">Clerk Account</option>
+                    </select>*@
                 @{
                     List<SelectListItem> listItems = new List<SelectListItem>();
                     listItems.Add(new SelectListItem
@@ -67,13 +68,15 @@
                     });
                 }
 
-                @Html.DropDownListFor(model => model.SecurityLevel, listItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.DropDownListFor(model => model.SecurityLevel, listItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
+
+                @BootstrapHtml.Dropdown("SecurityLevel", listItems)
 
                 @Html.ValidationMessageFor(model => model.SecurityLevel, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        
+
 
         <div class="form-group">
             @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
@@ -99,21 +102,23 @@
             @Html.LabelFor(model => model.HospClinID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
 
-                @*<select id="accountLevelInput" class="form-control input-group-sm">
+                @*<select id="HospClinID" class="form-control input-group-sm">
 
-                    <option value="notselected" selected="selected"> - </option>
+                        <option value="notselected" selected="selected"> - </option>
 
-                    @foreach (SelectListItem item in Model.itemSelection)
-                    {
-                        <option value=@item.Value>@item.Text</option>
-                        
-                    }
+                        @foreach (SelectListItem item in Model.itemSelection)
+                        {
+                            <option value=@item.Value>@item.Text</option>
 
-                </select>*@
+                        }
 
-                @Html.DropDownListFor(model => model.HospClinID, Model.itemSelection, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                    </select>*@
 
-                @*@Html.HiddenFor(model => model.itemSelection) lists doesnt work for hiddenfor *@
+                @*@Html.DropDownListFor(model => model.HospClinID, Model.itemSelection, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
+
+                @BootstrapHtml.Dropdown("HospClinID", Model.itemSelection)
+
+                @*@Html.HiddenFor(model => model.itemSelection) lists doesnt work for hiddenfor*@
 
                 @Html.ValidationMessageFor(model => model.HospClinID, "", new { @class = "text-danger" })
             </div>
@@ -130,7 +135,7 @@
             </div>
         </div>
     </div>
-}
+                    }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

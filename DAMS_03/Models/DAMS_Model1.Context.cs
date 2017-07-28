@@ -37,8 +37,10 @@ namespace DAMS_03.Models
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<ClinicHospital> ClinicHospitals { get; set; }
         public virtual DbSet<ClinicHospitalAdvertisement> ClinicHospitalAdvertisements { get; set; }
+        public virtual DbSet<ClinicHospitalTimeslot> ClinicHospitalTimeslots { get; set; }
         public virtual DbSet<ClinicHospitalTreatment> ClinicHospitalTreatments { get; set; }
         public virtual DbSet<DoctorDentist> DoctorDentists { get; set; }
+        public virtual DbSet<DoctorDentistDateBooking> DoctorDentistDateBookings { get; set; }
         public virtual DbSet<OpeningHour> OpeningHours { get; set; }
         public virtual DbSet<Treatment> Treatments { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }

@@ -205,8 +205,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\AdminAccountsController.cs" />
+    <Compile Include="API\AppointmentsByUserController.cs" />
     <Compile Include="API\AppointmentsController.cs" />
     <Compile Include="API\AccountController.cs" />
+    <Compile Include="API\ClinicHospitalsByTreatmentController.cs" />
     <Compile Include="API\ClinicHospitalsController.cs" />
     <Compile Include="API\DoctorDentistsController.cs" />
     <Compile Include="API\TreatmentsByHController.cs" />
@@ -263,6 +265,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\BootstrapHtml.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminAccount.cs">
@@ -303,6 +306,9 @@
     <Compile Include="Models\ClinicHospitalAdvertisement.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClinicHospitalTimeslot.cs">
+      <DependentUpon>DAMS_Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ClinicHospitalTreatment.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
@@ -322,6 +328,9 @@
       <DependentUpon>DAMS_Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DoctorDentist.cs">
+      <DependentUpon>DAMS_Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DoctorDentistDateBooking.cs">
       <DependentUpon>DAMS_Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DoctorDentistViewModels.cs" />
@@ -388,6 +397,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bower.json" />
+    <Content Include="SQL\TestData2.sql" />
     <Content Include="wwwroot\images\account icon.png" />
     <Content Include="wwwroot\images\listing icon.png" />
     <Content Include="wwwroot\images\potato.jpg" />

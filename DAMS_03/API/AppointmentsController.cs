@@ -27,63 +27,117 @@ namespace DAMS_03.API
         [ResponseType(typeof(Appointment))]
         public IHttpActionResult GetAppointment(int id)
         {
-            Appointment appointment = db.Appointments.Find(id);
-            if (appointment == null)
+            Appointment foundAppt = db.Appointments.Find(id);
+            if (foundAppt == null)
             {
                 return NotFound();
             }
 
-            var returnAppointment = from Appointment in db.Appointments
+            var appointment = from Appointment in db.Appointments
                                     where Appointment.ID == id
+                                    join User in db.UserAccounts on Appointment.UserID equals User.ID
+                                    join ClinicHospital in db.ClinicHospitals on Appointment.ClinicHospitalID equals ClinicHospital.ID
                                     select new
                                     {
-                                        Appointment.ID,
-                                        Appointment.AppointmentID,
-                                        Appointment.UserID,
-                                        Appointment.ClinicHospitalID,
-                                        Appointment.ApprovalState,
-                                        //Appointment.PreferredDate,
-                                        //Appointment.PreferredTime,
-                                        Appointment.DoctorDentistID,
-                                        //Appointment.RequestDoctorDentistID,
-                                        Appointment.Remarks,
-                                        Appointment.AppointmentDate,
-                                        Appointment.AppointmentTime
+                                        ID = Appointment.ID,
+                                        AppointmentID = Appointment.AppointmentID,
+                                        UserName = User.Name,
+                                        UserID = User.ID,
+                                        ClinicHospitalName = ClinicHospital.ClinicHospitalName,
+                                        ClinicHospitalID = ClinicHospital.ID,
+                                        ApprovalState = Appointment.ApprovalState,
+                                        PreferredDate = Appointment.PreferredDate,
+                                        PreferredTime = Appointment.PreferredTime,
+                                        Remarks = Appointment.Remarks,
+                                        AppointmentDate = Appointment.AppointmentDate,//
+                                        AppointmentTime = Appointment.AppointmentTime//
                                     };
 
-            return Ok(returnAppointment);
-        }
+            string approvalString = "";
 
-        // #KK    
-        // GET: api/Appointments/GetAppointmentsByUserID/2
-        [Route("GetAppointmentsByUserID")]
-        //[ResponseType(typeof(Appointment))]
-        public IHttpActionResult GetAppointmentsByUserID(int id)
-        {
-            var appointments = from Appointment in db.Appointments
-                               where Appointment.UserID == id
-                               select new
-                               {
-                                   Appointment.ID,
-                                   Appointment.AppointmentID,
-                                   Appointment.UserID,
-                                   Appointment.ClinicHospitalID,
-                                   Appointment.ApprovalState,
-                                   //Appointment.PreferredDate,
-                                   //Appointment.PreferredTime,
-                                   Appointment.DoctorDentistID,
-                                   //Appointment.RequestDoctorDentistID,
-                                   Appointment.Remarks,
-                                   Appointment.AppointmentDate,
-                                   Appointment.AppointmentTime
-                               };
+            AppointmentDetailViewModel returnAppointment = new AppointmentDetailViewModel();
 
-            if (appointments == null)
+            foreach (var appt in appointment)
             {
-                return NotFound();
-            }
+                switch (appt.ApprovalState)
+                {
+                    case 1:
+                        approvalString = "Pending";
+                        break;
+                    case 2:
+                        approvalString = "Cancelled";
+                        break;
+                    case 3:
+                        approvalString = "Confirmed";
+                        break;
+                    case 4:
+                        approvalString = "Declined";
+                        break;
+                    case 5:
+                        approvalString = "Completed";
+                        break;
+                    default:
+                        approvalString = "Error";
+                        break;
+                }
 
-            return Ok(appointments);
+                var reqDoc = (from apt in db.Appointments
+                              join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+                              where apt.ID == appt.ID
+                              select new
+                              {
+                                  RequestDoctorDentistName = d.Name,
+                                  RequestDoctorDentistID = d.ID
+                              }).SingleOrDefault();
+
+                var doc = (from apt in db.Appointments
+                           join d in db.DoctorDentists on apt.DoctorDentistID equals d.ID
+                           where apt.ID == appt.ID
+                           select new
+                           {
+                               DoctorDentistName = d.Name,
+                               DoctorDentistID = d.ID
+                           }).SingleOrDefault();
+
+                returnAppointment = new AppointmentDetailViewModel()
+                {
+                    ID = appt.ID,
+                    AppointmentID = appt.AppointmentID,
+                    UserName = appt.UserName,
+                    UserID = appt.UserID,
+                    ClinicHospitalName = appt.ClinicHospitalName,
+                    ClinicHospitalID = appt.ClinicHospitalID,
+                    ApprovalState = approvalString,
+                    PreferredDate = appt.PreferredDate,
+                    PreferredTime = appt.PreferredTime,
+                    Remarks = appt.Remarks,
+                    AppointmentDate = appt.AppointmentDate,
+                    AppointmentTime = appt.AppointmentTime
+                };
+
+                if (reqDoc != null)
+                {
+                    returnAppointment.RequestDoctorDentistName = reqDoc.RequestDoctorDentistName;
+                    returnAppointment.RequestDoctorDentistID = reqDoc.RequestDoctorDentistID;
+                }
+                else
+                {
+                    returnAppointment.RequestDoctorDentistName = "No preference";
+                    //addModel.RequestDoctorDentistID = 0;
+                }
+
+                if (doc != null)
+                {
+                    returnAppointment.DoctorDentistName = doc.DoctorDentistName;
+                    returnAppointment.DoctorDentistID = doc.DoctorDentistID;
+                }
+                else
+                {
+                    returnAppointment.DoctorDentistName = "Unassigned";
+                    //addModel.DoctorDentistID = 0;
+                }
+            }
+            return Ok(returnAppointment);
         }
 
         // PUT: api/Appointments/5
@@ -117,7 +171,6 @@ namespace DAMS_03.API
                     throw;
                 }
             }
-
             return StatusCode(HttpStatusCode.NoContent);
         }
 

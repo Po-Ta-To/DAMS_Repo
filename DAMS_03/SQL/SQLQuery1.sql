@@ -109,6 +109,14 @@ Create table ClinicHospital
 	IsStringOpenHours bit NOT NULL
 )
 
+Create table ClinicHospitalTimeslot
+(
+	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
+	TimeslotIndex int NOT NULL,
+	TimeRangeSlotString VARCHAR(50) NOT NULL,
+	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL
+)
+
 Create table DoctorDentist
 (
 	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
@@ -116,6 +124,14 @@ Create table DoctorDentist
     Name NVARCHAR(50) NOT NULL,
 	MaxBookings INT NOT NULL,
 	ClinicHospitalID INT FOREIGN KEY REFERENCES ClinicHospital(ID) NOT NULL
+)
+
+Create table DoctorDentistDateBooking
+(
+	ID INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
+    DateOfBookings Date NOT NULL,
+	Bookings INT NOT NULL,
+	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NOT NULL
 )
 
 Create table AdminAccountClinicHospital
@@ -180,7 +196,7 @@ Create table Appointment
 	PreferredTime INT NOT NULL,
 	DoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NULL,
 	RequestDoctorDentistID INT FOREIGN KEY REFERENCES DoctorDentist(ID) NULL,
-	Remarks NVARCHAR(50) NOT NULL,
+	Remarks NVARCHAR(500) NOT NULL,
 	AppointmentDate DATE NULL,
 	AppointmentTime INT NULL
 )

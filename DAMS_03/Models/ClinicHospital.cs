@@ -20,6 +20,7 @@ namespace DAMS_03.Models
             this.AdminAccountClinicHospitals = new HashSet<AdminAccountClinicHospital>();
             this.Appointments = new HashSet<Appointment>();
             this.Bookings = new HashSet<Booking>();
+            this.ClinicHospitalTimeslots = new HashSet<ClinicHospitalTimeslot>();
             this.ClinicHospitalAdvertisements = new HashSet<ClinicHospitalAdvertisement>();
             this.ClinicHospitalTreatments = new HashSet<ClinicHospitalTreatment>();
             this.DoctorDentists = new HashSet<DoctorDentist>();
@@ -41,6 +42,8 @@ namespace DAMS_03.Models
         public virtual ICollection<Appointment> Appointments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClinicHospitalTimeslot> ClinicHospitalTimeslots { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClinicHospitalAdvertisement> ClinicHospitalAdvertisements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -97,7 +97,7 @@ namespace DAMS_03.API
                 return Ok(returnModel);
             }
 
-            return BadRequest();
+            //return BadRequest();
         }
 
         // PUT: api/ClinicHospitals/5

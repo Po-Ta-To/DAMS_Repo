@@ -135,15 +135,251 @@ namespace DAMS_03.Controllers
             return View(returnList);
         }
 
-        // GET: Appointment Requests
-        public ActionResult IndexBy()
+        // GET: Appointment IndexBy
+        public ActionResult IndexBy(int? id)
         {
-            // If ApprovalState was 2 for "Appointment Requests"
-            var getAppointmentsBySecId = from Appointments in db.Appointments
-                                         where Appointments.ApprovalState == 2
-                                         select Appointments;
+            if(id < 1 || id > 5)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-            return View(getAppointmentsBySecId.ToList());
+            if(id == 2 || id == 4)
+            {
+
+                var appointments = from apt in db.Appointments
+                                   join u in db.UserAccounts on apt.UserID equals u.ID
+                                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                   where apt.ApprovalState == 2 || apt.ApprovalState == 4
+                                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+                                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
+                                   select new
+                                   {
+                                       ID = apt.ID,
+                                       AppointmentID = apt.AppointmentID,
+                                       UserName = u.Name,
+                                       UserID = u.ID,
+                                       ClinicHospitalName = ch.ClinicHospitalName,
+                                       ClinicHospitalID = ch.ID,
+                                       ApprovalState = apt.ApprovalState,
+                                       PreferredDate = apt.PreferredDate,
+                                       PreferredTime = apt.PreferredTime,
+                                       Remarks = apt.Remarks,
+                                       AppointmentDate = apt.AppointmentDate,//
+                                       AppointmentTime = apt.AppointmentTime//
+                                   };
+
+                List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
+
+                foreach (var appointment in appointments)
+                {
+
+                    string approvalString = "";
+
+                    switch (appointment.ApprovalState)
+                    {
+                        case 1:
+                            approvalString = "Pending";
+                            break;
+                        case 2:
+                            approvalString = "Cancelled";
+                            break;
+                        case 3:
+                            approvalString = "Confirmed";
+                            break;
+                        case 4:
+                            approvalString = "Declined";
+                            break;
+                        case 5:
+                            approvalString = "Completed";
+                            break;
+                        default:
+                            approvalString = "Error";
+                            break;
+                    }
+
+                    var reqDoc = (from apt in db.Appointments
+                                  join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+                                  where apt.ID == appointment.ID
+                                  select new
+                                  {
+                                      RequestDoctorDentistName = d.Name,
+                                      RequestDoctorDentistID = d.ID
+                                  }).SingleOrDefault();
+
+                    var doc = (from apt in db.Appointments
+                               join d in db.DoctorDentists on apt.DoctorDentistID equals d.ID
+                               where apt.ID == appointment.ID
+                               select new
+                               {
+                                   DoctorDentistName = d.Name,
+                                   DoctorDentistID = d.ID
+                               }).SingleOrDefault();
+
+
+                    AppointmentDetailViewModel addAppt = new AppointmentDetailViewModel()
+                    {
+                        ID = appointment.ID,
+                        AppointmentID = appointment.AppointmentID,
+                        UserName = appointment.UserName,
+                        UserID = appointment.UserID,
+                        ClinicHospitalName = appointment.ClinicHospitalName,
+                        ClinicHospitalID = appointment.ClinicHospitalID,
+                        ApprovalState = approvalString,
+                        PreferredDate = appointment.PreferredDate,
+                        PreferredTime = appointment.PreferredTime,
+                        Remarks = appointment.Remarks,
+                        AppointmentDate = appointment.AppointmentDate,
+                        AppointmentTime = appointment.AppointmentTime
+                    };
+
+                    if (reqDoc != null)
+                    {
+                        addAppt.RequestDoctorDentistName = reqDoc.RequestDoctorDentistName;
+                        addAppt.RequestDoctorDentistID = reqDoc.RequestDoctorDentistID;
+                    }
+                    else
+                    {
+                        addAppt.RequestDoctorDentistName = "No preference";
+                        //addModel.RequestDoctorDentistID = 0;
+                    }
+
+                    if (doc != null)
+                    {
+                        addAppt.DoctorDentistName = doc.DoctorDentistName;
+                        addAppt.DoctorDentistID = doc.DoctorDentistID;
+                    }
+                    else
+                    {
+                        addAppt.DoctorDentistName = "Unassigned";
+                        //addModel.DoctorDentistID = 0;
+                    }
+
+                    returnList.Add(addAppt);
+                }
+
+
+
+                return View(returnList);
+            }
+            else
+            {
+
+                var appointments = from apt in db.Appointments
+                                   join u in db.UserAccounts on apt.UserID equals u.ID
+                                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                   where apt.ApprovalState == id
+                                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+                                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
+                                   select new
+                                   {
+                                       ID = apt.ID,
+                                       AppointmentID = apt.AppointmentID,
+                                       UserName = u.Name,
+                                       UserID = u.ID,
+                                       ClinicHospitalName = ch.ClinicHospitalName,
+                                       ClinicHospitalID = ch.ID,
+                                       ApprovalState = apt.ApprovalState,
+                                       PreferredDate = apt.PreferredDate,
+                                       PreferredTime = apt.PreferredTime,
+                                       Remarks = apt.Remarks,
+                                       AppointmentDate = apt.AppointmentDate,//
+                                       AppointmentTime = apt.AppointmentTime//
+                                   };
+
+                List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
+
+                foreach (var appointment in appointments)
+                {
+
+                    string approvalString = "";
+
+                    switch (appointment.ApprovalState)
+                    {
+                        case 1:
+                            approvalString = "Pending";
+                            break;
+                        case 2:
+                            approvalString = "Cancelled";
+                            break;
+                        case 3:
+                            approvalString = "Confirmed";
+                            break;
+                        case 4:
+                            approvalString = "Declined";
+                            break;
+                        case 5:
+                            approvalString = "Completed";
+                            break;
+                        default:
+                            approvalString = "Error";
+                            break;
+                    }
+
+                    var reqDoc = (from apt in db.Appointments
+                                  join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+                                  where apt.ID == appointment.ID
+                                  select new
+                                  {
+                                      RequestDoctorDentistName = d.Name,
+                                      RequestDoctorDentistID = d.ID
+                                  }).SingleOrDefault();
+
+                    var doc = (from apt in db.Appointments
+                               join d in db.DoctorDentists on apt.DoctorDentistID equals d.ID
+                               where apt.ID == appointment.ID
+                               select new
+                               {
+                                   DoctorDentistName = d.Name,
+                                   DoctorDentistID = d.ID
+                               }).SingleOrDefault();
+
+
+                    AppointmentDetailViewModel addAppt = new AppointmentDetailViewModel()
+                    {
+                        ID = appointment.ID,
+                        AppointmentID = appointment.AppointmentID,
+                        UserName = appointment.UserName,
+                        UserID = appointment.UserID,
+                        ClinicHospitalName = appointment.ClinicHospitalName,
+                        ClinicHospitalID = appointment.ClinicHospitalID,
+                        ApprovalState = approvalString,
+                        PreferredDate = appointment.PreferredDate,
+                        PreferredTime = appointment.PreferredTime,
+                        Remarks = appointment.Remarks,
+                        AppointmentDate = appointment.AppointmentDate,
+                        AppointmentTime = appointment.AppointmentTime
+                    };
+
+                    if (reqDoc != null)
+                    {
+                        addAppt.RequestDoctorDentistName = reqDoc.RequestDoctorDentistName;
+                        addAppt.RequestDoctorDentistID = reqDoc.RequestDoctorDentistID;
+                    }
+                    else
+                    {
+                        addAppt.RequestDoctorDentistName = "No preference";
+                        //addModel.RequestDoctorDentistID = 0;
+                    }
+
+                    if (doc != null)
+                    {
+                        addAppt.DoctorDentistName = doc.DoctorDentistName;
+                        addAppt.DoctorDentistID = doc.DoctorDentistID;
+                    }
+                    else
+                    {
+                        addAppt.DoctorDentistName = "Unassigned";
+                        //addModel.DoctorDentistID = 0;
+                    }
+
+                    returnList.Add(addAppt);
+                }
+
+
+
+                return View(returnList);
+            }
+
         }
 
         // GET: Appointments/Details/5
@@ -429,7 +665,7 @@ namespace DAMS_03.Controllers
                 {
                     addAppointment.DoctorDentistID = Int32.Parse(newAppointment.DoctorDentistID);
                 }
-                if (newAppointment.RequestDoctorDentistID != null && !newAppointment.RequestDoctorDentistID.Equals("") && !newAppointment.DoctorDentistID.Equals("0"))
+                if (newAppointment.RequestDoctorDentistID != null && !newAppointment.RequestDoctorDentistID.Equals("") && !newAppointment.RequestDoctorDentistID.Equals("0"))
                 {
                     addAppointment.RequestDoctorDentistID = Int32.Parse(newAppointment.RequestDoctorDentistID);
                 }
@@ -459,6 +695,34 @@ namespace DAMS_03.Controllers
 
                 }
                 db.SaveChanges();
+
+                //Change booking int for date of doctor/dentist
+                if (addAppointment.ApprovalState == 3 && addAppointment.AppointmentDate != null && addAppointment.DoctorDentistID != null)
+                {
+                    DoctorDentistDateBooking bookingDay = (from dd in db.DoctorDentists
+                                                           join dddb in db.DoctorDentistDateBookings on dd.ID equals dddb.DoctorDentistID
+                                                           where addAppointment.AppointmentDate == dddb.DateOfBookings
+                                                           select dddb).SingleOrDefault();
+
+                    if (bookingDay != null)
+                    {
+                        bookingDay.Bookings++;
+                        db.Entry(bookingDay).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        DoctorDentistDateBooking newBookingDay = new DoctorDentistDateBooking()
+                        {
+                            DateOfBookings = addAppointment.AppointmentDate.Value,
+                            Bookings = 1,
+                            DoctorDentistID = addAppointment.DoctorDentistID.Value
+                        };
+                        db.DoctorDentistDateBookings.Add(newBookingDay);
+                    }
+                    
+                    db.SaveChanges();
+
+                }
 
                 return RedirectToAction("Index", "Appointments");
             }
@@ -509,10 +773,44 @@ namespace DAMS_03.Controllers
                     Text = " - "
                 });
                 newAppointment.selectUser.AddRange(listOfUser.ToList<SelectListItem>());
+
+                var url = Url.RequestContext.RouteData.Values["id"];
+                int hospid = Int32.Parse((string)url);
+
+                newAppointment.listOfTreatments = (from t in db.Treatments
+                                                   join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
+                                                   join hc in db.ClinicHospitals on cht.ClinicHospitalID equals hc.ID
+                                                   where hc.ID == hospid
+                                                   select new TreatmentHelperModel()
+                                                   {
+                                                       ID = t.ID,
+                                                       TreatmentID = t.TreatmentID,
+                                                       TreatmentName = t.TreatmentName,
+                                                       TreatmentDesc = t.TreatmentDesc,
+                                                       IsFollowUp = t.IsFollowUp,
+                                                       PriceLow = cht.PriceLow,
+                                                       PriceHigh = cht.PriceHigh,
+                                                       IsChecked = false
+                                                   }).ToList();
+
+                foreach (TreatmentHelperModel t in newAppointment.listOfTreatments)
+                {
+                    string priceLow = String.Format("{0:C}", t.PriceLow);
+                    if (t.PriceHigh == t.PriceLow)
+                    {
+                        t.Price = priceLow;
+                    }
+                    else
+                    {
+                        string priceHigh = String.Format("{0:C}", t.PriceHigh);
+                        t.Price = priceLow + " - " + priceHigh;
+                    }
+                }
+
             }
 
 
-            return View();
+            return View(newAppointment);
         }
 
         // GET: Appointments/Edit/5
@@ -663,6 +961,8 @@ namespace DAMS_03.Controllers
                                                  select t).ToList();
 
             var listOfTreatments = (from t in db.Treatments
+                                    join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
+                                    where cht.ClinicHospitalID == appt.ClinicHospitalID
                                     select new
                                     {
                                         ID = t.ID,
@@ -779,7 +1079,36 @@ namespace DAMS_03.Controllers
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("Details", "Appointments");
+
+                //Change booking int for date of doctor/dentist
+                if (model.ApprovalState.Equals("3") && model.AppointmentDate != null && model.DoctorDentistID != null)
+                {
+                    DoctorDentistDateBooking bookingDay = (from dd in db.DoctorDentists
+                                                           join dddb in db.DoctorDentistDateBookings on dd.ID equals dddb.DoctorDentistID
+                                                           where model.AppointmentDate == dddb.DateOfBookings
+                                                           select dddb).SingleOrDefault();
+
+                    if (bookingDay != null)
+                    {
+                        bookingDay.Bookings++;
+                        db.Entry(bookingDay).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        DoctorDentistDateBooking newBookingDay = new DoctorDentistDateBooking()
+                        {
+                            DateOfBookings = model.AppointmentDate.Value,
+                            Bookings = 1,
+                            DoctorDentistID = Int32.Parse(model.DoctorDentistID)
+                        };
+                    }
+
+                    db.SaveChanges();
+
+                }
+
+
+                return RedirectToAction("Details", "Appointments", new { id = appointment.ID });
             }
             else
             {
@@ -828,6 +1157,62 @@ namespace DAMS_03.Controllers
                     Text = " - "
                 });
                 model.selectUser.AddRange(listOfUser.ToList<SelectListItem>());
+
+
+                List<Treatment> treatmentRelation = (from t in db.Treatments
+                                                     join at in db.AppointmentTreatments on t.ID equals at.TreatmentID
+                                                     join a in db.Appointments on at.AppointmentID equals a.ID
+                                                     where a.ID == model.ID
+                                                     select t).ToList();
+
+                var listOfTreatments = (from t in db.Treatments
+                                        select new
+                                        {
+                                            ID = t.ID,
+                                            TreatmentID = t.TreatmentID,
+                                            TreatmentName = t.TreatmentName,
+                                            TreatmentDesc = t.TreatmentDesc,
+                                            IsFollowUp = t.IsFollowUp
+                                        }).ToList();
+
+                model.listOfTreatments = new List<TreatmentHelperModel>();
+
+                foreach (var t in listOfTreatments)
+                {
+                    bool added = false;
+                    foreach (Treatment r in treatmentRelation)
+                    {
+                        if (t.ID == r.ID)
+                        {
+                            TreatmentHelperModel addTreatment = new TreatmentHelperModel()
+                            {
+                                ID = t.ID,
+                                TreatmentID = t.TreatmentID,
+                                TreatmentName = t.TreatmentName,
+                                TreatmentDesc = t.TreatmentDesc,
+                                IsFollowUp = t.IsFollowUp,
+                                IsChecked = true
+                            };
+                            model.listOfTreatments.Add(addTreatment);
+                            added = true;
+                            break;
+                        }
+                    }//end foreach
+                    if (added == false)
+                    {
+                        TreatmentHelperModel addTreatment = new TreatmentHelperModel()
+                        {
+                            ID = t.ID,
+                            TreatmentID = t.TreatmentID,
+                            TreatmentName = t.TreatmentName,
+                            TreatmentDesc = t.TreatmentDesc,
+                            IsFollowUp = t.IsFollowUp,
+                            IsChecked = false
+                        };
+                        model.listOfTreatments.Add(addTreatment);
+                    }
+                }//end foreach
+
             }
             //ViewBag.ClinicHospitalID = new SelectList(db.ClinicHospitals, "ID", "ClinicHospitalID", appointment.ClinicHospitalID);
             //ViewBag.DoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.DoctorDentistID);
