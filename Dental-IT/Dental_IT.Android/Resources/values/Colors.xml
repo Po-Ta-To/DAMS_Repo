@@ -14,6 +14,9 @@
   <color name=".5_blue_lotus">#80357EC7</color>
   <color name=".5_red">#80CC3333</color>
   <color name="red">#CC3333</color>
+  <color name=".5_gold">#80FFD700</color>
+  <color name=".5_yellow">#80f6EB14</color>
   <color name="yellow">#f6EB14</color>
-  <color name="light_blue">#e1e6fa</color>
+  <color name="light_blue">#E1E6FA</color>
+  <color name=".5_green">#80228B22</color>
 </resources>

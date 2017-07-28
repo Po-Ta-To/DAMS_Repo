@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Preferences;
 
 namespace Dental_IT.Droid.Main
 {
@@ -12,6 +13,19 @@ namespace Dental_IT.Droid.Main
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
+
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+
+            //  Check if user should be auto signed in
+            if (prefs.Contains("remembered"))
+            {
+                if (prefs.GetBoolean("remembered", false) == true)
+                {
+                    Intent intent = new Intent(this, typeof(Main_Menu));
+                    StartActivity(intent);
+                }
+            }
 
             //  Hide title label, prevent content resizing with status bar
             RequestWindowFeature(WindowFeatures.NoTitle);
@@ -39,6 +53,13 @@ namespace Dental_IT.Droid.Main
             //  Intent to redirect to main menu page
             signIn_SignInBtn.Click += delegate
             {
+                //  Save user session (remember me) if checkbox is selected
+                if (signIn_RememberMeChkbox.Checked == true)
+                {
+                    editor.PutBoolean("remembered", true);
+                    editor.Apply();
+                }
+
                 Intent intent = new Intent(this, typeof(Main_Menu));
                 StartActivity(intent);
             };

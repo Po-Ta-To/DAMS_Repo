@@ -87,4 +87,6 @@
   <string name="pending_confirmed">Has both pending and confirmed</string>
   <string name="closed">Closed</string>
   <string name="fully_booked">Fully booked</string>
+  <string name="exit_text">Exit application?</string>
+  <string name="confirm_exit">Exit</string>
 </resources>

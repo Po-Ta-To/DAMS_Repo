@@ -123,6 +123,24 @@ namespace Dental_IT.Droid.Main
             return base.OnOptionsItemSelected(item);
         }
 
+        //  Override back button
+        public override void OnBackPressed()
+        {
+            Android.App.AlertDialog.Builder exitConfirm = new Android.App.AlertDialog.Builder(this);
+            exitConfirm.SetMessage(Resource.String.exit_text);
+            exitConfirm.SetNegativeButton(Resource.String.confirm_exit, delegate
+            {
+                FinishAffinity();
+            });
+            exitConfirm.SetNeutralButton(Resource.String.cancel, delegate
+            {
+                exitConfirm.Dispose();
+            });
+            exitConfirm.Show();
+
+            return;
+        }
+
         //  List of button image resources to use as icons
         private readonly int[] buttonImages =
         {
