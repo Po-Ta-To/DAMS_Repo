@@ -24,9 +24,9 @@ namespace Dental_IT.Droid.Fragments
 
         private List<Treatment> treatmentList = new List<Treatment>();
         private RecyclerView searchTreatment_RecyclerView;
-
-        private int minPrice;
-        private int maxPrice;
+        private static RecyclerViewAdapter_SearchTreatment adapter;
+        private static List<Treatment> tempTreatmentList = new List<Treatment>();
+        private static Xamarin.RangeSlider.RangeSliderControl slider;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -45,6 +45,12 @@ namespace Dental_IT.Droid.Fragments
             treatmentList.Add(k);
             treatmentList.Add(l);
             treatmentList.Add(m);
+
+            //  Populate temp list for search
+            foreach (Treatment treatment in treatmentList)
+            {
+                tempTreatmentList.Add(treatment);
+            }
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -57,20 +63,40 @@ namespace Dental_IT.Droid.Fragments
             View v = inflater.Inflate(Resource.Layout.Search_Treatment, container, false);
 
             searchTreatment_RecyclerView = v.FindViewById<RecyclerView>(Resource.Id.searchTreatment_RecyclerView);
-            Xamarin.RangeSlider.RangeSliderControl slider = v.FindViewById<Xamarin.RangeSlider.RangeSliderControl>(Resource.Id.slider);
+            slider = v.FindViewById<Xamarin.RangeSlider.RangeSliderControl>(Resource.Id.slider);
 
+            //  Configure range slider
             slider.TextFormat = "$0";
-
-            minPrice = (int)slider.GetSelectedMinValue();
-            maxPrice = (int)slider.GetSelectedMaxValue();
+            slider.SetSelectedMaxValue(slider.GetAbsoluteMaxValue());
 
             //  Configure custom adapter for recyclerview
             searchTreatment_RecyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
 
-            RecyclerViewAdapter_SearchTreatment adapter = new RecyclerViewAdapter_SearchTreatment(Activity, treatmentList);
+            adapter = new RecyclerViewAdapter_SearchTreatment(Activity, treatmentList);
             searchTreatment_RecyclerView.SetAdapter(adapter);
 
             return v;
+        }
+
+        //  Search filter logic
+        public static void filter(string query)
+        {
+            string lowerCaseQuery = query.ToLower();
+            int minPrice = (int)slider.GetSelectedMinValue();
+            int maxPrice = (int)slider.GetSelectedMaxValue();
+
+            List<Treatment> filteredList = new List<Treatment>();
+
+            foreach (Treatment treatment in tempTreatmentList)
+            {
+                string text = treatment.name.ToLower();
+                if (text.Contains(lowerCaseQuery) && minPrice <= treatment.minPrice && maxPrice >= treatment.maxPrice)
+                {
+                    filteredList.Add(treatment);
+                }
+            }
+
+            adapter.Replace(filteredList);
         }
     }
 }

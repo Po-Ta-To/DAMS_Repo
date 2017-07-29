@@ -7,6 +7,7 @@ using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Preferences;
+using Dental_IT.Droid.Adapters;
 
 namespace Dental_IT.Droid.Main
 {
@@ -78,6 +79,10 @@ namespace Dental_IT.Droid.Main
                 //  Set hospital name
                 request_HospitalField.Text = hospitalName;
 
+                //  Configure spinner adapter for dentist and session dropdowns
+                request_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
+                request_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
+
                 //Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 toolbar.SetTitle(Resource.String.request_title);
@@ -133,7 +138,6 @@ namespace Dental_IT.Droid.Main
 
                             Toast.MakeText(this, Resource.String.search_title, ToastLength.Short).Show();
                             break;
-
                     }
 
                     //react to click here and swap fragments or navigate
@@ -144,7 +148,7 @@ namespace Dental_IT.Droid.Main
             //  Intent to redirect to calendar page
             request_DateField.Click += delegate
             {
-                Intent intent = new Intent(this, typeof(Calendar_Select));
+                Intent intent = new Intent(this, typeof(Calendar_View));
                 StartActivity(intent);
             };
 
@@ -217,5 +221,33 @@ namespace Dental_IT.Droid.Main
 
             editor.Apply();
         }
+
+        //  List of dentists to populate spinner adapter
+        private string[] dentists =
+        {
+            "Select dentist",
+            "Dentist A",
+            "Dentist B",
+            "Dentist C",
+            "Dentist D",
+            "Dentist E",
+            "Dentist F",
+            "Dentist G",
+            "Dentist H",
+            "Dentist I",
+            "Dentist J",
+            "Dentist K",
+            "Dentist L"
+        };
+
+        //  List of sessions to populate spinner adapter
+        private string[] sessions =
+        {
+            "Select session",
+            "Session 1",
+            "Session 2",
+            "Session 3",
+            "Session 4"
+        };
     }
 }

@@ -54,9 +54,9 @@ namespace Dental_IT.Droid.Main
             dates3.Add(i);
             dates3.Add(j);
 
-            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color.white)), dates));
-            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color.black)), dates2));
-            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color.grey)), dates3));
+            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_gold)), dates));
+            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_green)), dates2));
+            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_blue_lotus)), dates3));
 
             RunOnUiThread(() =>
             {

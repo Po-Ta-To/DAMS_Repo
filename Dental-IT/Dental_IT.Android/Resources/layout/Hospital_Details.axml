@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -10,11 +10,11 @@
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:paddingBottom="35dp">
             <LinearLayout
                 android:id="@+id/hospDetails_HospitalLayout"
@@ -32,7 +32,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/hospDetails_AddressLayout"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:layout_marginLeft="30dp"
@@ -55,7 +55,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/hospDetails_OpeningHoursLayout"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:layout_marginLeft="30dp"
@@ -78,7 +78,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/hospDetails_TelephoneLayout"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:layout_marginLeft="30dp"
@@ -101,7 +101,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/hospDetails_EmailLayout"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:layout_marginLeft="30dp"
@@ -124,7 +124,7 @@
             </LinearLayout>
             <Button
                 android:id="@+id/hospDetails_TreatmentsBtn"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/hospDetails_EmailLayout"
                 android:layout_marginTop="35dp"
@@ -136,7 +136,7 @@
                 android:background="@color/transparent" />
             <Button
                 android:id="@+id/hospDetails_RequestBtn"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/hospDetails_TreatmentsBtn"
                 android:layout_marginTop="35dp"

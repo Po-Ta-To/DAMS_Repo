@@ -8,11 +8,13 @@ namespace Dental_IT.Droid.Adapters
     {
         private readonly Context context;
         private string[] items;
+        private bool toCenter;
 
-        public SpinnerAdapter(Context c, string[] i)
+        public SpinnerAdapter(Context c, string[] i, bool t)
         {
             context = c;
             items = i;
+            toCenter = t;
         }
 
         public override int Count
@@ -41,6 +43,11 @@ namespace Dental_IT.Droid.Adapters
 
                 TextView itemText = convertView.FindViewById<TextView>(Resource.Id.spinnerItem);
                 itemText.Text = items[position];
+
+                if (toCenter == true)
+                {
+                    itemText.Gravity = GravityFlags.Center;
+                }
             }
 
             return convertView;
