@@ -9,7 +9,17 @@ namespace DAMS_03.HtmlHelpers
 {
     public class BootstrapHtml
     {
-        public static MvcHtmlString Dropdown(string id, List<SelectListItem> selectListItems)
+        public static MvcHtmlString Dropdown(string id, List<SelectListItem> selectListItems, string selection)
+        {
+            return dropdownfunction(id, selectListItems, selection);
+        }
+
+        public static MvcHtmlString Dropdown(string id, List<SelectListItem> selectListItems, int selection)
+        {
+            return dropdownfunction(id, selectListItems, selection.ToString());
+        }
+
+        private static MvcHtmlString dropdownfunction(string id, List<SelectListItem> selectListItems, string selection)
         {
             var select = new TagBuilder("select")
             {
@@ -30,7 +40,7 @@ namespace DAMS_03.HtmlHelpers
                 listitem.Attributes.Add("value", item.Value);
                 listitem.SetInnerText(item.Text);
 
-                if (item.Selected == true)
+                if (item.Selected == true || item.Value == selection)
                 {
                     listitem.Attributes.Add("selected", "selected");
                 }
@@ -44,7 +54,6 @@ namespace DAMS_03.HtmlHelpers
 
             return new MvcHtmlString(wrapper.ToString());
         }
-
 
     }
 }

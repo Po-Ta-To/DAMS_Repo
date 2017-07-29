@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAMS_03.Models;
+using System.Web;
 
 namespace DAMS_03.API
 {
@@ -49,8 +50,8 @@ namespace DAMS_03.API
                                         PreferredDate = Appointment.PreferredDate,
                                         PreferredTime = Appointment.PreferredTime,
                                         Remarks = Appointment.Remarks,
-                                        AppointmentDate = Appointment.AppointmentDate,//
-                                        AppointmentTime = Appointment.AppointmentTime//
+                                        AppointmentDate = Appointment.AppointmentDate,
+                                        AppointmentTime = Appointment.AppointmentTime
                                     };
 
             string approvalString = "";
@@ -140,53 +141,99 @@ namespace DAMS_03.API
             return Ok(returnAppointment);
         }
 
-        // PUT: api/Appointments/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutAppointment(int id, Appointment appointment)
+        // POST: api/Appointments
+        [ResponseType(typeof(Appointment))]
+        public IHttpActionResult PostAppointment(AppointmentCreateModel appointment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != appointment.ID)
+            if (appointment == null)
             {
                 return BadRequest();
             }
 
-            db.Entry(appointment).State = EntityState.Modified;
+            Appointment newAppointment = new Appointment();
+
+            newAppointment.AppointmentID = appointment.AppointmentID;
+            newAppointment.UserID = appointment.UserID;
+            newAppointment.ClinicHospitalID = appointment.ClinicHospitalID;
+            newAppointment.ApprovalState = 1;//Approval state should be pending (1) for requests 
+            newAppointment.PreferredDate = appointment.PreferredDate;
+            newAppointment.PreferredTime = appointment.PreferredTime;
+            newAppointment.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
+            newAppointment.Remarks = appointment.Remarks;
+
+            // Add the new appointment 
+            db.Appointments.Add(newAppointment);
+            db.SaveChanges();
+
+            for (int i = 0; i < appointment.Treatments.Length; i++)
+            {
+                db.AppointmentTreatments.Add(new AppointmentTreatment()
+                {
+                    AppointmentID = newAppointment.ID,
+                    TreatmentID = appointment.Treatments[i]
+                });
+            }
+            db.SaveChanges();
+
+            var returnObj = new
+            {
+                apptID = newAppointment.ID,
+                apptState = newAppointment.ApprovalState
+            };
+
+            return Ok(returnObj);
+        }
+
+        // PUT: api/Appointments/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutAppointment(int id, AppointmentCreateModel appointment)
+        {
+            if (db.Appointments.Find(id) == null)
+            {
+                return BadRequest();
+            }
 
             try
             {
+                Appointment apptToBeUpdated = db.Appointments.Find(id);
+
+                // Update the Appointment table
+                apptToBeUpdated.ClinicHospitalID = appointment.ClinicHospitalID;
+                apptToBeUpdated.ApprovalState = 1;
+                apptToBeUpdated.PreferredDate = appointment.PreferredDate;
+                apptToBeUpdated.PreferredTime = appointment.PreferredTime;
+                apptToBeUpdated.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
+                apptToBeUpdated.Remarks = appointment.Remarks;
+                db.SaveChanges();
+
+                // Remove the entities in AppointmentTreatment table 
+                if (db.AppointmentTreatments.Any())
+                {
+                    db.AppointmentTreatments.RemoveRange(db.AppointmentTreatments.
+                    Where(apptTreat => apptTreat.AppointmentID == id));
+                }
+
+                // Add new entities to AppointmentTreatment table
+                for (int i = 0; i < appointment.Treatments.Length; i++)
+                {
+                    db.AppointmentTreatments.Add(new AppointmentTreatment()
+                    {
+                        AppointmentID = id,
+                        TreatmentID = appointment.Treatments[i]
+                    });
+                }
                 db.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!AppointmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(ex.Message);
             }
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Appointments
-        [ResponseType(typeof(Appointment))]
-        public IHttpActionResult PostAppointment(Appointment appointment)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Appointments.Add(appointment);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = appointment.ID }, appointment);
+            return Ok();
         }
 
         // DELETE: api/Appointments/5

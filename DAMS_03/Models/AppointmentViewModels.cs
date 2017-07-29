@@ -6,6 +6,63 @@ using System.Web;
 
 namespace DAMS_03.Models
 {
+    public class AppointmentCreateModel
+    {
+        [Required]
+        public string AppointmentID { get; set; }
+
+        [Required]
+        public int UserID { get; set; }
+
+        [Required]
+        public int ClinicHospitalID { get; set; }
+
+        //[Required]
+        //public int ApprovalState { get; set; }
+        
+        [Required]
+        public System.DateTime PreferredDate { get; set; }
+
+        [Required]
+        public int PreferredTime { get; set; }
+
+        //[Required]
+        //public int DoctorDentistID { get; set; }
+
+        [Required]
+        public int RequestDoctorDentistID { get; set; }
+
+        [Required]
+        public string Remarks { get; set; }
+
+        [Required]
+        public int[] Treatments { get; set; }
+    }
+
+    public class AppointmentEditModel
+    {
+        //[Required]
+        //public string AppointmentID { get; set; }
+
+        [Required]
+        public int ClinicHospitalID { get; set; }
+
+        [Required]
+        public System.DateTime PreferredDate { get; set; }
+
+        [Required]
+        public int PreferredTime { get; set; }
+
+        [Required]
+        public int RequestDoctorDentistID { get; set; }
+
+        [Required]
+        public string Remarks { get; set; }
+
+        [Required]
+        public int[] Treatments { get; set; }
+    }
+
     public class AppointmentDetailViewModel
     {
         public int ID { get; set; }
@@ -38,8 +95,6 @@ namespace DAMS_03.Models
         public int? AppointmentTime { get; set; }
 
         public List<Treatment> listOfTreatments { get; set; }
-
-
     }
 
     public class AppointmentCreateViewModel
@@ -167,8 +222,6 @@ namespace DAMS_03.Models
 
 
         public List<TreatmentHelperModel> listOfTreatments { get; set; }
-
-
     }
 
     public class TreatmentHelperModel
