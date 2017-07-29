@@ -195,7 +195,7 @@ namespace DAMS_03.API
         {
             if (db.Appointments.Find(id) == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             try
