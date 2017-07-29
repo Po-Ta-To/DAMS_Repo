@@ -113,12 +113,10 @@ namespace DAMS_03.API
                 return BadRequest(ModelState);
             }
 
-
             var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-
                 //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -138,14 +136,12 @@ namespace DAMS_03.API
                 addUserAccount.Name = model.Name;
                 addUserAccount.DOB = model.DOB;
                 addUserAccount.Gender = model.Gender;
-                addUserAccount.Mobile = model.Mobile.ToString();
+                addUserAccount.Mobile   = model.Mobile.ToString();
                 addUserAccount.Addrress = model.Addrress;
                 addUserAccount.AspNetID = aspID;
 
                 db.UserAccounts.Add(addUserAccount);
                 db.SaveChanges();
-
-
 
                 return Ok();
 

@@ -9,8 +9,6 @@ namespace DAMS_03.Models
     public class UserAccountCreateModel
     {
         [Required]
-        //[EmailAddress]
-        //[Display(Name = "Email")]
         [Display(Name = "User ID")]
         public string UserName { get; set; }
 

@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAMS_03.Models;
+using System.Web;
 
 namespace DAMS_03.API
 {
@@ -176,17 +177,50 @@ namespace DAMS_03.API
 
         // POST: api/Appointments
         [ResponseType(typeof(Appointment))]
-        public IHttpActionResult PostAppointment(Appointment appointment)
+        public IHttpActionResult PostAppointment(AppointmentCreateModel appointment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            Appointment newAppointment = new Appointment();
 
-            db.Appointments.Add(appointment);
+            newAppointment.AppointmentID = appointment.AppointmentID;
+            newAppointment.UserID = appointment.UserID;
+            newAppointment.ClinicHospitalID = appointment.ClinicHospitalID;
+            newAppointment.ApprovalState = appointment.ApprovalState;
+            newAppointment.PreferredDate = appointment.PreferredDate;
+            newAppointment.PreferredTime = appointment.PreferredTime;
+            newAppointment.DoctorDentistID = appointment.DoctorDentistID;
+            newAppointment.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
+            newAppointment.Remarks = appointment.Remarks;
+            
+            // Add the new appointment 
+            db.Appointments.Add(newAppointment);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = appointment.ID }, appointment);
+            // Getting the created appointment
+            List<Appointment> createdAppt = (from Appt in db.Appointments
+                              where Appt.AppointmentID.Equals(appointment.AppointmentID)
+                              select new Appointment
+                              {
+                                  ID = Appt.ID
+                              }).ToList();
+
+            Console.WriteLine("ATTN: Newly Created Appoinment ID : " + createdAppt[0].ID);
+
+            int[] treatmentList = appointment.Treatments;
+            AppointmentTreatment newApptTreat;
+
+            for(int i = 0; i < treatmentList.Length; i++)
+            {
+                newApptTreat = new AppointmentTreatment();
+                newApptTreat.AppointmentID = createdAppt[0].ID;
+                newApptTreat.TreatmentID = treatmentList[i];
+                db.AppointmentTreatments.Add(newApptTreat);
+                db.SaveChanges();
+            }
+            return Ok(newAppointment);
         }
 
         // DELETE: api/Appointments/5
