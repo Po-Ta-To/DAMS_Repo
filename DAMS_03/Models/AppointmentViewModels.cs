@@ -17,8 +17,8 @@ namespace DAMS_03.Models
         [Required]
         public int ClinicHospitalID { get; set; }
 
-        [Required]
-        public int ApprovalState { get; set; }
+        //[Required]
+        //public int ApprovalState { get; set; }
         
         [Required]
         public System.DateTime PreferredDate { get; set; }
@@ -26,8 +26,8 @@ namespace DAMS_03.Models
         [Required]
         public int PreferredTime { get; set; }
 
-        [Required]
-        public int DoctorDentistID { get; set; }
+        //[Required]
+        //public int DoctorDentistID { get; set; }
 
         [Required]
         public int RequestDoctorDentistID { get; set; }

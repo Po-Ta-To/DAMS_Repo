@@ -188,10 +188,10 @@ namespace DAMS_03.API
             newAppointment.AppointmentID = appointment.AppointmentID;
             newAppointment.UserID = appointment.UserID;
             newAppointment.ClinicHospitalID = appointment.ClinicHospitalID;
-            newAppointment.ApprovalState = appointment.ApprovalState;
+            newAppointment.ApprovalState = 1;//Approval state should be pending (1) for requests 
             newAppointment.PreferredDate = appointment.PreferredDate;
             newAppointment.PreferredTime = appointment.PreferredTime;
-            newAppointment.DoctorDentistID = appointment.DoctorDentistID;
+            //newAppointment.DoctorDentistID = appointment.DoctorDentistID; //appt requests dunnid this field
             newAppointment.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
             newAppointment.Remarks = appointment.Remarks;
             
@@ -200,27 +200,64 @@ namespace DAMS_03.API
             db.SaveChanges();
 
             // Getting the created appointment
-            List<Appointment> createdAppt = (from Appt in db.Appointments
-                              where Appt.AppointmentID.Equals(appointment.AppointmentID)
-                              select new Appointment
-                              {
-                                  ID = Appt.ID
-                              }).ToList();
+            //List<Appointment> createdAppt = (from Appt in db.Appointments
+            //                  where Appt.AppointmentID.Equals(appointment.AppointmentID)
+            //                  select new Appointment
+            //                  {
+            //                      ID = Appt.ID
+            //                  }).ToList();
 
-            Console.WriteLine("ATTN: Newly Created Appoinment ID : " + createdAppt[0].ID);
+            //Console.WriteLine("ATTN: Newly Created Appoinment ID : " + createdAppt[0].ID);
+            Console.WriteLine("ATTN: Newly Created Appoinment ID : " + newAppointment.ID);
 
-            int[] treatmentList = appointment.Treatments;
-            AppointmentTreatment newApptTreat;
+            //int[] treatmentList = appointment.Treatments;
+            //AppointmentTreatment newApptTreat;
 
-            for(int i = 0; i < treatmentList.Length; i++)
+            //for(int i = 0; i < treatmentList.Length; i++)
+            //{
+            //    newApptTreat = new AppointmentTreatment();
+            //    newApptTreat.AppointmentID = createdAppt[0].ID;
+            //    newApptTreat.TreatmentID = treatmentList[i];
+            //    db.AppointmentTreatments.Add(newApptTreat);
+            //    db.SaveChanges();
+            //}
+
+            
+            //AppointmentTreatment newApptTreat;
+
+            for (int i = 0; i < appointment.Treatments.Length; i++)
             {
-                newApptTreat = new AppointmentTreatment();
-                newApptTreat.AppointmentID = createdAppt[0].ID;
-                newApptTreat.TreatmentID = treatmentList[i];
-                db.AppointmentTreatments.Add(newApptTreat);
-                db.SaveChanges();
+                db.AppointmentTreatments.Add(new AppointmentTreatment()
+                {
+                    AppointmentID = newAppointment.ID,
+                    TreatmentID = appointment.Treatments[i]
+                });
             }
-            return Ok(newAppointment);
+
+            db.SaveChanges();
+
+            var returnObj = new
+            {
+                apptID = newAppointment.ID,
+                apptState = newAppointment.ApprovalState
+            };
+
+            //this is the obj u are returning if mobile dunnid any can leave empty, else can construct an obj as necessary
+            return Ok(returnObj);
+
+
+            //this is a sample of the test object I used
+//{
+//    	"AppointmentID" : "TESTAPI",
+//    	"UserID" : "1",
+//    	"ClinicHospitalID" : "1",
+//    	"PreferredDate": "11/11/17",
+//    	"PreferredTime": "1",
+//    	"RequestDoctorDentistID": "1",
+//    	"Remarks": "REM",
+//    	"Treatments" : [1, 2]
+//}
+
         }
 
         // DELETE: api/Appointments/5
