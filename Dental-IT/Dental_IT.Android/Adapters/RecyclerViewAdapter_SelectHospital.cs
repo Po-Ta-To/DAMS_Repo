@@ -14,6 +14,7 @@ namespace Dental_IT.Droid.Adapters
         private List<Hospital> hospitalList;
         public static List<int> prefList;
         private List<ToggleState> tempFavouriteList;
+        private List<ToggleState> tempFavouriteListFilter = new List<ToggleState>();
         public event EventHandler<int> ItemClick;
 
         public RecyclerViewAdapter_SelectHospital(Context c, List<Hospital> l, List<int> p, List<ToggleState> temp)
@@ -103,6 +104,28 @@ namespace Dental_IT.Droid.Adapters
             ItemClick += OnItemClick;
 
             return holder;
+        }
+
+        internal void Replace(List<Hospital> filteredList)
+        {
+            hospitalList = filteredList;
+
+            foreach (Hospital hosp in hospitalList)
+            {
+                if (prefList.Exists(e => (e == hosp.id)))
+                {
+                    ToggleState temp = new ToggleState(hosp.id, true);
+                    tempFavouriteListFilter.Add(temp);
+                }
+                else
+                {
+                    ToggleState temp = new ToggleState(hosp.id);
+                    tempFavouriteListFilter.Add(temp);
+                }
+            }
+
+            tempFavouriteList = tempFavouriteListFilter;
+            NotifyDataSetChanged();
         }
     }
 
