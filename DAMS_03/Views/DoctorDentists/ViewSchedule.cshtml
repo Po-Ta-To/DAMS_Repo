@@ -99,12 +99,18 @@
 </div>
 
     <script>
+
+        @foreach(var dddbItem in ViewBag.mymyDDDBList)
+        {
+            Console.WriteLine(dddbItem);
+        }
+
         $(document).ready(function () {
             // rmb to put 0 in front of the integer 1-9
             var date1 = $('[id^="zabuto_calendar"][id$="-07_day"]');
             date1.removeClass('day');
             date1.addClass('day red');
-           
+
             for (sunday = 2; sunday < 31; sunday = sunday + 7) {
                 var offDay = $('[id^="zabuto_calendar"][id$="-' + sunday + '_day"]');
 

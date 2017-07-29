@@ -78,6 +78,22 @@ namespace DAMS_03.Controllers
             return View(returnModel);
         }
 
+        // GET: DoctorDentists/GetByDocDenID/1
+        public void GetByDocDenID(int? id)
+        {
+            var dddbList = (from DDDB in db.DoctorDentistDateBookings
+                            where DDDB.DoctorDentistID == id
+                            select new
+                            {
+                                DateOfBookings = DDDB.DateOfBookings,
+                                Bookings = DDDB.Bookings,
+                                DoctorDentistID = DDDB.DoctorDentistID
+                            }).ToList();
+
+            // Passing over the list
+            ViewBag.myDDDBList = dddbList;    
+        }
+
         // GET: DoctorDentists/Create
         public ActionResult Create()
         {
