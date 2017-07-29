@@ -210,6 +210,7 @@
     <Compile Include="API\AccountController.cs" />
     <Compile Include="API\ClinicHospitalsByTreatmentController.cs" />
     <Compile Include="API\ClinicHospitalsController.cs" />
+    <Compile Include="API\DocDenDateBkngByDocDenIDController.cs" />
     <Compile Include="API\DoctorDentistsController.cs" />
     <Compile Include="API\TreatmentsByHController.cs" />
     <Compile Include="API\TreatmentsController.cs" />
