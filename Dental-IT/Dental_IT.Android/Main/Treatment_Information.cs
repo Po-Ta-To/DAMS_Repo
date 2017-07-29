@@ -9,11 +9,12 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Widget;
 using Android.Content;
+using System;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Treatment_Information : AppCompatActivity
+    public class Treatment_Information : AppCompatActivity, Android.Support.V7.Widget.SearchView.IOnQueryTextListener
     {
         private Treatment a = new Treatment(1, "Treatment 1", 100, 500);
         private Treatment b = new Treatment(2, "Treatment 2", 200, 800);
@@ -23,7 +24,10 @@ namespace Dental_IT.Droid.Main
         private Treatment f = new Treatment(6, "Treatment 6", 150, 300);
         private Treatment g = new Treatment(7, "Treatment 7", 500, 1000);
 
-        private List<Treatment> list = new List<Treatment>();
+        private List<Treatment> treatmentList = new List<Treatment>();
+        private List<Treatment> tempTreatmentList = new List<Treatment>();
+        private Android.Support.V7.Widget.SearchView searchView;
+        RecyclerViewAdapter_TreatmentInformation adapter;
 
         DrawerLayout drawerLayout;
         NavigationView navigationView;
@@ -38,13 +42,21 @@ namespace Dental_IT.Droid.Main
             //  Create widgets
             RecyclerView treatmentInformation_RecyclerView = FindViewById<RecyclerView>(Resource.Id.treatmentInformation_RecyclerView);
 
-            list.Add(a);
-            list.Add(b);
-            list.Add(c);
-            list.Add(d);
-            list.Add(e);
-            list.Add(f);
-            list.Add(g);
+            treatmentList.Add(a);
+            treatmentList.Add(b);
+            treatmentList.Add(c);
+            treatmentList.Add(d);
+            treatmentList.Add(e);
+            treatmentList.Add(f);
+            treatmentList.Add(g);
+
+            foreach (Treatment treatment in treatmentList){
+                tempTreatmentList.Add(treatment);
+            }
+
+            //  Set searchview listener
+            searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
+            searchView.SetOnQueryTextListener(this);
 
             RunOnUiThread(() =>
             {
@@ -53,7 +65,7 @@ namespace Dental_IT.Droid.Main
                 {
                     treatmentInformation_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
-                    RecyclerViewAdapter_TreatmentInformation adapter = new RecyclerViewAdapter_TreatmentInformation(this, this, list);
+                    adapter = new RecyclerViewAdapter_TreatmentInformation(this, this, treatmentList);
                     treatmentInformation_RecyclerView.SetAdapter(adapter);
                 });
 
@@ -138,6 +150,42 @@ namespace Dental_IT.Droid.Main
                     return true;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        public bool OnQueryTextChange(string query)
+        {
+            List<Treatment> filteredList = filter(tempTreatmentList, query);
+            adapter.Replace(filteredList);
+
+            return true;
+        }
+
+        public bool OnQueryTextSubmit(string query)
+        {
+            List<Treatment> filteredList = filter(tempTreatmentList, query);
+            adapter.Replace(filteredList);
+            searchView.ClearFocus();
+
+            return true;
+        }
+
+        //  Search filter logic
+        private List<Treatment> filter(List<Treatment> temp, string query)
+        {
+            string lowerCaseQuery = query.ToLower();
+
+            List<Treatment> filteredList = new List<Treatment>();
+
+            foreach (Treatment treatment in temp)
+            {
+                string text = treatment.name.ToLower();
+                if (text.Contains(lowerCaseQuery))
+                {
+                    filteredList.Add(treatment);
+                }
+            }
+
+            return filteredList;
         }
     }
 
