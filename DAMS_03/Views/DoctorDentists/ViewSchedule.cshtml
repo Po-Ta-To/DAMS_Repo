@@ -24,41 +24,21 @@
             <div id="date-popover" class="popover top">
                 <div id="date-popover-content" class="popover-content"></div>
             </div>
-
+           
             <div id="dentist-schedule"></div>
                 <style>
                     .white {
                         background-color: whitesmoke;
                     }
 
-                    .red {
-                        background-color: red;
+                    .indianred {
+                        background-color: indianred;
                     }
 
                     .darkgrey {
                         background-color: darkgrey;
                     }
                 </style>
-
-            <script type="application/javascript">
-         $(document).ready(function () {
-         $("#dentist-schedule").zabuto_calendar({
-                action: function () {
-                    return onClickDate(this.id, false);
-                },
-                ajax: {
-                    url: "show_data.php?action=1",
-                    modal: true
-                },
-                show_previous: false,
-                legend: [
-                    {type: "block", label: "Available", classname: 'white'},
-                    {type: "block", label: "Fully Booked", classname: 'red'},
-                    {type: "block", label: "Off Day", classname: 'darkgrey'}
-                ]
-            });
-           });
-    </script>
         </div>
         <br /><br /><br />
         <div class="form-group col-xs-offset-4  ">
@@ -98,53 +78,108 @@
     </div>
 </div>
 
-    <script>
+<script>
+    $(document).ready(function () {
 
-        @foreach(var dddbItem in ViewBag.mymyDDDBList)
-        {
-            Console.WriteLine(dddbItem);
-        }
+    $("#dentist-schedule").zabuto_calendar({
+        action: function () {
+        return onClickDate(this.id, false);
+        },
+        action_nav: function () {
+        return myNavFunction(this.id);
+        },
+        legend: [
+        {type: "block", label: "No Bookings", classname: 'white'},
+        { type: "block", label: "Have Bookings", classname: 'indianred' },
+        {type: "block", label: "Off Day", classname: 'darkgrey'}
+        ]
+    });
 
-        $(document).ready(function () {
-            // rmb to put 0 in front of the integer 1-9
-            var date1 = $('[id^="zabuto_calendar"][id$="-07_day"]');
-            date1.removeClass('day');
-            date1.addClass('day red');
+        // Getting Current Date, Month & Year
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
 
-            for (sunday = 2; sunday < 31; sunday = sunday + 7) {
-                var offDay = $('[id^="zabuto_calendar"][id$="-' + sunday + '_day"]');
+        loadAppointments(yyyy, mm);
 
-                if (sunday < 10) {
-                    offDay = $('[id^="zabuto_calendar"][id$="-0' + sunday + '_day"]');
+        function myNavFunction(id) {
+            if (id.endsWith("nav-next")) {
+                mm++;
+                if (mm > 12) {
+                    yyyy++;
+                    mm = 1;
                 }
-
-                offDay.removeClass('day');
-                offDay.addClass('day darkgrey');
+            } else if (id.endsWith("nav-prev")) {
+                mm--;
+                if (mm < 1) {
+                    yyyy--;
+                    mm = 12;
+                }
             }
-        });
-
-        document.getElementById("timeSlotSelect").onchange = function () {
-            updateApptStatus($('#timeSlotSelect').val());
+            loadAppointments(yyyy, mm);
         }
 
-        function onClickDate(id) {
-            // Updating the DATE
-            var selectedDate = $("#" + id).data("date");
-            $('#lblDate').html(selectedDate);
+        function loadAppointments(cYear, cMonth) {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '/DoctorDentists/GetByDocDenID/' + getDoctorDentistIDfromAddressBar(),
+                success: function (data) {
+                    myData = data;
+                    $.each(data, function (index, item) {
+                        var dateArray = new Array();
+                        yearMonthDay = item.DateOfBookings.split("-");
+                        if (yearMonthDay[0] == cYear && yearMonthDay[1] == cMonth) {
+                            var dDate = $('[id^="zabuto_calendar"][id$="-' + yearMonthDay[2] + '_day"]');
+                            dDate.removeClass('day');
+                            dDate.addClass('day indianred');
 
-            // Popover view for selected date
-            $("#date-popover").hide();
-            $("#date-popover-content").html('You clicked on date ' + selectedDate);
-            $("#date-popover").show();
-         
-            return true;
-        }
+                            //alert("Date = " + dd + ", Month = " + mm + ", Year = " + yyyy
+                            //+ ", ID = " + item.DoctorDentistID + ", Year = " + yearMonthDay[0] +
+                            //", Month = " + yearMonthDay[1] + ", Number of Bookings = " + item.Bookings);
+                        }
+                    });
+                }
+            });
+        } // End of loadAppointments() method
 
-        function updateApptStatus(selectedTimeSlot) {
-            if (selectedTimeSlot == "item1") {
-                $('#lblStatus').html("Available");
-            } else {
-                $('#lblStatus').html("Booked");
-            }
+        // ---------- DELETE LATER
+        // rmb to put 0 in front of the integer 1-9
+        //var date1 = $('[id^="zabuto_calendar"][id$="-07_day"]');
+        //date1.removeClass('day');
+        //date1.addClass('day red');
+
+        //for (sunday = 2; sunday < 31; sunday = sunday + 7) {
+        //    var offDay = $('[id^="zabuto_calendar"][id$="-' + sunday + '_day"]');
+
+        //    if (sunday < 10) {
+        //        offDay = $('[id^="zabuto_calendar"][id$="-0' + sunday + '_day"]');
+        //    }
+
+        //    offDay.removeClass('day');
+        //    offDay.addClass('day darkgrey');
+        //} // ----------
+    });
+
+
+    document.getElementById("timeSlotSelect").onchange = function () {
+        updateApptStatus($('#timeSlotSelect').val());
+    }
+
+    // The function that returns doctordentist ID from the browser's string in the address bar
+    function getDoctorDentistIDfromAddressBar() {
+        var urlArray = window.location.href.split('/');
+        var ddID = urlArray[urlArray.length - 1];
+        return ddID;
+    }
+
+    function updateApptStatus(selectedTimeSlot) {
+        if (selectedTimeSlot == "item1") {
+            $('#lblStatus').html("Available");
+        } else {
+            $('#lblStatus').html("Booked");
         }
+    }
     </script>
