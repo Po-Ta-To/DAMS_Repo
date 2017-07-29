@@ -46,7 +46,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.IsStringOpenHours, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.IsStringOpenHours, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            @Html.DisplayFor(model => model.IsStringOpenHours, new { htmlAttributes = new { @readonly = true } })
         </div>
     </div>
 
@@ -81,26 +81,51 @@
             </div>
         </div>
 
-            @Html.HiddenFor(model => model.OpeningHours[i].OpeningHoursDay)
+        @Html.HiddenFor(model => model.OpeningHours[i].OpeningHoursDay)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.OpeningHours[i].TimeRangeStart, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.OpeningHours[i].TimeRangeStart, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OpeningHours[i].TimeRangeStart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OpeningHours[i].TimeRangeStart, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.OpeningHours[i].TimeRangeEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.OpeningHours[i].TimeRangeEnd, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OpeningHours[i].TimeRangeEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OpeningHours[i].TimeRangeEnd, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
+        </div>
 
     }
 
+    <hr />
 
+    <div class="form-group">
+        <p><b>Timeslots</b></p>
+    </div>
 
+    @for (int i = 1; i <= 5; i++)
+    {
+
+        <div class="form-group">
+            <p></p>
+            <div>
+                <p><b>Slot @i</b></p>
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.Timeslot[i - 1].TimeslotIndex)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Timeslot[i - 1].TimeRangeSlotString, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Timeslot[i - 1].TimeRangeSlotString, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.Timeslot[i - 1].TimeRangeSlotString, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    }
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

@@ -41,6 +41,14 @@ namespace DAMS_03.Controllers
                             where oh.ClinicHospitalID == clinicHospital.ID
                             select oh).ToList();
 
+            List<ClinicHospitalTimeslot> timeslots = new List<ClinicHospitalTimeslot>();
+
+            timeslots = (from ts in db.ClinicHospitalTimeslots
+                         where ts.ClinicHospitalID == clinicHospital.ID
+                         orderby ts.TimeslotIndex ascending
+                         select ts).ToList();
+
+
 
             ClinicHospitalDetailsModel returnModel = new ClinicHospitalDetailsModel()
             {
@@ -52,7 +60,8 @@ namespace DAMS_03.Controllers
                 ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
                 ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
                 IsStringOpenHours = clinicHospital.IsStringOpenHours,
-                OpeningHours = openingHours
+                OpeningHours = openingHours,
+                Timeslot = timeslots
             };
 
             return View(returnModel);
@@ -75,6 +84,15 @@ namespace DAMS_03.Controllers
                 });
             }
 
+            model.Timeslot = new List<ClinicHospitalTimeslot>();
+
+            for (int i = 1; i <= 5; i++)
+            {
+                model.Timeslot.Add(new ClinicHospitalTimeslot()
+                {
+                    TimeslotIndex = i
+                });
+            }
 
 
             return View(model);
@@ -116,9 +134,55 @@ namespace DAMS_03.Controllers
 
                 }
 
+                for (int i = 0; i < 5; i++)
+                {
+                    if (model.Timeslot[i].TimeRangeSlotString != null)
+                    {
+                        ClinicHospitalTimeslot addNewTimeSlot = new ClinicHospitalTimeslot()
+                        {
+                            TimeslotIndex = model.Timeslot[i].TimeslotIndex,
+                            TimeRangeSlotString = model.Timeslot[i].TimeRangeSlotString,
+                            ClinicHospitalID = addClinicHospital.ID
+                        };
+                        db.ClinicHospitalTimeslots.Add(addNewTimeSlot);
+                    }
+                    else
+                    {
+                        ClinicHospitalTimeslot addNewTimeSlot = new ClinicHospitalTimeslot()
+                        {
+                            TimeslotIndex = model.Timeslot[i].TimeslotIndex,
+                            TimeRangeSlotString = "",
+                            ClinicHospitalID = addClinicHospital.ID
+                        };
+                        db.ClinicHospitalTimeslots.Add(addNewTimeSlot);
+                    }
+                }
+
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                model.OpeningHours = new List<OpeningHour>();
+
+                for (int i = 1; i <= 3; i++)
+                {
+                    model.OpeningHours.Add(new OpeningHour()
+                    {
+                        OpeningHoursDay = i
+                    });
+                }
+
+                model.Timeslot = new List<ClinicHospitalTimeslot>();
+
+                for (int i = 1; i <= 5; i++)
+                {
+                    model.Timeslot.Add(new ClinicHospitalTimeslot()
+                    {
+                        TimeslotIndex = i
+                    });
+                }
             }
 
             return View(model);
@@ -398,6 +462,16 @@ namespace DAMS_03.Controllers
                             where oh.ClinicHospitalID == clinicHospital.ID
                             select oh).ToList();
 
+            List<ClinicHospitalTimeslotHelperClass> timeslots = new List<ClinicHospitalTimeslotHelperClass>();
+
+            timeslots = (from ts in db.ClinicHospitalTimeslots
+                         where ts.ClinicHospitalID == clinicHospital.ID
+                         orderby ts.TimeslotIndex ascending
+                         select new ClinicHospitalTimeslotHelperClass()
+                         {
+                             TimeslotIndex = ts.TimeslotIndex,
+                             TimeRangeSlotString = ts.TimeRangeSlotString
+                         }).ToList();
 
             ClinicHospitalEditModel returnModel = new ClinicHospitalEditModel()
             {
@@ -409,7 +483,8 @@ namespace DAMS_03.Controllers
                 ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
                 ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
                 IsStringOpenHours = clinicHospital.IsStringOpenHours,
-                OpeningHours = openingHours
+                OpeningHours = openingHours,
+                Timeslot = timeslots
             };
 
             return View(returnModel);
@@ -441,16 +516,13 @@ namespace DAMS_03.Controllers
                 db.Entry(editClinicHospital).State = EntityState.Modified;
 
                 List<OpeningHour> editOpeningHour = (from oh in db.OpeningHours
-                                                 join ch in db.ClinicHospitals on oh.ClinicHospitalID equals ch.ID
-                                                 where ch.ID == model.ID
-                                                 select oh).ToList();
+                                                     join ch in db.ClinicHospitals on oh.ClinicHospitalID equals ch.ID
+                                                     where ch.ID == model.ID
+                                                     select oh).ToList();
 
-
-
-
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < editOpeningHour.Count; i++)
                 {
-                    for (int j = 0; j < 3; j++)
+                    for (int j = 0; j < model.OpeningHours.Count; j++)
                     {
                         if (editOpeningHour[i].OpeningHoursDay == model.OpeningHours[j].OpeningHoursDay)
                         {
@@ -463,6 +535,32 @@ namespace DAMS_03.Controllers
 
                 }
 
+                List<ClinicHospitalTimeslot> editTimeslot = (from ts in db.ClinicHospitalTimeslots
+                                                             join ch in db.ClinicHospitals on ts.ClinicHospitalID equals ch.ID
+                                                             where ch.ID == model.ID
+                                                             select ts).ToList();
+
+                for (int i = 0; i < editTimeslot.Count; i++)
+                {
+                    for (int j = 0; j < model.Timeslot.Count; j++)
+                    {
+                        if (editTimeslot[i].TimeslotIndex == model.Timeslot[j].TimeslotIndex)
+                        {
+                            if(model.Timeslot[j].TimeRangeSlotString != null)
+                            {
+                                editTimeslot[i].TimeRangeSlotString = model.Timeslot[j].TimeRangeSlotString;
+                            }
+                            else
+                            {
+                                editTimeslot[i].TimeRangeSlotString = "";
+                            }
+                            
+                            db.Entry(editTimeslot[i]).State = EntityState.Modified;
+                            break;
+                        }
+                    }
+
+                }
                 
                 db.SaveChanges();
                 return RedirectToAction("Index");

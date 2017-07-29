@@ -138,12 +138,12 @@ namespace DAMS_03.Controllers
         // GET: Appointment IndexBy
         public ActionResult IndexBy(int? id)
         {
-            if(id < 1 || id > 5)
+            if (id < 1 || id > 5)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            if(id == 2 || id == 4)
+            if (id == 2 || id == 4)
             {
 
                 var appointments = from apt in db.Appointments
@@ -577,6 +577,7 @@ namespace DAMS_03.Controllers
             //returnModel.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
 
             var listOfDoc = from doc in db.DoctorDentists
+                            where doc.ClinicHospitalID == id
                             select new SelectListItem()
                             {
                                 Value = doc.ID.ToString(),
@@ -719,7 +720,7 @@ namespace DAMS_03.Controllers
                         };
                         db.DoctorDentistDateBookings.Add(newBookingDay);
                     }
-                    
+
                     db.SaveChanges();
 
                 }
@@ -748,7 +749,11 @@ namespace DAMS_03.Controllers
                 //});
                 //newAppointment.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
 
+                var url = Url.RequestContext.RouteData.Values["id"];
+                int hospid = Int32.Parse((string)url);
+
                 var listOfDoc = from doc in db.DoctorDentists
+                                where doc.ClinicHospitalID == hospid
                                 select new SelectListItem()
                                 {
                                     Value = doc.ID.ToString(),
@@ -773,9 +778,6 @@ namespace DAMS_03.Controllers
                     Text = " - "
                 });
                 newAppointment.selectUser.AddRange(listOfUser.ToList<SelectListItem>());
-
-                var url = Url.RequestContext.RouteData.Values["id"];
-                int hospid = Int32.Parse((string)url);
 
                 newAppointment.listOfTreatments = (from t in db.Treatments
                                                    join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
@@ -928,6 +930,7 @@ namespace DAMS_03.Controllers
             returnAppt.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
 
             var listOfDoc = from docden in db.DoctorDentists
+                            where docden.ClinicHospitalID == id
                             select new SelectListItem()
                             {
                                 Value = docden.ID.ToString(),
@@ -1029,6 +1032,8 @@ namespace DAMS_03.Controllers
                                            where a.ID == model.ID
                                            select a).SingleOrDefault();
 
+                int prevApprovalState = appointment.ApprovalState;
+
                 appointment.AppointmentID = model.AppointmentID;
                 appointment.UserID = Int32.Parse(model.UserID);
                 appointment.ClinicHospitalID = Int32.Parse(model.ClinicHospitalID);
@@ -1081,7 +1086,8 @@ namespace DAMS_03.Controllers
                 db.SaveChanges();
 
                 //Change booking int for date of doctor/dentist
-                if (model.ApprovalState.Equals("3") && model.AppointmentDate != null && model.DoctorDentistID != null)
+                if ((model.ApprovalState.Equals("3") && model.AppointmentDate != null && model.DoctorDentistID != null)
+                    && (prevApprovalState != 3 && prevApprovalState != 5))
                 {
                     DoctorDentistDateBooking bookingDay = (from dd in db.DoctorDentists
                                                            join dddb in db.DoctorDentistDateBookings on dd.ID equals dddb.DoctorDentistID
@@ -1101,10 +1107,37 @@ namespace DAMS_03.Controllers
                             Bookings = 1,
                             DoctorDentistID = Int32.Parse(model.DoctorDentistID)
                         };
+                        db.DoctorDentistDateBookings.Add(newBookingDay);
                     }
 
                     db.SaveChanges();
 
+                }
+                else if (!model.ApprovalState.Equals(prevApprovalState.ToString())
+                    && (prevApprovalState == 3 || prevApprovalState == 5) &&
+                    !model.ApprovalState.Equals("3") && !model.ApprovalState.Equals("5"))
+                {
+                    DoctorDentistDateBooking bookingDay = (from dd in db.DoctorDentists
+                                                           join dddb in db.DoctorDentistDateBookings on dd.ID equals dddb.DoctorDentistID
+                                                           where model.AppointmentDate == dddb.DateOfBookings
+                                                           select dddb).SingleOrDefault();
+
+                    if (bookingDay != null)
+                    {
+                        bookingDay.Bookings--;
+                        db.Entry(bookingDay).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        DoctorDentistDateBooking newBookingDay = new DoctorDentistDateBooking()
+                        {
+                            DateOfBookings = model.AppointmentDate.Value,
+                            Bookings = 0,
+                            DoctorDentistID = Int32.Parse(model.DoctorDentistID)
+                        };
+                    }
+
+                    db.SaveChanges();
                 }
 
 
@@ -1132,7 +1165,15 @@ namespace DAMS_03.Controllers
                 });
                 model.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
 
+                //int chid = Int32.Parse(model.ClinicHospitalID);
+                var url = Url.RequestContext.RouteData.Values["id"];
+                int urlid = Int32.Parse((string)url);
+                int hospid = (from appt in db.Appointments
+                              where appt.ID == urlid
+                              select appt.ClinicHospitalID).SingleOrDefault();
+
                 var listOfDoc = from doc in db.DoctorDentists
+                                where doc.ClinicHospitalID == hospid
                                 select new SelectListItem()
                                 {
                                     Value = doc.ID.ToString(),

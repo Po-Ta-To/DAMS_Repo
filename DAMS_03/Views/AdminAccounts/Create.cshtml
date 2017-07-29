@@ -70,7 +70,7 @@
 
                 @*@Html.DropDownListFor(model => model.SecurityLevel, listItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
 
-                @BootstrapHtml.Dropdown("SecurityLevel", listItems)
+                @BootstrapHtml.Dropdown("SecurityLevel", listItems, Model.SecurityLevel)
 
                 @Html.ValidationMessageFor(model => model.SecurityLevel, "", new { @class = "text-danger" })
             </div>
@@ -116,7 +116,7 @@
 
                 @*@Html.DropDownListFor(model => model.HospClinID, Model.itemSelection, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
 
-                @BootstrapHtml.Dropdown("HospClinID", Model.itemSelection)
+                @BootstrapHtml.Dropdown("HospClinID", Model.itemSelection, Model.HospClinID)
 
                 @*@Html.HiddenFor(model => model.itemSelection) lists doesnt work for hiddenfor*@
 

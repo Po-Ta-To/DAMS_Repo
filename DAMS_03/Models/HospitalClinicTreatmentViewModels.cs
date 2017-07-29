@@ -37,6 +37,9 @@ namespace DAMS_03.Models
         //[Display(Name = "")]
         public List<OpeningHour> OpeningHours { get; set; }
 
+        //[Required]
+        public List<ClinicHospitalTimeslot> Timeslot { get; set; }
+
     }
 
     public class ClinicHospitalCreateModel
@@ -65,11 +68,13 @@ namespace DAMS_03.Models
         [Display(Name = "Use Opening Hours String")]
         public bool IsStringOpenHours { get; set; }
 
-
         //[Display(Name = "")]
         //public List<System.Web.Mvc.SelectListItem> itemSelection { get; set; }
 
         public List<OpeningHour> OpeningHours { get; set; }
+
+        //[Required]
+        public List<ClinicHospitalTimeslot> Timeslot { get; set; }
 
     }
 
@@ -104,6 +109,9 @@ namespace DAMS_03.Models
         //public List<System.Web.Mvc.SelectListItem> itemSelection { get; set; }
 
         public List<OpeningHour> OpeningHours { get; set; }
+
+        //[Required]
+        public List<ClinicHospitalTimeslotHelperClass> Timeslot { get; set; }
 
     }
 
@@ -166,8 +174,15 @@ namespace DAMS_03.Models
 
         [Required]
         public decimal PriceHigh { get; set; }
+        
+    }
 
-
+    public class ClinicHospitalTimeslotHelperClass
+    {
+        [Required]
+        public int TimeslotIndex { get; set; }
+        
+        public string TimeRangeSlotString { get; set; }
 
     }
 
