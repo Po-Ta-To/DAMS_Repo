@@ -50,7 +50,7 @@ namespace Dental_IT.Droid.Main
                 };
 
                 //  Configure spinner adapter for gender dropdown
-                register_GenderSpinner.Adapter = new SpinnerAdapter(this, genders);
+                register_GenderSpinner.Adapter = new SpinnerAdapter(this, genders, true);
 
                 //  Configure pdpa dialog
                 IClickableSpan pdpaClick = new IClickableSpan();

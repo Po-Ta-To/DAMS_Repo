@@ -57,22 +57,22 @@ Values ('H111', 'National Dental Centre Singapore',
 1);
 
 INSERT INTO OpeningHours
-Values(12345,
+Values(1,
 '08:00:00',
 '17:30:00',
 1)
 
---INSERT INTO OpeningHours
---Values(2,
---'00:00:00',
---'00:00:00',
---1)
+INSERT INTO OpeningHours
+Values(2,
+'00:00:00',
+'00:00:00',
+1)
 
---INSERT INTO OpeningHours
---Values(3,
---'00:00:00',
---'00:00:00',
---1)
+INSERT INTO OpeningHours
+Values(3,
+'00:00:00',
+'00:00:00',
+1)
 
 INSERT INTO ClinicHospital
 Values ('H222', 'About Braces',
@@ -89,13 +89,13 @@ Values(1,
 2)
 
 INSERT INTO OpeningHours
-Values(2345,
+Values(2,
 '08:00:00',
 '18:00:00',
 2)
 
 INSERT INTO OpeningHours
-Values(6,
+Values(3,
 '08:00:00',
 '13:30:00',
 2)
@@ -109,22 +109,22 @@ Values ('H333', 'LQ Dental',
 1);
 
 INSERT INTO OpeningHours
-Values(12345,
+Values(1,
 '09:00:00',
 '19:00:00',
 3)
 
 INSERT INTO OpeningHours
-Values(6,
+Values(2,
 '09:00:00',
 '13:00:00',
 3)
 
---INSERT INTO OpeningHours
---Values(3,
---'00:00:00',
---'00:00:00',
---3)
+INSERT INTO OpeningHours
+Values(3,
+'00:00:00',
+'00:00:00',
+3)
 
 INSERT INTO [dbo].[AspNetUsers]
 Values ('2a6e9769-165b-4ca1-939f-7b32c1402835', 
@@ -415,20 +415,20 @@ Values(9,
 650);
 
 
-INSERT INTO [dbo].[Bookings]
-Values('20171230',
-1,
-1);
+--INSERT INTO [dbo].[Bookings]
+--Values('20171230',
+--1,
+--1);
 
-INSERT INTO [dbo].[Bookings]
-Values('20171121',
-0,
-2);
+--INSERT INTO [dbo].[Bookings]
+--Values('20171121',
+--0,
+--2);
 
-INSERT INTO [dbo].[Bookings]
-Values('20171014',
-0,
-3);
+--INSERT INTO [dbo].[Bookings]
+--Values('20171014',
+--0,
+--3);
 
 INSERT INTO [dbo].[Appointment]
 Values('AP111',

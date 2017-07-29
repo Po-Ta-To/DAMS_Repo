@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -11,16 +11,16 @@
         android:id="@+id/toolbar"
         layout="@layout/sublayout_Toolbar" />
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:paddingBottom="35dp">
             <RelativeLayout
                 android:id="@+id/register_EmailLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp">
@@ -33,7 +33,7 @@
                     android:scaleY="0.75" />
                 <EditText
                     android:id="@+id/register_EmailField"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/register_EmailImage"
                     android:maxLines="1"
@@ -47,8 +47,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/register_PasswordLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -62,7 +62,7 @@
                     android:scaleY="0.75" />
                 <EditText
                     android:id="@+id/register_PasswordField"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/register_PasswordImage"
                     android:maxLines="1"
@@ -76,8 +76,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/register_RepeatPasswordLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -91,7 +91,7 @@
                     android:scaleY="0.75" />
                 <EditText
                     android:id="@+id/register_RepeatPasswordField"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/register_RepeatPasswordImage"
                     android:maxLines="1"
@@ -105,8 +105,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/register_DOBLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -120,7 +120,7 @@
                     android:scaleY="0.75" />
                 <EditText
                     android:id="@+id/register_DOBField"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/register_DOBImage"
                     android:maxLines="1"
@@ -135,8 +135,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/register_GenderLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -150,7 +150,7 @@
                     android:scaleY="0.75" />
                 <Spinner
                     android:id="@+id/register_GenderSpinner"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/register_GenderImage"
                     android:gravity="center"
@@ -159,8 +159,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/register_NRICLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -174,7 +174,7 @@
                     android:scaleY="0.75" />
                 <EditText
                     android:id="@+id/register_NRICField"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/register_NRICImage"
                     android:maxLines="1"
@@ -188,8 +188,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/register_MobileLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -203,7 +203,7 @@
                     android:scaleY="0.75" />
                 <EditText
                     android:id="@+id/register_MobileField"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/register_MobileImage"
                     android:maxLines="1"
@@ -240,8 +240,8 @@
             </RelativeLayout>
             <Button
                 android:id="@+id/register_RegisterBtn"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_below="@id/register_PdpaLayout"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"

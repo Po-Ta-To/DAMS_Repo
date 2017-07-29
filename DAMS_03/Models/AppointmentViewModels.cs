@@ -119,7 +119,7 @@ namespace DAMS_03.Models
         [Display(Name = "Requested Doctor/Dentist Name")]
         public string RequestDoctorDentistID { get; set; }//
 
-        [Required]
+        //[Required]
         public string Remarks { get; set; }
 
         [Display(Name = "Appointment Date")]

@@ -2,12 +2,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
   <!-- The main content view -->
   <android.support.design.widget.NavigationView
     android:id="@+id/nav_view"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     android:layout_width="wrap_content"
     app:menu="@menu/nav_menu"/>
     <!--app:headerLayout="@layout/sublayout_Drawer_Header"-->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -11,18 +11,18 @@
       layout="@layout/sublayout_Toolbar" />
   <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
       android:id="@+id/drawer_layout"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent">
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
       <RelativeLayout
-          android:layout_width="fill_parent"
-          android:layout_height="fill_parent"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
           android:paddingBottom="35dp">
         <LinearLayout
             android:id="@+id/update_HospitalLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="50dp"
@@ -36,7 +36,7 @@
               android:text="@string/hospital" />
           <EditText
               android:id="@+id/update_HospitalField"
-              android:layout_width="fill_parent"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="10dp"
               android:editable="false"
@@ -47,7 +47,7 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/update_DateLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_marginLeft="50dp"
@@ -62,7 +62,7 @@
               android:text="@string/pref_date" />
           <EditText
               android:id="@+id/update_DateField"
-              android:layout_width="fill_parent"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="10dp"
               android:maxLines="1"
@@ -76,7 +76,7 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/update_DentistLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_marginLeft="50dp"
@@ -91,7 +91,7 @@
               android:text="@string/pref_dentist" />
           <Spinner
               android:id="@+id/update_DentistSpinner"
-              android:layout_width="fill_parent"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="10dp"
               android:spinnerMode="dropdown"
@@ -100,7 +100,7 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/update_SessionLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_marginLeft="50dp"
@@ -115,7 +115,7 @@
               android:text="@string/pref_session" />
           <Spinner
               android:id="@+id/update_SessionSpinner"
-              android:layout_width="fill_parent"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="10dp"
               android:spinnerMode="dropdown"
@@ -124,7 +124,7 @@
         </LinearLayout>
         <Button
             android:id="@+id/update_TreatmentsBtn"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/update_SessionLayout"
             android:layout_marginTop="35dp"
@@ -136,7 +136,7 @@
             android:background="@color/transparent" />
         <LinearLayout
             android:id="@+id/update_RemarksLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:layout_marginLeft="50dp"
@@ -151,7 +151,7 @@
               android:text="@string/remarks" />
           <EditText
               android:id="@+id/update_RemarksField"
-              android:layout_width="fill_parent"
+              android:layout_width="match_parent"
               android:layout_height="150dp"
               android:layout_marginTop="10dp"
               android:padding="5dp"
@@ -162,7 +162,7 @@
         </LinearLayout>
         <Button
             android:id="@+id/update_SubmitBtn"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/update_RemarksLayout"
             android:layout_marginTop="35dp"
@@ -176,7 +176,7 @@
     </ScrollView>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_width="wrap_content"
         android:layout_gravity="start"
         android:background="@color/light_blue" />
