@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1">
     <TextView
         android:id="@+id/treatmentInformation_TreatmentNameText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_centerVertical="true"
+        android:layout_weight="0.6"
+        android:layout_gravity="center_vertical"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-light"
         android:textColor="@color/dark_blue" />
     <TextView
         android:id="@+id/treatmentInformation_TreatmentPriceText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_weight="0.4"
+        android:layout_gravity="center_vertical"
+        android:gravity="right"
         android:textColor="@color/dark_blue" />
-</RelativeLayout>
+</LinearLayout>

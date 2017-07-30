@@ -69,7 +69,6 @@ namespace Dental_IT.Droid.Main
                 SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-
                 drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);

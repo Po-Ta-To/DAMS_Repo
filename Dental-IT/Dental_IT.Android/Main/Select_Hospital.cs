@@ -15,7 +15,7 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Select_Hospital : AppCompatActivity, Android.Support.V7.Widget.SearchView.IOnQueryTextListener
     {
-        private Hospital a = new Hospital(1, "Hospital 1");
+        private Hospital a = new Hospital(1, "Hospitalasdsadsdasdsadadasnsnooindoioioioincinsiioidoidoisiwqdiosxosdnwqdisddiiooiodsadoioioidsodieeisosaooioosdsak 1");
         private Hospital b = new Hospital(2, "Hospital 2");
         private Hospital c = new Hospital(3, "Hospital 3");
         private Hospital d = new Hospital(4, "Hospital 4");
