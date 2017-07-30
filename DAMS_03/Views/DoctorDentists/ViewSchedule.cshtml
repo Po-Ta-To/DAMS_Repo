@@ -19,8 +19,8 @@
 <h2>View Dentist Schedule</h2>
 <hr />
 <div>
-    <div class="row">
-        <div class="form-group col-xs-8">
+    @*<div class="row">*@
+        <div class="form-group col-xs-10">
             <div id="date-popover" class="popover top">
                 <div id="date-popover-content" class="popover-content"></div>
             </div>
@@ -40,7 +40,7 @@
                     }
                 </style>
         </div>
-        <br /><br /><br />
+        @*<br /><br /><br />
         <div class="form-group col-xs-offset-4  ">
             <div id="apptDetails"> 
                 <h2><b>Schedule Details </b></h2>
@@ -67,7 +67,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <br /><br />
     <div class="form-group">
@@ -76,22 +76,23 @@
             Back to Doctor/Dentist Details
         </button>
     </div>
-</div>
+@*</div>*@
 
 <script>
     $(document).ready(function () {
-
+    
+        // Settle the calendar first
     $("#dentist-schedule").zabuto_calendar({
         action: function () {
-        return onClickDate(this.id, false);
+            return onClickDate(this.id, false);
         },
         action_nav: function () {
-        return myNavFunction(this.id);
+            return myNavFunction(this.id);
         },
         legend: [
-        {type: "block", label: "No Bookings", classname: 'white'},
-        { type: "block", label: "Have Bookings", classname: 'indianred' },
-        {type: "block", label: "Off Day", classname: 'darkgrey'}
+            {type: "block", label: "No Bookings", classname: 'white'},
+            { type: "block", label: "With Bookings", classname: 'indianred' },
+            {type: "block", label: "Off Day", classname: 'darkgrey'}
         ]
     });
 
@@ -103,7 +104,19 @@
 
         loadAppointments(yyyy, mm);
 
+        function onClickDate(id, fromModal) {
+            $("#date-popover").hide();
+            if (fromModal) {
+                $("#" + id + "_modal").modal("hide");
+            }
+            var date = $("#" + id).data("date");
+
+            getNumberOfBookings(date);
+        } // End of onClickDate() method
+
+
         function myNavFunction(id) {
+            $("#date-popover").hide();
             if (id.endsWith("nav-next")) {
                 mm++;
                 if (mm > 12) {
@@ -118,7 +131,41 @@
                 }
             }
             loadAppointments(yyyy, mm);
-        }
+        } // End of myNavFunction() method
+
+        function getNumberOfBookings(date){
+            calendarYMD = date.split("-");
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'GET',
+                url: '/DoctorDentists/GetByDocDenID/' + getDoctorDentistIDfromAddressBar(),
+                success: function (data) {
+                    myData = data
+                    var numOfBookings = 0;
+                    $.each(data, function (index, item) {
+                        yearMonthDay = item.DateOfBookings.split("-");
+                        if (yearMonthDay[0] == calendarYMD[0] && 
+                            yearMonthDay[1] == calendarYMD[1] &&
+                            yearMonthDay[2] == calendarYMD[2]) {
+                            numOfBookings = item.Bookings;
+                        }
+
+                    });
+                    displayPopOver(date, numOfBookings);
+                }
+            })
+        } // End of getNumberOfBookings() method
+
+        function displayPopOver(date, numOfBookings){
+            if(numOfBookings == 0){
+                $("#date-popover-content").html("The Doctor/Dentist has no bookings on " + date);
+            }else{
+                $("#date-popover-content").html("The Doctor/Dentist has " + numOfBookings + " booking(s) on " + date);
+            }
+            
+            $("#date-popover").show();
+        } // End of displayPopOver() method
 
         function loadAppointments(cYear, cMonth) {
             $.ajax({
@@ -129,16 +176,11 @@
                 success: function (data) {
                     myData = data;
                     $.each(data, function (index, item) {
-                        var dateArray = new Array();
                         yearMonthDay = item.DateOfBookings.split("-");
                         if (yearMonthDay[0] == cYear && yearMonthDay[1] == cMonth) {
                             var dDate = $('[id^="zabuto_calendar"][id$="-' + yearMonthDay[2] + '_day"]');
                             dDate.removeClass('day');
                             dDate.addClass('day indianred');
-
-                            //alert("Date = " + dd + ", Month = " + mm + ", Year = " + yyyy
-                            //+ ", ID = " + item.DoctorDentistID + ", Year = " + yearMonthDay[0] +
-                            //", Month = " + yearMonthDay[1] + ", Number of Bookings = " + item.Bookings);
                         }
                     });
                 }
@@ -163,10 +205,9 @@
         //} // ----------
     });
 
-
-    document.getElementById("timeSlotSelect").onchange = function () {
-        updateApptStatus($('#timeSlotSelect').val());
-    }
+    //document.getElementById("timeSlotSelect").onchange = function () {
+    //    updateApptStatus($('#timeSlotSelect').val());
+    //}
 
     // The function that returns doctordentist ID from the browser's string in the address bar
     function getDoctorDentistIDfromAddressBar() {
@@ -175,11 +216,11 @@
         return ddID;
     }
 
-    function updateApptStatus(selectedTimeSlot) {
-        if (selectedTimeSlot == "item1") {
-            $('#lblStatus').html("Available");
-        } else {
-            $('#lblStatus').html("Booked");
-        }
-    }
+    //function updateApptStatus(selectedTimeSlot) {
+    //    if (selectedTimeSlot == "item1") {
+    //        $('#lblStatus').html("Available");
+    //    } else {
+    //        $('#lblStatus').html("Booked");
+    //    }
+    //}
     </script>
