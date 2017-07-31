@@ -105,7 +105,16 @@
                                     @Html.DisplayFor(modelItem => Model[i].ClinicHospitalName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                    @if (Model[i].RequestDoctorDentistID == null)
+                                    {
+                                        @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Details", "DoctorDentists", new { id = Model[i].RequestDoctorDentistID })">
+                                            @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                        </a>
+                                    }
                                 </td>
 
                                 <td>
