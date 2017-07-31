@@ -8,13 +8,14 @@ using System.Collections.Generic;
 using Dental_IT.Droid.Adapters;
 using Android.Preferences;
 using Android.Support.V7.App;
+using System;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Select_Hospital : AppCompatActivity
+    public class Select_Hospital : AppCompatActivity, Android.Support.V7.Widget.SearchView.IOnQueryTextListener
     {
-        private Hospital a = new Hospital(1, "Hospital 1");
+        private Hospital a = new Hospital(1, "Hospitalasdsadsdasdsadadasnsnooindoioioioincinsiioidoidoisiwqdiosxosdnwqdisddiiooiodsadoioioidsodieeisosaooioosdsak 1");
         private Hospital b = new Hospital(2, "Hospital 2");
         private Hospital c = new Hospital(3, "Hospital 3");
         private Hospital d = new Hospital(4, "Hospital 4");
@@ -30,8 +31,11 @@ namespace Dental_IT.Droid.Main
 
         private List<Hospital> hospitalList = new List<Hospital>();
         private List<Hospital> tempHospitalList = new List<Hospital>();
+        private List<Hospital> tempHospitalListFilter = new List<Hospital>();
         private List<int> prefList = new List<int>();
+        RecyclerViewAdapter_SelectHospital adapter;
         private List<ToggleState> tempFavouriteList = new List<ToggleState>();
+        private Android.Support.V7.Widget.SearchView searchView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,10 +61,15 @@ namespace Dental_IT.Droid.Main
             hospitalList.Add(l);
             hospitalList.Add(m);
 
+            //  Set searchview listener
+            searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
+            searchView.SetOnQueryTextListener(this);
+
             //  Add hospitals to temp list
             foreach (Hospital h in hospitalList)
             {
                 tempHospitalList.Add(h);
+                tempHospitalListFilter.Add(h);
             }
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
@@ -116,7 +125,7 @@ namespace Dental_IT.Droid.Main
                 {
                     selectHospital_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
 
-                    RecyclerViewAdapter_SelectHospital adapter = new RecyclerViewAdapter_SelectHospital(this, hospitalList, prefList, tempFavouriteList);
+                    adapter = new RecyclerViewAdapter_SelectHospital(this, hospitalList, prefList, tempFavouriteList);
                     selectHospital_RecyclerView.SetAdapter(adapter);
                 });
 
@@ -163,6 +172,38 @@ namespace Dental_IT.Droid.Main
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutString("favourites", Newtonsoft.Json.JsonConvert.SerializeObject(RecyclerViewAdapter_SelectHospital.prefList));
             editor.Apply();
+        }
+
+        public bool OnQueryTextChange(string query)
+        {
+            return false;   
+        }
+
+        public bool OnQueryTextSubmit(string query)
+        {
+            List<Hospital> filteredList = filter(tempHospitalListFilter, query);
+            adapter.Replace(filteredList);
+
+            return true;
+        }
+
+        //  Search filter logic
+        private List<Hospital> filter(List<Hospital> temp, string query)
+        {
+            string lowerCaseQuery = query.ToLower();
+
+            List<Hospital> filteredList = new List<Hospital>();
+
+            foreach (Hospital hosp in temp)
+            {
+                string text = hosp.name.ToLower();
+                if (text.Contains(lowerCaseQuery))
+                {
+                    filteredList.Add(hosp);
+                }
+            }
+
+            return filteredList;
         }
     }
 }

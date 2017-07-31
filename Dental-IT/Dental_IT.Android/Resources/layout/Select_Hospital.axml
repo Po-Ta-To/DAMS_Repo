@@ -6,9 +6,19 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/sublayout_Toolbar" />
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="?android:attr/actionBarSize"
+      android:background="@drawable/actionBar_background"
+      android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    <android.support.v7.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right" />
+  </android.support.v7.widget.Toolbar>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/selectHospital_RecyclerView"
         android:scrollbars="vertical"

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Dental_IT.Droid.Fragments;
 using Android.OS;
 using Dental_IT.Droid.Main;
+using System;
 
 namespace Dental_IT.Droid.Adapters
 {
@@ -14,21 +15,21 @@ namespace Dental_IT.Droid.Adapters
     {
         private readonly Activity activity;
         private readonly Context context;
-        private List<Treatment> list;
+        private List<Treatment> treatmentList;
         Bundle bundle = new Bundle();
 
         public RecyclerViewAdapter_TreatmentInformation(Activity a, Context c, List<Treatment> l)
         {
             activity = a;
             context = c;
-            list = l;
+            treatmentList = l;
         }
 
         public override int ItemCount
         {
             get
             {
-                return list.Count;
+                return treatmentList.Count;
             }
         }
 
@@ -58,8 +59,8 @@ namespace Dental_IT.Droid.Adapters
             }
 
             // Set view data
-            vh.treatmentName.Text = list[position].name;
-            vh.treatmentPrice.Text = "$" + list[position].minPrice + "  -  $" + list[position].maxPrice;
+            vh.treatmentName.Text = treatmentList[position].name;
+            vh.treatmentPrice.Text = "$" + treatmentList[position].minPrice + "  -  $" + treatmentList[position].maxPrice;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -70,7 +71,7 @@ namespace Dental_IT.Droid.Adapters
             //  Display information dialog fragment on click
             holder.ItemView.Click += delegate
             {
-                bundle.PutString("treatmentName", list[holder.AdapterPosition].name);
+                bundle.PutString("treatmentName", treatmentList[holder.AdapterPosition].name);
 
                 TreatmentDialogFragment fragment = new TreatmentDialogFragment();
                 FragmentTransaction transaction = activity.FragmentManager.BeginTransaction();
@@ -79,6 +80,12 @@ namespace Dental_IT.Droid.Adapters
             };
 
             return holder;
+        }
+
+        internal void Replace(List<Treatment> filteredList)
+        {
+            treatmentList = filteredList;
+            NotifyDataSetChanged();
         }
     }
 

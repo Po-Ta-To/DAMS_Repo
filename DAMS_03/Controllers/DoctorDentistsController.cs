@@ -78,10 +78,25 @@ namespace DAMS_03.Controllers
             return View(returnModel);
         }
 
+        // GET: DoctorDentists/GetByDocDenID/1
+        public JsonResult GetByDocDenID(int? id)
+        {
+            var dddbList = (from DDDB in db.DoctorDentistDateBookings
+                            where DDDB.DoctorDentistID == id
+                            select new
+                            {
+                                DateOfBookings = DDDB.DateOfBookings.ToString(),
+                                Bookings = DDDB.Bookings,
+                                DoctorDentistID = DDDB.DoctorDentistID
+                            }).ToList();
+
+            // Passing over the list(in Json format) from controller to mvc
+            return Json(dddbList, JsonRequestBehavior.AllowGet);    
+        }
+
         // GET: DoctorDentists/Create
         public ActionResult Create()
         {
-
             DoctorDentistCreateModel returnmodel = new DoctorDentistCreateModel();
 
             returnmodel.itemSelection = new List<SelectListItem>();

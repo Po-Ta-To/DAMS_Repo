@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1">
     <TextView
         android:id="@+id/list_HospitalText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:layout_centerVertical="true"
+        android:layout_weight="0.7"
+        android:layout_gravity="center_vertical"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/dark_blue" />
     <ToggleButton
         android:id="@+id/list_FavouritesToggle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
-</RelativeLayout>
+        android:layout_weight="0.3"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:layout_marginRight="25dp" />
+</LinearLayout>

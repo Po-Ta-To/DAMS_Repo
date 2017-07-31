@@ -30,6 +30,7 @@ namespace Dental_IT.Droid.Main
             //  Set view to search layout
             SetContentView(Resource.Layout.My_Appointments);
 
+            //  Create fragments
             fragments = new Android.Support.V4.App.Fragment[]
             {
                 new AppointmentsUpcomingFragment(),
@@ -51,6 +52,14 @@ namespace Dental_IT.Droid.Main
                 TabLayout tablayout = FindViewById<TabLayout>(Resource.Id.tabLayout);
                 tablayout.SetupWithViewPager(viewpager);
 
+                //  Configure floating action button
+                FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
+                fab.Click += delegate
+                {
+                    Intent intent = new Intent(this, typeof(Calendar_View));
+                    StartActivity(intent);
+                };
+
                 //Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 toolbar.SetTitle(Resource.String.myAppts_title);
@@ -59,7 +68,6 @@ namespace Dental_IT.Droid.Main
                 //Set menu hambuger
                 SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
 
                 drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
@@ -107,13 +115,11 @@ namespace Dental_IT.Droid.Main
 
                             Toast.MakeText(this, Resource.String.search_title, ToastLength.Short).Show();
                             break;
-
                     }
-                //react to click here and swap fragments or navigate
-                drawerLayout.CloseDrawers();
 
+                    //react to click here and swap fragments or navigate
+                    drawerLayout.CloseDrawers();
                 };
-
             });
         }
 
@@ -130,7 +136,7 @@ namespace Dental_IT.Droid.Main
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    drawerLayout.OpenDrawer(GravityCompat.Start);
                     return true;
             }
             return base.OnOptionsItemSelected(item);

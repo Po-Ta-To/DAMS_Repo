@@ -50,8 +50,8 @@ namespace DAMS_03.API
                                         PreferredDate = Appointment.PreferredDate,
                                         PreferredTime = Appointment.PreferredTime,
                                         Remarks = Appointment.Remarks,
-                                        AppointmentDate = Appointment.AppointmentDate,//
-                                        AppointmentTime = Appointment.AppointmentTime//
+                                        AppointmentDate = Appointment.AppointmentDate,
+                                        AppointmentTime = Appointment.AppointmentTime
                                     };
 
             string approvalString = "";
@@ -141,40 +141,6 @@ namespace DAMS_03.API
             return Ok(returnAppointment);
         }
 
-        // PUT: api/Appointments/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutAppointment(int id, Appointment appointment)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != appointment.ID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(appointment).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AppointmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
         // POST: api/Appointments
         [ResponseType(typeof(Appointment))]
         public IHttpActionResult PostAppointment(AppointmentCreateModel appointment)
@@ -183,6 +149,12 @@ namespace DAMS_03.API
             {
                 return BadRequest(ModelState);
             }
+
+            if (appointment == null)
+            {
+                return BadRequest();
+            }
+
             Appointment newAppointment = new Appointment();
 
             newAppointment.AppointmentID = appointment.AppointmentID;
@@ -191,39 +163,12 @@ namespace DAMS_03.API
             newAppointment.ApprovalState = 1;//Approval state should be pending (1) for requests 
             newAppointment.PreferredDate = appointment.PreferredDate;
             newAppointment.PreferredTime = appointment.PreferredTime;
-            //newAppointment.DoctorDentistID = appointment.DoctorDentistID; //appt requests dunnid this field
             newAppointment.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
             newAppointment.Remarks = appointment.Remarks;
-            
+
             // Add the new appointment 
             db.Appointments.Add(newAppointment);
             db.SaveChanges();
-
-            // Getting the created appointment
-            //List<Appointment> createdAppt = (from Appt in db.Appointments
-            //                  where Appt.AppointmentID.Equals(appointment.AppointmentID)
-            //                  select new Appointment
-            //                  {
-            //                      ID = Appt.ID
-            //                  }).ToList();
-
-            //Console.WriteLine("ATTN: Newly Created Appoinment ID : " + createdAppt[0].ID);
-            Console.WriteLine("ATTN: Newly Created Appoinment ID : " + newAppointment.ID);
-
-            //int[] treatmentList = appointment.Treatments;
-            //AppointmentTreatment newApptTreat;
-
-            //for(int i = 0; i < treatmentList.Length; i++)
-            //{
-            //    newApptTreat = new AppointmentTreatment();
-            //    newApptTreat.AppointmentID = createdAppt[0].ID;
-            //    newApptTreat.TreatmentID = treatmentList[i];
-            //    db.AppointmentTreatments.Add(newApptTreat);
-            //    db.SaveChanges();
-            //}
-
-            
-            //AppointmentTreatment newApptTreat;
 
             for (int i = 0; i < appointment.Treatments.Length; i++)
             {
@@ -233,7 +178,6 @@ namespace DAMS_03.API
                     TreatmentID = appointment.Treatments[i]
                 });
             }
-
             db.SaveChanges();
 
             var returnObj = new
@@ -242,22 +186,54 @@ namespace DAMS_03.API
                 apptState = newAppointment.ApprovalState
             };
 
-            //this is the obj u are returning if mobile dunnid any can leave empty, else can construct an obj as necessary
             return Ok(returnObj);
+        }
 
+        // PUT: api/Appointments/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutAppointment(int id, AppointmentCreateModel appointment)
+        {
+            if (db.Appointments.Find(id) == null)
+            {
+                return NotFound();
+            }
 
-            //this is a sample of the test object I used
-//{
-//    	"AppointmentID" : "TESTAPI",
-//    	"UserID" : "1",
-//    	"ClinicHospitalID" : "1",
-//    	"PreferredDate": "11/11/17",
-//    	"PreferredTime": "1",
-//    	"RequestDoctorDentistID": "1",
-//    	"Remarks": "REM",
-//    	"Treatments" : [1, 2]
-//}
+            try
+            {
+                Appointment apptToBeUpdated = db.Appointments.Find(id);
 
+                // Update the Appointment table
+                apptToBeUpdated.ClinicHospitalID = appointment.ClinicHospitalID;
+                apptToBeUpdated.ApprovalState = 1;
+                apptToBeUpdated.PreferredDate = appointment.PreferredDate;
+                apptToBeUpdated.PreferredTime = appointment.PreferredTime;
+                apptToBeUpdated.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
+                apptToBeUpdated.Remarks = appointment.Remarks;
+                db.SaveChanges();
+
+                // Remove the entities in AppointmentTreatment table 
+                if (db.AppointmentTreatments.Any())
+                {
+                    db.AppointmentTreatments.RemoveRange(db.AppointmentTreatments.
+                    Where(apptTreat => apptTreat.AppointmentID == id));
+                }
+
+                // Add new entities to AppointmentTreatment table
+                for (int i = 0; i < appointment.Treatments.Length; i++)
+                {
+                    db.AppointmentTreatments.Add(new AppointmentTreatment()
+                    {
+                        AppointmentID = id,
+                        TreatmentID = appointment.Treatments[i]
+                    });
+                }
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
         }
 
         // DELETE: api/Appointments/5
