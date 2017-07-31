@@ -21,13 +21,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal">
-                <TextView
+
+              <ImageView
+                  android:id="@+id/appt_HCImage"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_hc"
+                  android:scaleX="0.50"
+                  android:scaleY="0.50" />
+
+              <TextView
                     android:id="@+id/apptDetails_HospitalLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/dark_blue"
                     android:text="@string/hospital" />
                 <TextView
@@ -42,15 +52,25 @@
                 android:id="@+id/apptDetails_DateLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:layout_below="@id/apptDetails_HospitalLayout">
+
+              <ImageView
+                 android:id="@+id/appt_DateImage"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/ic_date"
+                 android:scaleX="0.50"
+                 android:scaleY="0.50" />
+              
                 <TextView
                     android:id="@+id/apptDetails_DateLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/dark_blue"
                     android:text="@string/date" />
                 <TextView
@@ -65,15 +85,27 @@
                 android:id="@+id/apptDetails_DentistLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:layout_below="@id/apptDetails_DateLayout">
+
+              <ImageView
+               android:id="@+id/appt_DentistImage"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/ic_dentist"
+               android:scaleX="0.75"
+               android:scaleY="0.75" />
+              
                 <TextView
                     android:id="@+id/apptDetails_DentistLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/dark_blue"
                     android:text="@string/dentist" />
                 <TextView
@@ -88,16 +120,28 @@
                 android:id="@+id/apptDetails_SessionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:layout_below="@id/apptDetails_DentistLayout">
-                <TextView
+
+              <ImageView
+               android:id="@+id/appt_SessionImage"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/ic_clock"
+               android:scaleX="0.75"
+               android:scaleY="0.75" />
+
+              <TextView
                     android:id="@+id/apptDetails_SessionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_blue"
+                    android:layout_marginTop="10dp"
                     android:text="@string/session" />
                 <TextView
                     android:id="@+id/apptDetails_SessionText"
@@ -111,15 +155,27 @@
                 android:id="@+id/apptDetails_TreatmentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:layout_below="@id/apptDetails_SessionLayout">
+
+              <ImageView
+                android:id="@+id/appt_TreatmentImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+                android:src="@drawable/ic_treatment"
+                android:scaleX="0.75"
+                android:scaleY="0.75" />
+              
                 <TextView
                     android:id="@+id/apptDetails_TreatmentLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/dark_blue"
                     android:text="@string/treatments" />
                 <TextView
@@ -134,15 +190,27 @@
                 android:id="@+id/apptDetails_StatusLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:layout_below="@id/apptDetails_TreatmentLayout">
+
+              <ImageView
+               android:id="@+id/appt_StatusImage"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/ic_status"
+               android:scaleX="0.75"
+               android:scaleY="0.75" />
+              
                 <TextView
                     android:id="@+id/apptDetails_StatusLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/dark_blue"
                     android:text="@string/status" />
                 <TextView
