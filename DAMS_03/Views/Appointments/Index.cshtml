@@ -12,7 +12,7 @@
 <br />
 
 <div class="row">
-    <div class="panel panel-primary pull-right">
+    <div class="panel panel-primary pull-left">
         <div class="panel-heading clearfix">
             <div class="panel-title" width="100%">
                 List of Appointments
@@ -40,8 +40,8 @@
                                 @Html.DisplayNameFor(model => model[0].PreferredDate)
                             </th>
                             @*<th>
-                                @Html.DisplayNameFor(model => model[0].PreferredTime)
-                            </th>*@
+                                    @Html.DisplayNameFor(model => model[0].PreferredTime)
+                                </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model[0].ClinicHospitalName)
                             </th>
@@ -60,7 +60,9 @@
                                     @Html.DisplayFor(modelItem => Model[i].AppointmentID)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[i].UserName)
+                                    <a href="@Url.Action("Details", "UserAccounts", new { id = Model[i].UserID })">
+                                        @Html.DisplayFor(modelItem => Model[i].UserName)
+                                    </a>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => Model[i].ApprovalState)
@@ -69,13 +71,22 @@
                                     @Html.DisplayFor(modelItem => Model[i].PreferredDate)
                                 </td>
                                 @*<td>
-                                    @Html.DisplayFor(modelItem => Model[i].PreferredTime)
-                                </td>*@
+                                        @Html.DisplayFor(modelItem => Model[i].PreferredTime)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => Model[i].ClinicHospitalName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                    @if (Model[i].RequestDoctorDentistID == null)
+                                    {
+                                        @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Details", "DoctorDentists", new { id = Model[i].RequestDoctorDentistID })">
+                                            @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                        </a>
+                                    }
                                 </td>
 
                                 <td>
