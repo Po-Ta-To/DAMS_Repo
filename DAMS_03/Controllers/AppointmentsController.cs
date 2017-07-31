@@ -100,6 +100,8 @@ namespace DAMS_03.Controllers
             //                       AppointmentTime = apt.AppointmentTime//
             //                   };
 
+            
+
             List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
             foreach (var appointment in appointments)

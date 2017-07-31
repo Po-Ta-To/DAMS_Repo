@@ -55,8 +55,13 @@ namespace DAMS_03.Models
         [Display(Name = "Preferred Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime PreferredDate { get; set; }
+
         [Display(Name = "Preferred Timeslot")]
         public int PreferredTime { get; set; }
+
+        //[Display(Name = "Preferred Timeslot")]
+        //public string PreferredTime { get; set; }
+
         [Display(Name = "Assigned Doctor/Dentist Name")]
         public string DoctorDentistName { get; set; }
         public int? DoctorDentistID { get; set; }
@@ -67,8 +72,12 @@ namespace DAMS_03.Models
         [Display(Name = "Appointment Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime? AppointmentDate { get; set; }
+
         [Display(Name = "Appointment Timeslot")]
         public int? AppointmentTime { get; set; }
+
+        //[Display(Name = "Appointment Timeslot")]
+        //public string AppointmentTime { get; set; }
 
         public List<Treatment> listOfTreatments { get; set; }
 

@@ -133,11 +133,11 @@ namespace DAMS_03.Controllers
                                    join aa in db.AdminAccounts on ach.AdminID equals aa.ID
                                    where aa.ID == id
                                    select ch.ID).SingleOrDefault();
-                if(hospid != matchHospid)
+                if (hospid != matchHospid)
                 {
                     return RedirectToAction("Unauthorized", "Account");
                 }
-                                
+
             }
             //end check for auth
 
@@ -199,26 +199,52 @@ namespace DAMS_03.Controllers
         {
             //var tuple = new Tuple<AdminAccount, RegisterViewModel>(new AdminAccount(), new RegisterViewModel());
 
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+            //end check for auth
+
             AdminAccountCreateModel returnmodel = new AdminAccountCreateModel();
 
             returnmodel.itemSelection = new List<SelectListItem>();
 
-            var listOfHosp = from ClinHosp in db.ClinicHospitals
-                             select new SelectListItem()
-                             {
-                                 Value = ClinHosp.ID.ToString(),
-                                 Text = ClinHosp.ClinicHospitalName
-                             };
-
-            returnmodel.itemSelection.Add(new SelectListItem()
+            if (hospid != 0)
             {
-                Value = "notselected",
-                Text = " - "
-            });
-
-            returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
-
-
+                var listOfHosp = from ClinHosp in db.ClinicHospitals
+                                 where ClinHosp.ID == hospid
+                                 select new SelectListItem()
+                                 {
+                                     Value = ClinHosp.ID.ToString(),
+                                     Text = ClinHosp.ClinicHospitalName
+                                 };
+                returnmodel.itemSelection.Add(new SelectListItem()
+                {
+                    Value = "notselected",
+                    Text = " - "
+                });
+                returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+            }
+            else
+            {
+                var listOfHosp = from ClinHosp in db.ClinicHospitals
+                                 select new SelectListItem()
+                                 {
+                                     Value = ClinHosp.ID.ToString(),
+                                     Text = ClinHosp.ClinicHospitalName
+                                 };
+                returnmodel.itemSelection.Add(new SelectListItem()
+                {
+                    Value = "notselected",
+                    Text = " - "
+                });
+                returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+            }
 
             return View(returnmodel);
         }
@@ -243,6 +269,23 @@ namespace DAMS_03.Controllers
                         return RedirectToAction("Unauthorized", "Account");
                     }
                 }
+                //check for auth
+                string userAspId = User.Identity.GetUserId();
+
+                int hospid = (from ch in db.ClinicHospitals
+                              join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                              join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                              join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                              where aspu.Id == userAspId
+                              select ch.ID).SingleOrDefault();
+                if (hospid != 0)
+                {
+                    if(Int32.Parse(model.HospClinID) != hospid)
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+                }
+                //end check for auth
 
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
