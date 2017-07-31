@@ -664,8 +664,11 @@ namespace DAMS_03.Controllers
                        select new
                        {
                            DoctorDentistName = d.Name,
-                           DoctorDentistID = d.ID
+                           DoctorDentistID = d.ID,
+                           DoctorDentistMaxBookings = d.MaxBookings
                        }).SingleOrDefault();
+
+            //int maxBooking (from )
 
             AppointmentDetailViewModel returnAppt = new AppointmentDetailViewModel()
             {
@@ -698,9 +701,17 @@ namespace DAMS_03.Controllers
             {
                 returnAppt.DoctorDentistName = doc.DoctorDentistName;
                 returnAppt.DoctorDentistID = doc.DoctorDentistID;
+
+                int currentDayBookings = (from ddb in db.DoctorDentistDateBookings
+                                          join dd in db.DoctorDentists on ddb.DoctorDentistID equals dd.ID
+                                          where ddb.DateOfBookings == appt.AppointmentDate
+                                          select ddb.Bookings).SingleOrDefault();
+
+                returnAppt.approvalString = doc.DoctorDentistName + " Bookings on " + appt.AppointmentDate.Value.Date + " : " + currentDayBookings + "/" + doc.DoctorDentistMaxBookings;
             }
             else
             {
+                returnAppt.approvalString = "A doctor/dentist is required, please update the appointment.";
                 returnAppt.DoctorDentistName = "Unassigned";
                 //addModel.DoctorDentistID = 0;
             }
@@ -1356,7 +1367,7 @@ namespace DAMS_03.Controllers
                 {
                     appointment.DoctorDentistID = Int32.Parse(model.DoctorDentistID);
                 }
-                if (model.RequestDoctorDentistID != null && !model.RequestDoctorDentistID.Equals("") && !model.DoctorDentistID.Equals("0"))
+                if (model.RequestDoctorDentistID != null && !model.RequestDoctorDentistID.Equals("") && !model.RequestDoctorDentistID.Equals("0"))
                 {
                     appointment.RequestDoctorDentistID = Int32.Parse(model.RequestDoctorDentistID);
                 }
@@ -1680,7 +1691,7 @@ namespace DAMS_03.Controllers
             return RedirectToAction("Index", "Appointments");
         }
 
-        // POST: 
+        // POST: Appointments/Details/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Details(int id)
@@ -1707,6 +1718,10 @@ namespace DAMS_03.Controllers
             if (appointment == null)
             {
                 return HttpNotFound();
+            }
+            if(appointment.AppointmentDate == null || appointment.DoctorDentistID == null)
+            {
+                return RedirectToAction("Details", "Appointments", new { id = id });
             }
             //check for auth
             string userAspId = User.Identity.GetUserId();
