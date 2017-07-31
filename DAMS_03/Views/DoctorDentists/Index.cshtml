@@ -11,17 +11,20 @@
         <div class="panel-heading clearfix">
             <div class="panel-title">
                 List of Doctor/Dentists
-                <button class="btn btn-default" type="button" style="float: right"
-                        onclick="location.href='@Url.Action("Create", "DoctorDentists")'">
-                    Create new
-                </button>
+                @if (this.User.IsInRole("SysAdmin") || this.User.IsInRole("HospAdmin"))
+                {
+                    <button class="btn btn-default" type="button" style="float: right"
+                            onclick="location.href='@Url.Action("Create", "DoctorDentists")'">
+                        Create new
+                    </button>
+                }
             </div>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-hover table-sieve">
-                       <thead>
+                        <thead>
                             <tr>
                                 <th>
                                     @Html.DisplayNameFor(model => model[0].DoctorDentistID)
@@ -36,17 +39,17 @@
                                     @Html.DisplayNameFor(model => model[0].MaxBookings)
                                 </th>
                                 <th></th>
-                             </tr>
+                            </tr>
                         </thead>
                         <tbody id="doctordentistAccountTableBody">
-                            @for(int i = 0; i < Model.Count; i++)
+                            @for (int i = 0; i < Model.Count; i++)
                             {
                                 <tr>
                                     <td>
-                                         @Html.DisplayFor(modelItem => modelItem[i].DoctorDentistID)
+                                        @Html.DisplayFor(modelItem => modelItem[i].DoctorDentistID)
                                     </td>
                                     <td>
-                                         @Html.DisplayFor(modelItem => modelItem[i].Name)
+                                        @Html.DisplayFor(modelItem => modelItem[i].Name)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => modelItem[i].HospClin)
@@ -54,25 +57,28 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => modelItem[i].MaxBookings)
                                     </td>
-                                   <td>
+                                    <td>
                                         <button class="btn btn-primary" type="button"
                                                 onclick="location.href='@Url.Action("Details", "DoctorDentists", new { id = Model[i].ID })'">
                                             Details
                                         </button>
-                                        <button class="btn btn-success" type="button"
-                                                onclick="location.href='@Url.Action("Edit", "DoctorDentists", new { id = Model[i].ID })'">
-                                            Update
-                                        </button>
-                                        <button class="btn btn-danger" type="button"
-                                                onclick="location.href='@Url.Action("Delete", "DoctorDentists", new { id = Model[i].ID })'">
-                                            Delete
-                                        </button>
+                                        @if (this.User.IsInRole("SysAdmin") || this.User.IsInRole("HospAdmin"))
+                                        {
+                                            <button class="btn btn-success" type="button"
+                                                    onclick="location.href='@Url.Action("Edit", "DoctorDentists", new { id = Model[i].ID })'">
+                                                Update
+                                            </button>
+                                            <button class="btn btn-danger" type="button"
+                                                    onclick="location.href='@Url.Action("Delete", "DoctorDentists", new { id = Model[i].ID })'">
+                                                Delete
+                                            </button>
+                                        }
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-                 </div>
+                </div>
             </div>
         </div>
     </div>

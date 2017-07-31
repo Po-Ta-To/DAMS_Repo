@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DAMS_03.Models;
 using DAMS_03.Authorization;
+using Microsoft.AspNet.Identity;
 
 namespace DAMS_03.Controllers
 {
@@ -20,28 +21,60 @@ namespace DAMS_03.Controllers
         public ActionResult Index()
         {
 
-            List<DoctorDentistDetailModel> returnListofDoc = new List<DoctorDentistDetailModel>();
+            string userAspId = User.Identity.GetUserId();
 
-            foreach (DoctorDentist doctorDentist in db.DoctorDentists)
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid == 0)
             {
+                List<DoctorDentistDetailModel> returnListofDoc = new List<DoctorDentistDetailModel>();
 
-                string returnDocHospName = (from hc in db.ClinicHospitals
-                                            join d in db.DoctorDentists on hc.ID equals d.ClinicHospitalID
-                                            where d.ID == doctorDentist.ID
-                                            select hc.ClinicHospitalName).First().ToString();
-
-                DoctorDentistDetailModel returnModel = new DoctorDentistDetailModel()
+                foreach (DoctorDentist doctorDentist in db.DoctorDentists)
                 {
-                    ID = doctorDentist.ID,
-                    DoctorDentistID = doctorDentist.DoctorDentistID,
-                    Name = doctorDentist.Name,
-                    HospClin = returnDocHospName,
-                    MaxBookings = doctorDentist.MaxBookings
-                };
-                returnListofDoc.Add(returnModel);
+
+                    string returnDocHospName = (from hc in db.ClinicHospitals
+                                                join d in db.DoctorDentists on hc.ID equals d.ClinicHospitalID
+                                                where d.ID == doctorDentist.ID
+                                                select hc.ClinicHospitalName).First().ToString();
+
+                    DoctorDentistDetailModel returnModel = new DoctorDentistDetailModel()
+                    {
+                        ID = doctorDentist.ID,
+                        DoctorDentistID = doctorDentist.DoctorDentistID,
+                        Name = doctorDentist.Name,
+                        HospClin = returnDocHospName,
+                        MaxBookings = doctorDentist.MaxBookings
+                    };
+                    returnListofDoc.Add(returnModel);
+                }
+
+                return View(returnListofDoc);
+            }
+            else
+            {
+                List<DoctorDentistDetailModel> returnListofDoc = new List<DoctorDentistDetailModel>();
+
+                returnListofDoc = (from hc in db.ClinicHospitals
+                                   join d in db.DoctorDentists on hc.ID equals d.ClinicHospitalID
+                                   where hc.ID == hospid
+                                   select new DoctorDentistDetailModel()
+                                   {
+                                       ID = d.ID,
+                                       DoctorDentistID = d.DoctorDentistID,
+                                       Name = d.Name,
+                                       HospClin = hc.ClinicHospitalName,
+                                       MaxBookings = d.MaxBookings
+                                   }).ToList();
+
+                return View(returnListofDoc);
             }
 
-            return View(returnListofDoc);
+
         }
 
         // GET: DoctorDentists/Details/5
@@ -56,6 +89,30 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join dd in db.DoctorDentists on ch.ID equals dd.ClinicHospitalID
+                                   where dd.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             DoctorDentist returnDoc = (from d in db.DoctorDentists
                                        where d.ID == id
@@ -81,6 +138,32 @@ namespace DAMS_03.Controllers
         // GET: DoctorDentists/GetByDocDenID/1
         public JsonResult GetByDocDenID(int? id)
         {
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join dd in db.DoctorDentists on ch.ID equals dd.ClinicHospitalID
+                                   where dd.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    return Json(new { Errormessage = "Unauthorized" });
+                }
+
+            }
+            //end check for auth
+
             var dddbList = (from DDDB in db.DoctorDentistDateBookings
                             where DDDB.DoctorDentistID == id
                             select new
@@ -91,22 +174,59 @@ namespace DAMS_03.Controllers
                             }).ToList();
 
             // Passing over the list(in Json format) from controller to mvc
-            return Json(dddbList, JsonRequestBehavior.AllowGet);    
+            return Json(dddbList, JsonRequestBehavior.AllowGet);
         }
 
         // GET: DoctorDentists/Create
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Create()
         {
+
             DoctorDentistCreateModel returnmodel = new DoctorDentistCreateModel();
 
             returnmodel.itemSelection = new List<SelectListItem>();
 
-            var listOfHosp = from ClinHosp in db.ClinicHospitals
-                             select new SelectListItem()
-                             {
-                                 Value = ClinHosp.ID.ToString(),
-                                 Text = ClinHosp.ClinicHospitalName
-                             };
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+            //end check for auth
+
+            if (User.IsInRole("HospAdmin") || hospid != 0)
+            {
+                //string userAspId = User.Identity.GetUserId();
+
+                //int hospid = (from ch in db.ClinicHospitals
+                //              join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                //              join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                //              join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                //              where aspu.Id == userAspId
+                //              select ch.ID).SingleOrDefault();
+
+                var listOfHosp = from ClinHosp in db.ClinicHospitals
+                                 where ClinHosp.ID == hospid
+                                 select new SelectListItem()
+                                 {
+                                     Value = ClinHosp.ID.ToString(),
+                                     Text = ClinHosp.ClinicHospitalName
+                                 };
+                returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+            }
+            else
+            {
+                var listOfHosp = from ClinHosp in db.ClinicHospitals
+                                 select new SelectListItem()
+                                 {
+                                     Value = ClinHosp.ID.ToString(),
+                                     Text = ClinHosp.ClinicHospitalName
+                                 };
+                returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
+            }
 
             //Doctor/Dentist MUST belong to a Hospital/Clinic
             //returnmodel.itemSelection.Add(new SelectListItem()
@@ -114,8 +234,6 @@ namespace DAMS_03.Controllers
             //    Value = "notselected",
             //    Text = " - "
             //});
-
-            returnmodel.itemSelection.AddRange(listOfHosp.ToList<SelectListItem>());
 
             return View(returnmodel);
 
@@ -126,10 +244,30 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Create(DoctorDentistCreateModel model)
         {
             if (ModelState.IsValid)
             {
+
+                //check for auth
+                string userAspId = User.Identity.GetUserId();
+
+                int hospid = (from ch in db.ClinicHospitals
+                              join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                              join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                              join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                              where aspu.Id == userAspId
+                              select ch.ID).SingleOrDefault();
+                //end check for auth
+
+                if (User.IsInRole("HospAdmin") || hospid != 0)
+                {
+                    if (Int32.Parse(model.HospClinID) != hospid)
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+                }
 
                 DoctorDentist addDoctorDentist = new DoctorDentist()
                 {
@@ -183,6 +321,7 @@ namespace DAMS_03.Controllers
         }
 
         // GET: DoctorDentists/Edit/5
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -194,6 +333,30 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join dd in db.DoctorDentists on ch.ID equals dd.ClinicHospitalID
+                                   where dd.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             string hospClinName = (from hc in db.ClinicHospitals
                                    join d in db.DoctorDentists on hc.ID equals d.ClinicHospitalID
@@ -225,6 +388,31 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join dd in db.DoctorDentists on ch.ID equals dd.ClinicHospitalID
+                                   where dd.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             return View(doctorDentist);
         }
 
@@ -234,10 +422,36 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Edit(DoctorDentistEditModel model)
         {
             if (ModelState.IsValid)
             {
+
+                //check for auth
+                string userAspId = User.Identity.GetUserId();
+
+                int hospid = (from ch in db.ClinicHospitals
+                              join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                              join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                              join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                              where aspu.Id == userAspId
+                              select ch.ID).SingleOrDefault();
+
+                if (hospid != 0)
+                {
+                    int matchHospid = (from ch in db.ClinicHospitals
+                                       join dd in db.DoctorDentists on ch.ID equals dd.ClinicHospitalID
+                                       where dd.ID == model.ID
+                                       select ch.ID).SingleOrDefault();
+                    if (hospid != matchHospid)
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+
+                }
+                //end check for auth
+
                 DoctorDentist editDoctorDentist = (from d in db.DoctorDentists
                                                    where d.ID == model.ID
                                                    select d).SingleOrDefault();
@@ -249,13 +463,14 @@ namespace DAMS_03.Controllers
                 db.Entry(editDoctorDentist).State = EntityState.Modified;
 
                 db.SaveChanges();
-                return RedirectToAction("Index" , "DoctorDentists");
+                return RedirectToAction("Index", "DoctorDentists");
             }
 
             return View(model);
         }
 
         // GET: DoctorDentists/Delete/5
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -267,14 +482,65 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join dd in db.DoctorDentists on ch.ID equals dd.ClinicHospitalID
+                                   where dd.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             return View(doctorDentist);
         }
 
         // POST: DoctorDentists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult DeleteConfirmed(int id)
         {
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join dd in db.DoctorDentists on ch.ID equals dd.ClinicHospitalID
+                                   where dd.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             DoctorDentist doctorDentist = db.DoctorDentists.Find(id);
             db.DoctorDentists.Remove(doctorDentist);
             db.SaveChanges();

@@ -407,6 +407,13 @@
     <Content Include="wwwroot\images\view appt requests.png" />
     <Content Include="wwwroot\images\view appt update requests.png" />
     <Content Include="wwwroot\images\view booked appts.png" />
+    <Content Include="wwwroot\images\viewall.png" />
+    <Content Include="wwwroot\images\viewbook.png" />
+    <Content Include="wwwroot\images\viewbooked.png" />
+    <Content Include="wwwroot\images\viewcancel.png" />
+    <Content Include="wwwroot\images\viewcomplete.png" />
+    <Content Include="wwwroot\images\viewcompleted.png" />
+    <Content Include="wwwroot\images\viewrequest.png" />
     <EntityDeploy Include="Models\DAMS_Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DAMS_Model1.Designer.cs</LastGenOutput>

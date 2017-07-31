@@ -142,7 +142,7 @@ namespace Dental_IT.Droid.Main
                 try
                 {
                     // Get the latitude and longitude entered by the user and create a query.
-                    string url = "http://api.geonames.org/findNearByWeatherJSON?lat=";
+                    string url = "api/Treatments";
 
                     // Fetch the weather information asynchronously, 
                     // parse the results, then update the screen:
@@ -228,7 +228,7 @@ namespace Dental_IT.Droid.Main
                     // Use this stream to build a JSON document object:
                     JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
                     Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-
+                    System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
                     // Return the JSON document:
                     return jsonDoc;
                 }

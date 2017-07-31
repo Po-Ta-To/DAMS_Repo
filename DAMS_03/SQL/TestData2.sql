@@ -47,6 +47,9 @@
 	Values ('T999', 'Teeth Whitening', 
 	'Teeth naturally darken with age, however staining may be caused by various foods and beverages such as coffee, tea and berries, some drugs such as tetracycline, smoking, or a trauma to a tooth', 0);
 
+	INSERT INTO Treatment
+	Values ('T1000', 'Consultation', 
+	'A full oral assessment will be conducted to establish your oral health and recommend the best treatments for your mouth if needed', 0);
 
 	INSERT INTO ClinicHospital
 	Values ('H111', 'National Dental Centre Singapore',
@@ -616,7 +619,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP2',
@@ -629,7 +632,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP3',
@@ -642,7 +645,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP4',
@@ -655,7 +658,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP5',
@@ -668,7 +671,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP6',
@@ -681,7 +684,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -695,7 +698,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP8',
@@ -708,7 +711,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP9',
@@ -721,7 +724,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -735,7 +738,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 
@@ -751,7 +754,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP12',
@@ -764,7 +767,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP13',
@@ -777,7 +780,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP14',
@@ -790,7 +793,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP15',
@@ -803,7 +806,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP16',
@@ -816,7 +819,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -830,7 +833,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP18',
@@ -843,7 +846,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP19',
@@ -856,7 +859,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -870,7 +873,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 
@@ -886,7 +889,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP22',
@@ -899,7 +902,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP23',
@@ -912,7 +915,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP24',
@@ -925,7 +928,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP25',
@@ -938,7 +941,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP26',
@@ -951,7 +954,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -965,7 +968,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP28',
@@ -978,7 +981,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP29',
@@ -991,7 +994,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1005,7 +1008,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 
@@ -1021,7 +1024,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP32',
@@ -1034,7 +1037,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP33',
@@ -1047,7 +1050,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP34',
@@ -1060,7 +1063,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP35',
@@ -1073,7 +1076,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP36',
@@ -1086,7 +1089,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1100,7 +1103,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP38',
@@ -1113,7 +1116,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP39',
@@ -1126,7 +1129,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1140,7 +1143,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 	-----41-50
@@ -1155,7 +1158,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP42',
@@ -1168,7 +1171,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP43',
@@ -1181,7 +1184,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP44',
@@ -1194,7 +1197,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP45',
@@ -1207,7 +1210,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP46',
@@ -1220,7 +1223,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1234,7 +1237,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP48',
@@ -1247,7 +1250,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP49',
@@ -1260,7 +1263,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1274,7 +1277,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 
@@ -1290,7 +1293,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP52',
@@ -1303,7 +1306,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP53',
@@ -1316,7 +1319,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP54',
@@ -1329,7 +1332,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP55',
@@ -1342,7 +1345,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP56',
@@ -1355,7 +1358,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1369,7 +1372,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP58',
@@ -1382,7 +1385,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP59',
@@ -1395,7 +1398,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1409,7 +1412,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 	----61-70
@@ -1424,7 +1427,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP62',
@@ -1437,7 +1440,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP63',
@@ -1450,7 +1453,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP64',
@@ -1463,7 +1466,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP65',
@@ -1476,7 +1479,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP66',
@@ -1489,7 +1492,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1503,7 +1506,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP68',
@@ -1516,7 +1519,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP69',
@@ -1529,7 +1532,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1543,7 +1546,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 	----71-80
@@ -1558,7 +1561,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP72',
@@ -1571,7 +1574,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP73',
@@ -1584,7 +1587,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP74',
@@ -1597,7 +1600,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP75',
@@ -1610,7 +1613,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP76',
@@ -1623,7 +1626,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1637,7 +1640,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP78',
@@ -1650,7 +1653,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP79',
@@ -1663,7 +1666,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1677,7 +1680,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 	----81-90
@@ -1692,7 +1695,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP82',
@@ -1705,7 +1708,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP83',
@@ -1718,7 +1721,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP84',
@@ -1731,7 +1734,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP85',
@@ -1744,7 +1747,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP86',
@@ -1757,7 +1760,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1771,7 +1774,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP88',
@@ -1784,7 +1787,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP89',
@@ -1797,7 +1800,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1811,7 +1814,7 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);
 
 
 	---91-100
@@ -1826,7 +1829,7 @@
 	1,
 	'Allergic to painkillers',
 	'20170828',
-	1400);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP92',
@@ -1839,7 +1842,7 @@
 	3,
 	'No Remarks',
 	'20170913',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP93',
@@ -1852,7 +1855,7 @@
 	4,
 	'No Remarks',
 	'20171019',
-	1200);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP94',
@@ -1865,7 +1868,7 @@
 	2,
 	'No Remarks',
 	'20171220',
-	1600);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP95',
@@ -1878,7 +1881,7 @@
 	1,
 	'Appointment time has to be after 1900',
 	'20170909',
-	1930);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP96',
@@ -1891,7 +1894,7 @@
 	3,
 	'Appointment time to be in the afternoon',
 	'20170825',
-	1530);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1905,7 +1908,7 @@
 	5,
 	'No Remarks',
 	'20171002',
-	1300);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP98',
@@ -1918,7 +1921,7 @@
 	3,
 	'Appointment time has to be in morning',
 	'20171106',
-	1030);
+	1);
 
 	INSERT INTO [dbo].[Appointment]
 	Values('AP99',
@@ -1931,7 +1934,7 @@
 	6,
 	'No Remarks',
 	'20171213',
-	1645);
+	1);
 
 
 	INSERT INTO [dbo].[Appointment]
@@ -1945,4 +1948,4 @@
 	1,
 	'No Remarks',
 	'20170801',
-	1600);
+	1);

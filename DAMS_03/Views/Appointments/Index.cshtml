@@ -82,15 +82,18 @@
                                     <button class="btn btn-primary" type="button"
                                             onclick="location.href='@Url.Action("Details", "Appointments", new { id = Model[i].ID })'">
                                         Details
-                                    </button>
+                                    </button><br />
                                     <button class="btn btn-success" type="button"
                                             onclick="location.href='@Url.Action("Edit", "Appointments", new { id = Model[i].ID })'">
                                         Update
-                                    </button>
-                                    <button class="btn btn-danger" type="button"
-                                            onclick="location.href='@Url.Action("Delete", "Appointments", new { id = Model[i].ID })'">
-                                        Delete
-                                    </button>
+                                    </button><br />
+                                    @if (this.User.IsInRole("SysAdmin"))
+                                    {
+                                        <button class="btn btn-danger" type="button"
+                                                onclick="location.href='@Url.Action("Delete", "Appointments", new { id = Model[i].ID })'">
+                                            Delete
+                                        </button>
+                                    }
                                 </td>
                             </tr>
                         }
