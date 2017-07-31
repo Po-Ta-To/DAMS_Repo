@@ -9,6 +9,34 @@
 <hr />
 <p> @Model.Count records found </p>
 
+@{
+
+    var id_v = ViewContext.RouteData.Values["id"];
+    int id_i;
+    Int32.TryParse((string)id_v, out id_i);
+
+    switch (id_i)
+    {
+        case 1:
+            <p> Appointment Requests </p>
+            break;
+        case 2:
+            <p> Cancelled/Declined Appointments </p>
+            break;
+        case 3:
+            <p> Confirmed Appointments </p>
+            break;
+        case 4:
+            <p> Cancelled/Declined Appointments </p>
+            break;
+        case 5:
+            <p> Completed Appointments </p>
+            break;
+        default:
+            break;
+    }
+}
+
 <br />
 
 <div class="row">
@@ -82,15 +110,18 @@
                                     <button class="btn btn-primary" type="button"
                                             onclick="location.href='@Url.Action("Details", "Appointments", new { id = Model[i].ID })'">
                                         Details
-                                    </button>
+                                    </button><br />
                                     <button class="btn btn-success" type="button"
                                             onclick="location.href='@Url.Action("Edit", "Appointments", new { id = Model[i].ID })'">
                                         Update
-                                    </button>
-                                    <button class="btn btn-danger" type="button"
-                                            onclick="location.href='@Url.Action("Delete", "Appointments", new { id = Model[i].ID })'">
-                                        Delete
-                                    </button>
+                                    </button><br />
+                                    @if (this.User.IsInRole("SysAdmin"))
+                                    {
+                                        <button class="btn btn-danger" type="button"
+                                                onclick="location.href='@Url.Action("Delete", "Appointments", new { id = Model[i].ID })'">
+                                            Delete
+                                        </button>
+                                    }
                                 </td>
                             </tr>
                         }

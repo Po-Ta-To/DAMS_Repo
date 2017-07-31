@@ -1,4 +1,5 @@
 ﻿@model DAMS_03.Models.DoctorDentistCreateModel
+@using DAMS_03.HtmlHelpers
 
 @{
     ViewBag.Title = "Create";
@@ -42,8 +43,10 @@
             @Html.LabelFor(model => model.HospClinID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 
-                @Html.DropDownListFor(model => model.HospClinID, Model.itemSelection, new { htmlAttributes = new { @class = "form-control input-group-sm" } })
+                @*@Html.DropDownListFor(model => model.HospClinID, Model.itemSelection, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
                 
+                @BootstrapHtml.Dropdown("HospClinID", Model.itemSelection)
+
                 @Html.ValidationMessageFor(model => model.HospClinID, "", new { @class = "text-danger" })
             </div>
         </div>

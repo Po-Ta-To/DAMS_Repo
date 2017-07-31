@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DAMS_03.Models;
 using DAMS_03.Authorization;
+using Microsoft.AspNet.Identity;
 
 namespace DAMS_03.Controllers
 {
@@ -21,26 +22,83 @@ namespace DAMS_03.Controllers
         {
             //var appointments = db.Appointments.Include(a => a.ClinicHospital).Include(a => a.DoctorDentist).Include(a => a.DoctorDentist1).Include(a => a.UserAccount);
 
-            var appointments = from apt in db.Appointments
-                               join u in db.UserAccounts on apt.UserID equals u.ID
-                               join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
-                               //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                               //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
-                               select new
-                               {
-                                   ID = apt.ID,
-                                   AppointmentID = apt.AppointmentID,
-                                   UserName = u.Name,
-                                   UserID = u.ID,
-                                   ClinicHospitalName = ch.ClinicHospitalName,
-                                   ClinicHospitalID = ch.ID,
-                                   ApprovalState = apt.ApprovalState,
-                                   PreferredDate = apt.PreferredDate,
-                                   PreferredTime = apt.PreferredTime,
-                                   Remarks = apt.Remarks,
-                                   AppointmentDate = apt.AppointmentDate,//
-                                   AppointmentTime = apt.AppointmentTime//
-                               };
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            List<AppointmentDetailViewModel> appointments = new List<AppointmentDetailViewModel>();
+
+            if (hospid == 0)
+            {
+                appointments = (from apt in db.Appointments
+                                join u in db.UserAccounts on apt.UserID equals u.ID
+                                join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+                                //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
+                                select new AppointmentDetailViewModel()
+                                {
+                                    ID = apt.ID,
+                                    AppointmentID = apt.AppointmentID,
+                                    UserName = u.Name,
+                                    UserID = u.ID,
+                                    ClinicHospitalName = ch.ClinicHospitalName,
+                                    ClinicHospitalID = ch.ID,
+                                    ApprovalState = apt.ApprovalState.ToString(),
+                                    PreferredDate = apt.PreferredDate,
+                                    PreferredTime = apt.PreferredTime,
+                                    Remarks = apt.Remarks,
+                                    AppointmentDate = apt.AppointmentDate,//
+                                    AppointmentTime = apt.AppointmentTime//
+                                }).ToList();
+            }
+            else
+            {
+                appointments = (from apt in db.Appointments
+                                join u in db.UserAccounts on apt.UserID equals u.ID
+                                join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                where ch.ID == hospid
+                                select new AppointmentDetailViewModel()
+                                {
+                                    ID = apt.ID,
+                                    AppointmentID = apt.AppointmentID,
+                                    UserName = u.Name,
+                                    UserID = u.ID,
+                                    ClinicHospitalName = ch.ClinicHospitalName,
+                                    ClinicHospitalID = ch.ID,
+                                    ApprovalState = apt.ApprovalState.ToString(),
+                                    PreferredDate = apt.PreferredDate,
+                                    PreferredTime = apt.PreferredTime,
+                                    Remarks = apt.Remarks,
+                                    AppointmentDate = apt.AppointmentDate,//
+                                    AppointmentTime = apt.AppointmentTime//
+                                }).ToList();
+            }
+
+            //var appointments = from apt in db.Appointments
+            //                   join u in db.UserAccounts on apt.UserID equals u.ID
+            //                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+            //                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+            //                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
+            //                   select new
+            //                   {
+            //                       ID = apt.ID,
+            //                       AppointmentID = apt.AppointmentID,
+            //                       UserName = u.Name,
+            //                       UserID = u.ID,
+            //                       ClinicHospitalName = ch.ClinicHospitalName,
+            //                       ClinicHospitalID = ch.ID,
+            //                       ApprovalState = apt.ApprovalState,
+            //                       PreferredDate = apt.PreferredDate,
+            //                       PreferredTime = apt.PreferredTime,
+            //                       Remarks = apt.Remarks,
+            //                       AppointmentDate = apt.AppointmentDate,//
+            //                       AppointmentTime = apt.AppointmentTime//
+            //                   };
 
             List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
@@ -51,19 +109,19 @@ namespace DAMS_03.Controllers
 
                 switch (appointment.ApprovalState)
                 {
-                    case 1:
+                    case "1":
                         approvalString = "Pending";
                         break;
-                    case 2:
+                    case "2":
                         approvalString = "Cancelled";
                         break;
-                    case 3:
+                    case "3":
                         approvalString = "Confirmed";
                         break;
-                    case 4:
+                    case "4":
                         approvalString = "Declined";
                         break;
-                    case 5:
+                    case "5":
                         approvalString = "Completed";
                         break;
                     default:
@@ -143,30 +201,85 @@ namespace DAMS_03.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            List<AppointmentDetailViewModel> appointments = new List<AppointmentDetailViewModel>();
+
             if (id == 2 || id == 4)
             {
+                if (hospid == 0)
+                {
+                    appointments = (from apt in db.Appointments
+                                    join u in db.UserAccounts on apt.UserID equals u.ID
+                                    join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                    where apt.ApprovalState == 2 || apt.ApprovalState == 4
+                                    select new AppointmentDetailViewModel()
+                                    {
+                                        ID = apt.ID,
+                                        AppointmentID = apt.AppointmentID,
+                                        UserName = u.Name,
+                                        UserID = u.ID,
+                                        ClinicHospitalName = ch.ClinicHospitalName,
+                                        ClinicHospitalID = ch.ID,
+                                        ApprovalState = apt.ApprovalState.ToString(),
+                                        PreferredDate = apt.PreferredDate,
+                                        PreferredTime = apt.PreferredTime,
+                                        Remarks = apt.Remarks,
+                                        AppointmentDate = apt.AppointmentDate,//
+                                        AppointmentTime = apt.AppointmentTime//
+                                    }).ToList();
+                }
+                else
+                {
+                    appointments = (from apt in db.Appointments
+                                    join u in db.UserAccounts on apt.UserID equals u.ID
+                                    join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                    where (ch.ID == hospid) && (apt.ApprovalState == 2 || apt.ApprovalState == 4)
+                                    select new AppointmentDetailViewModel()
+                                    {
+                                        ID = apt.ID,
+                                        AppointmentID = apt.AppointmentID,
+                                        UserName = u.Name,
+                                        UserID = u.ID,
+                                        ClinicHospitalName = ch.ClinicHospitalName,
+                                        ClinicHospitalID = ch.ID,
+                                        ApprovalState = apt.ApprovalState.ToString(),
+                                        PreferredDate = apt.PreferredDate,
+                                        PreferredTime = apt.PreferredTime,
+                                        Remarks = apt.Remarks,
+                                        AppointmentDate = apt.AppointmentDate,//
+                                        AppointmentTime = apt.AppointmentTime//
+                                    }).ToList();
+                }
 
-                var appointments = from apt in db.Appointments
-                                   join u in db.UserAccounts on apt.UserID equals u.ID
-                                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
-                                   where apt.ApprovalState == 2 || apt.ApprovalState == 4
-                                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
-                                   select new
-                                   {
-                                       ID = apt.ID,
-                                       AppointmentID = apt.AppointmentID,
-                                       UserName = u.Name,
-                                       UserID = u.ID,
-                                       ClinicHospitalName = ch.ClinicHospitalName,
-                                       ClinicHospitalID = ch.ID,
-                                       ApprovalState = apt.ApprovalState,
-                                       PreferredDate = apt.PreferredDate,
-                                       PreferredTime = apt.PreferredTime,
-                                       Remarks = apt.Remarks,
-                                       AppointmentDate = apt.AppointmentDate,//
-                                       AppointmentTime = apt.AppointmentTime//
-                                   };
+                //var appointments = from apt in db.Appointments
+                //                   join u in db.UserAccounts on apt.UserID equals u.ID
+                //                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                //                   where apt.ApprovalState == 2 || apt.ApprovalState == 4
+                //                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+                //                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
+                //                   select new
+                //                   {
+                //                       ID = apt.ID,
+                //                       AppointmentID = apt.AppointmentID,
+                //                       UserName = u.Name,
+                //                       UserID = u.ID,
+                //                       ClinicHospitalName = ch.ClinicHospitalName,
+                //                       ClinicHospitalID = ch.ID,
+                //                       ApprovalState = apt.ApprovalState,
+                //                       PreferredDate = apt.PreferredDate,
+                //                       PreferredTime = apt.PreferredTime,
+                //                       Remarks = apt.Remarks,
+                //                       AppointmentDate = apt.AppointmentDate,//
+                //                       AppointmentTime = apt.AppointmentTime//
+                //                   };
 
                 List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
@@ -177,19 +290,19 @@ namespace DAMS_03.Controllers
 
                     switch (appointment.ApprovalState)
                     {
-                        case 1:
+                        case "1":
                             approvalString = "Pending";
                             break;
-                        case 2:
+                        case "2":
                             approvalString = "Cancelled";
                             break;
-                        case 3:
+                        case "3":
                             approvalString = "Confirmed";
                             break;
-                        case 4:
+                        case "4":
                             approvalString = "Declined";
                             break;
-                        case 5:
+                        case "5":
                             approvalString = "Completed";
                             break;
                         default:
@@ -263,28 +376,72 @@ namespace DAMS_03.Controllers
             }
             else
             {
+                if (hospid == 0)
+                {
+                    appointments = (from apt in db.Appointments
+                                    join u in db.UserAccounts on apt.UserID equals u.ID
+                                    join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                    where apt.ApprovalState == id
+                                    select new AppointmentDetailViewModel()
+                                    {
+                                        ID = apt.ID,
+                                        AppointmentID = apt.AppointmentID,
+                                        UserName = u.Name,
+                                        UserID = u.ID,
+                                        ClinicHospitalName = ch.ClinicHospitalName,
+                                        ClinicHospitalID = ch.ID,
+                                        ApprovalState = apt.ApprovalState.ToString(),
+                                        PreferredDate = apt.PreferredDate,
+                                        PreferredTime = apt.PreferredTime,
+                                        Remarks = apt.Remarks,
+                                        AppointmentDate = apt.AppointmentDate,//
+                                        AppointmentTime = apt.AppointmentTime//
+                                    }).ToList();
+                }
+                else
+                {
+                    appointments = (from apt in db.Appointments
+                                    join u in db.UserAccounts on apt.UserID equals u.ID
+                                    join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                    where (ch.ID == hospid) && (apt.ApprovalState == id)
+                                    select new AppointmentDetailViewModel()
+                                    {
+                                        ID = apt.ID,
+                                        AppointmentID = apt.AppointmentID,
+                                        UserName = u.Name,
+                                        UserID = u.ID,
+                                        ClinicHospitalName = ch.ClinicHospitalName,
+                                        ClinicHospitalID = ch.ID,
+                                        ApprovalState = apt.ApprovalState.ToString(),
+                                        PreferredDate = apt.PreferredDate,
+                                        PreferredTime = apt.PreferredTime,
+                                        Remarks = apt.Remarks,
+                                        AppointmentDate = apt.AppointmentDate,//
+                                        AppointmentTime = apt.AppointmentTime//
+                                    }).ToList();
+                }
 
-                var appointments = from apt in db.Appointments
-                                   join u in db.UserAccounts on apt.UserID equals u.ID
-                                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
-                                   where apt.ApprovalState == id
-                                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
-                                   select new
-                                   {
-                                       ID = apt.ID,
-                                       AppointmentID = apt.AppointmentID,
-                                       UserName = u.Name,
-                                       UserID = u.ID,
-                                       ClinicHospitalName = ch.ClinicHospitalName,
-                                       ClinicHospitalID = ch.ID,
-                                       ApprovalState = apt.ApprovalState,
-                                       PreferredDate = apt.PreferredDate,
-                                       PreferredTime = apt.PreferredTime,
-                                       Remarks = apt.Remarks,
-                                       AppointmentDate = apt.AppointmentDate,//
-                                       AppointmentTime = apt.AppointmentTime//
-                                   };
+                //var appointments = from apt in db.Appointments
+                //                   join u in db.UserAccounts on apt.UserID equals u.ID
+                //                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                //                   where apt.ApprovalState == id
+                //                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
+                //                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
+                //                   select new
+                //                   {
+                //                       ID = apt.ID,
+                //                       AppointmentID = apt.AppointmentID,
+                //                       UserName = u.Name,
+                //                       UserID = u.ID,
+                //                       ClinicHospitalName = ch.ClinicHospitalName,
+                //                       ClinicHospitalID = ch.ID,
+                //                       ApprovalState = apt.ApprovalState,
+                //                       PreferredDate = apt.PreferredDate,
+                //                       PreferredTime = apt.PreferredTime,
+                //                       Remarks = apt.Remarks,
+                //                       AppointmentDate = apt.AppointmentDate,//
+                //                       AppointmentTime = apt.AppointmentTime//
+                //                   };
 
                 List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
@@ -295,19 +452,19 @@ namespace DAMS_03.Controllers
 
                     switch (appointment.ApprovalState)
                     {
-                        case 1:
+                        case "1":
                             approvalString = "Pending";
                             break;
-                        case 2:
+                        case "2":
                             approvalString = "Cancelled";
                             break;
-                        case 3:
+                        case "3":
                             approvalString = "Confirmed";
                             break;
-                        case 4:
+                        case "4":
                             approvalString = "Declined";
                             break;
-                        case 5:
+                        case "5":
                             approvalString = "Completed";
                             break;
                         default:
@@ -394,6 +551,30 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ap in db.Appointments on ch.ID equals ap.ClinicHospitalID
+                                   where ap.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             #region prev ver
             //var appt = (from apt in db.Appointments
@@ -544,6 +725,28 @@ namespace DAMS_03.Controllers
             //returnModel.listOfTreatments = (from t in db.Treatments
             //                                select new Treatment()).ToList();
 
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                var hosp = (from ch in db.ClinicHospitals
+                            where ch.ID == hospid
+                            select ch).ToList();
+
+                return View(hosp);
+
+            }
+            //end check for auth
+
             return View(db.ClinicHospitals.ToList());
 
             //return View(returnModel);
@@ -552,6 +755,29 @@ namespace DAMS_03.Controllers
         // GET: Appointments/Create
         public ActionResult Create(int? id)
         {
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   where ch.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             AppointmentCreateViewModel returnModel = new AppointmentCreateViewModel()
             {
@@ -649,6 +875,22 @@ namespace DAMS_03.Controllers
 
                 var url = Url.RequestContext.RouteData.Values["id"];
                 int hospid = Int32.Parse((string)url);
+
+                //check for auth
+                string userAspId = User.Identity.GetUserId();
+
+                int chkhospid = (from ch in db.ClinicHospitals
+                                 join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                 join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                 join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                                 where aspu.Id == userAspId
+                                 select ch.ID).SingleOrDefault();
+
+                if (chkhospid != 0 && hospid != chkhospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+                //end check for auth
 
                 Appointment addAppointment = new Appointment()
                 {
@@ -832,6 +1074,29 @@ namespace DAMS_03.Controllers
             //ViewBag.RequestDoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.RequestDoctorDentistID);
             //ViewBag.UserID = new SelectList(db.UserAccounts, "ID", "ID", appointment.UserID);
 
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ap in db.Appointments on ch.ID equals ap.ClinicHospitalID
+                                   where ap.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             var appt = (from apt in db.Appointments
                         join u in db.UserAccounts on apt.UserID equals u.ID
@@ -916,21 +1181,40 @@ namespace DAMS_03.Controllers
             returnAppt.selectDoctorDentist = new List<SelectListItem>();
             returnAppt.selectUser = new List<SelectListItem>();
 
-            var listOfHosp = from ClinHosp in db.ClinicHospitals
-                             select new SelectListItem()
-                             {
-                                 Value = ClinHosp.ID.ToString(),
-                                 Text = ClinHosp.ClinicHospitalName
-                             };
-            returnAppt.selectClinicHospital.Add(new SelectListItem()
+            if (hospid != 0)
             {
-                Value = "",
-                Text = " - "
-            });
-            returnAppt.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
-
+                var listOfHosp = from ClinHosp in db.ClinicHospitals
+                                 where ClinHosp.ID == hospid
+                                 select new SelectListItem()
+                                 {
+                                     Value = ClinHosp.ID.ToString(),
+                                     Text = ClinHosp.ClinicHospitalName
+                                 };
+                returnAppt.selectClinicHospital.Add(new SelectListItem()
+                {
+                    Value = "",
+                    Text = " - "
+                });
+                returnAppt.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
+            }
+            else
+            {
+                var listOfHosp = from ClinHosp in db.ClinicHospitals
+                                 select new SelectListItem()
+                                 {
+                                     Value = ClinHosp.ID.ToString(),
+                                     Text = ClinHosp.ClinicHospitalName
+                                 };
+                returnAppt.selectClinicHospital.Add(new SelectListItem()
+                {
+                    Value = "",
+                    Text = " - "
+                });
+                returnAppt.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
+            }
+            int reqHospid = Int32.Parse(returnAppt.ClinicHospitalID);
             var listOfDoc = from docden in db.DoctorDentists
-                            where docden.ClinicHospitalID == id
+                            where docden.ClinicHospitalID == reqHospid
                             select new SelectListItem()
                             {
                                 Value = docden.ID.ToString(),
@@ -1025,8 +1309,33 @@ namespace DAMS_03.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AppointmentEditViewModel model)
         {
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int chkhospid = (from ch in db.ClinicHospitals
+                             join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                             join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                             join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                             where aspu.Id == userAspId
+                             select ch.ID).SingleOrDefault();
             if (ModelState.IsValid)
             {
+
+                //check for auth
+                if (chkhospid != 0)
+                {
+                    int matchHospid = (from ch in db.ClinicHospitals
+                                       join ap in db.Appointments on ch.ID equals ap.ClinicHospitalID
+                                       where ap.ID == model.ID
+                                       select ch.ID).SingleOrDefault();
+
+                    if (chkhospid != matchHospid && chkhospid != Int32.Parse(model.ClinicHospitalID))
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+
+                }
+                //end check for auth
 
                 Appointment appointment = (from a in db.Appointments
                                            where a.ID == model.ID
@@ -1152,18 +1461,37 @@ namespace DAMS_03.Controllers
                 model.selectDoctorDentist = new List<SelectListItem>();
                 model.selectUser = new List<SelectListItem>();
 
-                var listOfHosp = from ClinHosp in db.ClinicHospitals
-                                 select new SelectListItem()
-                                 {
-                                     Value = ClinHosp.ID.ToString(),
-                                     Text = ClinHosp.ClinicHospitalName
-                                 };
-                model.selectClinicHospital.Add(new SelectListItem()
+                if (chkhospid != 0)
                 {
-                    Value = "",
-                    Text = " - "
-                });
-                model.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
+                    var listOfHosp = from ClinHosp in db.ClinicHospitals
+                                     where ClinHosp.ID == chkhospid
+                                     select new SelectListItem()
+                                     {
+                                         Value = ClinHosp.ID.ToString(),
+                                         Text = ClinHosp.ClinicHospitalName
+                                     };
+                    model.selectClinicHospital.Add(new SelectListItem()
+                    {
+                        Value = "",
+                        Text = " - "
+                    });
+                    model.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
+                }
+                else
+                {
+                    var listOfHosp = from ClinHosp in db.ClinicHospitals
+                                     select new SelectListItem()
+                                     {
+                                         Value = ClinHosp.ID.ToString(),
+                                         Text = ClinHosp.ClinicHospitalName
+                                     };
+                    model.selectClinicHospital.Add(new SelectListItem()
+                    {
+                        Value = "",
+                        Text = " - "
+                    });
+                    model.selectClinicHospital.AddRange(listOfHosp.ToList<SelectListItem>());
+                }
 
                 //int chid = Int32.Parse(model.ClinicHospitalID);
                 var url = Url.RequestContext.RouteData.Values["id"];
@@ -1207,6 +1535,8 @@ namespace DAMS_03.Controllers
                                                      select t).ToList();
 
                 var listOfTreatments = (from t in db.Treatments
+                                        join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
+                                        where cht.ClinicHospitalID == hospid
                                         select new
                                         {
                                             ID = t.ID,
@@ -1215,6 +1545,16 @@ namespace DAMS_03.Controllers
                                             TreatmentDesc = t.TreatmentDesc,
                                             IsFollowUp = t.IsFollowUp
                                         }).ToList();
+
+                //var listOfTreatments = (from t in db.Treatments
+                //                        select new
+                //                        {
+                //                            ID = t.ID,
+                //                            TreatmentID = t.TreatmentID,
+                //                            TreatmentName = t.TreatmentName,
+                //                            TreatmentDesc = t.TreatmentDesc,
+                //                            IsFollowUp = t.IsFollowUp
+                //                        }).ToList();
 
                 model.listOfTreatments = new List<TreatmentHelperModel>();
 
@@ -1263,6 +1603,7 @@ namespace DAMS_03.Controllers
         }
 
         // GET: Appointments/Delete/5
+        [AuthorizeAdmin(Roles = "SysAdmin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -1274,18 +1615,180 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ap in db.Appointments on ch.ID equals ap.ClinicHospitalID
+                                   where ap.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             return View(appointment);
         }
 
         // POST: Appointments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin")]
         public ActionResult DeleteConfirmed(int id)
         {
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ap in db.Appointments on ch.ID equals ap.ClinicHospitalID
+                                   where ap.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             Appointment appointment = db.Appointments.Find(id);
             db.Appointments.Remove(appointment);
             db.SaveChanges();
             return RedirectToAction("Index", "Appointments");
+        }
+
+        // POST: 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details(int id)
+        {
+            int approvalNo = 0;
+            if (Request.Form["3"] != null)
+            {
+                approvalNo = 3;
+            }
+            else if (Request.Form["4"] != null)
+            {
+                approvalNo = 4;
+            }
+            else if (Request.Form["5"] != null)
+            {
+                approvalNo = 5;
+            }
+
+            if (approvalNo > 5 || approvalNo < 3)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Appointment appointment = db.Appointments.Find(id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ap in db.Appointments on ch.ID equals ap.ClinicHospitalID
+                                   where ap.ID == appointment.ID
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
+            //Change booking int for date of doctor/dentist
+            if (((approvalNo == 3 || approvalNo == 5) && appointment.AppointmentDate != null && appointment.DoctorDentistID != null)
+            && (appointment.ApprovalState != 3 && appointment.ApprovalState != 5))
+            {
+                DoctorDentistDateBooking bookingDay = (from dd in db.DoctorDentists
+                                                       join dddb in db.DoctorDentistDateBookings on dd.ID equals dddb.DoctorDentistID
+                                                       where appointment.AppointmentDate == dddb.DateOfBookings
+                                                       select dddb).SingleOrDefault();
+
+                if (bookingDay != null)
+                {
+                    bookingDay.Bookings++;
+                    db.Entry(bookingDay).State = EntityState.Modified;
+                }
+                else
+                {
+                    DoctorDentistDateBooking newBookingDay = new DoctorDentistDateBooking()
+                    {
+                        DateOfBookings = appointment.AppointmentDate.Value,
+                        Bookings = 1,
+                        DoctorDentistID = appointment.DoctorDentistID.Value
+                    };
+                    db.DoctorDentistDateBookings.Add(newBookingDay);
+                }
+
+            }
+            else if ((approvalNo != appointment.ApprovalState)
+                && (appointment.ApprovalState == 3 || appointment.ApprovalState == 5) &&
+                (approvalNo != 3 && approvalNo != 5))
+            {
+                DoctorDentistDateBooking bookingDay = (from dd in db.DoctorDentists
+                                                       join dddb in db.DoctorDentistDateBookings on dd.ID equals dddb.DoctorDentistID
+                                                       where appointment.AppointmentDate == dddb.DateOfBookings
+                                                       select dddb).SingleOrDefault();
+
+                if (bookingDay != null)
+                {
+                    bookingDay.Bookings--;
+                    db.Entry(bookingDay).State = EntityState.Modified;
+                }
+                else
+                {
+                    DoctorDentistDateBooking newBookingDay = new DoctorDentistDateBooking()
+                    {
+                        DateOfBookings = appointment.AppointmentDate.Value,
+                        Bookings = 0,
+                        DoctorDentistID = appointment.DoctorDentistID.Value
+                    };
+                }
+
+            }
+
+            appointment.ApprovalState = approvalNo;
+            db.Entry(appointment).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Appointments", new { id = id });
         }
 
         protected override void Dispose(bool disposing)

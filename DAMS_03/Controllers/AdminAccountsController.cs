@@ -238,7 +238,7 @@ namespace DAMS_03.Controllers
                 //Only system admin can create system admin accounts
                 if (model.SecurityLevel.Equals("1"))
                 {
-                    if (!User.IsInRole("Admin"))
+                    if (!User.IsInRole("SysAdmin"))
                     {
                         return RedirectToAction("Unauthorized", "Account");
                     }
@@ -406,12 +406,15 @@ namespace DAMS_03.Controllers
             switch (adminAccount.SecurityLevel)
             {
                 case "1":
+                    adminAccountEdit.SecurityLevelID = "1";
                     adminAccountEdit.SecurityLevel = "System Admin";
                     break;
                 case "2":
+                    adminAccountEdit.SecurityLevelID = "2";
                     adminAccountEdit.SecurityLevel = "Hospital/Clinic Admin";
                     break;
                 case "3":
+                    adminAccountEdit.SecurityLevelID = "3";
                     adminAccountEdit.SecurityLevel = "Hospital/Clinic Clerk";
                     break;
                 default:
@@ -452,7 +455,7 @@ namespace DAMS_03.Controllers
                 //Only system admin can create system admin accounts
                 if (model.SecurityLevel.Equals("1"))
                 {
-                    if (!User.IsInRole("Admin"))
+                    if (!User.IsInRole("SysAdmin"))
                     {
                         return RedirectToAction("Unauthorized", "Account");
                     }

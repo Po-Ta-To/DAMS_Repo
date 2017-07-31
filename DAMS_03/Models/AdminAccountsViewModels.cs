@@ -101,6 +101,8 @@ namespace DAMS_03.Models
         //[Range(1, 3)]
         public string SecurityLevel { get; set; }
 
+        public string SecurityLevelID { get; set; }
+
         [Display(Name = "Hospital/Clinic")]
         public string HospClin { get; set; }
 
