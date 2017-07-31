@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DAMS_03.Models;
 using DAMS_03.Authorization;
+using Microsoft.AspNet.Identity;
 
 namespace DAMS_03.Controllers
 {
@@ -19,7 +20,29 @@ namespace DAMS_03.Controllers
         // GET: ClinicHospitals
         public ActionResult Index()
         {
-            return View(db.ClinicHospitals.ToList());
+
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid == 0)
+            {
+                return View(db.ClinicHospitals.ToList());
+            }
+            else
+            {
+                var getClinicHospitalsByHospId = from ch in db.ClinicHospitals
+                                                 where ch.ID == hospid
+                                                 select ch;
+
+                return View(getClinicHospitalsByHospId.ToList());
+            }
+
         }
 
         // GET: ClinicHospitals/Details/5
@@ -34,6 +57,26 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                if (hospid != id)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             List<OpeningHour> openingHours = new List<OpeningHour>();
 
@@ -68,6 +111,7 @@ namespace DAMS_03.Controllers
         }
 
         // GET: ClinicHospitals/Create
+        [AuthorizeAdmin(Roles = "SysAdmin")]
         public ActionResult Create()
         {
             ClinicHospitalCreateModel model = new ClinicHospitalCreateModel();
@@ -103,6 +147,7 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin")]
         public ActionResult Create(ClinicHospitalCreateModel model)
         {
             if (ModelState.IsValid)
@@ -202,6 +247,25 @@ namespace DAMS_03.Controllers
                 return HttpNotFound();
             }
 
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                if (hospid != id)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             //var getTreatmentList = from cht in db.ClinicHospitalTreatments
             //                       where cht.ClinicHospitalID == id
@@ -290,6 +354,7 @@ namespace DAMS_03.Controllers
 
 
         // GET: ClinicHospitals/EditTreatments/5
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult EditTreatments(int? id)
         {
             if (id == null)
@@ -302,6 +367,25 @@ namespace DAMS_03.Controllers
                 return HttpNotFound();
             }
 
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                if (hospid != id)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             //var getTreatmentList = from cht in db.ClinicHospitalTreatments
             //                       where cht.ClinicHospitalID == id
@@ -395,6 +479,7 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult EditTreatments(List<EditTreatmentsModel> editTreatmentsList)
         {
 
@@ -406,9 +491,30 @@ namespace DAMS_03.Controllers
             if (ModelState.IsValid)
             {
 
+
+
                 var url = Url.RequestContext.RouteData.Values["id"];
                 int hospid = Int32.Parse((string)url);
 
+                //check for auth
+                string userAspId = User.Identity.GetUserId();
+
+                int chkhospid = (from ch in db.ClinicHospitals
+                              join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                              join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                              join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                              where aspu.Id == userAspId
+                              select ch.ID).SingleOrDefault();
+
+                if (chkhospid != 0)
+                {
+                    if (hospid != chkhospid)
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+
+                }
+                //end check for auth
 
                 var dellist = from cht in db.ClinicHospitalTreatments
                               join ch in db.ClinicHospitals on cht.ClinicHospitalID equals ch.ID
@@ -441,9 +547,8 @@ namespace DAMS_03.Controllers
             return View(editTreatmentsList);
         }
 
-
-
         // GET: ClinicHospitals/Edit/5
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -455,6 +560,26 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                if (hospid != id)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             List<OpeningHour> openingHours = new List<OpeningHour>();
 
@@ -495,10 +620,32 @@ namespace DAMS_03.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin")]
         public ActionResult Edit(ClinicHospitalEditModel model)
         {
             if (ModelState.IsValid)
             {
+
+                //check for auth
+                string userAspId = User.Identity.GetUserId();
+
+                int hospid = (from ch in db.ClinicHospitals
+                              join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                              join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                              join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                              where aspu.Id == userAspId
+                              select ch.ID).SingleOrDefault();
+
+                if (hospid != 0)
+                {
+                    if (hospid != model.ID)
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+
+                }
+                //end check for auth
+
 
                 ClinicHospital editClinicHospital = (from ch in db.ClinicHospitals
                                                      where ch.ID == model.ID
@@ -546,7 +693,7 @@ namespace DAMS_03.Controllers
                     {
                         if (editTimeslot[i].TimeslotIndex == model.Timeslot[j].TimeslotIndex)
                         {
-                            if(model.Timeslot[j].TimeRangeSlotString != null)
+                            if (model.Timeslot[j].TimeRangeSlotString != null)
                             {
                                 editTimeslot[i].TimeRangeSlotString = model.Timeslot[j].TimeRangeSlotString;
                             }
@@ -554,14 +701,14 @@ namespace DAMS_03.Controllers
                             {
                                 editTimeslot[i].TimeRangeSlotString = "";
                             }
-                            
+
                             db.Entry(editTimeslot[i]).State = EntityState.Modified;
                             break;
                         }
                     }
 
                 }
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -572,6 +719,7 @@ namespace DAMS_03.Controllers
         }
 
         // GET: ClinicHospitals/Delete/5
+        [AuthorizeAdmin(Roles = "SysAdmin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -583,14 +731,57 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                if (hospid != id)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             return View(clinicHospital);
         }
 
         // POST: ClinicHospitals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthorizeAdmin(Roles = "SysAdmin")]
         public ActionResult DeleteConfirmed(int id)
         {
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                if (hospid != id)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
             db.ClinicHospitals.Remove(clinicHospital);
             db.SaveChanges();

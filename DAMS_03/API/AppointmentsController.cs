@@ -13,7 +13,6 @@ using System.Web;
 
 namespace DAMS_03.API
 {
-    [RoutePrefix("api/Appointments")]
     public class AppointmentsController : ApiController
     {
         private DAMS_01Entities db = new DAMS_01Entities();

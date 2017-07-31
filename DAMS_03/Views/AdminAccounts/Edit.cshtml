@@ -1,4 +1,5 @@
 ﻿@model DAMS_03.Models.AdminAccountEditModel
+@using DAMS_03.HtmlHelpers
 
 @{
     ViewBag.Title = "Edit";
@@ -40,6 +41,47 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.SecurityLevel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<select id="SecurityLevel" class="form-control input-group-sm" name="SecurityLevel">
+                    <option value="1">System Account</option>
+                    <option value="2">Admin Account</option>
+                    <option value="3" selected="selected">Clerk Account</option>
+                </select>*@
+                @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    if (this.User.IsInRole("SysAdmin"))
+                    {
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "System Account",
+                            Value = "1"
+                        });
+                    }
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Admin Account",
+                        Value = "2"
+
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Clerk Account",
+                        Value = "3",
+                        Selected = true
+                    });
+                }
+
+                @*@Html.DropDownListFor(model => model.SecurityLevel, listItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
+
+                @BootstrapHtml.Dropdown("SecurityLevel", listItems, Model.SecurityLevel)
+
+                @Html.ValidationMessageFor(model => model.SecurityLevel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
         @*<div class="form-group">
                 @Html.LabelFor(model => model.SecurityLevel, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -48,12 +90,12 @@
                 </div>
             </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.SecurityLevel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SecurityLevel, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
-        </div>
+        </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.SecurityLevel, htmlAttributes: new { @class = "control-label col-md-2" })
