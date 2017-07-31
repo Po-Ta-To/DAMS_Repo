@@ -10,6 +10,10 @@ using Android.Support.Design.Widget;
 using Android.Widget;
 using Android.Content;
 using System;
+using System.Threading.Tasks;
+using System.Json;
+using System.Net;
+using System.IO;
 
 namespace Dental_IT.Droid.Main
 {
@@ -50,7 +54,8 @@ namespace Dental_IT.Droid.Main
             treatmentList.Add(f);
             treatmentList.Add(g);
 
-            foreach (Treatment treatment in treatmentList){
+            foreach (Treatment treatment in treatmentList)
+            {
                 tempTreatmentList.Add(treatment);
             }
 
@@ -131,6 +136,25 @@ namespace Dental_IT.Droid.Main
                     drawerLayout.CloseDrawers();
                 };
             });
+
+            Task.Run(async () =>
+            {
+                try
+                {
+                    // Get the latitude and longitude entered by the user and create a query.
+                    string url = "http://api.geonames.org/findNearByWeatherJSON?lat=";
+
+                    // Fetch the weather information asynchronously, 
+                    // parse the results, then update the screen:
+                    JsonValue json = await GetTreatments(url);
+                    // ParseAndDisplay (json);
+                }
+                catch (Exception e)
+                {
+
+                }
+            });
+            
         }
 
         //Implement menus in the action bar; backarrow
@@ -138,7 +162,6 @@ namespace Dental_IT.Droid.Main
         {
             return true;
         }
-
 
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -186,6 +209,30 @@ namespace Dental_IT.Droid.Main
             }
 
             return filteredList;
+        }
+
+        // Gets weather data from the passed URL.
+        private async Task<JsonValue> GetTreatments(string url)
+        {
+            // Create an HTTP web request using the URL:
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+            request.ContentType = "application/json";
+            request.Method = "GET";
+
+            // Send the request to the server and wait for the response:
+            using (WebResponse response = await request.GetResponseAsync())
+            {
+                // Get a stream representation of the HTTP web response:
+                using (Stream stream = response.GetResponseStream())
+                {
+                    // Use this stream to build a JSON document object:
+                    JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+                    Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
+
+                    // Return the JSON document:
+                    return jsonDoc;
+                }
+            }
         }
     }
 
