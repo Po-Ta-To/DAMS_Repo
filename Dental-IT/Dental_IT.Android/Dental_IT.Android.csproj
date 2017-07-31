@@ -246,6 +246,9 @@
     <AndroidResource Include="Resources\layout\Calendar_View.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\sublayout_Menu_Button.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Sign_In.axml">

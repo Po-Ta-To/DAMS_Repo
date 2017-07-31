@@ -38,14 +38,15 @@ namespace Dental_IT.Droid.Adapters
 
             if (convertView == null)
             {
-                button = new ImageButton(context);
+                LayoutInflater inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
 
-                button.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+                //  Grid buttons
+                convertView = inflater.Inflate(Resource.Layout.sublayout_Menu_Button, null);
+
+                button = convertView.FindViewById<ImageButton>(Resource.Id.mainMenu_ImgBtn);
+
                 button.SetImageResource(buttonImages[position]);
                 button.SetMinimumHeight(Main_Menu.GRID_HEIGHT / numRows);
-                button.SetScaleType(ImageView.ScaleType.CenterCrop);
-                button.Background = null;
-                button.SetPadding(0, 0, 0, 0);
 
                 switch (position)
                 {
@@ -80,12 +81,8 @@ namespace Dental_IT.Droid.Adapters
                         break;
                 }
             }
-            else
-            {
-                button = (ImageButton)convertView;
-            }
 
-            return button;
+            return convertView;
         }
     }
 }
