@@ -17,10 +17,13 @@
         <div class="panel-heading clearfix">
             <div class="panel-title">
                 List of Treatments
-                <button class="btn btn-default" type="button" style="float: right"
-                        onclick="location.href='@Url.Action("Create", "Treatments")'">
-                    Create a Treatment
-                </button>
+                @if (this.User.IsInRole("SysAdmin"))
+                {
+                    <button class="btn btn-default" type="button" style="float: right"
+                            onclick="location.href='@Url.Action("Create", "Treatments")'">
+                        Create a Treatment
+                    </button>
+                }
             </div>
         </div>
         <div class="panel-body">
@@ -65,14 +68,17 @@
                                                 onclick="location.href='@Url.Action("Details", "Treatments", new { id = item.ID})'">
                                             Details
                                         </button>
-                                        <button class="btn btn-success" type="button"
-                                                onclick="location.href='@Url.Action("Edit", "Treatments", new { id = item.ID})'">
-                                            Update
-                                        </button>
-                                        <button class="btn btn-danger" type="button"
-                                                onclick="location.href='@Url.Action("Delete", "Treatments", new { id = item.ID})'">
-                                            Delete
-                                        </button>
+                                        @if (this.User.IsInRole("SysAdmin"))
+                                        {
+                                            <button class="btn btn-success" type="button"
+                                                    onclick="location.href='@Url.Action("Edit", "Treatments", new { id = item.ID})'">
+                                                Update
+                                            </button>
+                                            <button class="btn btn-danger" type="button"
+                                                    onclick="location.href='@Url.Action("Delete", "Treatments", new { id = item.ID})'">
+                                                Delete
+                                            </button>
+                                        }
                                     </td>
                                 </tr>
                             }

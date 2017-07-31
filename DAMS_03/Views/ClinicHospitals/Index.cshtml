@@ -80,12 +80,17 @@
                                             Treatments
                                         </button><br />
 
-                                        @if (this.User.IsInRole("SysAdmin"))
+                                        @if (this.User.IsInRole("SysAdmin") || this.User.IsInRole("HospAdmin"))
                                         {
                                             <button class="btn btn-success" type="button"
                                                     onclick="location.href='@Url.Action("Edit", "ClinicHospitals", new { id = item.ID })'">
                                                 Update
                                             </button><br />
+                                        }
+
+                                        @if (this.User.IsInRole("SysAdmin"))
+                                        {
+
                                             <button class="btn btn-danger" type="button"
                                                     onclick="location.href='@Url.Action("Delete", "ClinicHospitals", new { id = item.ID })'">
                                                 Delete

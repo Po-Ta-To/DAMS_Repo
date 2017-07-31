@@ -68,14 +68,13 @@
                     listItems.Add(new SelectListItem
                     {
                         Text = "Clerk Account",
-                        Value = "3",
-                        Selected = true
+                        Value = "3"
                     });
                 }
 
                 @*@Html.DropDownListFor(model => model.SecurityLevel, listItems, new { htmlAttributes = new { @class = "form-control input-group-sm" } })*@
 
-                @BootstrapHtml.Dropdown("SecurityLevel", listItems, Model.SecurityLevel)
+                @BootstrapHtml.Dropdown("SecurityLevel", listItems, Model.SecurityLevelID)
 
                 @Html.ValidationMessageFor(model => model.SecurityLevel, "", new { @class = "text-danger" })
             </div>

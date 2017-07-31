@@ -51,7 +51,31 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            return View(userAccount);
+
+            var AspNetUser = (from AspNetUsers in db.AspNetUsers
+                              where AspNetUsers.Id == userAccount.AspNetID
+                              select new
+                              {
+                                  AspNetUsers.UserName,
+                                  AspNetUsers.Email
+                              }).First();
+
+
+            UserAccountEditModel userAccountEdit = new UserAccountEditModel();
+
+            userAccountEdit.ID = userAccount.ID;
+            userAccountEdit.Name = userAccount.Name;
+            userAccountEdit.Email = AspNetUser.Email;
+            userAccountEdit.NRIC = userAccount.NRIC;
+            userAccountEdit.DOB = userAccount.DOB;
+            userAccountEdit.Gender = userAccount.Gender;
+            userAccountEdit.Mobile = Int32.Parse(userAccount.Mobile);
+            userAccountEdit.Addrress = userAccount.Addrress;
+
+            userAccountEdit.UserName = AspNetUser.UserName;
+
+
+            return View(userAccountEdit);
         }
 
         // GET: UserAccounts/Create

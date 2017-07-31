@@ -55,8 +55,13 @@ namespace DAMS_03.Models
         [Display(Name = "Preferred Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime PreferredDate { get; set; }
+
         [Display(Name = "Preferred Timeslot")]
         public int PreferredTime { get; set; }
+
+        [Display(Name = "Preferred Timeslot")]
+        public string PreferredTime_s { get; set; }
+        
         [Display(Name = "Assigned Doctor/Dentist Name")]
         public string DoctorDentistName { get; set; }
         public int? DoctorDentistID { get; set; }
@@ -67,10 +72,16 @@ namespace DAMS_03.Models
         [Display(Name = "Appointment Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime? AppointmentDate { get; set; }
+
         [Display(Name = "Appointment Timeslot")]
         public int? AppointmentTime { get; set; }
 
+        [Display(Name = "Appointment Timeslot")]
+        public string AppointmentTime_s { get; set; }
+
         public List<Treatment> listOfTreatments { get; set; }
+
+        public string approvalString { get; set; }
     }
 
     public class AppointmentCreateViewModel
@@ -119,7 +130,7 @@ namespace DAMS_03.Models
         [Display(Name = "Requested Doctor/Dentist Name")]
         public string RequestDoctorDentistID { get; set; }//
 
-        //[Required]
+        [Required]
         public string Remarks { get; set; }
 
         [Display(Name = "Appointment Date")]
@@ -134,6 +145,8 @@ namespace DAMS_03.Models
 
         [Required]
         public List<TreatmentHelperModel> listOfTreatments { get; set; }
+
+        public List<System.Web.Mvc.SelectListItem> listOfTimeslots { get; set; }
 
     }
 
@@ -198,6 +211,8 @@ namespace DAMS_03.Models
 
 
         public List<TreatmentHelperModel> listOfTreatments { get; set; }
+
+        public List<System.Web.Mvc.SelectListItem> listOfTimeslots { get; set; }
     }
 
     public class TreatmentHelperModel
