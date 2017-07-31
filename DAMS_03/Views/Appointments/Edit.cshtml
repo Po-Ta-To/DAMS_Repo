@@ -96,7 +96,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PreferredTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PreferredTime, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.PreferredTime, new { htmlAttributes = new { @class = "form-control" } })*@
+                @BootstrapHtml.Dropdown("PreferredTime", Model.listOfTimeslots, Model.PreferredTime)
                 @Html.ValidationMessageFor(model => model.PreferredTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -140,7 +141,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AppointmentTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AppointmentTime, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.AppointmentTime, new { htmlAttributes = new { @class = "form-control" } })*@
+                @BootstrapHtml.Dropdown("AppointmentTime", Model.listOfTimeslots, Model.AppointmentTime)
                 @Html.ValidationMessageFor(model => model.AppointmentTime, "", new { @class = "text-danger" })
             </div>
         </div>

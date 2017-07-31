@@ -59,9 +59,9 @@ namespace DAMS_03.Models
         [Display(Name = "Preferred Timeslot")]
         public int PreferredTime { get; set; }
 
-        //[Display(Name = "Preferred Timeslot")]
-        //public string PreferredTime { get; set; }
-
+        [Display(Name = "Preferred Timeslot")]
+        public string PreferredTime_s { get; set; }
+        
         [Display(Name = "Assigned Doctor/Dentist Name")]
         public string DoctorDentistName { get; set; }
         public int? DoctorDentistID { get; set; }
@@ -76,8 +76,8 @@ namespace DAMS_03.Models
         [Display(Name = "Appointment Timeslot")]
         public int? AppointmentTime { get; set; }
 
-        //[Display(Name = "Appointment Timeslot")]
-        //public string AppointmentTime { get; set; }
+        [Display(Name = "Appointment Timeslot")]
+        public string AppointmentTime_s { get; set; }
 
         public List<Treatment> listOfTreatments { get; set; }
 
@@ -146,6 +146,8 @@ namespace DAMS_03.Models
         [Required]
         public List<TreatmentHelperModel> listOfTreatments { get; set; }
 
+        public List<System.Web.Mvc.SelectListItem> listOfTimeslots { get; set; }
+
     }
 
     public class AppointmentEditViewModel
@@ -209,6 +211,8 @@ namespace DAMS_03.Models
 
 
         public List<TreatmentHelperModel> listOfTreatments { get; set; }
+
+        public List<System.Web.Mvc.SelectListItem> listOfTimeslots { get; set; }
     }
 
     public class TreatmentHelperModel

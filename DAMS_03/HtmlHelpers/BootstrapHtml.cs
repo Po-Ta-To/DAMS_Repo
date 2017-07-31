@@ -25,6 +25,19 @@ namespace DAMS_03.HtmlHelpers
             return dropdownfunction(id, selectListItems, selection.ToString());
         }
 
+        public static MvcHtmlString Dropdown(string id, List<SelectListItem> selectListItems, int? selection)
+        {
+            if (selection != null)
+            {
+                return dropdownfunction(id, selectListItems, selection.ToString());
+            }
+            else
+            {
+                return dropdownfunction(id, selectListItems);
+            }
+
+        }
+
         private static MvcHtmlString dropdownfunction(string id, List<SelectListItem> selectListItems, string selection)
         {
             var select = new TagBuilder("select")

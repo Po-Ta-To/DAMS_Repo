@@ -100,7 +100,7 @@ namespace DAMS_03.Controllers
             //                       AppointmentTime = apt.AppointmentTime//
             //                   };
 
-            
+
 
             List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
@@ -724,6 +724,37 @@ namespace DAMS_03.Controllers
                                            where a.ID == returnAppt.ID
                                            select t).ToList();
 
+            var timeslots = (from chts in db.ClinicHospitalTimeslots
+                             join ch in db.ClinicHospitals on chts.ClinicHospitalID equals ch.ID
+                             where ch.ID == returnAppt.ClinicHospitalID
+                             orderby chts.TimeslotIndex ascending
+                             select new
+                             {
+                                 Text = chts.TimeRangeSlotString,
+                                 Value = chts.TimeslotIndex
+                             }).ToList();
+
+            timeslots.RemoveAll(x => x.Text.Equals(""));
+
+            foreach (var timeslot in timeslots)
+            {
+                if (returnAppt.PreferredTime == timeslot.Value)
+                {
+                    returnAppt.PreferredTime_s = timeslot.Text;
+                }
+            }
+
+            if(returnAppt.AppointmentTime != null)
+            {
+                foreach (var timeslot in timeslots)
+                {
+                    if (returnAppt.AppointmentTime == timeslot.Value)
+                    {
+                        returnAppt.AppointmentTime_s = timeslot.Text;
+                    }
+                }
+            }
+            
             return View(returnAppt);
         }
 
@@ -872,6 +903,24 @@ namespace DAMS_03.Controllers
                     t.Price = priceLow + " - " + priceHigh;
                 }
             }
+
+            returnModel.listOfTimeslots = new List<SelectListItem>();
+
+            List<SelectListItem> timeslots = new List<SelectListItem>();
+
+            timeslots = (from chts in db.ClinicHospitalTimeslots
+                         join ch in db.ClinicHospitals on chts.ClinicHospitalID equals ch.ID
+                         where ch.ID == id
+                         orderby chts.TimeslotIndex ascending
+                         select new SelectListItem()
+                         {
+                             Text = chts.TimeRangeSlotString,
+                             Value = chts.TimeslotIndex.ToString()
+                         }).ToList();
+
+            timeslots.RemoveAll(x => x.Text.Equals(""));
+
+            returnModel.listOfTimeslots = timeslots;
 
             return View(returnModel);
         }
@@ -1311,6 +1360,23 @@ namespace DAMS_03.Controllers
             }//end foreach
 
 
+            returnAppt.listOfTimeslots = new List<SelectListItem>();
+
+            List<SelectListItem> timeslots = new List<SelectListItem>();
+
+            timeslots = (from chts in db.ClinicHospitalTimeslots
+                         join ch in db.ClinicHospitals on chts.ClinicHospitalID equals ch.ID
+                         where ch.ID == reqHospid
+                         orderby chts.TimeslotIndex ascending
+                         select new SelectListItem()
+                         {
+                             Text = chts.TimeRangeSlotString,
+                             Value = chts.TimeslotIndex.ToString()
+                         }).ToList();
+
+            timeslots.RemoveAll(x => x.Text.Equals(""));
+
+            returnAppt.listOfTimeslots = timeslots;
 
             return View(returnAppt);
         }
@@ -1721,7 +1787,7 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
-            if(appointment.AppointmentDate == null || appointment.DoctorDentistID == null)
+            if (appointment.AppointmentDate == null || appointment.DoctorDentistID == null)
             {
                 return RedirectToAction("Details", "Appointments", new { id = id });
             }
