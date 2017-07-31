@@ -758,6 +758,20 @@ namespace DAMS_03.Controllers
             return View(returnAppt);
         }
 
+        // GET: Appointments/GetApptByDocDenID
+        public JsonResult GetApptByDocDenID(int? id)
+        {
+            var apptList = (from Appt in db.Appointments
+                            where Appt.DoctorDentistID == id
+                            select new
+                            {
+                                AppointmentID = Appt.AppointmentID,
+                                AppointmentTime = Appt.AppointmentTime,
+                                AppointmentDate = Appt.AppointmentDate
+                            }).ToList();
+            return Json(apptList, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Appointments/CreateSelection
         public ActionResult CreateSelection()
         {
