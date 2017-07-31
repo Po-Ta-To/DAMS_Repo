@@ -38,7 +38,31 @@ namespace DAMS_03.Controllers
         // GET: AdminAccounts
         public ActionResult Index()
         {
-            return View(db.AdminAccounts.ToList());
+
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid == 0)
+            {
+                return View(db.AdminAccounts.ToList());
+            }
+            else
+            {
+                var getAdminAccountsByHospId = from aa in db.AdminAccounts
+                                               join ach in db.AdminAccountClinicHospitals on aa.ID equals ach.AdminID
+                                               join ch in db.ClinicHospitals on ach.ClinicHospitalID equals ch.ID
+                                               where ch.ID == hospid
+                                               select aa;
+
+                return View(getAdminAccountsByHospId.ToList());
+            }
+
         }
 
         // GET: AdminAccounts By Security level
@@ -50,11 +74,32 @@ namespace DAMS_03.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var getAdminAccountsBySecId = from AdminAccounts in db.AdminAccounts
-                                          where AdminAccounts.SecurityLevel == id.ToString()
-                                          select AdminAccounts;
+            string userAspId = User.Identity.GetUserId();
 
-            return View(getAdminAccountsBySecId.ToList());
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid == 0)
+            {
+                var getAdminAccountsBySecId = from aa in db.AdminAccounts
+                                              where aa.SecurityLevel == id.ToString()
+                                              select aa;
+                return View(getAdminAccountsBySecId.ToList());
+            }
+            else
+            {
+                var getAdminAccountsBySecId = from aa in db.AdminAccounts
+                                              join ach in db.AdminAccountClinicHospitals on aa.ID equals ach.AdminID
+                                              join ch in db.ClinicHospitals on ach.ClinicHospitalID equals ch.ID
+                                              where aa.SecurityLevel == id.ToString() && ch.ID == hospid
+                                              select aa;
+                return View(getAdminAccountsBySecId.ToList());
+            }
+
         }
 
         // GET: AdminAccounts/Details/5
@@ -69,6 +114,33 @@ namespace DAMS_03.Controllers
             {
                 return HttpNotFound();
             }
+
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                   join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                   where aa.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if(hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+                                
+            }
+            //end check for auth
+
 
             string UserName = (from AspNetUsers in db.AspNetUsers
                                where AspNetUsers.Id == adminAccount.AspNetID
@@ -293,6 +365,31 @@ namespace DAMS_03.Controllers
                 return HttpNotFound();
             }
 
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                   join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                   where aa.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             string UserName = (from AspNetUsers in db.AspNetUsers
                                where AspNetUsers.Id == adminAccount.AspNetID
                                select AspNetUsers.UserName).First().ToString();
@@ -352,6 +449,39 @@ namespace DAMS_03.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Only system admin can create system admin accounts
+                if (model.SecurityLevel.Equals("1"))
+                {
+                    if (!User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+                }
+
+                //check for auth
+                string userAspId = User.Identity.GetUserId();
+
+                int hospid = (from ch in db.ClinicHospitals
+                              join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                              join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                              join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                              where aspu.Id == userAspId
+                              select ch.ID).SingleOrDefault();
+
+                if (hospid != 0)
+                {
+                    int matchHospid = (from ch in db.ClinicHospitals
+                                       join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                       join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                       where aa.ID == model.ID
+                                       select ch.ID).SingleOrDefault();
+                    if (hospid != matchHospid)
+                    {
+                        return RedirectToAction("Unauthorized", "Account");
+                    }
+
+                }
+                //end check for auth
 
                 string aspID = (from AspNetUsers in db.AspNetUsers
                                 where AspNetUsers.UserName == model.UserName
@@ -367,7 +497,7 @@ namespace DAMS_03.Controllers
                 editAdminAccount.AdminID = model.AdminID;
                 editAdminAccount.Name = model.Name;
                 editAdminAccount.Email = model.Email;
-                //editAdminAccount.SecurityLevel = model.SecurityLevel.ToString();
+                editAdminAccount.SecurityLevel = model.SecurityLevel.ToString();
                 //editAdminAccount.AspNetID = aspID;
 
 
@@ -401,6 +531,30 @@ namespace DAMS_03.Controllers
                 return HttpNotFound();
             }
 
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                   join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                   where aa.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
 
             string UserName = (from AspNetUsers in db.AspNetUsers
                                where AspNetUsers.Id == adminAccount.AspNetID
@@ -457,6 +611,32 @@ namespace DAMS_03.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
+            //check for auth
+            string userAspId = User.Identity.GetUserId();
+
+            int hospid = (from ch in db.ClinicHospitals
+                          join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                          join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                          join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                          where aspu.Id == userAspId
+                          select ch.ID).SingleOrDefault();
+
+            if (hospid != 0)
+            {
+                int matchHospid = (from ch in db.ClinicHospitals
+                                   join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                   join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                   where aa.ID == id
+                                   select ch.ID).SingleOrDefault();
+                if (hospid != matchHospid)
+                {
+                    return RedirectToAction("Unauthorized", "Account");
+                }
+
+            }
+            //end check for auth
+
             AdminAccount adminAccount = db.AdminAccounts.Find(id);
 
 
@@ -472,7 +652,7 @@ namespace DAMS_03.Controllers
 
             //AdminAccountDoctorDentist
 
-            if(deleteRelationtoCh != null)
+            if (deleteRelationtoCh != null)
             {
                 db.AdminAccountClinicHospitals.Remove(deleteRelationtoCh);
             }

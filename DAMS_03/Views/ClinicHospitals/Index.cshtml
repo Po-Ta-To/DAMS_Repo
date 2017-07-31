@@ -11,10 +11,13 @@
         <div class="panel-heading clearfix">
             <div class="panel-title">
                 List of Clinic/Hospitals
-                <button class="btn btn-default" type="button" style="float: right"
-                        onclick="location.href='@Url.Action("Create", "ClinicHospitals")'">
-                    Create New
-                </button>
+                @if (this.User.IsInRole("SysAdmin"))
+                {
+                    <button class="btn btn-default" type="button" style="float: right"
+                            onclick="location.href='@Url.Action("Create", "ClinicHospitals")'">
+                        Create New
+                    </button>
+                }
             </div>
         </div>
         <div class="panel-body">
@@ -47,46 +50,55 @@
                         <tbody id="clinichospitalAccountTableBody">
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ClinicHospitalID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ClinicHospitalName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ClinicHospitalAddress)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ClinicHospitalOpenHours)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ClinicHospitalTel)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ClinicHospitalEmail)
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary" type="button"
-                                            onclick="location.href='@Url.Action("Details", "ClinicHospitals", new { id = item.ID })'">Details</button>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClinicHospitalID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClinicHospitalName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClinicHospitalAddress)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClinicHospitalOpenHours)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClinicHospitalTel)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClinicHospitalEmail)
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button"
+                                                onclick="location.href='@Url.Action("Details", "ClinicHospitals", new { id = item.ID })'">
+                                            Details
+                                        </button><br />
 
-                                    <button class="btn btn-primary" type="button"
-                                            onclick="location.href='@Url.Action("Treatments", "ClinicHospitals", new { id = item.ID })'">Treatments</button>
+                                        <button class="btn btn-primary" type="button"
+                                                onclick="location.href='@Url.Action("Treatments", "ClinicHospitals", new { id = item.ID })'">
+                                            Treatments
+                                        </button><br />
 
-                                    <button class="btn btn-success" type="button"
-                                            onclick="location.href='@Url.Action("Edit", "ClinicHospitals", new { id = item.ID })'">Update</button>
-                                    <button class="btn btn-danger" type="button"
-                                            onclick="location.href='@Url.Action("Delete", "ClinicHospitals", new { id = item.ID })'">Delete</button>
-                                    
-                                    
-                                    
-                                </td>
-                            </tr>
+                                        @if (this.User.IsInRole("SysAdmin"))
+                                        {
+                                            <button class="btn btn-success" type="button"
+                                                    onclick="location.href='@Url.Action("Edit", "ClinicHospitals", new { id = item.ID })'">
+                                                Update
+                                            </button><br />
+                                            <button class="btn btn-danger" type="button"
+                                                    onclick="location.href='@Url.Action("Delete", "ClinicHospitals", new { id = item.ID })'">
+                                                Delete
+                                            </button>
+                                        }
+
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 </div>
