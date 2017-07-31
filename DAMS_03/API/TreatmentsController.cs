@@ -16,7 +16,7 @@ namespace DAMS_03.API
     {
         private DAMS_01Entities db = new DAMS_01Entities();
 
-        // GET: api/Treatments
+        // GET: api/
         public IHttpActionResult GetTreatments()
         {
             var treatments = from Treatment in db.Treatments

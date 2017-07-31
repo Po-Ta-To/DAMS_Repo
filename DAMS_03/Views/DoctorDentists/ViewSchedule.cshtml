@@ -1,4 +1,6 @@
-﻿@model DAMS_03.Models.DoctorDentist
+﻿...................
+
+@model DAMS_03.Models.DoctorDentist
 
 @{
     ViewBag.Title = "ViewSchedule";
@@ -20,29 +22,29 @@
 <hr />
 <div>
     @*<div class="row">*@
-        <div class="form-group col-xs-10">
-            <div id="date-popover" class="popover top">
-                <div id="date-popover-content" class="popover-content"></div>
-            </div>
-           
-            <div id="dentist-schedule"></div>
-                <style>
-                    .white {
-                        background-color: whitesmoke;
-                    }
-
-                    .indianred {
-                        background-color: indianred;
-                    }
-
-                    .darkgrey {
-                        background-color: darkgrey;
-                    }
-                </style>
+    <div class="form-group col-xs-10">
+        <div id="date-popover" class="popover top">
+            <div id="date-popover-content" class="popover-content"></div>
         </div>
-        @*<br /><br /><br />
+
+        <div id="dentist-schedule"></div>
+        <style>
+            .white {
+                background-color: whitesmoke;
+            }
+
+            .indianred {
+                background-color: indianred;
+            }
+
+            .darkgrey {
+                background-color: darkgrey;
+            }
+        </style>
+    </div>
+    @*<br /><br /><br />
         <div class="form-group col-xs-offset-4  ">
-            <div id="apptDetails"> 
+            <div id="apptDetails">
                 <h2><b>Schedule Details </b></h2>
                 <div>
                     <p>
@@ -68,19 +70,19 @@
                 </div>
             </div>
         </div>*@
-    </div>
-    <br /><br />
-    <div class="form-group">
-        <button class="btn btn-success" type="button"
-                onclick="location.href='@Url.Action("Index", "DoctorDentists")'">
-            Back to Doctor/Dentist Details
-        </button>
-    </div>
+</div>
+<br /><br />
+<div class="form-group">
+    <button class="btn btn-success" type="button"
+            onclick="location.href='@Url.Action("Index", "DoctorDentists")'">
+        Back to Doctor/Dentist Details
+    </button>
+</div>
 @*</div>*@
 
 <script>
     $(document).ready(function () {
-    
+
         // Settle the calendar first
     $("#dentist-schedule").zabuto_calendar({
         action: function () {
@@ -145,7 +147,7 @@
                     var numOfBookings = 0;
                     $.each(data, function (index, item) {
                         yearMonthDay = item.DateOfBookings.split("-");
-                        if (yearMonthDay[0] == calendarYMD[0] && 
+                        if (yearMonthDay[0] == calendarYMD[0] &&
                             yearMonthDay[1] == calendarYMD[1] &&
                             yearMonthDay[2] == calendarYMD[2]) {
                             numOfBookings = item.Bookings;
@@ -163,7 +165,7 @@
             }else{
                 $("#date-popover-content").html("The Doctor/Dentist has " + numOfBookings + " booking(s) on " + date);
             }
-            
+
             $("#date-popover").show();
         } // End of displayPopOver() method
 
@@ -219,8 +221,8 @@
     //function updateApptStatus(selectedTimeSlot) {
     //    if (selectedTimeSlot == "item1") {
     //        $('#lblStatus').html("Available");
-    //    } else {
+    //    } else {6
     //        $('#lblStatus').html("Booked");
     //    }
     //}
-    </script>
+</script>
