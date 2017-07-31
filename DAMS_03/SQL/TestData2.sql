@@ -47,6 +47,9 @@
 	Values ('T999', 'Teeth Whitening', 
 	'Teeth naturally darken with age, however staining may be caused by various foods and beverages such as coffee, tea and berries, some drugs such as tetracycline, smoking, or a trauma to a tooth', 0);
 
+	INSERT INTO Treatment
+	Values ('T1000', 'Consultation', 
+	'A full oral assessment will be conducted to establish your oral health and recommend the best treatments for your mouth if needed', 0);
 
 	INSERT INTO ClinicHospital
 	Values ('H111', 'National Dental Centre Singapore',
