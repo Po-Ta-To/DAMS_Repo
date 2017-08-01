@@ -1888,6 +1888,13 @@ namespace DAMS_03.Controllers
             return RedirectToAction("Details", "Appointments", new { id = id });
         }
 
+        [ActionName("Page")]
+        public ActionResult Page()
+        {
+
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -1898,3 +1905,4 @@ namespace DAMS_03.Controllers
         }
     }
 }
+
