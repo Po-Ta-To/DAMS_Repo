@@ -29,15 +29,17 @@
                   android:id="@+id/appt_HCImage"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginRight="10dp"
                   android:src="@drawable/ic_hc"
-                  android:scaleX="0.50"
-                  android:scaleY="0.50" />
+                  android:scaleX="0.75"
+                  android:scaleY="0.75" />
 
               <TextView
                     android:id="@+id/apptDetails_HospitalLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/dark_blue"
                     android:text="@string/hospital" />
                 <TextView
@@ -62,15 +64,17 @@
                  android:id="@+id/appt_DateImage"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginRight="10dp"
                  android:src="@drawable/ic_date"
-                 android:scaleX="0.50"
-                 android:scaleY="0.50" />
+                 android:scaleX="0.75"
+                 android:scaleY="0.75" />
               
                 <TextView
                     android:id="@+id/apptDetails_DateLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/dark_blue"
                     android:text="@string/date" />
                 <TextView
