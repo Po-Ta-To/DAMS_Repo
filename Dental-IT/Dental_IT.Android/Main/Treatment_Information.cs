@@ -220,18 +220,24 @@ namespace Dental_IT.Droid.Main
         {
             try
             {
-                WebRequest request = WebRequest.Create(new Uri(url));
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
                 request.ContentType = "application/json";
                 request.Method = "GET";
-                WebResponse response = request.GetResponse() as WebResponse;
 
-                Stream stream = response.GetResponseStream();
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    // Get a stream representation of the HTTP web response:
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        // Use this stream to build a JSON document object:
+                        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+                        Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
 
-                JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-                System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
-                // Return the JSON document:
-                return jsonDoc;
+                        // Return the JSON document:
+                        return jsonDoc;
+                    }
+                }
             }
             catch (WebException e)
             {
