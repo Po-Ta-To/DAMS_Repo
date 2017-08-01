@@ -8,6 +8,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Support.V4.Content;
 using Android.Graphics.Drawables;
+using Com.Prolificinteractive.Materialcalendarview.Spans;
 
 namespace Dental_IT.Droid.Main
 {
@@ -102,11 +103,18 @@ namespace Dental_IT.Droid.Main
 
         public void Decorate(DayViewFacade view)
         {
-            Drawable dateBg = ContextCompat.GetDrawable(context, Resource.Drawable.legend_iconSquare);
-            dateBg.Mutate();    //To allow applying individual filters without affecting the rest
-            dateBg.SetTint(color);
-
-            view.SetBackgroundDrawable(dateBg);
+            //  Support for lower API that do not have the SetTint method
+            if (((int)Android.OS.Build.VERSION.SdkInt) < 21)
+            {
+                view.AddSpan(new DotSpan(10, color));
+            }
+            else
+            {
+                Drawable dateBg = ContextCompat.GetDrawable(context, Resource.Drawable.legend_iconSquare);
+                dateBg.Mutate();    //To allow applying individual filters without affecting the rest
+                dateBg.SetTint(color);
+                view.SetBackgroundDrawable(dateBg);
+            }                
         }
 
         public bool ShouldDecorate(CalendarDay day)

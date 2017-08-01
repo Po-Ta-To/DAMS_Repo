@@ -147,7 +147,11 @@ namespace Dental_IT.Droid.Main
                     // Fetch the weather information asynchronously, 
                     // parse the results, then update the screen:
                     JsonValue json = await GetTreatments(url);
-                    // ParseAndDisplay (json);
+
+                    foreach(JsonObject obj in json)
+                    {
+                        System.Diagnostics.Debug.Write(obj["TreatmentName"]);
+                    }
                 }
                 catch (Exception e)
                 {
