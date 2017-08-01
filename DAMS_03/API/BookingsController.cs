@@ -21,9 +21,9 @@ namespace DAMS_03.API
         [ResponseType(typeof(Booking))]
         public IHttpActionResult getBookingsByCHid(int id)
         {
-            List<Booking> bookings = (from Booking in db.Bookings
+            var bookings = (from Booking in db.Bookings
                                      where Booking.ClinicHospitalID == id
-                                     select new Booking
+                                     select new
                                      {
                                          BookingDate = Booking.BookingDate,
                                          IsFullyBooked = Booking.IsFullyBooked

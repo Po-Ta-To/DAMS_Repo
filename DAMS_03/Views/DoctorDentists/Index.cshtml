@@ -4,13 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>View Doctor/Dentist</h2>
+<h2>View Dentist</h2>
 
 <div class="row">
     <div class="panel panel-primary">
         <div class="panel-heading clearfix">
             <div class="panel-title">
-                List of Doctor/Dentists
+                List of Dentists
                 @if (this.User.IsInRole("SysAdmin") || this.User.IsInRole("HospAdmin"))
                 {
                     <button class="btn btn-default" type="button" style="float: right"
