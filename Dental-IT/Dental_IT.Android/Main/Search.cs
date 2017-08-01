@@ -101,11 +101,6 @@ namespace Dental_IT.Droid.Main
                 SearchHospitalFragment.filter(query);
                 return true;
             }
-            else if (position == 1)
-            {
-                SearchTreatmentFragment.filter(query);
-                return true;
-            }
             else
             {
                 return false;
