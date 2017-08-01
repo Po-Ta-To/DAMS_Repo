@@ -21,9 +21,9 @@ namespace DAMS_03.API
         [ResponseType(typeof(OpeningHour))]
         public IHttpActionResult getOpeningHoursByHCid(int id)
         {
-            List<OpeningHour> openingHours = (from OpeningHour in db.OpeningHours
+            var openingHours = (from OpeningHour in db.OpeningHours
                                       where OpeningHour.ClinicHospitalID == id
-                                      select new OpeningHour
+                                      select new
                                       {
                                           OpeningHoursDay = OpeningHour.OpeningHoursDay,
                                           TimeRangeStart = OpeningHour.TimeRangeStart,

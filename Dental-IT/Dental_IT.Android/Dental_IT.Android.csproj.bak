@@ -130,30 +130,30 @@
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Adapters\TabsAdapter.cs" />
-    <Compile Include="Main\Appointment_Details.cs" />
-    <Compile Include="Main\Calendar_Select.cs" />
-    <Compile Include="Main\Calendar_View.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
     <Compile Include="Fragments\AppointmentsPastFragment.cs" />
     <Compile Include="Fragments\SearchHospitalFragment.cs" />
     <Compile Include="Fragments\SearchTreatmentFragment.cs" />
     <Compile Include="Fragments\AppointmentsUpcomingFragment.cs" />
     <Compile Include="Fragments\TreatmentDialogFragment.cs" />
+    <Compile Include="Main\Appointment_Details.cs" />
+    <Compile Include="Main\Calendar_Select.cs" />
+    <Compile Include="Main\Calendar_View.cs" />
     <Compile Include="Main\Hospital_Details.cs" />
+    <Compile Include="Main\Main_Menu.cs" />
     <Compile Include="Main\My_Appointments.cs" />
     <Compile Include="Main\Offered_By.cs" />
-    <Compile Include="Main\Search.cs" />
-    <Compile Include="Main\Select_Treatment.cs" />
-    <Compile Include="Main\Sign_In.cs" />
-    <Compile Include="Main\Main_Menu.cs" />
     <Compile Include="Main\Register.cs" />
     <Compile Include="Main\Request_Appointment.cs" />
-    <Compile Include="Main\Treatments_Offered.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Main\Search.cs" />
     <Compile Include="Main\Select_Hospital.cs" />
+    <Compile Include="Main\Select_Treatment.cs" />
+    <Compile Include="Main\Sign_In.cs" />
+    <Compile Include="Main\Treatments_Offered.cs" />
     <Compile Include="Main\Treatment_Information.cs" />
     <Compile Include="Main\Update_Appointment.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -679,6 +679,75 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_treatment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fragments\Main\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-ldpi\ic_contact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_contact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_contact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_contact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_contact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_contact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-ldpi\ic_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-ldpi\ic_email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-ldpi\ic_request_appt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-ldpi\ic_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-ldpi\ic_treatment_info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-ldpi\ic_my_appt.png" />
   </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

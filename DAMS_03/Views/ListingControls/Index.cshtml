@@ -3,20 +3,20 @@
         ViewBag.Title = "Index";
     }
 
-<link rel="stylesheet" href="~/Content/Container.css" type="text/css" />
+<link href="~/content/container.css" rel="stylesheet" />
 
 <div class="listbox">
     <div class="centeralign">
         <h2><b>Listing Controls</b></h2>
         <table class="table">
             <tr>
-                <th>@Html.ActionLink("View Hospitals/Clinics", "Index", "ClinicHospitals", new { area = "" }, new { @class = "navbar-brand" })</th>
+                <th>@Html.ActionLink("View Clinics/Hospitals", "Index", "ClinicHospitals", new { area = "" }, new { @class = "navbar-brand" })</th>
             </tr>
             <tr>
                 <th>@Html.ActionLink("View Treatments", "Index", "Treatments", new { area = "" }, new { @class = "navbar-brand" })</th>
             </tr>
             <tr>
-                <th>@Html.ActionLink("View Doctors/Dentists", "Index", "DoctorDentists", new { area = "" }, new { @class = "navbar-brand" })</th>
+                <th>@Html.ActionLink("View Dentists", "Index", "DoctorDentists", new { area = "" }, new { @class = "navbar-brand" })</th>
             </tr>
         </table>
     </div>
