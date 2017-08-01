@@ -28,8 +28,11 @@ namespace Dental_IT.Droid.Main
         private Treatment f = new Treatment(6, "Treatment 6", 150, 300);
         private Treatment g = new Treatment(7, "Treatment 7", 500, 1000);
 
+        // A list to store the list of treatments 
         private List<Treatment> treatmentList = new List<Treatment>();
-        private List<Treatment> tempTreatmentList = new List<Treatment>();
+
+        //private List<Treatment> tempTreatmentList = new List<Treatment>();
+
         private Android.Support.V7.Widget.SearchView searchView;
         RecyclerViewAdapter_TreatmentInformation adapter;
 
@@ -46,18 +49,40 @@ namespace Dental_IT.Droid.Main
             //  Create widgets
             RecyclerView treatmentInformation_RecyclerView = FindViewById<RecyclerView>(Resource.Id.treatmentInformation_RecyclerView);
 
-            treatmentList.Add(a);
-            treatmentList.Add(b);
-            treatmentList.Add(c);
-            treatmentList.Add(d);
-            treatmentList.Add(e);
-            treatmentList.Add(f);
-            treatmentList.Add(g);
+            //tempTreatmentList.Add(a);
+            //tempTreatmentList.Add(b);
+            //tempTreatmentList.Add(c);
+            //tempTreatmentList.Add(d);
+            //tempTreatmentList.Add(e);
+            //tempTreatmentList.Add(f);
+            //tempTreatmentList.Add(g);
 
-            foreach (Treatment treatment in treatmentList)
+            //foreach (Treatment treatment in tempTreatmentList)
+            //{
+            //    tempTreatmentList.Add(treatment);
+            //}
+
+            // Get all the treatments
+            Task.Run(async () =>
             {
-                tempTreatmentList.Add(treatment);
-            }
+                try
+                {
+                    string url = Web_Config.global_connURL_getTreatment;
+                    
+                    // Get json value by passing the URL
+                    JsonValue json = await GetTreatments(url);
+
+                    foreach (JsonObject obj in json)
+                    {
+                        Treatment tr = new Treatment(obj["ID"], obj["TreatmentName"], 100, 500);
+                        //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.Write(e.Message());
+                }
+            });
 
             //  Set searchview listener
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
@@ -136,29 +161,6 @@ namespace Dental_IT.Droid.Main
                     drawerLayout.CloseDrawers();
                 };
             });
-
-            Task.Run(async () =>
-            {
-                try
-                {
-                    // Get th
-                    string url = Web_Config.global_connURL_getTreatment;
-
-                    // Fetch the weather information asynchronously, 
-                    // parse the results, then update the screen:
-                    JsonValue json = await GetTreatments(url);
-
-                    foreach (JsonObject obj in json)
-                    {
-                        System.Diagnostics.Debug.Write(obj["TreatmentName"]);
-                    }
-                }
-                catch (Exception e)
-                {
-
-                }
-            });
-
         }
 
         //Implement menus in the action bar; backarrow
@@ -215,7 +217,7 @@ namespace Dental_IT.Droid.Main
             return filteredList;
         }
 
-        // Gets weather data from the passed URL.
+        // Gets Treatments data from the passed URL.
         private async Task<JsonValue> GetTreatments(string url)
         {
             try
@@ -227,47 +229,15 @@ namespace Dental_IT.Droid.Main
 
                 Stream stream = response.GetResponseStream();
 
+                // Store in json and return the json value
                 JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-                System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
-                // Return the JSON document:
                 return jsonDoc;
             }
             catch (WebException e)
             {
                 return new JsonArray();
             }
-
-            // Create an HTTP web request using the URL:
-            //HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-            //request.ContentType = "application/json";
-            //request.Method = "GET";
-
-            //HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-
-            //Stream stream = response.GetResponseStream();
-
-            //JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-            //Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-            //System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
-            //// Return the JSON document:
-            //return jsonDoc;
-
-            // Send the request to the server and wait for the response:
-            //using (WebResponse response = request.GetResponse())
-            //{
-            //    // Get a stream representation of the HTTP web response:
-            //    using (Stream stream = response.GetResponseStream())
-            //    {
-            //        // Use this stream to build a JSON document object:
-            //        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-            //        Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-            //        System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
-            //        // Return the JSON document:
-            //        return jsonDoc;
-            //    }
-            //}
-        }
+        } // End of GetTreatments() method
     }
 
 }
