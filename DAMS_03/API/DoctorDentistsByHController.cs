@@ -24,6 +24,11 @@ namespace DAMS_03.API
                                   Name = DoctorDentist.Name
                               }).ToList();
 
+            if(docDenList == null)
+            {
+                return NotFound();
+            }
+
             return Ok(docDenList);
         }
     }

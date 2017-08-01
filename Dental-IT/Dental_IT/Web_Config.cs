@@ -50,5 +50,8 @@ namespace Dental_IT
 
         // GET Doctor Dentists by Hospital Clinic ID
         public static string global_connURL_getDocDentistsByCHid { get; } = "/api/DoctorDentistsByH/"; // + CH id
+
+        // GET TimeSlot by Hospital Clinic ID
+        public static string global_connURL_getClinicHospitalTimeSlotByCHid { get; } = "/api/ClinicHospitalTimeSlotByH/"; // + CH id
     }
 }
