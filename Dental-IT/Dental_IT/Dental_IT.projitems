@@ -13,5 +13,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ToggleState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hospital.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Treatment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Web_Config.cs" />
   </ItemGroup>
 </Project>

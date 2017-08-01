@@ -1,5 +1,8 @@
 ﻿body {
+
+   
 }
+
 
 .bluebox {
     border: 2px solid grey;
@@ -8,8 +11,8 @@
     padding: 6%;
     margin-top: 8%;
     margin-left: 10%; 
-    margin-bottom: 10%;
-    padding-bottom: 30%;
+    margin-bottom: 0%;
+    padding-bottom: 35%;
 }
 
 .bluebox2 {
@@ -20,8 +23,8 @@
     padding: 6%;
     margin-top: 11%;
     margin-left: 10%;     
-    margin-bottom: 10%;
-    padding-bottom: 32%;
+    margin-bottom: 0%;
+    padding-bottom: 15%;
 
 }
 

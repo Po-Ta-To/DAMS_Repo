@@ -7,6 +7,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Adapters;
+using System;
 
 namespace Dental_IT.Droid.Main
 {
@@ -24,6 +25,9 @@ namespace Dental_IT.Droid.Main
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += HandleExceptions;
 
             //  Set view to main menu layout
             SetContentView(Resource.Layout.Main_Menu);
@@ -111,6 +115,12 @@ namespace Dental_IT.Droid.Main
                 drawerLayout.CloseDrawers();
             };  
        }
+
+        static void HandleExceptions(object sender, UnhandledExceptionEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(e.ExceptionObject.ToString());
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
            switch (item.ItemId)

@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -130,30 +130,30 @@
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
     <Compile Include="Adapters\TabsAdapter.cs" />
-    <Compile Include="Main\Appointment_Details.cs" />
-    <Compile Include="Main\Calendar_Select.cs" />
-    <Compile Include="Main\Calendar_View.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
     <Compile Include="Fragments\AppointmentsPastFragment.cs" />
     <Compile Include="Fragments\SearchHospitalFragment.cs" />
     <Compile Include="Fragments\SearchTreatmentFragment.cs" />
     <Compile Include="Fragments\AppointmentsUpcomingFragment.cs" />
     <Compile Include="Fragments\TreatmentDialogFragment.cs" />
+    <Compile Include="Main\Appointment_Details.cs" />
+    <Compile Include="Main\Calendar_Select.cs" />
+    <Compile Include="Main\Calendar_View.cs" />
     <Compile Include="Main\Hospital_Details.cs" />
+    <Compile Include="Main\Main_Menu.cs" />
     <Compile Include="Main\My_Appointments.cs" />
     <Compile Include="Main\Offered_By.cs" />
-    <Compile Include="Main\Search.cs" />
-    <Compile Include="Main\Select_Treatment.cs" />
-    <Compile Include="Main\Sign_In.cs" />
-    <Compile Include="Main\Main_Menu.cs" />
     <Compile Include="Main\Register.cs" />
     <Compile Include="Main\Request_Appointment.cs" />
-    <Compile Include="Main\Treatments_Offered.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Main\Search.cs" />
     <Compile Include="Main\Select_Hospital.cs" />
+    <Compile Include="Main\Select_Treatment.cs" />
+    <Compile Include="Main\Sign_In.cs" />
+    <Compile Include="Main\Treatments_Offered.cs" />
     <Compile Include="Main\Treatment_Information.cs" />
     <Compile Include="Main\Update_Appointment.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -244,6 +244,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Calendar_View.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\sublayout_Menu_Button.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -591,16 +594,31 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_hc.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_hc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_hc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_hc.png" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable-ldpi\ic_hc.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_date.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_date.png" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable-ldpi\ic_date.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_date.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_date.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_date.png" />
@@ -663,19 +681,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_treatment.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\ic_date.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_hc.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_hc.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_hc.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_date.png" />
+    <Folder Include="Fragments\Main\" />
   </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

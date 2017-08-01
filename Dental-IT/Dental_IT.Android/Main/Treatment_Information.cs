@@ -141,14 +141,14 @@ namespace Dental_IT.Droid.Main
             {
                 try
                 {
-                    // Get the latitude and longitude entered by the user and create a query.
-                    string url = "api/Treatments";
+                    // Get th
+                    string url = Web_Config.global_connURL_getTreatment;
 
                     // Fetch the weather information asynchronously, 
                     // parse the results, then update the screen:
                     JsonValue json = await GetTreatments(url);
 
-                    foreach(JsonObject obj in json)
+                    foreach (JsonObject obj in json)
                     {
                         System.Diagnostics.Debug.Write(obj["TreatmentName"]);
                     }
@@ -158,7 +158,7 @@ namespace Dental_IT.Droid.Main
 
                 }
             });
-            
+
         }
 
         //Implement menus in the action bar; backarrow
@@ -218,25 +218,55 @@ namespace Dental_IT.Droid.Main
         // Gets weather data from the passed URL.
         private async Task<JsonValue> GetTreatments(string url)
         {
+            try
+            {
+                WebRequest request = WebRequest.Create(new Uri(url));
+                request.ContentType = "application/json";
+                request.Method = "GET";
+                WebResponse response = request.GetResponse() as WebResponse;
+
+                Stream stream = response.GetResponseStream();
+
+                JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+                Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
+                System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
+                // Return the JSON document:
+                return jsonDoc;
+            }
+            catch (WebException e)
+            {
+                return new JsonArray();
+            }
+
             // Create an HTTP web request using the URL:
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-            request.ContentType = "application/json";
-            request.Method = "GET";
+            //HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+            //request.ContentType = "application/json";
+            //request.Method = "GET";
+
+            //HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+            //Stream stream = response.GetResponseStream();
+
+            //JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+            //Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
+            //System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
+            //// Return the JSON document:
+            //return jsonDoc;
 
             // Send the request to the server and wait for the response:
-            using (WebResponse response = await request.GetResponseAsync())
-            {
-                // Get a stream representation of the HTTP web response:
-                using (Stream stream = response.GetResponseStream())
-                {
-                    // Use this stream to build a JSON document object:
-                    JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                    Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-                    System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
-                    // Return the JSON document:
-                    return jsonDoc;
-                }
-            }
+            //using (WebResponse response = request.GetResponse())
+            //{
+            //    // Get a stream representation of the HTTP web response:
+            //    using (Stream stream = response.GetResponseStream())
+            //    {
+            //        // Use this stream to build a JSON document object:
+            //        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+            //        Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
+            //        System.Diagnostics.Debug.Write("Response: {0}", jsonDoc.ToString());
+            //        // Return the JSON document:
+            //        return jsonDoc;
+            //    }
+            //}
         }
     }
 

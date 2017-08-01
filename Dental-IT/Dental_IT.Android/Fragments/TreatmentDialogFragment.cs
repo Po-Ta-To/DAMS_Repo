@@ -12,6 +12,10 @@ namespace Dental_IT.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            //  Remove title bar
+            Dialog.RequestWindowFeature((int)WindowFeatures.NoTitle);
+
+            //  Set up dialog
             View v = inflater.Inflate(Resource.Layout.sublayout_Treatment_Info_Dialog, container, true);
             string treatmentName = Arguments.GetString("treatmentName") ?? "Data not available";
 
