@@ -1,11 +1,10 @@
-﻿...................
-
-@model DAMS_03.Models.DoctorDentist
+﻿@model DAMS_03.Models.DoctorDentist
 @{
     ViewBag.Title = "ViewSchedule";
 }
 <!-- Container.css -->
-<link rel="stylesheet" href="~/Content/Container.css" type="text/css" />
+<link href="~/content/container.css" rel="stylesheet" />
+
 <!-- jQuery & Bootstrap CDN -->
 <script src="~/scripts/jquery.min.js"></script>
 <link href="~/content/bootstrap.min.css" rel="stylesheet" />
@@ -70,9 +69,9 @@
     </div>
     <br /><br />
     <div class="form-group">
-        <button class="btn btn-success" type="button"
-                onclick="location.href='@Url.Action("Index", "DoctorDentists")'">
-            Back to Doctor/Dentist Details
+        <button class="btn btn-primary" type="button"
+                onclick="location.href='javascript:history.go(-1)'">
+             Back To Dentist Details
         </button>
     </div>
 </div>
