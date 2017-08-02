@@ -6,6 +6,7 @@ using Android.Widget;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
+using Dental_IT.Droid.Adapters;
 
 namespace Dental_IT.Droid.Main
 {
@@ -56,12 +57,16 @@ namespace Dental_IT.Droid.Main
                 //  Set hospital name
                 update_HospitalField.Text = hospitalName;
 
-                //Implement CustomTheme ActionBar
+                //  Configure spinner adapter for dentist and session dropdowns
+                update_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
+                update_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
+
+                //  Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 toolbar.SetTitle(Resource.String.update_title);
                 SetSupportActionBar(toolbar);
 
-                //Set menu hambuger
+                //  Set menu hambuger
                 SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -119,12 +124,19 @@ namespace Dental_IT.Droid.Main
                 };
             });
 
-            ////  Intent to redirect to calendar page
-            //update_DateField.Click += delegate
-            //{
-            //    Intent intent = new Intent(this, typeof(Calendar));
-            //    StartActivity(intent);
-            //};
+            //  Intent to redirect to calendar page
+            update_DateField.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Calendar_Select));
+                StartActivity(intent);
+            };
+
+            //  Handle select treatments button
+            update_TreatmentsBtn.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(Select_Treatment));
+                StartActivity(intent);
+            };
 
             //  Handle update button
             update_SubmitBtn.Click += delegate
@@ -154,5 +166,33 @@ namespace Dental_IT.Droid.Main
             }
             return base.OnOptionsItemSelected(item);
         }
+
+        //  List of dentists to populate spinner adapter
+        private string[] dentists =
+        {
+            "Select dentist",
+            "Dentist A",
+            "Dentist B",
+            "Dentist C",
+            "Dentist D",
+            "Dentist E",
+            "Dentist F",
+            "Dentist G",
+            "Dentist H",
+            "Dentist I",
+            "Dentist J",
+            "Dentist K",
+            "Dentist L"
+        };
+
+        //  List of sessions to populate spinner adapter
+        private string[] sessions =
+        {
+            "Select session",
+            "Session 1",
+            "Session 2",
+            "Session 3",
+            "Session 4"
+        };
     }
 }
