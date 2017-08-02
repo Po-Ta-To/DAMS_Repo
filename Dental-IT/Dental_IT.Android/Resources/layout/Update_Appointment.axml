@@ -6,179 +6,198 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/background">
-  <include
-      android:id="@+id/toolbar"
-      layout="@layout/sublayout_Toolbar" />
-  <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-      android:id="@+id/drawer_layout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-    <ScrollView
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/sublayout_Toolbar" />
+    <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:paddingBottom="35dp">
-        <LinearLayout
-            android:id="@+id/update_HospitalLayout"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:orientation="vertical">
-          <TextView
-              android:id="@+id/update_HospitalLabel"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/dark_blue"
-              android:text="@string/hospital" />
-          <EditText
-              android:id="@+id/update_HospitalField"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:editable="false"
-              android:textColorHint="@color/dark_blue"
-              android:textColor="@color/dark_blue"
-              android:fontFamily="sans-serif-light"
-              android:background="@drawable/editText_line" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/update_DateLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:orientation="vertical"
-            android:layout_below="@id/update_HospitalLayout">
-          <TextView
-              android:id="@+id/update_DateLabel"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/dark_blue"
-              android:text="@string/pref_date" />
-          <EditText
-              android:id="@+id/update_DateField"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:maxLines="1"
-              android:hint="@string/select_date"
-              android:focusable="false"
-              android:editable="false"
-              android:textColorHint="@color/dark_blue"
-              android:textColor="@color/dark_blue"
-              android:fontFamily="sans-serif-light"
-              android:background="@drawable/editText_line" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/update_DentistLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:orientation="vertical"
-            android:layout_below="@id/update_DateLayout">
-          <TextView
-              android:id="@+id/update_DentistLabel"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/dark_blue"
-              android:text="@string/pref_dentist" />
-          <Spinner
-              android:id="@+id/update_DentistSpinner"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:spinnerMode="dropdown"
-              android:prompt="@string/select_dentist"
-              android:background="@drawable/editText_line" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/update_SessionLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:orientation="vertical"
-            android:layout_below="@id/update_DentistLayout">
-          <TextView
-              android:id="@+id/update_SessionLabel"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/dark_blue"
-              android:text="@string/pref_session" />
-          <Spinner
-              android:id="@+id/update_SessionSpinner"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:spinnerMode="dropdown"
-              android:prompt="@string/select_session"
-              android:background="@drawable/editText_line" />
-        </LinearLayout>
-        <Button
-            android:id="@+id/update_TreatmentsBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/update_SessionLayout"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/dark_blue"
-            android:text="@string/select_treatments"
-            android:textAllCaps="false"
-            android:background="@color/transparent" />
-        <LinearLayout
-            android:id="@+id/update_RemarksLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:orientation="vertical"
-            android:layout_below="@id/update_TreatmentsBtn">
-          <TextView
-              android:id="@+id/update_RemarksLabel"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/dark_blue"
-              android:text="@string/remarks" />
-          <EditText
-              android:id="@+id/update_RemarksField"
-              android:layout_width="match_parent"
-              android:layout_height="150dp"
-              android:layout_marginTop="10dp"
-              android:padding="5dp"
-              android:gravity="top|left"
-              android:textColor="@color/dark_blue"
-              android:fontFamily="sans-serif-light"
-              android:background="@color/.8_white" />
-        </LinearLayout>
-        <Button
-            android:id="@+id/update_SubmitBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/update_RemarksLayout"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/white"
-            android:text="@string/submit"
-            android:textAllCaps="false"
-            android:background="@color/blue" />
-      </RelativeLayout>
-    </ScrollView>
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:layout_gravity="start"
-        android:background="@color/light_blue" />
-  </android.support.v4.widget.DrawerLayout>
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="35dp">
+                <LinearLayout
+                    android:id="@+id/update_HospitalLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/update_HospitalLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/hospital" />
+                    <EditText
+                        android:id="@+id/update_HospitalField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:editable="false"
+                        android:textColorHint="@color/dark_blue"
+                        android:textColor="@color/dark_blue"
+                        android:fontFamily="sans-serif-light"
+                        android:background="@drawable/editText_line" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/update_DateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical"
+                    android:layout_below="@id/update_HospitalLayout">
+                    <TextView
+                        android:id="@+id/update_DateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/pref_date" />
+                    <EditText
+                        android:id="@+id/update_DateField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="1"
+                        android:hint="@string/select_date"
+                        android:focusable="false"
+                        android:editable="false"
+                        android:textColorHint="@color/dark_blue"
+                        android:textColor="@color/dark_blue"
+                        android:fontFamily="sans-serif-light"
+                        android:background="@drawable/editText_line" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/update_DentistLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical"
+                    android:layout_below="@id/update_DateLayout">
+                    <TextView
+                        android:id="@+id/update_DentistLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/pref_dentist" />
+                    <Spinner
+                        android:id="@+id/update_DentistSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:spinnerMode="dropdown"
+                        android:prompt="@string/select_dentist"
+                        android:background="@drawable/editText_line" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/update_SessionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical"
+                    android:layout_below="@id/update_DentistLayout">
+                    <TextView
+                        android:id="@+id/update_SessionLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/pref_session" />
+                    <Spinner
+                        android:id="@+id/update_SessionSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:spinnerMode="dropdown"
+                        android:prompt="@string/select_session"
+                        android:background="@drawable/editText_line" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/update_TreatmentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/update_SessionLayout">
+                    <Button
+                        android:id="@+id/update_TreatmentsBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/update_SessionLayout"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="50dp"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/select_treatments"
+                        android:textAllCaps="false"
+                        android:background="@color/transparent" />
+                    <ImageView
+                        android:id="@+id/appt_ArrowImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_arrow"
+                        android:layout_gravity="right"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="30dp"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/update_RemarksLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="vertical"
+                    android:layout_below="@id/update_TreatmentLayout">
+                    <TextView
+                        android:id="@+id/update_RemarksLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/remarks" />
+                    <EditText
+                        android:id="@+id/update_RemarksField"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="10dp"
+                        android:padding="5dp"
+                        android:gravity="top|left"
+                        android:textColor="@color/dark_blue"
+                        android:fontFamily="sans-serif-light"
+                        android:background="@color/.8_white" />
+                </LinearLayout>
+                <Button
+                    android:id="@+id/update_SubmitBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/update_RemarksLayout"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:textColor="@color/white"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:background="@color/blue" />
+            </RelativeLayout>
+        </ScrollView>
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="start"
+            android:background="@color/light_blue" />
+    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

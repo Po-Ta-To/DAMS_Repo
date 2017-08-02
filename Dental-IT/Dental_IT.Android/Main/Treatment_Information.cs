@@ -62,27 +62,27 @@ namespace Dental_IT.Droid.Main
             //    tempTreatmentList.Add(treatment);
             //}
 
-            // Get all the treatments
-            Task.Run(async () =>
-            {
-                try
-                {
-                    string url = Web_Config.global_connURL_getTreatment;
+            //// Get all the treatments
+            //Task.Run(async () =>
+            //{
+            //    try
+            //    {
+            //        string url = Web_Config.global_connURL_getTreatment;
                     
-                    // Get json value by passing the URL
-                    JsonValue json = await GetTreatments(url);
+            //        // Get json value by passing the URL
+            //        JsonValue json = await GetTreatments(url);
 
-                    foreach (JsonObject obj in json)
-                    {
-                        Treatment tr = new Treatment(obj["ID"], obj["TreatmentName"], 100, 500);
-                        //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
-                    }
-                }
-                catch (Exception e)
-                {
-                    //System.Diagnostics.Debug.Write(e.Message());
-                }
-            });
+            //        foreach (JsonObject obj in json)
+            //        {
+            //            Treatment tr = new Treatment(obj["ID"], obj["TreatmentName"], 100, 500);
+            //            //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        System.Diagnostics.Debug.Write(e.Message());
+            //    }
+            //});
 
             //  Set searchview listener
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
@@ -181,22 +181,22 @@ namespace Dental_IT.Droid.Main
             return base.OnOptionsItemSelected(item);
         }
 
-        public bool OnQueryTextChange(string query)
-        {
-            //List<Treatment> filteredList = filter(tempTreatmentList, query);
-            //adapter.Replace(filteredList);
+        //public bool OnQueryTextChange(string query)
+        //{
+        //    List<Treatment> filteredList = filter(tempTreatmentList, query);
+        //    adapter.Replace(filteredList);
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        public bool OnQueryTextSubmit(string query)
-        {
-            //List<Treatment> filteredList = filter(tempTreatmentList, query);
-            //adapter.Replace(filteredList);
-            //searchView.ClearFocus();
+        //public bool OnQueryTextSubmit(string query)
+        //{
+        //    List<Treatment> filteredList = filter(tempTreatmentList, query);
+        //    adapter.Replace(filteredList);
+        //    searchView.ClearFocus();
 
-            return true;
-        }
+        //    return true;
+        //}
 
         //  Search filter logic
         private List<Treatment> filter(List<Treatment> temp, string query)
@@ -238,6 +238,16 @@ namespace Dental_IT.Droid.Main
                 return new JsonArray();
             }
         } // End of GetTreatments() method
+
+        public bool OnQueryTextChange(string newText)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool OnQueryTextSubmit(string query)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

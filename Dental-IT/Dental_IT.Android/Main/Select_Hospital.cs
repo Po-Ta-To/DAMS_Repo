@@ -9,6 +9,10 @@ using Dental_IT.Droid.Adapters;
 using Android.Preferences;
 using Android.Support.V7.App;
 using System;
+using System.Threading.Tasks;
+using System.Json;
+using System.Net;
+using System.IO;
 
 namespace Dental_IT.Droid.Main
 {

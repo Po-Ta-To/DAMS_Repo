@@ -8,6 +8,9 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Preferences;
 using Dental_IT.Droid.Adapters;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Dental_IT.Droid.Main
 {
