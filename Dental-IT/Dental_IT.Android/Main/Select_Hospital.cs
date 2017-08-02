@@ -9,6 +9,10 @@ using Dental_IT.Droid.Adapters;
 using Android.Preferences;
 using Android.Support.V7.App;
 using System;
+using System.Threading.Tasks;
+using System.Json;
+using System.Net;
+using System.IO;
 
 namespace Dental_IT.Droid.Main
 {
@@ -62,27 +66,27 @@ namespace Dental_IT.Droid.Main
             //hospitalList.Add(m); 
 
             // Get all hospitals
-            Task.Run(async () =>
-            {
-                try
-                {
-                    string url = Web_Config.global_connURL_getAllHospitals;
+            //Task.Run(async () =>
+            //{
+            //    try
+            //    {
+            //        string url = Web_Config.global_connURL_getAllHospitals;
 
-                    // Get json value by passing the URL
-                    JsonValue json = await GetHospitals(url);
+            //        // Get json value by passing the URL
+            //        JsonValue json = await GetHospitals(url);
 
-                    foreach (JsonObject obj in json)
-                    {
-                        Hospital h = new Hospital(obj["ID"], obj["ClinicHospitalName"]);
-                        hospitalList.Add(h);
-                        //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
-                    }
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.Write(e.Message());
-                }
-            });
+            //        foreach (JsonObject obj in json)
+            //        {
+            //            Hospital h = new Hospital(obj["ID"], obj["ClinicHospitalName"]);
+            //            hospitalList.Add(h);
+            //            //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        System.Diagnostics.Debug.Write(e.Message());
+            //    }
+            //});
 
             //  Set searchview listener
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);

@@ -8,6 +8,9 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Preferences;
 using Dental_IT.Droid.Adapters;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Dental_IT.Droid.Main
 {
@@ -164,20 +167,20 @@ namespace Dental_IT.Droid.Main
             {
                 Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
 
-                Task.Run(async () =>
-                {
-                    try
-                    {
-                        string url = Web_Config.global_connURL_createAppointment;
+                //Task.Run(async () =>
+                //{
+                //    try
+                //    {
+                //        string url = Web_Config.global_connURL_createAppointment;
 
-                        // Post new Appt by passing the URL
-                        await RequestAppointment(url);
-                    }
-                    catch (Exception e)
-                    {
-                        System.Diagnostics.Debug.Write(e.Message());
-                    }
-                });
+                //        // Post new Appt by passing the URL
+                //        await RequestAppointment(url);
+                //    }
+                //    catch (Exception e)
+                //    {
+                //        System.Diagnostics.Debug.Write(e.Message());
+                //    }
+                //});
 
                 Intent intent = new Intent(this, typeof(My_Appointments));
                 StartActivity(intent);
@@ -265,19 +268,19 @@ namespace Dental_IT.Droid.Main
             "Session 4"
         };
 
-        // Method that Post an appointment using passed url & item value
-        public async Task RequestAppointment(string url, Appointment appt)
-        {
-            var json = JsonConvert.SerializeObject(appt);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+        //// Method that Post an appointment using passed url & item value
+        //public async Task RequestAppointment(string url, Appointment appt)
+        //{
+        //    var json = JsonConvert.SerializeObject(appt);
+        //    var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = null;
-            response = await client.PostAsync(new Uri(url), content);
+        //    HttpResponseMessage response = null;
+        //    response = await client.PostAsync(new Uri(url), content);
 
-            if (response.IsSuccessStatusCode)
-            {
-                Debug.WriteLine("Appointment successfully saved.");
-            }
-        }
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        Debug.WriteLine("Appointment successfully saved.");
+        //    }
+        //}
     }
 }
