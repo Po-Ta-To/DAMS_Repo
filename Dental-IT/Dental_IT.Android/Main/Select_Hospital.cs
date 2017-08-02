@@ -59,7 +59,7 @@ namespace Dental_IT.Droid.Main
             //hospitalList.Add(j);
             //hospitalList.Add(k);
             //hospitalList.Add(l);
-            //hospitalList.Add(m);
+            //hospitalList.Add(m); 
 
             // Get all hospitals
             Task.Run(async () =>
@@ -74,6 +74,7 @@ namespace Dental_IT.Droid.Main
                     foreach (JsonObject obj in json)
                     {
                         Hospital h = new Hospital(obj["ID"], obj["ClinicHospitalName"]);
+                        hospitalList.Add(h);
                         //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
                     }
                 }
@@ -172,7 +173,6 @@ namespace Dental_IT.Droid.Main
         {
             return true;
         }
-
 
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
