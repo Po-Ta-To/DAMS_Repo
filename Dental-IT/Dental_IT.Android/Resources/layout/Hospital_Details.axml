@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_hc"
+                    android:src="@drawable/ic_hospital"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <TextView
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_date"
+                    android:src="@drawable/ic_calendar"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <TextView
@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_contact"
+                    android:src="@drawable/ic_mobile"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <TextView
@@ -195,8 +195,8 @@
                     android:layout_gravity="right"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="40dp"
-                    android:scaleX="0.75"
-                    android:scaleY="0.75" />
+                    android:scaleX="1.5"
+                    android:scaleY="1.5" />
             </LinearLayout>
             <Button
                 android:id="@+id/hospDetails_RequestBtn"
