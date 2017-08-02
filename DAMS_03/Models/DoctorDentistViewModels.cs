@@ -9,11 +9,12 @@ namespace DAMS_03.Models
 {
     public class DoctorDentistCreateModel
     {
-
         //public int ID { get; set; }
-        public string DoctorDentistID { get; set; }
-        public string Name { get; set; }
 
+        [Display(Name = "Dentist ID")]
+        public string DoctorDentistID { get; set; }
+
+        public string Name { get; set; }
 
         [Display(Name = "Hospital/Clinic")]
         public List<System.Web.Mvc.SelectListItem> itemSelection { get; set; }
@@ -23,16 +24,16 @@ namespace DAMS_03.Models
 
         [Required]
         public int MaxBookings { get; set; }
-
     }
 
     public class DoctorDentistDetailModel
-    {
-
+    {    
         public int ID { get; set; }
-        public string DoctorDentistID { get; set; }
-        public string Name { get; set; }
 
+        [Display(Name = "Dentist ID")]
+        public string DoctorDentistID { get; set; }
+
+        public string Name { get; set; }
 
         [Display(Name = "Hospital/Clinic")]
         public string HospClin { get; set; }
@@ -43,9 +44,11 @@ namespace DAMS_03.Models
 
     public class DoctorDentistEditModel
     {
-
         public int ID { get; set; }
+
+        [Display(Name = "Dentist ID")]
         public string DoctorDentistID { get; set; }
+
         public string Name { get; set; }
         
         //[Required]
@@ -54,7 +57,6 @@ namespace DAMS_03.Models
 
         [Required]
         public int MaxBookings { get; set; }
-
     }
 
 }

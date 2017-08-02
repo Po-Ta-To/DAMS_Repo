@@ -12,7 +12,17 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Register : Android.Support.V7.App.AppCompatActivity
     {
-        private string TAG = "DatePickerFragment";
+        private EditText register_EmailField;
+        private EditText register_PasswordField;
+        private EditText register_RepeatPasswordField;
+        private EditText register_DOBField;
+        private Spinner register_GenderSpinner;
+        private EditText register_GenderFieldInvis;
+        private EditText register_NRICField;
+        private EditText register_MobileField;
+        private CheckBox register_PdpaChkbox;
+        private TextView register_PdpaText;
+        private Button register_RegisterBtn;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -22,16 +32,18 @@ namespace Dental_IT.Droid.Main
             SetContentView(Resource.Layout.Register);
 
             //  Create widgets
-            EditText register_EmailField = FindViewById<EditText>(Resource.Id.register_EmailField);
-            EditText register_PasswordField = FindViewById<EditText>(Resource.Id.register_PasswordField);
-            EditText register_RepeatPasswordField = FindViewById<EditText>(Resource.Id.register_RepeatPasswordField);
-            EditText register_DOBField = FindViewById<EditText>(Resource.Id.register_DOBField);
-            Spinner register_GenderSpinner = FindViewById<Spinner>(Resource.Id.register_GenderSpinner);
-            EditText register_NRICField = FindViewById<EditText>(Resource.Id.register_NRICField);
-            EditText register_MobileField = FindViewById<EditText>(Resource.Id.register_MobileField);
-            CheckBox register_PdpaChkbox = FindViewById<CheckBox>(Resource.Id.register_PdpaChkbox);
-            TextView register_PdpaText = FindViewById<TextView>(Resource.Id.register_PdpaText);
-            Button register_RegisterBtn = FindViewById<Button>(Resource.Id.register_RegisterBtn);
+            register_EmailField = FindViewById<EditText>(Resource.Id.register_EmailField);
+            register_PasswordField = FindViewById<EditText>(Resource.Id.register_PasswordField);
+            register_RepeatPasswordField = FindViewById<EditText>(Resource.Id.register_RepeatPasswordField);
+            register_DOBField = FindViewById<EditText>(Resource.Id.register_DOBField);
+            register_GenderSpinner = FindViewById<Spinner>(Resource.Id.register_GenderSpinner);
+            register_NRICField = FindViewById<EditText>(Resource.Id.register_NRICField);
+            register_MobileField = FindViewById<EditText>(Resource.Id.register_MobileField);
+            register_PdpaChkbox = FindViewById<CheckBox>(Resource.Id.register_PdpaChkbox);
+            register_PdpaText = FindViewById<TextView>(Resource.Id.register_PdpaText);
+            register_RegisterBtn = FindViewById<Button>(Resource.Id.register_RegisterBtn);
+
+            EditText[] fields = { register_EmailField, register_PasswordField, register_RepeatPasswordField, register_NRICField, register_MobileField };
 
             RunOnUiThread(() =>
             {
@@ -86,11 +98,17 @@ namespace Dental_IT.Droid.Main
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
 
-            //  Intent to redirect to main menu page
+            //  Handle form submit
             register_RegisterBtn.Click += delegate
             {
-                Intent intent = new Intent(this, typeof(Main_Menu));
-                StartActivity(intent);
+                //  Validate fields
+                bool validated = Validate(fields);
+
+                if (validated == true)
+                {
+                    Intent intent = new Intent(this, typeof(Main_Menu));
+                    StartActivity(intent);
+                }
             };
         }
 
@@ -100,14 +118,12 @@ namespace Dental_IT.Droid.Main
             return true;
         }
         
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        //Redirect to sign in page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Sign_In));
             StartActivity(intent);
 
-            Toast.MakeText(this, "Sign In" ,
-                ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }
 
@@ -119,7 +135,7 @@ namespace Dental_IT.Droid.Main
                 register_DOBField.Text = time.ToString("dd/MM/yyyy");
             });
 
-            fragment.Show(FragmentManager, TAG);
+            fragment.Show(FragmentManager, "DatePickerFragment");
         }
 
         //  List of genders to populate spinner adapter
@@ -129,6 +145,84 @@ namespace Dental_IT.Droid.Main
             "Male",
             "Female"
         };
+
+        private bool Validate(EditText[] fields)
+        {
+            //  Check for empty fields
+            foreach (EditText field in fields)
+            {
+                if (field.Text.Trim().Length == 0)
+                {
+                    field.RequestFocus();
+                    field.SetError(GetString(Resource.String.required_field), null);
+
+                    return false;
+                }
+                else
+                {
+                    if (field == register_EmailField)
+                    {
+                        //  Check if email is in correct format
+                        if (Android.Util.Patterns.EmailAddress.Matcher(register_EmailField.Text).Matches() == false)
+                        {
+                            register_EmailField.RequestFocus();
+                            register_EmailField.SetError(GetString(Resource.String.invalid_email), null);
+
+                            return false;
+                        }
+                    }                    
+                }
+            }
+
+            //  Check if repeat password is the same as password
+            if (register_PasswordField.Text.Equals(register_RepeatPasswordField.Text) == false){
+                register_RepeatPasswordField.RequestFocus();
+                register_RepeatPasswordField.SetError(GetString(Resource.String.invalid_repeat), null);
+
+                return false;
+            }
+
+            //  Check if DOB is not selected
+            if (register_DOBField.Text.Equals(GetString(Resource.String.DOB))){
+                register_DOBField.RequestFocus();
+                register_DOBField.SetError(GetString(Resource.String.no_date), null);
+
+                return false;
+            }
+
+            //  Check if gender is not selected
+            if (register_GenderSpinner.SelectedItem.ToString().Equals("Gender"))
+            {
+                //register_GenderSpinner.RequestFocus();
+                //register_GenderFieldInvis.RequestFocus(); 
+                //register_GenderFieldInvis.SetError("Please select a gender!", null);
+
+                TextView errorText = (TextView)register_GenderSpinner.SelectedView;
+                errorText.Focusable = true;
+                errorText.FocusableInTouchMode = true;
+                errorText.RequestFocus();
+                errorText.SetError(GetString(Resource.String.no_gender), null);
+                //errorText.Text = GetString(Resource.String.no_gender);
+
+                return false;
+            }
+
+            //  Check if pdpa is not checked
+            if (register_PdpaChkbox.Checked == false)
+            {
+                AlertDialog.Builder pdpaCheck = new AlertDialog.Builder(this);
+                pdpaCheck.SetMessage(Resource.String.pdpa_unchecked);
+                pdpaCheck.SetNeutralButton(Resource.String.OK, delegate
+                {
+                    pdpaCheck.Dispose();
+                });
+                pdpaCheck.Show();
+
+                return false;
+            }
+
+            return true;
+        }
     }
 
     //  Class for implementing clickable span
