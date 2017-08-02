@@ -4,6 +4,8 @@ using Android.OS;
 using Android.Support.V7.Widget;
 using Dental_IT.Droid.Adapters;
 using Android.Support.V7.App;
+using Android.Content;
+using Android.Views;
 
 namespace Dental_IT.Droid.Main
 {
@@ -70,5 +72,15 @@ namespace Dental_IT.Droid.Main
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
         }
+
+        //Redirect to main menu when back arrow is tapped
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Intent intent = new Intent(this, typeof(Search));
+            StartActivity(intent);
+
+            return base.OnOptionsItemSelected(item);
+        }
+    
     }
 }
