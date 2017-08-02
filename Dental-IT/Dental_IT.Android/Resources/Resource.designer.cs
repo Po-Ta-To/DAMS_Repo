@@ -2361,64 +2361,64 @@ namespace Dental_IT.Droid
 			public const int editText_line = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int ic_account = 2130837599;
+			public const int ic_arrow = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int ic_account_card_details = 2130837600;
+			public const int ic_calendar = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int ic_arrow = 2130837601;
+			public const int ic_calendar_white = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int ic_calendar_range = 2130837602;
+			public const int ic_clock = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int ic_calendar_white = 2130837603;
+			public const int ic_contact = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int ic_clock = 2130837604;
+			public const int ic_date = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int ic_contact = 2130837605;
+			public const int ic_dentist = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int ic_date = 2130837606;
+			public const int ic_email = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int ic_dentist = 2130837607;
+			public const int ic_gender = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int ic_email = 2130837608;
+			public const int ic_hc = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int ic_gender_male_female = 2130837609;
+			public const int ic_id = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int ic_hc = 2130837610;
+			public const int ic_keyboard_backspace = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int ic_keyboard_backspace = 2130837611;
+			public const int ic_launcher = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int ic_launcher = 2130837612;
+			public const int ic_lock_blue = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int ic_lock = 2130837613;
+			public const int ic_magnify = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int ic_magnify = 2130837614;
+			public const int ic_medisys_logo = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int ic_medisys_logo = 2130837615;
+			public const int ic_menu = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int ic_menu = 2130837616;
+			public const int ic_mobile = 2130837616;
 			
 			// aapt resource value: 0x7f020071
 			public const int ic_my_appt = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int ic_phone = 2130837618;
+			public const int ic_person = 2130837618;
 			
 			// aapt resource value: 0x7f020073
 			public const int ic_request_appt = 2130837619;
