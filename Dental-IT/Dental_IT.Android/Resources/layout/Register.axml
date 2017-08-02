@@ -210,6 +210,7 @@
                     android:gravity="center"
                     android:hint="@string/mobile"
                     android:inputType="phone"
+                    android:maxLength="8"
                     android:textColorHint="@color/dark_blue"
                     android:textColor="@color/dark_blue"
                     android:fontFamily="sans-serif-light"

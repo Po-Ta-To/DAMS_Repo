@@ -3883,8 +3883,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060037
 			public const int NRIC = 2131099703;
 			
-			// aapt resource value: 0x7f060082
-			public const int OK = 2131099778;
+			// aapt resource value: 0x7f060084
+			public const int OK = 2131099780;
 			
 			// aapt resource value: 0x7f060003
 			public const int abc_action_bar_home_description = 2131099651;
@@ -4081,8 +4081,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06007d
 			public const int invalid_email = 2131099773;
 			
+			// aapt resource value: 0x7f060080
+			public const int invalid_mobile = 2131099776;
+			
 			// aapt resource value: 0x7f06007e
-			public const int invalid_repeat = 2131099774;
+			public const int invalid_password = 2131099774;
+			
+			// aapt resource value: 0x7f06007f
+			public const int invalid_repeat = 2131099775;
 			
 			// aapt resource value: 0x7f060072
 			public const int legend = 2131099762;
@@ -4099,11 +4105,11 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06002d
 			public const int next = 2131099693;
 			
-			// aapt resource value: 0x7f06007f
-			public const int no_date = 2131099775;
+			// aapt resource value: 0x7f060081
+			public const int no_date = 2131099777;
 			
-			// aapt resource value: 0x7f060080
-			public const int no_gender = 2131099776;
+			// aapt resource value: 0x7f060082
+			public const int no_gender = 2131099778;
 			
 			// aapt resource value: 0x7f06005e
 			public const int offeredBy_title = 2131099742;
@@ -4141,8 +4147,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06003a
 			public const int pdpa_title = 2131099706;
 			
-			// aapt resource value: 0x7f060081
-			public const int pdpa_unchecked = 2131099777;
+			// aapt resource value: 0x7f060083
+			public const int pdpa_unchecked = 2131099779;
 			
 			// aapt resource value: 0x7f060073
 			public const int pending = 2131099763;

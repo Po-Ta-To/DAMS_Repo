@@ -62,27 +62,27 @@ namespace Dental_IT.Droid.Main
             //hospitalList.Add(m); 
 
             // Get all hospitals
-            Task.Run(async () =>
-            {
-                try
-                {
-                    string url = Web_Config.global_connURL_getAllHospitals;
+            //Task.Run(async () =>
+            //{
+            //    try
+            //    {
+            //        string url = Web_Config.global_connURL_getAllHospitals;
 
-                    // Get json value by passing the URL
-                    JsonValue json = await GetHospitals(url);
+            //        // Get json value by passing the URL
+            //        JsonValue json = await GetHospitals(url);
 
-                    foreach (JsonObject obj in json)
-                    {
-                        Hospital h = new Hospital(obj["ID"], obj["ClinicHospitalName"]);
-                        hospitalList.Add(h);
-                        //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
-                    }
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.Write(e.Message());
-                }
-            });
+            //        foreach (JsonObject obj in json)
+            //        {
+            //            Hospital h = new Hospital(obj["ID"], obj["ClinicHospitalName"]);
+            //            hospitalList.Add(h);
+            //            //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        System.Diagnostics.Debug.Write(e.Message());
+            //    }
+            //});
 
             //  Set searchview listener
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
@@ -229,25 +229,25 @@ namespace Dental_IT.Droid.Main
         }
 
         // Gets All Clinic Hospitals data from the passed URL.
-        private async Task<JsonValue> GetHospitals(string url)
-        {
-            try
-            {
-                WebRequest request = WebRequest.Create(new Uri(url));
-                request.ContentType = "application/json";
-                request.Method = "GET";
-                WebResponse response = request.GetResponse() as WebResponse;
+        //private async Task<JsonValue> GetHospitals(string url)
+        //{
+        //    try
+        //    {
+        //        WebRequest request = WebRequest.Create(new Uri(url));
+        //        request.ContentType = "application/json";
+        //        request.Method = "GET";
+        //        WebResponse response = request.GetResponse() as WebResponse;
 
-                Stream stream = response.GetResponseStream();
+        //        Stream stream = response.GetResponseStream();
 
-                // Store in json and return the json value
-                JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                return jsonDoc;
-            }
-            catch (WebException e)
-            {
-                return new JsonArray();
-            }
-        } // End of GetHospitals() method
+        //        // Store in json and return the json value
+        //        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+        //        return jsonDoc;
+        //    }
+        //    catch (WebException e)
+        //    {
+        //        return new JsonArray();
+        //    }
+        //} // End of GetHospitals() method
     }
 }

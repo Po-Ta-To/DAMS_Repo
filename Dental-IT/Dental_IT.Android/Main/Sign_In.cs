@@ -89,7 +89,7 @@ namespace Dental_IT.Droid.Main
             if (signIn_EmailField.Text.Trim().Length == 0)
             {
                 signIn_EmailField.RequestFocus();
-                signIn_EmailField.SetError(GetString(Resource.String.require_email), null);
+                signIn_EmailField.Error = GetString(Resource.String.require_email);
 
                 return false;
             }
@@ -97,7 +97,7 @@ namespace Dental_IT.Droid.Main
             if (signIn_PasswordField.Text.Trim().Length == 0)
             {
                 signIn_PasswordField.RequestFocus();
-                signIn_PasswordField.SetError(GetString(Resource.String.require_password), null);
+                signIn_PasswordField.Error = GetString(Resource.String.require_password);
 
                 return false;
             }

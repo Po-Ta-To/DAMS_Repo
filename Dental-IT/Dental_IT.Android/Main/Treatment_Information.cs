@@ -80,7 +80,7 @@ namespace Dental_IT.Droid.Main
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.Write(e.Message());
+                    //System.Diagnostics.Debug.Write(e.Message());
                 }
             });
 
@@ -183,17 +183,17 @@ namespace Dental_IT.Droid.Main
 
         public bool OnQueryTextChange(string query)
         {
-            List<Treatment> filteredList = filter(tempTreatmentList, query);
-            adapter.Replace(filteredList);
+            //List<Treatment> filteredList = filter(tempTreatmentList, query);
+            //adapter.Replace(filteredList);
 
             return true;
         }
 
         public bool OnQueryTextSubmit(string query)
         {
-            List<Treatment> filteredList = filter(tempTreatmentList, query);
-            adapter.Replace(filteredList);
-            searchView.ClearFocus();
+            //List<Treatment> filteredList = filter(tempTreatmentList, query);
+            //adapter.Replace(filteredList);
+            //searchView.ClearFocus();
 
             return true;
         }
