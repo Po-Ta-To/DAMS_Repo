@@ -55,17 +55,23 @@ namespace Dental_IT.Droid.Adapters
 
         public override View GetDropDownView(int position, View convertView, ViewGroup parent)
         {
+            View spinnerView;
+
             if (convertView == null)
             {
                 LayoutInflater inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
 
                 //  Default dropdown item view
-                convertView = inflater.Inflate(Android.Resource.Layout.SimpleSpinnerDropDownItem, parent, false);
-
-                ((TextView)convertView).Text = items[position];
+                spinnerView = inflater.Inflate(Android.Resource.Layout.SimpleSpinnerDropDownItem, parent, false);
+            }
+            else
+            {
+                spinnerView = convertView;
             }
 
-            return convertView;
+            ((TextView)spinnerView).Text = items[position];
+
+            return spinnerView;
         }
     }
 }

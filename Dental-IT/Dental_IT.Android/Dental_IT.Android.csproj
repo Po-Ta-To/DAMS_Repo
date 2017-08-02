@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -681,9 +681,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_treatment.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Fragments\Main\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-ldpi\ic_contact.png" />
   </ItemGroup>
