@@ -59,6 +59,11 @@ namespace Dental_IT.Droid.Main
                 register_DOBField.Click += delegate
                 {
                     SelectDate(register_DOBField);
+
+                    if (register_DOBField.Error != null)
+                    {
+                        register_DOBField.Error = null;
+                    }
                 };
 
                 //  Configure spinner adapter for gender dropdown
@@ -154,7 +159,7 @@ namespace Dental_IT.Droid.Main
                 if (field.Text.Trim().Length == 0)
                 {
                     field.RequestFocus();
-                    field.SetError(GetString(Resource.String.required_field), null);
+                    field.Error = GetString(Resource.String.required_field);
 
                     return false;
                 }
@@ -165,27 +170,59 @@ namespace Dental_IT.Droid.Main
                         //  Check if email is in correct format
                         if (Android.Util.Patterns.EmailAddress.Matcher(register_EmailField.Text).Matches() == false)
                         {
-                            register_EmailField.RequestFocus();
-                            register_EmailField.SetError(GetString(Resource.String.invalid_email), null);
+                            field.RequestFocus();
+                            field.Error = GetString(Resource.String.invalid_email);
 
                             return false;
                         }
-                    }                    
+                    }
+
+                    if (field == register_PasswordField)
+                    {
+                        //  Check if password meets requirements
+                        if (field.Text.Length < 6)
+                        {
+                            field.RequestFocus();
+                            field.Error = GetString(Resource.String.invalid_password);
+
+                            return false;
+                        }
+
+                    }
+                    
+                    if (field == register_RepeatPasswordField)
+                    {
+                        //  Check if repeat password is the same as password
+                        if (field.Text.Equals(register_PasswordField.Text) == false)
+                        {
+                            field.RequestFocus();
+                            field.Error = GetString(Resource.String.invalid_repeat);
+
+                            return false;
+                        }
+                    }
+
+                    if (field == register_MobileField)
+                    {
+                        //  Check if mobile number is invalid
+                        if (field.Text.Length != 8)
+                        {
+                            register_MobileField.RequestFocus();
+                            register_MobileField.Error = GetString(Resource.String.invalid_mobile);
+
+                            return false;
+                        }
+                    }
                 }
-            }
-
-            //  Check if repeat password is the same as password
-            if (register_PasswordField.Text.Equals(register_RepeatPasswordField.Text) == false){
-                register_RepeatPasswordField.RequestFocus();
-                register_RepeatPasswordField.SetError(GetString(Resource.String.invalid_repeat), null);
-
-                return false;
-            }
+            }            
 
             //  Check if DOB is not selected
-            if (register_DOBField.Text.Equals(GetString(Resource.String.DOB))){
-                register_DOBField.RequestFocus();
-                register_DOBField.SetError(GetString(Resource.String.no_date), null);
+            if (register_DOBField.Text.Length == 0)
+            {
+                TextView errorText = (TextView)register_DOBField;
+                errorText.Hint = GetString(Resource.String.no_date);
+                errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.Error = "";
 
                 return false;
             }
@@ -193,16 +230,10 @@ namespace Dental_IT.Droid.Main
             //  Check if gender is not selected
             if (register_GenderSpinner.SelectedItem.ToString().Equals("Gender"))
             {
-                //register_GenderSpinner.RequestFocus();
-                //register_GenderFieldInvis.RequestFocus(); 
-                //register_GenderFieldInvis.SetError("Please select a gender!", null);
-
                 TextView errorText = (TextView)register_GenderSpinner.SelectedView;
-                errorText.Focusable = true;
-                errorText.FocusableInTouchMode = true;
-                errorText.RequestFocus();
-                errorText.SetError(GetString(Resource.String.no_gender), null);
-                //errorText.Text = GetString(Resource.String.no_gender);
+                errorText.Text = GetString(Resource.String.no_gender);
+                errorText.SetTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.Error = "";
 
                 return false;
             }

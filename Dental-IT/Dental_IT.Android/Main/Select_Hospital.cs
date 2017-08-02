@@ -233,25 +233,25 @@ namespace Dental_IT.Droid.Main
         }
 
         // Gets All Clinic Hospitals data from the passed URL.
-        private async Task<JsonValue> GetHospitals(string url)
-        {
-            try
-            {
-                WebRequest request = WebRequest.Create(new Uri(url));
-                request.ContentType = "application/json";
-                request.Method = "GET";
-                WebResponse response = request.GetResponse() as WebResponse;
+        //private async Task<JsonValue> GetHospitals(string url)
+        //{
+        //    try
+        //    {
+        //        WebRequest request = WebRequest.Create(new Uri(url));
+        //        request.ContentType = "application/json";
+        //        request.Method = "GET";
+        //        WebResponse response = request.GetResponse() as WebResponse;
 
-                Stream stream = response.GetResponseStream();
+        //        Stream stream = response.GetResponseStream();
 
-                // Store in json and return the json value
-                JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                return jsonDoc;
-            }
-            catch (WebException e)
-            {
-                return new JsonArray();
-            }
-        } // End of GetHospitals() method
+        //        // Store in json and return the json value
+        //        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+        //        return jsonDoc;
+        //    }
+        //    catch (WebException e)
+        //    {
+        //        return new JsonArray();
+        //    }
+        //} // End of GetHospitals() method
     }
 }
