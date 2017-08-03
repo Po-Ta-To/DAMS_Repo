@@ -31,7 +31,7 @@ namespace Dental_IT.Droid.Main
         // A list to store the list of treatments 
         private List<Treatment> treatmentList = new List<Treatment>();
 
-        //private List<Treatment> tempTreatmentList = new List<Treatment>();
+        private List<Treatment> tempTreatmentList = new List<Treatment>();
 
         private Android.Support.V7.Widget.SearchView searchView;
         RecyclerViewAdapter_TreatmentInformation adapter;
@@ -49,40 +49,41 @@ namespace Dental_IT.Droid.Main
             //  Create widgets
             RecyclerView treatmentInformation_RecyclerView = FindViewById<RecyclerView>(Resource.Id.treatmentInformation_RecyclerView);
 
-            //tempTreatmentList.Add(a);
-            //tempTreatmentList.Add(b);
-            //tempTreatmentList.Add(c);
-            //tempTreatmentList.Add(d);
-            //tempTreatmentList.Add(e);
-            //tempTreatmentList.Add(f);
-            //tempTreatmentList.Add(g);
+            treatmentList.Add(a);
+            treatmentList.Add(b);
+            treatmentList.Add(c);
+            treatmentList.Add(d);
+            treatmentList.Add(e);
+            treatmentList.Add(f);
+            treatmentList.Add(g);
 
-            //foreach (Treatment treatment in tempTreatmentList)
-            //{
-            //    tempTreatmentList.Add(treatment);
-            //}
+            foreach (Treatment treatment in treatmentList)
+            {
+                tempTreatmentList.Add(treatment);
+            }
 
-            //// Get all the treatments
-            //Task.Run(async () =>
-            //{
-            //    try
-            //    {
-            //        string url = Web_Config.global_connURL_getTreatment;
-                    
-            //        // Get json value by passing the URL
-            //        JsonValue json = await GetTreatments(url);
+            // Get all the treatments
+            Task.Run(async () =>
+            {
+                try
+                {
+                    string url = Web_Config.global_connURL_getTreatment;
 
-            //        foreach (JsonObject obj in json)
-            //        {
-            //            Treatment tr = new Treatment(obj["ID"], obj["TreatmentName"], 100, 500);
-            //            //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        System.Diagnostics.Debug.Write(e.Message());
-            //    }
-            //});
+                    // Get json value by passing the URL
+                    JsonValue json = await GetTreatments(url);
+
+                    foreach (JsonObject obj in json)
+                    {
+                        Treatment tr = new Treatment(obj["ID"], obj["TreatmentName"], 100, 500);
+                        System.Diagnostics.Debug.Write(obj["ID"]);
+                        System.Diagnostics.Debug.Write(obj["TreatmentName"]);
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.Write(e.Message);
+                }
+            });
 
             //  Set searchview listener
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
@@ -181,22 +182,22 @@ namespace Dental_IT.Droid.Main
             return base.OnOptionsItemSelected(item);
         }
 
-        //public bool OnQueryTextChange(string query)
-        //{
-        //    List<Treatment> filteredList = filter(tempTreatmentList, query);
-        //    adapter.Replace(filteredList);
+        public bool OnQueryTextChange(string query)
+        {
+            List<Treatment> filteredList = filter(tempTreatmentList, query);
+            adapter.Replace(filteredList);
 
-        //    return true;
-        //}
+            return true;
+        }
 
-        //public bool OnQueryTextSubmit(string query)
-        //{
-        //    List<Treatment> filteredList = filter(tempTreatmentList, query);
-        //    adapter.Replace(filteredList);
-        //    searchView.ClearFocus();
+        public bool OnQueryTextSubmit(string query)
+        {
+            List<Treatment> filteredList = filter(tempTreatmentList, query);
+            adapter.Replace(filteredList);
+            searchView.ClearFocus();
 
-        //    return true;
-        //}
+            return true;
+        }
 
         //  Search filter logic
         private List<Treatment> filter(List<Treatment> temp, string query)
@@ -222,33 +223,30 @@ namespace Dental_IT.Droid.Main
         {
             try
             {
-                WebRequest request = WebRequest.Create(new Uri(url));
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
                 request.ContentType = "application/json";
                 request.Method = "GET";
-                WebResponse response = request.GetResponse() as WebResponse;
 
-                Stream stream = response.GetResponseStream();
+                // Send the request to the server and wait for the response:
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    // Get a stream representation of the HTTP web response:
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        // Use this stream to build a JSON document object:
+                        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
 
-                // Store in json and return the json value
-                JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                return jsonDoc;
+                        // Return the JSON document:
+                        return jsonDoc;
+                    }
+                }
             }
             catch (WebException e)
             {
                 return new JsonArray();
             }
         } // End of GetTreatments() method
-
-        public bool OnQueryTextChange(string newText)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool OnQueryTextSubmit(string query)
-        {
-            throw new NotImplementedException();
-        }
     }
-
 }
 
