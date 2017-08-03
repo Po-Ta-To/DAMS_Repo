@@ -1,4 +1,7 @@
 ﻿using Android.Content;
+using Android.Content.Res;
+using Android.Graphics.Drawables;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Main;
@@ -44,9 +47,21 @@ namespace Dental_IT.Droid.Adapters
                 convertView = inflater.Inflate(Resource.Layout.sublayout_Menu_Button, null);
 
                 button = convertView.FindViewById<ImageButton>(Resource.Id.mainMenu_ImgBtn);
+          
+                button.SetMinimumHeight(Main_Menu.GRID_HEIGHT / numRows);
+
+                TypedValue tv = new TypedValue();
+                context.Theme.ResolveAttribute(Resource.Attribute.selectableItemBackground, tv, true);
+                button.SetBackgroundResource(tv.ResourceId);
+
+                //  This code is another method that works similarly to the above
+                //int[] attrs = new int[] { Android.Resource.Attribute.SelectableItemBackground };
+                //TypedArray ta = context.ObtainStyledAttributes(attrs);
+                //Drawable drawableFromTheme = ta.GetDrawable(0);
+                //ta.Recycle();
+                //button.SetBackgroundDrawable(drawableFromTheme);
 
                 button.SetImageResource(buttonImages[position]);
-                button.SetMinimumHeight(Main_Menu.GRID_HEIGHT / numRows);
 
                 switch (position)
                 {
