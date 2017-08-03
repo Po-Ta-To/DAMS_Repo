@@ -2,16 +2,16 @@
 {
     public class ToggleState
     {
-        private int _id;
+        private string _id;
         private bool _toggled;
 
-        public ToggleState(int id, bool toggled = false)
+        public ToggleState(string id, bool toggled = false)
         {
             _id = id;
             _toggled = toggled;
         }
 
-        public int id
+        public string id
         {
             get { return _id; }
         }

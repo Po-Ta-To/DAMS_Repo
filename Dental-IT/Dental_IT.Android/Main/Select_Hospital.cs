@@ -36,7 +36,7 @@ namespace Dental_IT.Droid.Main
         private List<Hospital> hospitalList = new List<Hospital>();
         private List<Hospital> tempHospitalList = new List<Hospital>();
         private List<Hospital> tempHospitalListFilter = new List<Hospital>();
-        private List<int> prefList = new List<int>();
+        private List<string> prefList = new List<string>();
         RecyclerViewAdapter_SelectHospital adapter;
         private List<ToggleState> tempFavouriteList = new List<ToggleState>();
         private Android.Support.V7.Widget.SearchView searchView;
@@ -110,7 +110,7 @@ namespace Dental_IT.Droid.Main
             if (prefs.Contains("favourites"))
             {
                 //  Retrieve list of hospital ids that are favourited
-                prefList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(prefs.GetString("favourites", "null"));
+                prefList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(prefs.GetString("favourites", "null"));
 
                 //  If favourites shared preferences is empty
                 if (prefList.Count == 0)

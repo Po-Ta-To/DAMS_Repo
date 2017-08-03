@@ -12,11 +12,11 @@ namespace Dental_IT.Droid.Adapters
     {
         private readonly Context context;
         private List<Hospital> hospitalList;
-        public static List<int> prefList;
+        public static List<string> prefList;
         private List<ToggleState> tempFavouriteList;
         public event EventHandler<int> ItemClick;
 
-        public RecyclerViewAdapter_SearchHospital(Context c, List<Hospital> l, List<int> p, List<ToggleState> temp)
+        public RecyclerViewAdapter_SearchHospital(Context c, List<Hospital> l, List<string> p, List<ToggleState> temp)
         {
             context = c;
             hospitalList = l;

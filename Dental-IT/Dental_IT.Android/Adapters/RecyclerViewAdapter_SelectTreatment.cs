@@ -11,10 +11,10 @@ namespace Dental_IT.Droid.Adapters
     {
         private readonly Context context;
         private List<Treatment> treatmentList;
-        public static List<int> prefList;
+        public static List<string> prefList;
         private List<ToggleState> tempSelectedList;
 
-        public RecyclerViewAdapter_SelectTreatment(Context c, List<Treatment> t, List<int> p, List<ToggleState> temp)
+        public RecyclerViewAdapter_SelectTreatment(Context c, List<Treatment> t, List<string> p, List<ToggleState> temp)
         {
             context = c;
             treatmentList = t;
