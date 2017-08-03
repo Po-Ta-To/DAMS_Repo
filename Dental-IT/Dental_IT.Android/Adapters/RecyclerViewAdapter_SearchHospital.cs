@@ -51,7 +51,7 @@ namespace Dental_IT.Droid.Adapters
             {
                 tempFavouriteList[position].toggled = false;
 
-                prefList.Remove(prefList.Find(e => (e == tempFavouriteList[position].id)));
+                prefList.Remove(prefList.Find(e => (e.Equals(tempFavouriteList[position].id))));
 
                 Toast.MakeText(context, hospitalList[position].name + " removed from favourites!", ToastLength.Short).Show();
             }

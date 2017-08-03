@@ -125,7 +125,7 @@ namespace Dental_IT.Droid.Main
             {
                 foreach (CalendarDay cDay in dates)
                 {
-                    if (cDay.ToString() == day.ToString())
+                    if (cDay.ToString().Equals(day.ToString()))
                     {
                         b = true;
                         break;
