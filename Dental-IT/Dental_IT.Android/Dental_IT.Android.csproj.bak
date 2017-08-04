@@ -15,7 +15,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AssemblyName>Dental_IT.Android</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -706,6 +706,9 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_email.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_email.png" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_arrow.png" />
   </ItemGroup>
   <ItemGroup>
@@ -725,9 +728,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\treatments_button.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_email.png" />
   </ItemGroup>
   <Import Project="..\Dental_IT\Dental_IT.projitems" Label="Shared" Condition="Exists('..\Dental_IT\Dental_IT.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
