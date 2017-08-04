@@ -71,7 +71,7 @@ namespace Dental_IT.Droid.Adapters
             //  Display information dialog fragment on click
             holder.ItemView.Click += delegate
             {
-                bundle.PutString("treatmentName", treatmentList[holder.AdapterPosition].name);
+                bundle.PutString("treatment", Newtonsoft.Json.JsonConvert.SerializeObject(treatmentList[holder.AdapterPosition]));
 
                 TreatmentDialogFragment fragment = new TreatmentDialogFragment();
                 FragmentTransaction transaction = activity.FragmentManager.BeginTransaction();
