@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DAMS_03.Models;
+using System.Web.Http.Results;
 
 namespace DAMS_03.API
 {
@@ -19,14 +20,14 @@ namespace DAMS_03.API
         // GET: api/
         public IHttpActionResult GetTreatments()
         {
-            var treatments = from Treatment in db.Treatments
-                             select new
-                             {
-                                 Treatment.ID,
-                                 Treatment.TreatmentName,
-                                 Treatment.TreatmentDesc,
-                                 Treatment.IsFollowUp
-                             };
+            var treatments = (from Treatment in db.Treatments
+                              select new
+                              {
+                                  ID = Treatment.ID,
+                                  TreatmentName = Treatment.TreatmentName,
+                                  TreatmentDesc = Treatment.TreatmentDesc,
+                                  IsFollowUp = Treatment.IsFollowUp
+                              }).ToList();
 
             return Ok(treatments);
         }

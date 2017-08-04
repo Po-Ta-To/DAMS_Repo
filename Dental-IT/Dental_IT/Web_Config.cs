@@ -6,7 +6,7 @@ namespace Dental_IT
 {
     public static class Web_Config
     {
-        private static string conn = "192.168.137.1:49814";
+        private static string conn = "http://192.168.137.1:49814";
 
         // CREATE/POST a new public user
         public static string global_connURL_createUser { get; } = conn + "/api/UserAccounts";
@@ -34,6 +34,9 @@ namespace Dental_IT
 
         // GET Treatments by Hospital Clinic ID
         public static string global_connURL_getTreatmentsByCHId { get; } = conn + "/api/TreatmentsByH/"; // + CH id
+
+        // GET Highest & Lowest Treatment Prices
+        public static string global_connURL_GetTreatmentHighestLowestPrice { get; } = conn + "/api/ClinicHospitalTreatmentPrice/"; // + Treatment id
 
         // GET all Hospitals 
         public static string global_connURL_getAllHospitals { get; } = conn + "/api/ClinicHospitals";

@@ -20,13 +20,7 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Treatment_Information : AppCompatActivity, Android.Support.V7.Widget.SearchView.IOnQueryTextListener
     {
-        private Treatment a = new Treatment(1, "Treatment 1", 100, 500);
-        private Treatment b = new Treatment(2, "Treatment 2", 200, 800);
-        private Treatment c = new Treatment(3, "Treatment 3", 1350, 5400);
-        private Treatment d = new Treatment(4, "Treatment 4", 45, 150);
-        private Treatment e = new Treatment(5, "Treatment 5", 800, 1200);
-        private Treatment f = new Treatment(6, "Treatment 6", 150, 300);
-        private Treatment g = new Treatment(7, "Treatment 7", 500, 1000);
+        //private Treatment a = new Treatment(1, "Treatment 1", 100, 500);
 
         // A list to store the list of treatments 
         private List<Treatment> treatmentList = new List<Treatment>();
@@ -49,18 +43,7 @@ namespace Dental_IT.Droid.Main
             //  Create widgets
             RecyclerView treatmentInformation_RecyclerView = FindViewById<RecyclerView>(Resource.Id.treatmentInformation_RecyclerView);
 
-            treatmentList.Add(a);
-            treatmentList.Add(b);
-            treatmentList.Add(c);
-            treatmentList.Add(d);
-            treatmentList.Add(e);
-            treatmentList.Add(f);
-            treatmentList.Add(g);
-
-            foreach (Treatment treatment in treatmentList)
-            {
-                tempTreatmentList.Add(treatment);
-            }
+            //treatmentList.Add(a);  
 
             // Get all the treatments
             Task.Run(async () =>
@@ -74,9 +57,8 @@ namespace Dental_IT.Droid.Main
 
                     foreach (JsonObject obj in json)
                     {
-                        Treatment tr = new Treatment(obj["ID"], obj["TreatmentName"], 100, 500);
-                        System.Diagnostics.Debug.Write(obj["ID"]);
-                        System.Diagnostics.Debug.Write(obj["TreatmentName"]);
+                        Treatment tr = new Treatment((int)obj["ID"], obj["TreatmentName"], 100, 500, obj["TreatmentDesc"].ToString());
+                        treatmentList.Add(tr);
                     }
                 }
                 catch (Exception e)
@@ -84,6 +66,11 @@ namespace Dental_IT.Droid.Main
                     System.Diagnostics.Debug.Write(e.Message);
                 }
             });
+
+            foreach (Treatment treatment in treatmentList)
+            {
+                tempTreatmentList.Add(treatment);
+            }
 
             //  Set searchview listener
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
@@ -224,23 +211,32 @@ namespace Dental_IT.Droid.Main
             try
             {
                 // Create an HTTP web request using the URL:
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+                //HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+                //request.ContentType = "application/json";
+                //request.Method = "GET";
+
+                WebRequest request = WebRequest.Create(new Uri(url));
                 request.ContentType = "application/json";
                 request.Method = "GET";
+                WebResponse response = request.GetResponse() as WebResponse;
 
-                // Send the request to the server and wait for the response:
-                using (WebResponse response = await request.GetResponseAsync())
-                {
-                    // Get a stream representation of the HTTP web response:
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        // Use this stream to build a JSON document object:
-                        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+                Stream stream = response.GetResponseStream();
+                JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+                return jsonDoc;
 
-                        // Return the JSON document:
-                        return jsonDoc;
-                    }
-                }
+                //// Send the request to the server and wait for the response:
+                //using (WebResponse response = await request.GetResponseAsync())
+                //{
+                //    // Get a stream representation of the HTTP web response:
+                //    using (Stream stream = response.GetResponseStream())
+                //    {
+                //        // Use this stream to build a JSON document object:
+                //        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+
+                //        // Return the JSON document:
+                //        return jsonDoc;
+                //    }
+                //}
             }
             catch (WebException e)
             {
