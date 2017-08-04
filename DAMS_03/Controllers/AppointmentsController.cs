@@ -802,7 +802,7 @@ namespace DAMS_03.Controllers
                                           where ddb.DateOfBookings == appt.AppointmentDate
                                           select ddb.Bookings).SingleOrDefault();
 
-                returnAppt.approvalString = doc.DoctorDentistName + " Bookings on " + appt.AppointmentDate.Value.Date.ToString() + " : " + currentDayBookings + "/" + doc.DoctorDentistMaxBookings;
+                returnAppt.approvalString = doc.DoctorDentistName + " Bookings on " + appt.AppointmentDate.Value.Date.ToString("dd/MM/yyyy") + " : " + currentDayBookings + "/" + doc.DoctorDentistMaxBookings;
             }
             else
             {

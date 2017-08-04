@@ -31,78 +31,99 @@ namespace DAMS_03.API
 
             List<HelperReturnTreatment> returnList = new List<HelperReturnTreatment>();
 
-            foreach (var treatment in treatments)
+            if (treatments.Count == 0)
             {
-                HelperReturnTreatment addTreatment = new HelperReturnTreatment()
+                return Ok(returnList);
+            }
+            else
+            {
+
+                foreach (var treatment in treatments)
                 {
-                    ID = treatment.ID,
-                    TreatmentName = treatment.TreatmentName,
-                    TreatmentDesc = treatment.TreatmentDesc,
-                    IsFollowUp = treatment.IsFollowUp
-                };
-
-                var prices = (from t in db.Treatments
-                              join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
-                              where t.ID == addTreatment.ID
-                              select new 
-                              {
-                                  PriceLow = cht.PriceLow,
-                                  PriceHigh = cht.PriceHigh
-                              }).ToList();
-
-                decimal finalLow = prices[0].PriceLow;
-                decimal finalHigh = prices[0].PriceHigh;
-                decimal getLow = 0;
-                decimal getHigh = 0;
-
-                foreach (var price in prices)
-                {
-                    if (price.PriceLow > price.PriceHigh)
+                    HelperReturnTreatment addTreatment = new HelperReturnTreatment()
                     {
-                        getLow = price.PriceHigh;
-                        getHigh = price.PriceLow;
+                        ID = treatment.ID,
+                        TreatmentName = treatment.TreatmentName,
+                        TreatmentDesc = treatment.TreatmentDesc,
+                        IsFollowUp = treatment.IsFollowUp
+                    };
+
+                    var prices = (from t in db.Treatments
+                                  join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
+                                  where t.ID == addTreatment.ID
+                                  select new
+                                  {
+                                      PriceLow = cht.PriceLow,
+                                      PriceHigh = cht.PriceHigh
+                                  }).ToList();
+
+                    if (prices.Count == 0)
+                    {
+                        addTreatment.PriceLow = 0;
+                        addTreatment.PriceHigh = 0;
+                        addTreatment.Price = "Not Offered";
+                        addTreatment.Price_d = "Not Offered";
+                        returnList.Add(addTreatment);
                     }
                     else
                     {
-                        getLow = price.PriceLow;
-                        getHigh = price.PriceHigh;
+                        decimal finalLow = prices[0].PriceLow;
+                        decimal finalHigh = prices[0].PriceHigh;
+                        decimal getLow = 0;
+                        decimal getHigh = 0;
+
+                        foreach (var price in prices)
+                        {
+                            if (price.PriceLow > price.PriceHigh)
+                            {
+                                getLow = price.PriceHigh;
+                                getHigh = price.PriceLow;
+                            }
+                            else
+                            {
+                                getLow = price.PriceLow;
+                                getHigh = price.PriceHigh;
+                            }
+
+                            if (finalLow > getLow)
+                            {
+                                finalLow = getLow;
+                            }
+                            if (finalHigh < getHigh)
+                            {
+                                finalHigh = getHigh;
+                            }
+
+                        }
+
+                        if (getLow == getHigh)
+                        {
+                            string stringPx = String.Format("{0:C0}", finalLow);
+                            string stringPx_d = String.Format("{0:C}", finalLow);
+                            addTreatment.Price = stringPx;
+                            addTreatment.Price_d = stringPx_d;
+                        }
+                        else
+                        {
+                            string stringLow = String.Format("{0:C0}", finalLow);
+                            string stringHigh = String.Format("{0:C0}", finalHigh);
+                            string stringLow_d = String.Format("{0:C}", finalLow);
+                            string stringHigh_d = String.Format("{0:C}", finalHigh);
+
+                            addTreatment.Price = stringLow + " - " + stringHigh;
+                            addTreatment.Price_d = stringLow_d + " - " + stringHigh_d;
+                        }
+
+                        //addTreatment.Price = "";
+                        addTreatment.PriceLow = finalLow;
+                        addTreatment.PriceHigh = finalHigh;
                     }
 
-                    if(finalLow > getLow)
-                    {
-                        finalLow = getLow;
-                    }
-                    if(finalHigh < getHigh)
-                    {
-                        finalHigh = getHigh;
-                    }
-                    
+                    returnList.Add(addTreatment);
                 }
-
-                if (getLow == getHigh)
-                {
-                    string stringPx = String.Format("{0:C0}", finalLow);
-                    string stringPx_d = String.Format("{0:C}", finalLow);
-                    addTreatment.Price = stringPx;
-                    addTreatment.Price_d = stringPx_d;
-                }
-                else
-                {
-                    string stringLow = String.Format("{0:C0}", finalLow);
-                    string stringHigh = String.Format("{0:C0}", finalHigh);
-                    string stringLow_d = String.Format("{0:C}", finalLow);
-                    string stringHigh_d = String.Format("{0:C}", finalHigh);
-
-                    addTreatment.Price = stringLow + " - " + stringHigh;
-                    addTreatment.Price_d = stringLow_d + " - " + stringHigh_d;
-                }
-
-                //addTreatment.Price = "";
-                addTreatment.PriceLow = finalLow;
-                addTreatment.PriceHigh = finalHigh;
-                returnList.Add(addTreatment);
             }
-            
+
+
             return Ok(returnList);
         }
 
