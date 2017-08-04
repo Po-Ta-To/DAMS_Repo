@@ -802,7 +802,7 @@ namespace DAMS_03.Controllers
                                           where ddb.DateOfBookings == appt.AppointmentDate
                                           select ddb.Bookings).SingleOrDefault();
 
-                returnAppt.approvalString = doc.DoctorDentistName + " Bookings on " + appt.AppointmentDate.Value.Date + " : " + currentDayBookings + "/" + doc.DoctorDentistMaxBookings;
+                returnAppt.approvalString = doc.DoctorDentistName + " Bookings on " + appt.AppointmentDate.Value.Date.ToString() + " : " + currentDayBookings + "/" + doc.DoctorDentistMaxBookings;
             }
             else
             {
@@ -1779,12 +1779,33 @@ namespace DAMS_03.Controllers
                         model.listOfTreatments.Add(addTreatment);
                     }
                 }//end foreach
+                
+                model.listOfTimeslots = new List<SelectListItem>();
+
+                List<SelectListItem> timeslots = new List<SelectListItem>();
+
+                timeslots = (from chts in db.ClinicHospitalTimeslots
+                             join ch in db.ClinicHospitals on chts.ClinicHospitalID equals ch.ID
+                             where ch.ID == hospid
+                             orderby chts.TimeslotIndex ascending
+                             select new SelectListItem()
+                             {
+                                 Text = chts.TimeRangeSlotString,
+                                 Value = chts.TimeslotIndex.ToString()
+                             }).ToList();
+
+                timeslots.RemoveAll(x => x.Text.Equals(""));
+
+                model.listOfTimeslots = timeslots;
+
+
 
             }
             //ViewBag.ClinicHospitalID = new SelectList(db.ClinicHospitals, "ID", "ClinicHospitalID", appointment.ClinicHospitalID);
             //ViewBag.DoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.DoctorDentistID);
             //ViewBag.RequestDoctorDentistID = new SelectList(db.DoctorDentists, "ID", "DoctorDentistID", appointment.RequestDoctorDentistID);
             //ViewBag.UserID = new SelectList(db.UserAccounts, "ID", "ID", appointment.UserID);
+
             return View(model);
         }
 

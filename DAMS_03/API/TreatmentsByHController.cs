@@ -85,17 +85,17 @@ namespace DAMS_03.API
             return Ok(returntreatment);
         }
 
-    }
-}
+        public class HelperReturnTreatment
+        {
+            public int ID { get; set; }
+            public string TreatmentName { get; set; }
+            public string TreatmentDesc { get; set; }
+            public bool IsFollowUp { get; set; }
+            public string Price { get; set; }
+            public string Price_d { get; set; }
+            public decimal PriceLow { get; set; }
+            public decimal PriceHigh { get; set; }
+        }
 
-public class HelperReturnTreatment
-{
-    public int ID { get; set; }
-    public string TreatmentName { get; set; }
-    public string TreatmentDesc { get; set; }
-    public bool IsFollowUp { get; set; }
-    public string Price { get; set; }
-    public string Price_d { get; set; }
-    public decimal PriceLow { get; set; }
-    public decimal PriceHigh { get; set; }
+    }
 }
