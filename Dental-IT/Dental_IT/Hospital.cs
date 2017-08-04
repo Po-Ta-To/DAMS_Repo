@@ -2,16 +2,16 @@
 {
     class Hospital
     {
-        private string _id;
+        private int _id;
         private string _name;
 
-        public Hospital(string id, string name)
+        public Hospital(int id, string name)
         {
             _id = id;
             _name = name;
         }
 
-        public string id
+        public int id
         {
             get { return _id; }
             set { _id = value; }

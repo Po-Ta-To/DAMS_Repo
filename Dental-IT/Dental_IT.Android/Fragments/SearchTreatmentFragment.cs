@@ -8,19 +8,19 @@ namespace Dental_IT.Droid.Fragments
 {
     public class SearchTreatmentFragment : Android.Support.V4.App.Fragment
     {
-        private Treatment a = new Treatment("T1", "Treatment 1", 100, 500);
-        private Treatment b = new Treatment("T2", "Treatment 2", 250, 890);
-        private Treatment c = new Treatment("T3", "Treatment 3", 1230, 3450);
-        private Treatment d = new Treatment("T4", "Treatment 4", 250, 690);
-        private Treatment e = new Treatment("T5", "Treatment 5", 500, 1000);
-        private Treatment f = new Treatment("T6", "Treatment 6", 670, 2000);
-        private Treatment g = new Treatment("T7", "Treatment 7", 380, 600);
-        private Treatment h = new Treatment("T8", "Treatment 8", 450, 700);
-        private Treatment i = new Treatment("T9", "Treatment 9", 2000, 3460);
-        private Treatment j = new Treatment("T10", "Treatment 10", 570, 940);
-        private Treatment k = new Treatment("T11", "Treatment 11", 330, 450);
-        private Treatment l = new Treatment("T12", "Treatment 12", 550, 640);
-        private Treatment m = new Treatment("T13", "Treatment 13", 800, 850);
+        private Treatment a = new Treatment(1, "Treatment 1", 100, 500);
+        private Treatment b = new Treatment(2, "Treatment 2", 250, 890);
+        private Treatment c = new Treatment(3, "Treatment 3", 1230, 3450);
+        private Treatment d = new Treatment(4, "Treatment 4", 250, 690);
+        private Treatment e = new Treatment(5, "Treatment 5", 500, 1000);
+        private Treatment f = new Treatment(6, "Treatment 6", 670, 2000);
+        private Treatment g = new Treatment(7, "Treatment 7", 380, 600);
+        private Treatment h = new Treatment(8, "Treatment 8", 450, 700);
+        private Treatment i = new Treatment(9, "Treatment 9", 2000, 3460);
+        private Treatment j = new Treatment(10, "Treatment 10", 570, 940);
+        private Treatment k = new Treatment(11, "Treatment 11", 330, 450);
+        private Treatment l = new Treatment(12, "Treatment 12", 550, 640);
+        private Treatment m = new Treatment(13, "Treatment 13", 800, 850);
 
         private List<Treatment> treatmentList = new List<Treatment>();
         private RecyclerView searchTreatment_RecyclerView;

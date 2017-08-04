@@ -2,13 +2,13 @@
 {
     class Treatment
     {
-        private string _id;
+        private int _id;
         private string _name;
         private double _minPrice;
         private double _maxPrice;
         private string _description;
 
-        public Treatment(string id, string name, double minPrice, double maxPrice, string description = "")
+        public Treatment(int id, string name, double minPrice, double maxPrice, string description = "")
         {
             _id = id;
             _name = name;
@@ -18,7 +18,7 @@
 
         }
 
-        public string id
+        public int id
         {
             get { return _id; }
             set { _id = value; }

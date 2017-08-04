@@ -4,13 +4,13 @@ namespace Dental_IT
 {
     class Appointment
     {
-        private string _id;
+        private int _id;
         private string _treatments;
         private string _dentist;
         private DateTime _date;
         private string _time;
 
-        public Appointment(string id, string treatments, string dentist, DateTime date, string time)
+        public Appointment(int id, string treatments, string dentist, DateTime date, string time)
         {
             _id = id;
             _treatments = treatments;
@@ -19,7 +19,7 @@ namespace Dental_IT
             _time = time;
         }
 
-        public string id
+        public int id
         {
             get { return _id; }
             set { _id = value; }
