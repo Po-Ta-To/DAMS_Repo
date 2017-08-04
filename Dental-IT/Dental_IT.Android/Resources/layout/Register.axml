@@ -28,7 +28,7 @@
                     android:id="@+id/register_EmailImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_account"
+                    android:src="@drawable/ic_person"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <EditText
@@ -57,7 +57,7 @@
                     android:id="@+id/register_PasswordImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_lock"
+                    android:src="@drawable/ic_lock_blue"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <EditText
@@ -86,7 +86,7 @@
                     android:id="@+id/register_RepeatPasswordImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_lock"
+                    android:src="@drawable/ic_lock_blue"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <EditText
@@ -115,7 +115,7 @@
                     android:id="@+id/register_DOBImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_calendar_range"
+                    android:src="@drawable/ic_calendar"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <EditText
@@ -145,7 +145,7 @@
                     android:id="@+id/register_GenderImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_gender_male_female"
+                    android:src="@drawable/ic_gender"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <Spinner
@@ -169,7 +169,7 @@
                     android:id="@+id/register_NRICImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_account_card_details"
+                    android:src="@drawable/ic_id"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <EditText
@@ -198,7 +198,7 @@
                     android:id="@+id/register_MobileImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_phone"
+                    android:src="@drawable/ic_mobile"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <EditText
@@ -210,6 +210,7 @@
                     android:gravity="center"
                     android:hint="@string/mobile"
                     android:inputType="phone"
+                    android:maxLength="8"
                     android:textColorHint="@color/dark_blue"
                     android:textColor="@color/dark_blue"
                     android:fontFamily="sans-serif-light"

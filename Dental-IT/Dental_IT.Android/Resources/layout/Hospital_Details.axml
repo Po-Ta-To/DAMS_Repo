@@ -22,7 +22,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:layout_centerHorizontal="true"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/appt_HCImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_hospital"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
                 <TextView
                     android:id="@+id/hospDetails_HospitalText"
                     android:layout_width="wrap_content"
@@ -38,7 +47,16 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
-                android:layout_below="@id/hospDetails_HospitalLayout">
+                android:layout_below="@id/hospDetails_HospitalLayout"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/appt_DateImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_calendar"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
                 <TextView
                     android:id="@+id/hospDetails_AddressLabel"
                     android:layout_width="wrap_content"
@@ -61,7 +79,16 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
-                android:layout_below="@id/hospDetails_AddressLayout">
+                android:layout_below="@id/hospDetails_AddressLayout"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/appt_SessionImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_clock"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
                 <TextView
                     android:id="@+id/hospDetails_OpeningHoursLabel"
                     android:layout_width="wrap_content"
@@ -84,7 +111,16 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
-                android:layout_below="@id/hospDetails_OpeningHoursLayout">
+                android:layout_below="@id/hospDetails_OpeningHoursLayout"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/appt_ContactImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_mobile"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
                 <TextView
                     android:id="@+id/hospDetails_TelephoneLabel"
                     android:layout_width="wrap_content"
@@ -107,7 +143,16 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
-                android:layout_below="@id/hospDetails_TelephoneLayout">
+                android:layout_below="@id/hospDetails_TelephoneLayout"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/appt_EmailImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_email"
+                    android:scaleX="0.75"
+                    android:scaleY="0.75" />
                 <TextView
                     android:id="@+id/hospDetails_EmailLabel"
                     android:layout_width="wrap_content"
@@ -124,16 +169,19 @@
             </LinearLayout>
             <Button
                 android:id="@+id/hospDetails_TreatmentsBtn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/hospDetails_EmailLayout"
                 android:layout_marginTop="35dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:textColor="@color/dark_blue"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/white"
                 android:text="@string/treatments_offered"
                 android:textAllCaps="false"
-                android:background="@color/transparent" />
+                android:background="@drawable/treatments_button"
+                android:scaleX="0.9"
+                android:scaleY="0.9" />
             <Button
                 android:id="@+id/hospDetails_RequestBtn"
                 android:layout_width="match_parent"

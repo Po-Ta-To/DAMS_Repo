@@ -35,6 +35,12 @@ namespace Dental_IT.Droid.Main
             //  Create widgets
             GridView mainMenu_GridView = FindViewById<GridView>(Resource.Id.mainMenu_GridView);
 
+            //  Uncomment to clear shared preferences
+            ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.Remove("remembered");
+            editor.Apply();
+
             RunOnUiThread(() =>
             {
                 //  Get screen height

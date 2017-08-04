@@ -9,25 +9,29 @@ using Dental_IT.Droid.Adapters;
 using Android.Preferences;
 using Android.Support.V7.App;
 using System;
+using System.Threading.Tasks;
+using System.Json;
+using System.Net;
+using System.IO;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Select_Hospital : AppCompatActivity, Android.Support.V7.Widget.SearchView.IOnQueryTextListener
     {
-        private Hospital a = new Hospital(1, "Hospitalasdsadsdasdsadadasnsnooindoioioioincinsiioidoidoisiwqdiosxosdnwqdisddiiooiodsadoioioidsodieeisosaooioosdsak 1");
-        private Hospital b = new Hospital(2, "Hospital 2");
-        private Hospital c = new Hospital(3, "Hospital 3");
-        private Hospital d = new Hospital(4, "Hospital 4");
-        private Hospital e = new Hospital(5, "Hospital 5");
-        private Hospital f = new Hospital(6, "Hospital 6");
-        private Hospital g = new Hospital(7, "Hospital 7");
-        private Hospital h = new Hospital(8, "Hospital 8");
-        private Hospital i = new Hospital(9, "Hospital 9");
-        private Hospital j = new Hospital(10, "Hospital 10");
-        private Hospital k = new Hospital(11, "Hospital 11");
-        private Hospital l = new Hospital(12, "Hospital 12");
-        private Hospital m = new Hospital(13, "Hospital 13");
+        //private Hospital a = new Hospital(1, "Hospitalasdsadsdasdsadadasnsnooindoioioioincinsiioidoidoisiwqdiosxosdnwqdisddiiooiodsadoioioidsodieeisosaooioosdsak 1");
+        //private Hospital b = new Hospital(2, "Hospital 2");
+        //private Hospital c = new Hospital(3, "Hospital 3");
+        //private Hospital d = new Hospital(4, "Hospital 4");
+        //private Hospital e = new Hospital(5, "Hospital 5");
+        //private Hospital f = new Hospital(6, "Hospital 6");
+        //private Hospital g = new Hospital(7, "Hospital 7");
+        //private Hospital h = new Hospital(8, "Hospital 8");
+        //private Hospital i = new Hospital(9, "Hospital 9");
+        //private Hospital j = new Hospital(10, "Hospital 10");
+        //private Hospital k = new Hospital(11, "Hospital 11");
+        //private Hospital l = new Hospital(12, "Hospital 12");
+        //private Hospital m = new Hospital(13, "Hospital 13");
 
         private List<Hospital> hospitalList = new List<Hospital>();
         private List<Hospital> tempHospitalList = new List<Hospital>();
@@ -47,19 +51,42 @@ namespace Dental_IT.Droid.Main
             //  Create widgets
             RecyclerView selectHospital_RecyclerView = FindViewById<RecyclerView>(Resource.Id.selectHospital_RecyclerView);
 
-            hospitalList.Add(a);
-            hospitalList.Add(b);
-            hospitalList.Add(c);
-            hospitalList.Add(d);
-            hospitalList.Add(e);
-            hospitalList.Add(f);
-            hospitalList.Add(g);
-            hospitalList.Add(h);
-            hospitalList.Add(i);
-            hospitalList.Add(j);
-            hospitalList.Add(k);
-            hospitalList.Add(l);
-            hospitalList.Add(m);
+            //hospitalList.Add(a);
+            //hospitalList.Add(b);
+            //hospitalList.Add(c);
+            //hospitalList.Add(d);
+            //hospitalList.Add(e);
+            //hospitalList.Add(f);
+            //hospitalList.Add(g);
+            //hospitalList.Add(h);
+            //hospitalList.Add(i);
+            //hospitalList.Add(j);
+            //hospitalList.Add(k);
+            //hospitalList.Add(l);
+            //hospitalList.Add(m); 
+
+            // Get all hospitals
+            //Task.Run(async () =>
+            //{
+            //    try
+            //    {
+            //        string url = Web_Config.global_connURL_getAllHospitals;
+
+            //        // Get json value by passing the URL
+            //        JsonValue json = await GetHospitals(url);
+
+            //        foreach (JsonObject obj in json)
+            //        {
+            //            Hospital h = new Hospital(obj["ID"], obj["ClinicHospitalName"]);
+            //            hospitalList.Add(h);
+            //            //System.Diagnostics.Debug.Write(obj["TreatmentName"]);
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        System.Diagnostics.Debug.Write(e.Message());
+            //    }
+            //});
 
             //  Set searchview listener
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
@@ -96,7 +123,7 @@ namespace Dental_IT.Droid.Main
                     foreach (Hospital hosp in hospitalList)
                     {
                         //  Add to favourites list if hospital id corresponds with id in shared preferences
-                        if (prefList.Exists(e => (e == hosp.id)))
+                        if (prefList.Exists(e => (e.Equals(hosp.id))))
                         {
                             ToggleState tempFav = new ToggleState(hosp.id, true);
                             tempFavouriteList.Add(tempFav);
@@ -104,7 +131,7 @@ namespace Dental_IT.Droid.Main
                         //  Remove from hospital list if hospital id does not correspond with id in shared preferences
                         else
                         {
-                            tempHospitalList.Remove(tempHospitalList.Find(e => (e.id == hosp.id)));
+                            tempHospitalList.Remove(tempHospitalList.Find(e => (e.id.Equals(hosp.id))));
                         }
                     }
 
@@ -150,7 +177,6 @@ namespace Dental_IT.Droid.Main
         {
             return true;
         }
-
 
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -205,5 +231,27 @@ namespace Dental_IT.Droid.Main
 
             return filteredList;
         }
+
+        // Gets All Clinic Hospitals data from the passed URL.
+        //private async Task<JsonValue> GetHospitals(string url)
+        //{
+        //    try
+        //    {
+        //        WebRequest request = WebRequest.Create(new Uri(url));
+        //        request.ContentType = "application/json";
+        //        request.Method = "GET";
+        //        WebResponse response = request.GetResponse() as WebResponse;
+
+        //        Stream stream = response.GetResponseStream();
+
+        //        // Store in json and return the json value
+        //        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+        //        return jsonDoc;
+        //    }
+        //    catch (WebException e)
+        //    {
+        //        return new JsonArray();
+        //    }
+        //} // End of GetHospitals() method
     }
 }

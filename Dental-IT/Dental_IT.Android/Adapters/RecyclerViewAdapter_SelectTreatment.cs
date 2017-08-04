@@ -44,7 +44,7 @@ namespace Dental_IT.Droid.Adapters
                 tempSelectedList[position].toggled = false;
                 holder.treatmentChkbox.Checked = false;
 
-                prefList.Remove(prefList.Find(e => (e == tempSelectedList[position].id)));
+                prefList.Remove(prefList.Find(e => (e.Equals(tempSelectedList[position].id))));
             }
         }
 

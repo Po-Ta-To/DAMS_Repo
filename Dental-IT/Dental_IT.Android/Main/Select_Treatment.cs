@@ -77,7 +77,7 @@ namespace Dental_IT.Droid.Main
                     ToggleState tempSelected = new ToggleState(treatment.id);
 
                     //  Set favourited to true if hospital id corresponds with id in shared preferences
-                    if (prefList.Exists(e => (e == treatment.id)))
+                    if (prefList.Exists(e => (e.Equals(treatment.id))))
                     {
                         tempSelected.toggled = true;
                     }

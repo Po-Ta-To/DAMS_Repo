@@ -211,6 +211,9 @@
     <Compile Include="API\BookingsController.cs" />
     <Compile Include="API\ClinicHospitalsByTreatmentController.cs" />
     <Compile Include="API\ClinicHospitalsController.cs" />
+    <Compile Include="API\ClinicHospitalTimeSlotByHController.cs" />
+    <Compile Include="API\ClinicHospitalTreatmentPriceController.cs" />
+    <Compile Include="API\DoctorDentistsByHController.cs" />
     <Compile Include="API\DoctorDentistsController.cs" />
     <Compile Include="API\OpeningHoursController.cs" />
     <Compile Include="API\TreatmentsByHController.cs" />
@@ -357,8 +360,9 @@
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Container.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\zabuto_calendar.css" />
     <Content Include="Content\zabuto_calendar.min.css" />
     <Content Include="favicon.ico" />
@@ -401,6 +405,7 @@
     <Content Include="bower.json" />
     <Content Include="SQL\TestData2.sql" />
     <Content Include="wwwroot\images\account icon.png" />
+    <Content Include="wwwroot\images\background_image.png" />
     <Content Include="wwwroot\images\listing icon.png" />
     <Content Include="wwwroot\images\potato.jpg" />
     <Content Include="wwwroot\images\view accounts.png" />
@@ -447,7 +452,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />

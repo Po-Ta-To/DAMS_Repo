@@ -23,6 +23,7 @@ namespace DAMS_03.Models
         }
     
         public int ID { get; set; }
+
         public string DoctorDentistID { get; set; }
         public string Name { get; set; }
         public int MaxBookings { get; set; }
