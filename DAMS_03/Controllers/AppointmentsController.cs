@@ -1980,17 +1980,7 @@ namespace DAMS_03.Controllers
 
             return RedirectToAction("Details", "Appointments", new { id = id });
         }
-
-        [ActionName("TestPage")]
-        public ActionResult Page(int id, int page)
-        {
-
-            int a = id;
-            int b = page;
-
-            return View();
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

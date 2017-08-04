@@ -23,11 +23,11 @@ namespace DAMS_03.API
                 return NotFound();
             }
 
-            List<helperReturnTreatment> returntreatment = (from Treatment in db.Treatments
+            List<HelperReturnTreatment> returntreatment = (from Treatment in db.Treatments
                                                            join ClinHospTreat in db.ClinicHospitalTreatments on Treatment.ID equals ClinHospTreat.TreatmentID
                                                            join ClinHosp in db.ClinicHospitals on ClinHospTreat.ClinicHospitalID equals ClinHosp.ID
                                                            where ClinHosp.ID == id
-                                                           select new helperReturnTreatment()
+                                                           select new HelperReturnTreatment()
                                                            {
                                                                ID = Treatment.ID,
                                                                TreatmentName = Treatment.TreatmentName,
@@ -35,46 +35,67 @@ namespace DAMS_03.API
                                                                IsFollowUp = Treatment.IsFollowUp
                                                            }).ToList();
 
-            foreach (helperReturnTreatment t in returntreatment)
+            foreach (HelperReturnTreatment t in returntreatment)
             {
                 var getprice = (from treat in db.Treatments
-                                    join price in db.ClinicHospitalTreatments on treat.ID equals price.TreatmentID
-                                    join hosp in db.ClinicHospitals on price.ClinicHospitalID equals hosp.ID
-                                    where treat.ID == t.ID && hosp.ID == id
-                                    select new
-                                    {
-                                        price.PriceLow,
-                                        price.PriceHigh
+                                join price in db.ClinicHospitalTreatments on treat.ID equals price.TreatmentID
+                                join hosp in db.ClinicHospitals on price.ClinicHospitalID equals hosp.ID
+                                where treat.ID == t.ID && hosp.ID == id
+                                select new
+                                {
+                                    price.PriceLow,
+                                    price.PriceHigh
 
-                                    }).SingleOrDefault();
+                                }).SingleOrDefault();
 
 
-                if(getprice.PriceLow == getprice.PriceHigh)
+                if (getprice.PriceLow == getprice.PriceHigh)
                 {
-                    t.Price = getprice.PriceLow.ToString();
+                    string stringPx = String.Format("{0:C0}", getprice.PriceLow.ToString());
+                    string stringPx_d = String.Format("{0:C}", getprice.PriceLow.ToString());
+                    t.Price = stringPx;
+                    t.Price_d = stringPx_d;
                 }
                 else
                 {
-                    t.Price = getprice.PriceLow + " - " + getprice.PriceHigh;
+                    decimal returnLow;
+                    decimal returnHigh;
+                    if (getprice.PriceLow > getprice.PriceHigh)
+                    {
+                        returnLow = getprice.PriceHigh;
+                        returnHigh = getprice.PriceLow;
+                    }
+                    else
+                    {
+                        returnLow = getprice.PriceLow;
+                        returnHigh = getprice.PriceHigh;
+                    }
+                    string stringLow = String.Format("{0:C0}", returnLow);
+                    string stringHigh = String.Format("{0:C0}", returnHigh);
+                    string stringLow_d = String.Format("{0:C}", returnLow);
+                    string stringHigh_d = String.Format("{0:C}", returnHigh);
+                    t.Price = stringLow + " - " + stringHigh;
+                    t.Price_d = stringLow_d + " - " + stringHigh_d;
                 }
-                
-                //t.PriceLow = getprice.PriceLow;
-                //t.PriceHigh = getprice.PriceHigh;
+
+                t.PriceLow = getprice.PriceLow;
+                t.PriceHigh = getprice.PriceHigh;
             }
-            
+
             return Ok(returntreatment);
         }
 
     }
 }
 
-public class helperReturnTreatment
+public class HelperReturnTreatment
 {
     public int ID { get; set; }
     public string TreatmentName { get; set; }
     public string TreatmentDesc { get; set; }
     public bool IsFollowUp { get; set; }
     public string Price { get; set; }
-    //public decimal PriceLow { get; set; }
-    //public decimal PriceHigh { get; set; }
+    public string Price_d { get; set; }
+    public decimal PriceLow { get; set; }
+    public decimal PriceHigh { get; set; }
 }

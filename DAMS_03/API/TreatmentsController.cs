@@ -29,7 +29,81 @@ namespace DAMS_03.API
                                   IsFollowUp = Treatment.IsFollowUp
                               }).ToList();
 
-            return Ok(treatments);
+            List<HelperReturnTreatment> returnList = new List<HelperReturnTreatment>();
+
+            foreach (var treatment in treatments)
+            {
+                HelperReturnTreatment addTreatment = new HelperReturnTreatment()
+                {
+                    ID = treatment.ID,
+                    TreatmentName = treatment.TreatmentName,
+                    TreatmentDesc = treatment.TreatmentDesc,
+                    IsFollowUp = treatment.IsFollowUp
+                };
+
+                var prices = (from t in db.Treatments
+                              join cht in db.ClinicHospitalTreatments on t.ID equals cht.TreatmentID
+                              where t.ID == addTreatment.ID
+                              select new 
+                              {
+                                  PriceLow = cht.PriceLow,
+                                  PriceHigh = cht.PriceHigh
+                              }).ToList();
+
+                decimal finalLow = prices[0].PriceLow;
+                decimal finalHigh = prices[0].PriceHigh;
+                decimal getLow = 0;
+                decimal getHigh = 0;
+
+                foreach (var price in prices)
+                {
+                    if (price.PriceLow > price.PriceHigh)
+                    {
+                        getLow = price.PriceHigh;
+                        getHigh = price.PriceLow;
+                    }
+                    else
+                    {
+                        getLow = price.PriceLow;
+                        getHigh = price.PriceHigh;
+                    }
+
+                    if(finalLow > getLow)
+                    {
+                        finalLow = getLow;
+                    }
+                    if(finalHigh < getHigh)
+                    {
+                        finalHigh = getHigh;
+                    }
+                    
+                }
+
+                if (getLow == getHigh)
+                {
+                    string stringPx = String.Format("{0:C0}", finalLow);
+                    string stringPx_d = String.Format("{0:C}", finalLow);
+                    addTreatment.Price = stringPx;
+                    addTreatment.Price_d = stringPx_d;
+                }
+                else
+                {
+                    string stringLow = String.Format("{0:C0}", finalLow);
+                    string stringHigh = String.Format("{0:C0}", finalHigh);
+                    string stringLow_d = String.Format("{0:C}", finalLow);
+                    string stringHigh_d = String.Format("{0:C}", finalHigh);
+
+                    addTreatment.Price = stringLow + " - " + stringHigh;
+                    addTreatment.Price_d = stringLow_d + " - " + stringHigh_d;
+                }
+
+                //addTreatment.Price = "";
+                addTreatment.PriceLow = finalLow;
+                addTreatment.PriceHigh = finalHigh;
+                returnList.Add(addTreatment);
+            }
+            
+            return Ok(returnList);
         }
 
         // GET: api/Treatments/5
@@ -65,7 +139,7 @@ namespace DAMS_03.API
         //    {
         //        return NotFound();
         //    }
-            
+
         //    var returntreatment = from Treatment in db.Treatments
         //                          join ClinHospTreat in db.ClinicHospitalTreatments on Treatment.ID equals ClinHospTreat.TreatmentID
         //                          join ClinHosp in db.ClinicHospitals on ClinHospTreat.ClinicHospitalID equals ClinHosp.ID
@@ -160,5 +234,18 @@ namespace DAMS_03.API
         {
             return db.Treatments.Count(e => e.ID == id) > 0;
         }
+
+        public class HelperReturnTreatment
+        {
+            public int ID { get; set; }
+            public string TreatmentName { get; set; }
+            public string TreatmentDesc { get; set; }
+            public bool IsFollowUp { get; set; }
+            public string Price { get; set; }
+            public string Price_d { get; set; }
+            public decimal PriceLow { get; set; }
+            public decimal PriceHigh { get; set; }
+        }
+
     }
 }
