@@ -52,7 +52,7 @@ namespace Dental_IT.Droid.Adapters
             {
                 tempFavouriteList[position].toggled = false;
 
-                prefList.Remove(prefList.Find(e => (e == tempFavouriteList[position].id)));
+                prefList.Remove(prefList.Find(e => (e.Equals(tempFavouriteList[position].id))));
 
                 Toast.MakeText(context, hospitalList[position].name + " removed from favourites!", ToastLength.Short).Show();
             }
@@ -112,7 +112,7 @@ namespace Dental_IT.Droid.Adapters
 
             foreach (Hospital hosp in hospitalList)
             {
-                if (prefList.Exists(e => (e == hosp.id)))
+                if (prefList.Exists(e => (e.Equals(hosp.id))))
                 {
                     ToggleState temp = new ToggleState(hosp.id, true);
                     tempFavouriteListFilter.Add(temp);

@@ -123,7 +123,7 @@ namespace Dental_IT.Droid.Main
                     foreach (Hospital hosp in hospitalList)
                     {
                         //  Add to favourites list if hospital id corresponds with id in shared preferences
-                        if (prefList.Exists(e => (e == hosp.id)))
+                        if (prefList.Exists(e => (e.Equals(hosp.id))))
                         {
                             ToggleState tempFav = new ToggleState(hosp.id, true);
                             tempFavouriteList.Add(tempFav);
@@ -131,7 +131,7 @@ namespace Dental_IT.Droid.Main
                         //  Remove from hospital list if hospital id does not correspond with id in shared preferences
                         else
                         {
-                            tempHospitalList.Remove(tempHospitalList.Find(e => (e.id == hosp.id)));
+                            tempHospitalList.Remove(tempHospitalList.Find(e => (e.id.Equals(hosp.id))));
                         }
                     }
 
