@@ -520,6 +520,7 @@
     <Content Include="Views\DoctorDentists\ViewSchedule.cshtml" />
     <Content Include="Views\Appointments\Create.cshtml" />
     <Content Include="SQL\applicationhost.config" />
+    <Content Include="Views\Appointments\Page.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

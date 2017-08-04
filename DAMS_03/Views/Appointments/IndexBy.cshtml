@@ -1,4 +1,4 @@
-﻿@model List<DAMS_03.Models.AppointmentDetailViewModel>
+﻿@model DAMS_03.Models.AppointmentIndexModel
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 <h2>View Appointments</h2>
 
 <hr />
-<p> @Model.Count records found </p>
+<p> @Model.maxRecords records found </p>
 
 @{
 
@@ -56,80 +56,80 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model[0].AppointmentID)
+                                @Html.DisplayNameFor(model => model.appointments[0].AppointmentID)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model[0].UserName)
+                                @Html.DisplayNameFor(model => model.appointments[0].UserName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model[0].ApprovalState)
+                                @Html.DisplayNameFor(model => model.appointments[0].ApprovalState)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model[0].PreferredDate)
+                                @Html.DisplayNameFor(model => model.appointments[0].PreferredDate)
                             </th>
                             @*<th>
-                                    @Html.DisplayNameFor(model => model[0].PreferredTime)
+                                    @Html.DisplayNameFor(model => model.appointments[0].PreferredTime)
                                 </th>*@
                             <th>
-                                @Html.DisplayNameFor(model => model[0].ClinicHospitalName)
+                                @Html.DisplayNameFor(model => model.appointments[0].ClinicHospitalName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model[0].RequestDoctorDentistName)
+                                @Html.DisplayNameFor(model => model.appointments[0].RequestDoctorDentistName)
                             </th>
 
                             <th></th>
                         </tr>
                     </thead>
                     <tbody id="appointmentTableBody">
-                        @for (int i = 0; i < Model.Count; i++)
+                        @for (int i = 0; i < Model.appointments.Count; i++)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[i].AppointmentID)
+                                    @Html.DisplayFor(modelItem => Model.appointments[i].AppointmentID)
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Details", "UserAccounts", new { id = Model[i].UserID })">
-                                        @Html.DisplayFor(modelItem => Model[i].UserName)
+                                    <a href="@Url.Action("Details", "UserAccounts", new { id = Model.appointments[i].UserID })">
+                                        @Html.DisplayFor(modelItem => Model.appointments[i].UserName)
                                     </a>
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[i].ApprovalState)
+                                    @Html.DisplayFor(modelItem => Model.appointments[i].ApprovalState)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[i].PreferredDate)
+                                    @Html.DisplayFor(modelItem => Model.appointments[i].PreferredDate)
                                 </td>
                                 @*<td>
-                                        @Html.DisplayFor(modelItem => Model[i].PreferredTime)
+                                        @Html.DisplayFor(modelItem => Model.appointments[i].PreferredTime)
                                     </td>*@
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[i].ClinicHospitalName)
+                                    @Html.DisplayFor(modelItem => Model.appointments[i].ClinicHospitalName)
                                 </td>
                                 <td>
-                                    @if (Model[i].RequestDoctorDentistID == null)
+                                    @if (Model.appointments[i].RequestDoctorDentistID == null)
                                     {
-                                        @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                        @Html.DisplayFor(modelItem => Model.appointments[i].RequestDoctorDentistName)
                                     }
                                     else
                                     {
-                                        <a href="@Url.Action("Details", "DoctorDentists", new { id = Model[i].RequestDoctorDentistID })">
-                                            @Html.DisplayFor(modelItem => Model[i].RequestDoctorDentistName)
+                                        <a href="@Url.Action("Details", "DoctorDentists", new { id = Model.appointments[i].RequestDoctorDentistID })">
+                                            @Html.DisplayFor(modelItem => Model.appointments[i].RequestDoctorDentistName)
                                         </a>
                                     }
                                 </td>
 
                                 <td>
                                     <button class="btn btn-primary" type="button"
-                                            onclick="location.href='@Url.Action("Details", "Appointments", new { id = Model[i].ID })'">
+                                            onclick="location.href='@Url.Action("Details", "Appointments", new { id = Model.appointments[i].ID })'">
                                         Details
                                     </button><br />
                                     <button class="btn btn-success" type="button"
-                                            onclick="location.href='@Url.Action("Edit", "Appointments", new { id = Model[i].ID })'">
+                                            onclick="location.href='@Url.Action("Edit", "Appointments", new { id = Model.appointments[i].ID })'">
                                         Update
                                     </button><br />
                                     @if (this.User.IsInRole("SysAdmin"))
                                     {
                                         <button class="btn btn-danger" type="button"
-                                                onclick="location.href='@Url.Action("Delete", "Appointments", new { id = Model[i].ID })'">
+                                                onclick="location.href='@Url.Action("Delete", "Appointments", new { id = Model.appointments[i].ID })'">
                                             Delete
                                         </button>
                                     }
@@ -142,3 +142,106 @@
         </div>
     </div>
 </div>
+
+
+@{
+    int pageNo;
+    int perpageNo;
+
+    if (Request["page"] != null)
+    {
+        if (!Int32.TryParse(Request["page"].ToString(), out pageNo))
+        {
+            pageNo = 1;
+        }
+        else if (pageNo < 1)
+        {
+            pageNo = 1;
+        }
+    }
+    else
+    {
+        pageNo = 1;
+    }
+
+    int prevPage = pageNo - 1;
+    int nextPage = pageNo + 1;
+    int nextTenPage = pageNo + 10;
+    int prevTenPage = pageNo - 10;
+    int maxpage = Model.maxPages;
+
+    if (Request["perpage"] != null)
+    {
+        if (!Int32.TryParse(Request["perpage"].ToString(), out perpageNo))
+        {
+            perpageNo = 10;
+        }
+    }
+    else
+    {
+        perpageNo = 10;
+    }
+
+    <hr />
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page = 1, perpage = perpageNo})'">
+        &lt&lt&lt First Page
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page = prevTenPage, perpage = perpageNo})'">
+        &lt&lt Prev 10 Pages
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page = prevPage, perpage = perpageNo})'">
+        &lt Prev Page
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page= nextPage, perpage = perpageNo })'">
+        Next Page &gt
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page = nextTenPage, perpage = perpageNo})'">
+        Next 10 Pages &gt&gt
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page = maxpage, perpage = perpageNo})'">
+        Last Page &gt&gt&gt
+    </button>
+
+    <br />
+
+    <br />
+
+    <p> Select number of results per page: </p>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page=pageNo, perpage = 10 })'">
+        10
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page=pageNo, perpage = 20 })'">
+        20
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page=pageNo, perpage = 50 })'">
+        50
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page=pageNo, perpage = 100 })'">
+        100
+    </button>
+
+    <button class="btn btn-primary" type="button" value="Page"
+            onclick="location.href='@Url.Action("IndexBy", "Appointments", new { id = id_i, page=pageNo, perpage = 500 })'">
+        500
+    </button>
+}
