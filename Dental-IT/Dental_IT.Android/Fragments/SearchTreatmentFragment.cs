@@ -8,6 +8,8 @@ using System.Json;
 using System.Net;
 using System.IO;
 using System;
+using Dental_IT.Model;
+using Android.Widget;
 
 namespace Dental_IT.Droid.Fragments
 {
@@ -58,7 +60,17 @@ namespace Dental_IT.Droid.Fragments
                     {
                         System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
 
-                        Treatment treatment = new Treatment(obj["ID"], obj["TreatmentName"], 1008, 5008, obj["TreatmentDesc"].ToString());
+                        Treatment treatment = new Treatment()
+                        {
+                            ID = Int32.Parse(obj["ID"]),
+                            TreatmentName = obj["TreatmentName"],
+                            TreatmentDesc = obj["TreatmentDesc"],
+                            Price = obj["Price"],
+                            Price_d = obj["Price_d"],
+                            PriceLow = Double.Parse(obj["PriceLow"]),
+                            PriceHigh = Double.Parse(obj["PriceHigh"])
+                        };
+
                         treatmentList.Add(treatment);
                         tempTreatmentList.Add(treatment);
                     }
@@ -74,7 +86,7 @@ namespace Dental_IT.Droid.Fragments
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.Write("Obj: " + e.Message);
+                    System.Diagnostics.Debug.Write("Obj: " + e.Message + e.StackTrace);
                 }
             });
 
@@ -92,8 +104,8 @@ namespace Dental_IT.Droid.Fragments
 
             foreach (Treatment treatment in tempTreatmentList)
             {
-                string text = treatment.name.ToLower();
-                if (text.Contains(lowerCaseQuery) && minPrice <= treatment.minPrice && maxPrice >= treatment.maxPrice)
+                string text = treatment.TreatmentName.ToLower();
+                if (text.Contains(lowerCaseQuery) && minPrice <= treatment.PriceLow && maxPrice >= treatment.PriceHigh)
                 {
                     filteredList.Add(treatment);
                 }

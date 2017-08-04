@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Json;
 using System.Net;
 using System.IO;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {

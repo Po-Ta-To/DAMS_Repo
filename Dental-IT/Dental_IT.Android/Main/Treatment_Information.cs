@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Json;
 using System.Net;
 using System.IO;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {
@@ -59,7 +60,17 @@ namespace Dental_IT.Droid.Main
                     {
                         System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
 
-                        Treatment treatment = new Treatment(obj["ID"], obj["TreatmentName"], 100, 500, obj["TreatmentDesc"].ToString());
+                        Treatment treatment = new Treatment()
+                        {
+                            ID = obj["ID"],
+                            TreatmentName = obj["TreatmentName"],
+                            TreatmentDesc = obj["TreatmentDesc"],
+                            Price = obj["Price"],
+                            Price_d = obj["Price_d"],
+                            PriceLow = obj["PriceLow"],
+                            PriceHigh = obj["PriceHigh"]
+                        };
+
                         treatmentList.Add(treatment);
                         tempTreatmentList.Add(treatment);
                     }
@@ -71,11 +82,11 @@ namespace Dental_IT.Droid.Main
 
                         adapter = new RecyclerViewAdapter_TreatmentInformation(this, this, treatmentList);
                         treatmentInformation_RecyclerView.SetAdapter(adapter);
-                    });                    
+                    });
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.Write("Obj: " + e.Message);
+                    System.Diagnostics.Debug.Write("Obj: " + e.Message + e.StackTrace);
                 }
             });
 
@@ -189,7 +200,7 @@ namespace Dental_IT.Droid.Main
 
             foreach (Treatment treatment in temp)
             {
-                string text = treatment.name.ToLower();
+                string text = treatment.TreatmentName.ToLower();
                 if (text.Contains(lowerCaseQuery))
                 {
                     filteredList.Add(treatment);

@@ -2,6 +2,7 @@
 using Android.Support.V7.Widget;
 using Android.Views;
 using Dental_IT.Droid.Adapters;
+using Dental_IT.Model;
 using System;
 using System.Collections.Generic;
 

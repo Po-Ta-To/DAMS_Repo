@@ -8,6 +8,7 @@ using Dental_IT.Droid.Fragments;
 using Android.OS;
 using Dental_IT.Droid.Main;
 using System;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Adapters
 {
@@ -59,8 +60,8 @@ namespace Dental_IT.Droid.Adapters
             }
 
             // Set view data
-            vh.treatmentName.Text = treatmentList[position].name;
-            vh.treatmentPrice.Text = "$" + treatmentList[position].minPrice + "  -  $" + treatmentList[position].maxPrice;
+            vh.treatmentName.Text = treatmentList[position].TreatmentName;
+            vh.treatmentPrice.Text = treatmentList[position].Price;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
