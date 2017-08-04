@@ -18,8 +18,16 @@ namespace DAMS_03.Controllers
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: Appointments
-        public ActionResult Index()
+        public ActionResult Index(int? page, int? perpage)
         {
+            int noOfResults = 10;
+            if (perpage != null)
+            {
+                noOfResults = (int)perpage;
+            }
+
+            AppointmentIndexModel returnModel = new AppointmentIndexModel();
+
             //var appointments = db.Appointments.Include(a => a.ClinicHospital).Include(a => a.DoctorDentist).Include(a => a.DoctorDentist1).Include(a => a.UserAccount);
 
             string userAspId = User.Identity.GetUserId();
@@ -38,8 +46,7 @@ namespace DAMS_03.Controllers
                 appointments = (from apt in db.Appointments
                                 join u in db.UserAccounts on apt.UserID equals u.ID
                                 join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
-                                //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                                //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
+                                orderby apt.ID descending
                                 select new AppointmentDetailViewModel()
                                 {
                                     ID = apt.ID,
@@ -61,6 +68,7 @@ namespace DAMS_03.Controllers
                 appointments = (from apt in db.Appointments
                                 join u in db.UserAccounts on apt.UserID equals u.ID
                                 join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                orderby apt.ID descending
                                 where ch.ID == hospid
                                 select new AppointmentDetailViewModel()
                                 {
@@ -79,37 +87,57 @@ namespace DAMS_03.Controllers
                                 }).ToList();
             }
 
-            //var appointments = from apt in db.Appointments
-            //                   join u in db.UserAccounts on apt.UserID equals u.ID
-            //                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
-            //                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-            //                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
-            //                   select new
-            //                   {
-            //                       ID = apt.ID,
-            //                       AppointmentID = apt.AppointmentID,
-            //                       UserName = u.Name,
-            //                       UserID = u.ID,
-            //                       ClinicHospitalName = ch.ClinicHospitalName,
-            //                       ClinicHospitalID = ch.ID,
-            //                       ApprovalState = apt.ApprovalState,
-            //                       PreferredDate = apt.PreferredDate,
-            //                       PreferredTime = apt.PreferredTime,
-            //                       Remarks = apt.Remarks,
-            //                       AppointmentDate = apt.AppointmentDate,//
-            //                       AppointmentTime = apt.AppointmentTime//
-            //                   };
-
-
-
             List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
-            foreach (var appointment in appointments)
+            int endingPoint = 0;
+
+            if (page == null || page < 1)
+            {
+                page = 1;
+            }
+
+            int startingPoint = ((int)page - 1) * noOfResults;
+
+            if (appointments.Count < (noOfResults + startingPoint))
+            {
+                endingPoint = appointments.Count;
+            }
+            else
+            {
+                endingPoint = noOfResults + startingPoint;
+            }
+
+            int maxpage = endingPoint / noOfResults;
+            if ((endingPoint % noOfResults) != 0)
+            {
+                maxpage++;
+            }
+
+            if (startingPoint >= endingPoint && appointments.Count != 0)
+            {
+
+                return RedirectToAction("Index", "Appointments", new { page = maxpage, perpage = perpage });
+            }
+
+            int maxpageOverall = appointments.Count / noOfResults;
+            if (appointments.Count != 0)
+            {
+                if ((endingPoint % appointments.Count) != 0)
+                {
+                    maxpageOverall++;
+                }
+            }
+            returnModel.maxPages = maxpageOverall;
+
+            returnModel.maxRecords = appointments.Count;
+
+            //foreach (var appointment in appointments)
+            for (int i = startingPoint; i < endingPoint; i++)
             {
 
                 string approvalString = "";
 
-                switch (appointment.ApprovalState)
+                switch (appointments[i].ApprovalState)
                 {
                     case "1":
                         approvalString = "Pending";
@@ -131,9 +159,11 @@ namespace DAMS_03.Controllers
                         break;
                 }
 
+                int intaptid = appointments[i].ID;
+
                 var reqDoc = (from apt in db.Appointments
                               join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                              where apt.ID == appointment.ID
+                              where apt.ID == intaptid
                               select new
                               {
                                   RequestDoctorDentistName = d.Name,
@@ -142,7 +172,7 @@ namespace DAMS_03.Controllers
 
                 var doc = (from apt in db.Appointments
                            join d in db.DoctorDentists on apt.DoctorDentistID equals d.ID
-                           where apt.ID == appointment.ID
+                           where apt.ID == intaptid
                            select new
                            {
                                DoctorDentistName = d.Name,
@@ -152,18 +182,18 @@ namespace DAMS_03.Controllers
 
                 AppointmentDetailViewModel addAppt = new AppointmentDetailViewModel()
                 {
-                    ID = appointment.ID,
-                    AppointmentID = appointment.AppointmentID,
-                    UserName = appointment.UserName,
-                    UserID = appointment.UserID,
-                    ClinicHospitalName = appointment.ClinicHospitalName,
-                    ClinicHospitalID = appointment.ClinicHospitalID,
+                    ID = appointments[i].ID,
+                    AppointmentID = appointments[i].AppointmentID,
+                    UserName = appointments[i].UserName,
+                    UserID = appointments[i].UserID,
+                    ClinicHospitalName = appointments[i].ClinicHospitalName,
+                    ClinicHospitalID = appointments[i].ClinicHospitalID,
                     ApprovalState = approvalString,
-                    PreferredDate = appointment.PreferredDate,
-                    PreferredTime = appointment.PreferredTime,
-                    Remarks = appointment.Remarks,
-                    AppointmentDate = appointment.AppointmentDate,
-                    AppointmentTime = appointment.AppointmentTime
+                    PreferredDate = appointments[i].PreferredDate,
+                    PreferredTime = appointments[i].PreferredTime,
+                    Remarks = appointments[i].Remarks,
+                    AppointmentDate = appointments[i].AppointmentDate,
+                    AppointmentTime = appointments[i].AppointmentTime
                 };
 
                 if (reqDoc != null)
@@ -191,17 +221,31 @@ namespace DAMS_03.Controllers
                 returnList.Add(addAppt);
             }
 
+            returnModel.appointments = returnList;
 
-            return View(returnList);
+            return View(returnModel);
         }
 
         // GET: Appointment IndexBy
-        public ActionResult IndexBy(int? id)
+        public ActionResult IndexBy(int? id, int? page, int? perpage)
         {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Appointments");
+            }
+
             if (id < 1 || id > 5)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            int noOfResults = 10;
+            if (perpage != null)
+            {
+                noOfResults = (int)perpage;
+            }
+
+            AppointmentIndexModel returnModel = new AppointmentIndexModel();
 
             string userAspId = User.Identity.GetUserId();
 
@@ -221,6 +265,7 @@ namespace DAMS_03.Controllers
                     appointments = (from apt in db.Appointments
                                     join u in db.UserAccounts on apt.UserID equals u.ID
                                     join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                    orderby apt.ID descending
                                     where apt.ApprovalState == 2 || apt.ApprovalState == 4
                                     select new AppointmentDetailViewModel()
                                     {
@@ -243,6 +288,7 @@ namespace DAMS_03.Controllers
                     appointments = (from apt in db.Appointments
                                     join u in db.UserAccounts on apt.UserID equals u.ID
                                     join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                    orderby apt.ID descending
                                     where (ch.ID == hospid) && (apt.ApprovalState == 2 || apt.ApprovalState == 4)
                                     select new AppointmentDetailViewModel()
                                     {
@@ -261,36 +307,58 @@ namespace DAMS_03.Controllers
                                     }).ToList();
                 }
 
-                //var appointments = from apt in db.Appointments
-                //                   join u in db.UserAccounts on apt.UserID equals u.ID
-                //                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
-                //                   where apt.ApprovalState == 2 || apt.ApprovalState == 4
-                //                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                //                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
-                //                   select new
-                //                   {
-                //                       ID = apt.ID,
-                //                       AppointmentID = apt.AppointmentID,
-                //                       UserName = u.Name,
-                //                       UserID = u.ID,
-                //                       ClinicHospitalName = ch.ClinicHospitalName,
-                //                       ClinicHospitalID = ch.ID,
-                //                       ApprovalState = apt.ApprovalState,
-                //                       PreferredDate = apt.PreferredDate,
-                //                       PreferredTime = apt.PreferredTime,
-                //                       Remarks = apt.Remarks,
-                //                       AppointmentDate = apt.AppointmentDate,//
-                //                       AppointmentTime = apt.AppointmentTime//
-                //                   };
 
                 List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
-                foreach (var appointment in appointments)
+                int endingPoint = 0;
+
+                if (page == null || page < 1)
+                {
+                    page = 1;
+                }
+
+                int startingPoint = ((int)page - 1) * noOfResults;
+
+                if (appointments.Count < (noOfResults + startingPoint))
+                {
+                    endingPoint = appointments.Count;
+                }
+                else
+                {
+                    endingPoint = noOfResults + startingPoint;
+                }
+
+                int maxpage = endingPoint / noOfResults;
+                if ((endingPoint % noOfResults) != 0)
+                {
+                    maxpage++;
+                }
+
+                if (startingPoint >= endingPoint && appointments.Count != 0)
+                {
+
+                    return RedirectToAction("IndexBy", "Appointments", new { id = id, page = maxpage, perpage = perpage });
+                }
+
+                int maxpageOverall = appointments.Count / noOfResults;
+                if (appointments.Count != 0)
+                {
+                    if ((endingPoint % appointments.Count) != 0)
+                    {
+                        maxpageOverall++;
+                    }
+                }
+                returnModel.maxPages = maxpageOverall;
+
+                returnModel.maxRecords = appointments.Count;
+
+                //foreach (var appointment in appointments)  foreach (var appointment in appointments)
+                for (int i = startingPoint; i < endingPoint; i++)
                 {
 
                     string approvalString = "";
 
-                    switch (appointment.ApprovalState)
+                    switch (appointments[i].ApprovalState)
                     {
                         case "1":
                             approvalString = "Pending";
@@ -312,9 +380,11 @@ namespace DAMS_03.Controllers
                             break;
                     }
 
+                    int apptid = appointments[i].ID;
+
                     var reqDoc = (from apt in db.Appointments
                                   join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                                  where apt.ID == appointment.ID
+                                  where apt.ID == apptid
                                   select new
                                   {
                                       RequestDoctorDentistName = d.Name,
@@ -323,7 +393,7 @@ namespace DAMS_03.Controllers
 
                     var doc = (from apt in db.Appointments
                                join d in db.DoctorDentists on apt.DoctorDentistID equals d.ID
-                               where apt.ID == appointment.ID
+                               where apt.ID == apptid
                                select new
                                {
                                    DoctorDentistName = d.Name,
@@ -333,18 +403,18 @@ namespace DAMS_03.Controllers
 
                     AppointmentDetailViewModel addAppt = new AppointmentDetailViewModel()
                     {
-                        ID = appointment.ID,
-                        AppointmentID = appointment.AppointmentID,
-                        UserName = appointment.UserName,
-                        UserID = appointment.UserID,
-                        ClinicHospitalName = appointment.ClinicHospitalName,
-                        ClinicHospitalID = appointment.ClinicHospitalID,
+                        ID = appointments[i].ID,
+                        AppointmentID = appointments[i].AppointmentID,
+                        UserName = appointments[i].UserName,
+                        UserID = appointments[i].UserID,
+                        ClinicHospitalName = appointments[i].ClinicHospitalName,
+                        ClinicHospitalID = appointments[i].ClinicHospitalID,
                         ApprovalState = approvalString,
-                        PreferredDate = appointment.PreferredDate,
-                        PreferredTime = appointment.PreferredTime,
-                        Remarks = appointment.Remarks,
-                        AppointmentDate = appointment.AppointmentDate,
-                        AppointmentTime = appointment.AppointmentTime
+                        PreferredDate = appointments[i].PreferredDate,
+                        PreferredTime = appointments[i].PreferredTime,
+                        Remarks = appointments[i].Remarks,
+                        AppointmentDate = appointments[i].AppointmentDate,
+                        AppointmentTime = appointments[i].AppointmentTime
                     };
 
                     if (reqDoc != null)
@@ -372,9 +442,8 @@ namespace DAMS_03.Controllers
                     returnList.Add(addAppt);
                 }
 
-
-
-                return View(returnList);
+                returnModel.appointments = returnList;
+                return View(returnModel);
             }
             else
             {
@@ -383,6 +452,7 @@ namespace DAMS_03.Controllers
                     appointments = (from apt in db.Appointments
                                     join u in db.UserAccounts on apt.UserID equals u.ID
                                     join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                    orderby apt.ID descending
                                     where apt.ApprovalState == id
                                     select new AppointmentDetailViewModel()
                                     {
@@ -405,6 +475,7 @@ namespace DAMS_03.Controllers
                     appointments = (from apt in db.Appointments
                                     join u in db.UserAccounts on apt.UserID equals u.ID
                                     join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                    orderby apt.ID descending
                                     where (ch.ID == hospid) && (apt.ApprovalState == id)
                                     select new AppointmentDetailViewModel()
                                     {
@@ -423,36 +494,56 @@ namespace DAMS_03.Controllers
                                     }).ToList();
                 }
 
-                //var appointments = from apt in db.Appointments
-                //                   join u in db.UserAccounts on apt.UserID equals u.ID
-                //                   join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
-                //                   where apt.ApprovalState == id
-                //                   //join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                //                   //join d2 in db.DoctorDentists on apt.DoctorDentistID equals d2.ID
-                //                   select new
-                //                   {
-                //                       ID = apt.ID,
-                //                       AppointmentID = apt.AppointmentID,
-                //                       UserName = u.Name,
-                //                       UserID = u.ID,
-                //                       ClinicHospitalName = ch.ClinicHospitalName,
-                //                       ClinicHospitalID = ch.ID,
-                //                       ApprovalState = apt.ApprovalState,
-                //                       PreferredDate = apt.PreferredDate,
-                //                       PreferredTime = apt.PreferredTime,
-                //                       Remarks = apt.Remarks,
-                //                       AppointmentDate = apt.AppointmentDate,//
-                //                       AppointmentTime = apt.AppointmentTime//
-                //                   };
-
                 List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
-                foreach (var appointment in appointments)
+                int endingPoint = 0;
+
+                if (page == null || page < 1)
+                {
+                    page = 1;
+                }
+
+                int startingPoint = ((int)page - 1) * noOfResults;
+
+                if (appointments.Count < (noOfResults + startingPoint))
+                {
+                    endingPoint = appointments.Count;
+                }
+                else
+                {
+                    endingPoint = noOfResults + startingPoint;
+                }
+
+                int maxpage = endingPoint / noOfResults;
+                if ((endingPoint % noOfResults) != 0)
+                {
+                    maxpage++;
+                }
+
+                if (startingPoint >= endingPoint && appointments.Count != 0)
+                {
+                    return RedirectToAction("IndexBy", "Appointments", new { id = id, page = maxpage, perpage = perpage });
+                }
+
+                int maxpageOverall = appointments.Count / noOfResults;
+                if (appointments.Count != 0)
+                {
+                    if ((endingPoint % appointments.Count) != 0)
+                    {
+                        maxpageOverall++;
+                    }
+                }
+                returnModel.maxPages = maxpageOverall;
+
+                returnModel.maxRecords = appointments.Count;
+
+                //foreach (var appointment in appointments)  foreach (var appointment in appointments)
+                for (int i = startingPoint; i < endingPoint; i++)
                 {
 
                     string approvalString = "";
 
-                    switch (appointment.ApprovalState)
+                    switch (appointments[i].ApprovalState)
                     {
                         case "1":
                             approvalString = "Pending";
@@ -474,9 +565,11 @@ namespace DAMS_03.Controllers
                             break;
                     }
 
+                    int apptid = appointments[i].ID;
+
                     var reqDoc = (from apt in db.Appointments
                                   join d in db.DoctorDentists on apt.RequestDoctorDentistID equals d.ID
-                                  where apt.ID == appointment.ID
+                                  where apt.ID == apptid
                                   select new
                                   {
                                       RequestDoctorDentistName = d.Name,
@@ -485,7 +578,7 @@ namespace DAMS_03.Controllers
 
                     var doc = (from apt in db.Appointments
                                join d in db.DoctorDentists on apt.DoctorDentistID equals d.ID
-                               where apt.ID == appointment.ID
+                               where apt.ID == apptid
                                select new
                                {
                                    DoctorDentistName = d.Name,
@@ -495,18 +588,18 @@ namespace DAMS_03.Controllers
 
                     AppointmentDetailViewModel addAppt = new AppointmentDetailViewModel()
                     {
-                        ID = appointment.ID,
-                        AppointmentID = appointment.AppointmentID,
-                        UserName = appointment.UserName,
-                        UserID = appointment.UserID,
-                        ClinicHospitalName = appointment.ClinicHospitalName,
-                        ClinicHospitalID = appointment.ClinicHospitalID,
+                        ID = appointments[i].ID,
+                        AppointmentID = appointments[i].AppointmentID,
+                        UserName = appointments[i].UserName,
+                        UserID = appointments[i].UserID,
+                        ClinicHospitalName = appointments[i].ClinicHospitalName,
+                        ClinicHospitalID = appointments[i].ClinicHospitalID,
                         ApprovalState = approvalString,
-                        PreferredDate = appointment.PreferredDate,
-                        PreferredTime = appointment.PreferredTime,
-                        Remarks = appointment.Remarks,
-                        AppointmentDate = appointment.AppointmentDate,
-                        AppointmentTime = appointment.AppointmentTime
+                        PreferredDate = appointments[i].PreferredDate,
+                        PreferredTime = appointments[i].PreferredTime,
+                        Remarks = appointments[i].Remarks,
+                        AppointmentDate = appointments[i].AppointmentDate,
+                        AppointmentTime = appointments[i].AppointmentTime
                     };
 
                     if (reqDoc != null)
@@ -534,9 +627,9 @@ namespace DAMS_03.Controllers
                     returnList.Add(addAppt);
                 }
 
+                returnModel.appointments = returnList;
 
-
-                return View(returnList);
+                return View(returnModel);
             }
 
         }
@@ -744,7 +837,7 @@ namespace DAMS_03.Controllers
                 }
             }
 
-            if(returnAppt.AppointmentTime != null)
+            if (returnAppt.AppointmentTime != null)
             {
                 foreach (var timeslot in timeslots)
                 {
@@ -754,7 +847,7 @@ namespace DAMS_03.Controllers
                     }
                 }
             }
-            
+
             return View(returnAppt);
         }
 
@@ -1888,9 +1981,12 @@ namespace DAMS_03.Controllers
             return RedirectToAction("Details", "Appointments", new { id = id });
         }
 
-        [ActionName("Page")]
-        public ActionResult Page()
+        [ActionName("TestPage")]
+        public ActionResult Page(int id, int page)
         {
+
+            int a = id;
+            int b = page;
 
             return View();
         }

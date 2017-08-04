@@ -6,6 +6,13 @@ using System.Web;
 
 namespace DAMS_03.Models
 {
+    public class AppointmentIndexModel
+    {
+        public List<AppointmentDetailViewModel> appointments { get; set; }
+        public int maxPages { get; set; }
+        public int maxRecords { get; set; }
+    }
+
     public class AppointmentCreateModel
     {
         [Required]
