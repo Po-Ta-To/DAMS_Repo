@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using Dental_IT.Droid.Main;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Adapters
 {

@@ -4054,6 +4054,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06002f
 			public const int email = 2131099695;
 			
+			// aapt resource value: 0x7f060085
+			public const int error = 2131099781;
+			
 			// aapt resource value: 0x7f060078
 			public const int exit_text = 2131099768;
 			

@@ -6,6 +6,7 @@ using Dental_IT.Droid.Adapters;
 using Android.Support.V7.App;
 using Android.Content;
 using Android.Views;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {

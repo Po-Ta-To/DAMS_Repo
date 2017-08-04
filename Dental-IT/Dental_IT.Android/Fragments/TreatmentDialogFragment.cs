@@ -3,6 +3,7 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Fragments
 {
@@ -22,13 +23,13 @@ namespace Dental_IT.Droid.Fragments
             Treatment treatment = Newtonsoft.Json.JsonConvert.DeserializeObject<Treatment>(treatmentJson);
 
             TextView title = v.FindViewById<TextView>(Resource.Id.dialog_Title);
-            title.Text = treatment.name;
+            title.Text = treatment.TreatmentName;
 
             TextView body = v.FindViewById<TextView>(Resource.Id.dialog_Body);
-            body.Text = treatment.description;
+            body.Text = treatment.TreatmentDesc;
 
             TextView priceText = v.FindViewById<TextView>(Resource.Id.dialog_PriceText);
-            priceText.Text = "$" + treatment.minPrice + " - $" + treatment.maxPrice;
+            priceText.Text = treatment.Price;
 
             closeBtn = v.FindViewById<Button>(Resource.Id.dialog_closeBtn);
             closeBtn.Click += Button_Click;

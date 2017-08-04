@@ -9,10 +9,11 @@
     <Import_RootNamespace>Dental_IT</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Appointment.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ToggleState.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Hospital.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Treatment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Appointment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Hospital.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ToggleState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Treatment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Web_Config.cs" />
   </ItemGroup>
 </Project>

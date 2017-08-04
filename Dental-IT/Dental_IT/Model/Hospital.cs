@@ -1,4 +1,4 @@
-﻿namespace Dental_IT
+﻿namespace Dental_IT.Model
 {
     class Hospital
     {

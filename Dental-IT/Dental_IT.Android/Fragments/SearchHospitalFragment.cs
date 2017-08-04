@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Support.V7.Widget;
 using Android.Preferences;
 using Dental_IT.Droid.Adapters;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Fragments
 {
