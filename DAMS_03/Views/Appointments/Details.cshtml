@@ -131,7 +131,7 @@
         <hr />
 
         <p>
-            @Model.approvalString
+            @Html.Raw(Model.approvalString)
         </p>
 
 
@@ -139,21 +139,21 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-                <input type="submit" value="Confirm" class="btn btn-info" name="3"/>
+                <input type="submit" value="Confirm" class="btn btn-info" name="3" />
                 //@Html.ActionLink("Confirm", "Status", "Appointments", new { id = 3 }, new { @class = "btn btn-info" })
-            @*}
+                @*}
 
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()*@
-                <input type="submit" value="Decline" class="btn btn-danger" name="4"/>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()*@
+                <input type="submit" value="Decline" class="btn btn-danger" name="4" />
                 //@Html.ActionLink("Decline", "Status", "Appointments", new { id = 4 }, new { @class = "btn btn-danger" })
-            @*}
+                @*}
 
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()*@
-                <input type="submit" value="Completed" class="btn btn-success" name="5"/>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()*@
+                <input type="submit" value="Completed" class="btn btn-success" name="5" />
                 //@Html.ActionLink("Completed", "Status", "Appointments", new { id = 5 }, new { @class = "btn btn-success" })
             }
         </div>

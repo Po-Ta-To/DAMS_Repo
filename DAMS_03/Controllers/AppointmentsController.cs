@@ -802,7 +802,7 @@ namespace DAMS_03.Controllers
                                           where ddb.DateOfBookings == appt.AppointmentDate
                                           select ddb.Bookings).SingleOrDefault();
 
-                returnAppt.approvalString = doc.DoctorDentistName + " Bookings on " + appt.AppointmentDate.Value.Date.ToString("dd/MM/yyyy") + " : " + currentDayBookings + "/" + doc.DoctorDentistMaxBookings;
+                returnAppt.approvalString = doc.DoctorDentistName + " Bookings on " + appt.AppointmentDate.Value.Date.ToString("dd/MM/yyyy") + " : <b>" + currentDayBookings + "/" + doc.DoctorDentistMaxBookings + "</b>";
             }
             else
             {
@@ -1219,6 +1219,25 @@ namespace DAMS_03.Controllers
                         t.Price = priceLow + " - " + priceHigh;
                     }
                 }
+
+
+                newAppointment.listOfTimeslots = new List<SelectListItem>();
+
+                List<SelectListItem> timeslots = new List<SelectListItem>();
+
+                timeslots = (from chts in db.ClinicHospitalTimeslots
+                             join ch in db.ClinicHospitals on chts.ClinicHospitalID equals ch.ID
+                             where ch.ID == hospid
+                             orderby chts.TimeslotIndex ascending
+                             select new SelectListItem()
+                             {
+                                 Text = chts.TimeRangeSlotString,
+                                 Value = chts.TimeslotIndex.ToString()
+                             }).ToList();
+
+                timeslots.RemoveAll(x => x.Text.Equals(""));
+
+                newAppointment.listOfTimeslots = timeslots;
 
             }
 
