@@ -1,6 +1,6 @@
 ﻿namespace Dental_IT.Model
 {
-    class Treatment
+    public class Treatment
     {
         public int ID { get; set; }
         public string TreatmentName { get; set; }

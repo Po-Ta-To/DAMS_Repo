@@ -21,7 +21,6 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Treatment_Information : AppCompatActivity, Android.Support.V7.Widget.SearchView.IOnQueryTextListener
     {
-        private List<Treatment> treatmentList = new List<Treatment>();
         private List<Treatment> tempTreatmentList = new List<Treatment>();
 
         private RecyclerView treatmentInformation_RecyclerView;
@@ -30,6 +29,8 @@ namespace Dental_IT.Droid.Main
 
         DrawerLayout drawerLayout;
         NavigationView navigationView;
+
+        API api = new API();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -50,28 +51,11 @@ namespace Dental_IT.Droid.Main
             {
                 try
                 {
-                    string url = Web_Config.global_connURL_getTreatment;
+                    //  Get treatments
+                    List<Treatment> treatmentList = await api.GetTreatments();
 
-                    //  Get json value by passing the URL
-                    JsonValue json = await GetTreatments(url);
-
-                    //  Create objects from json value and populate lists
-                    foreach (JsonObject obj in json)
+                    foreach (Treatment treatment in treatmentList)
                     {
-                        System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
-
-                        Treatment treatment = new Treatment()
-                        {
-                            ID = obj["ID"],
-                            TreatmentName = obj["TreatmentName"],
-                            TreatmentDesc = obj["TreatmentDesc"],
-                            Price = obj["Price"],
-                            Price_d = obj["Price_d"],
-                            PriceLow = obj["PriceLow"],
-                            PriceHigh = obj["PriceHigh"]
-                        };
-
-                        treatmentList.Add(treatment);
                         tempTreatmentList.Add(treatment);
                     }
 
@@ -210,37 +194,37 @@ namespace Dental_IT.Droid.Main
             return filteredList;
         }
 
-        // Gets Treatments data from the passed URL.
-        private async Task<JsonValue> GetTreatments(string url)
-        {
-            try
-            {
-                // Create an HTTP web request using the URL:
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-                request.ContentType = "application/json";
-                request.Method = "GET";
+        //// Gets Treatments data from the passed URL.
+        //private async Task<JsonValue> GetTreatments(string url)
+        //{
+        //    try
+        //    {
+        //        // Create an HTTP web request using the URL:
+        //        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+        //        request.ContentType = "application/json";
+        //        request.Method = "GET";
 
-                // Send the request to the server and wait for the response:
-                using (WebResponse response = request.GetResponse())
-                {
-                    // Get a stream representation of the HTTP web response:
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        // Use this stream to build a JSON document object:
-                        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                        System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
+        //        // Send the request to the server and wait for the response:
+        //        using (WebResponse response = request.GetResponse())
+        //        {
+        //            // Get a stream representation of the HTTP web response:
+        //            using (Stream stream = response.GetResponseStream())
+        //            {
+        //                // Use this stream to build a JSON document object:
+        //                JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
+        //                System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
 
-                        // Return the JSON document:
-                        return jsonDoc;
-                    }
-                }
-            }
-            catch (WebException e)
-            {
-                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
-                return new JsonArray();
-            }
-        } // End of GetTreatments() method
+        //                // Return the JSON document:
+        //                return jsonDoc;
+        //            }
+        //        }
+        //    }
+        //    catch (WebException e)
+        //    {
+        //        System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+        //        return new JsonArray();
+        //    }
+        //} // End of GetTreatments() method
     }
 }
 
