@@ -99,5 +99,9 @@
   <string name="no_gender">Please select a gender</string>
   <string name="pdpa_unchecked">Please indicate that you have read and agreed to the terms and conditions to register on this application.</string>
   <string name="OK">OK</string>
-  <string name="error">Oops! Something went wrong. Please try again later</string>
+  <string name="error">Oops! Something went wrong. Please try again later.</string>
+  <string name="invalid_signIn">Invalid login. Please check that your email/password is correct.</string>
+  <string name="server_error">Unable to connect to the server. Please try again later.</string>
+  <string name="network_error">Unable to connect to the server. Please check your network.</string>
+  <string name="access_denied">Access denied</string>
 </resources>

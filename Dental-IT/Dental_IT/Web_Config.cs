@@ -7,6 +7,9 @@
         // POST user to get token (Sign in)
         public static string global_connURL_postToken { get; } = conn + "/token";
 
+        // GET user account with token (Sign in)
+        public static string global_connURL_getUser { get; } = conn + "/api/UserAccountByUN";
+
         // CREATE/POST a new public user
         public static string global_connURL_createUser { get; } = conn + "/api/UserAccounts";
 
