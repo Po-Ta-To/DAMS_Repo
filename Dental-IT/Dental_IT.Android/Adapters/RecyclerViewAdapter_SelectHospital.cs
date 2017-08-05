@@ -47,7 +47,7 @@ namespace Dental_IT.Droid.Adapters
 
                 prefList.Add(tempFavouriteList[position].id);
 
-                Toast.MakeText(context, hospitalList[position].name + " added to favourites!", ToastLength.Short).Show();
+                Toast.MakeText(context, hospitalList[position].HospitalName + " added to favourites!", ToastLength.Short).Show();
             }
             else
             {
@@ -55,7 +55,7 @@ namespace Dental_IT.Droid.Adapters
 
                 prefList.Remove(prefList.Find(e => (e.Equals(tempFavouriteList[position].id))));
 
-                Toast.MakeText(context, hospitalList[position].name + " removed from favourites!", ToastLength.Short).Show();
+                Toast.MakeText(context, hospitalList[position].HospitalName + " removed from favourites!", ToastLength.Short).Show();
             }
         }
 
@@ -85,7 +85,7 @@ namespace Dental_IT.Droid.Adapters
             }
 
             // Set view data
-            vh.hospitalName.Text = hospitalList[position].name;
+            vh.hospitalName.Text = hospitalList[position].HospitalName;
             vh.hospitalFavourites.Checked = tempFavouriteList[position].toggled;
         }
 
@@ -113,14 +113,14 @@ namespace Dental_IT.Droid.Adapters
 
             foreach (Hospital hosp in hospitalList)
             {
-                if (prefList.Exists(e => (e.Equals(hosp.id))))
+                if (prefList.Exists(e => (e.Equals(hosp.ID))))
                 {
-                    ToggleState temp = new ToggleState(hosp.id, true);
+                    ToggleState temp = new ToggleState(hosp.ID, true);
                     tempFavouriteListFilter.Add(temp);
                 }
                 else
                 {
-                    ToggleState temp = new ToggleState(hosp.id);
+                    ToggleState temp = new ToggleState(hosp.ID);
                     tempFavouriteListFilter.Add(temp);
                 }
             }

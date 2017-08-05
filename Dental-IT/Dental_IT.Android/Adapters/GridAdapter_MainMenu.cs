@@ -1,10 +1,12 @@
 ﻿using Android.Content;
 using Android.Content.Res;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Main;
+using static Android.Views.View;
 
 namespace Dental_IT.Droid.Adapters
 {
@@ -37,7 +39,7 @@ namespace Dental_IT.Droid.Adapters
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            ImageButton button;
+            MyImageButton button;
 
             if (convertView == null)
             {
@@ -46,13 +48,13 @@ namespace Dental_IT.Droid.Adapters
                 //  Grid buttons
                 convertView = inflater.Inflate(Resource.Layout.sublayout_Menu_Button, null);
 
-                button = convertView.FindViewById<ImageButton>(Resource.Id.mainMenu_ImgBtn);
+                button = convertView.FindViewById<MyImageButton>(Resource.Id.mainMenu_ImgBtn);
           
                 button.SetMinimumHeight(Main_Menu.GRID_HEIGHT / numRows);
 
-                TypedValue tv = new TypedValue();
-                context.Theme.ResolveAttribute(Resource.Attribute.selectableItemBackground, tv, true);
-                button.SetBackgroundResource(tv.ResourceId);
+                //TypedValue tv = new TypedValue();
+                //context.Theme.ResolveAttribute(Resource.Attribute.selectableItemBackground, tv, true);
+                //button.SetBackgroundResource(tv.ResourceId);
 
                 //  This code is another method that works similarly to the above
                 //int[] attrs = new int[] { Android.Resource.Attribute.SelectableItemBackground };
@@ -100,4 +102,30 @@ namespace Dental_IT.Droid.Adapters
             return convertView;
         }
     }
+
+    class MyImageButton : ImageButton, IOnTouchListener
+    {
+        public float[] BT_SELECTED_DARK = new float[] { 1, 0, 0, 0, -50, 0, 1,
+            0, 0, -50, 0, 0, 1, 0, -50, 0, 0, 0, 1, 0 };
+
+        public MyImageButton(Context context, IAttributeSet attrs) : base(context, attrs)
+        {
+            this.SetOnTouchListener(this);
+        }
+
+        public bool OnTouch(View v, MotionEvent e)
+        {
+            if (e.Action == MotionEventActions.Down)
+            {
+                ImageView iv = (ImageView)v;
+                iv.SetColorFilter(new ColorMatrixColorFilter(BT_SELECTED_DARK));
+            }
+            else if (e.Action == MotionEventActions.Up)
+            {
+                ImageView iv = (ImageView)v;
+                iv.ClearColorFilter();
+            }
+            return true;
+        }
+    };
 }

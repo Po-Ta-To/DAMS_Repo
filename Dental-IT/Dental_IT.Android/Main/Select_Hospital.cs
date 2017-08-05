@@ -124,15 +124,15 @@ namespace Dental_IT.Droid.Main
                     foreach (Hospital hosp in hospitalList)
                     {
                         //  Add to favourites list if hospital id corresponds with id in shared preferences
-                        if (prefList.Exists(e => (e.Equals(hosp.id))))
+                        if (prefList.Exists(e => (e.Equals(hosp.ID))))
                         {
-                            ToggleState tempFav = new ToggleState(hosp.id, true);
+                            ToggleState tempFav = new ToggleState(hosp.ID, true);
                             tempFavouriteList.Add(tempFav);
                         }
                         //  Remove from hospital list if hospital id does not correspond with id in shared preferences
                         else
                         {
-                            tempHospitalList.Remove(tempHospitalList.Find(e => (e.id.Equals(hosp.id))));
+                            tempHospitalList.Remove(tempHospitalList.Find(e => (e.ID.Equals(hosp.ID))));
                         }
                     }
 
@@ -223,7 +223,7 @@ namespace Dental_IT.Droid.Main
 
             foreach (Hospital hosp in temp)
             {
-                string text = hosp.name.ToLower();
+                string text = hosp.HospitalName.ToLower();
                 if (text.Contains(lowerCaseQuery))
                 {
                     filteredList.Add(hosp);

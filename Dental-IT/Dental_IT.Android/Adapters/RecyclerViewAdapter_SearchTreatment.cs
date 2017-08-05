@@ -53,6 +53,7 @@ namespace Dental_IT.Droid.Adapters
             }
 
             // Set view data
+            vh.treatmentId = treatmentList[position].ID;
             vh.treatmentName.Text = treatmentList[position].TreatmentName;
             vh.treatmentPrice.Text = treatmentList[position].Price;
         }
@@ -65,6 +66,7 @@ namespace Dental_IT.Droid.Adapters
             holder.ItemView.Click += delegate
             {
                 Intent intent = new Intent(context, typeof(Offered_By));
+                intent.PutExtra("offeredBy_TreatmentId", holder.treatmentId);
                 context.StartActivity(intent);
             };
 
@@ -80,6 +82,7 @@ namespace Dental_IT.Droid.Adapters
 
     class SearchTreatment_ViewHolder : RecyclerView.ViewHolder
     {
+        public int treatmentId { get; set; }
         public TextView treatmentName { get; set; }
         public TextView treatmentPrice { get; set; }
 

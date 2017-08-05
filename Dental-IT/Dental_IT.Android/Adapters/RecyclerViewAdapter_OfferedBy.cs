@@ -54,8 +54,8 @@ namespace Dental_IT.Droid.Adapters
             }
 
             // Set view data
-            vh.hospitalName.Text = hospitalList[position].name;
-            vh.treatmentPrice.Text = "$1000 - $2000";
+            vh.hospitalName.Text = hospitalList[position].HospitalName;
+            vh.treatmentPrice.Text = hospitalList[position].Price;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

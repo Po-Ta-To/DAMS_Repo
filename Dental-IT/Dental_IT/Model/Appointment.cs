@@ -2,7 +2,7 @@
 
 namespace Dental_IT.Model
 {
-    class Appointment
+    public class Appointment
     {
         private int _id;
         private string _treatments;

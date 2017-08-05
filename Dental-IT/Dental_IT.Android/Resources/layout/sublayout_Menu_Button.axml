@@ -3,10 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-  <ImageButton
-    android:id="@+id/mainMenu_ImgBtn"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="centerCrop"
-    android:background="@null" />
+  <Dental_IT.Droid.Adapters.MyImageButton
+      android:id="@+id/mainMenu_ImgBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:background="@null" />
 </LinearLayout>
