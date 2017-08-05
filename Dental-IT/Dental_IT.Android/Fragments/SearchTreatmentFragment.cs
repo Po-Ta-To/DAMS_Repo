@@ -21,6 +21,8 @@ namespace Dental_IT.Droid.Fragments
         private static List<Treatment> tempTreatmentList = new List<Treatment>();
         private static Xamarin.RangeSlider.RangeSliderControl slider;
 
+        API api = new API();
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -49,29 +51,12 @@ namespace Dental_IT.Droid.Fragments
                 {
                     treatmentList.Clear();
                     tempTreatmentList.Clear();
-                    
-                    string url = Web_Config.global_connURL_getTreatment;
 
-                    //  Get json value by passing the URL
-                    JsonValue json = await GetTreatments(url);
+                    //  Get treatments
+                    treatmentList = await api.GetTreatments();
 
-                    //  Create objects from json value and populate lists
-                    foreach (JsonObject obj in json)
+                    foreach (Treatment treatment in treatmentList)
                     {
-                        System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
-
-                        Treatment treatment = new Treatment()
-                        {
-                            ID = Int32.Parse(obj["ID"]),
-                            TreatmentName = obj["TreatmentName"],
-                            TreatmentDesc = obj["TreatmentDesc"],
-                            Price = obj["Price"],
-                            Price_d = obj["Price_d"],
-                            PriceLow = Double.Parse(obj["PriceLow"]),
-                            PriceHigh = Double.Parse(obj["PriceHigh"])
-                        };
-
-                        treatmentList.Add(treatment);
                         tempTreatmentList.Add(treatment);
                     }
 
@@ -113,37 +98,5 @@ namespace Dental_IT.Droid.Fragments
 
             adapter.Replace(filteredList);
         }
-
-        // Gets Treatments data from the passed URL.
-        private async Task<JsonValue> GetTreatments(string url)
-        {
-            try
-            {
-                // Create an HTTP web request using the URL:
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-                request.ContentType = "application/json";
-                request.Method = "GET";
-
-                // Send the request to the server and wait for the response:
-                using (WebResponse response = request.GetResponse())
-                {
-                    // Get a stream representation of the HTTP web response:
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        // Use this stream to build a JSON document object:
-                        JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-                        System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
-
-                        // Return the JSON document:
-                        return jsonDoc;
-                    }
-                }
-            }
-            catch (WebException e)
-            {
-                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
-                return new JsonArray();
-            }
-        } // End of GetTreatments() method
     }
 }

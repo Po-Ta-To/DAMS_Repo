@@ -11,7 +11,7 @@ namespace Dental_IT
 {
     public class API
     {
-        // Gets Treatments data from the passed URL.
+        // Get Treatments
         public async Task<List<Treatment>> GetTreatments()
         {
             List<Treatment> treatmentList = new List<Treatment>();
