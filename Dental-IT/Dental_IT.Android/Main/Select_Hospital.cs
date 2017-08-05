@@ -142,9 +142,6 @@ namespace Dental_IT.Droid.Main
         {
             Intent intent = new Intent(this, typeof(Main_Menu));
             StartActivity(intent);
-
-            Toast.MakeText(this, "Main Menu",
-                ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }
 

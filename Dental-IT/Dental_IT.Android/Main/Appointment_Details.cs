@@ -92,11 +92,8 @@ namespace Dental_IT.Droid.Main
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            Intent intent = new Intent(this, typeof(Main_Menu));
+            Intent intent = new Intent(this, typeof(My_Appointments));
             StartActivity(intent);
-
-            Toast.MakeText(this, "Main Menu",
-                ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
         }
     }
