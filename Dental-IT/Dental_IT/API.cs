@@ -194,13 +194,8 @@ namespace Dental_IT
                                 ID = obj["ID"],
                                 TreatmentName = obj["TreatmentName"],
                                 TreatmentDesc = obj["TreatmentDesc"],
-                                Price = obj["Price"],
-                                Price_d = obj["Price_d"],
-                                PriceLow = obj["PriceLow"],
-                                PriceHigh = obj["PriceHigh"]
+                                Price = obj["Price"]
                             };
-
-                            treatmentList.Add(treatment);
 
                             treatmentList.Add(treatment);
                         }

@@ -80,7 +80,7 @@ namespace Dental_IT.Droid.Main
             hospDetails_TreatmentsBtn.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Treatments_Offered));
-                intent.PutExtra("details_HospitalName", hospDetails_HospitalText.Text);
+                intent.PutExtra("offered_Hospital", Newtonsoft.Json.JsonConvert.SerializeObject(hosp));
                 StartActivity(intent);
             };
 
