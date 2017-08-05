@@ -85,6 +85,7 @@ namespace Dental_IT.Droid.Adapters
             }
 
             // Set view data
+            vh.hospitalId = hospitalList[position].ID;
             vh.hospitalName.Text = hospitalList[position].HospitalName;
             vh.hospitalFavourites.Checked = tempFavouriteList[position].toggled;
         }
@@ -97,7 +98,7 @@ namespace Dental_IT.Droid.Adapters
             holder.ItemView.Click += delegate
             {
                 Intent intent = new Intent(context, typeof(Request_Appointment));
-                intent.PutExtra("newRequest_HospitalName", holder.hospitalName.Text);
+                intent.PutExtra("newRequest_Hospital", Newtonsoft.Json.JsonConvert.SerializeObject(hospitalList[holder.AdapterPosition]));
                 context.StartActivity(intent);
             };
 
@@ -132,6 +133,7 @@ namespace Dental_IT.Droid.Adapters
 
     class SelectHospital_ViewHolder : RecyclerView.ViewHolder
     {
+        public int hospitalId { get; set; }
         public TextView hospitalName { get; set; }
         public ToggleButton hospitalFavourites { get; set; }
 

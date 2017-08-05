@@ -11,6 +11,7 @@ using Dental_IT.Droid.Adapters;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {
@@ -50,13 +51,14 @@ namespace Dental_IT.Droid.Main
             Intent i = Intent;
 
             //  If redirected from select hospital or hospital details page (New request)
-            if (i.GetStringExtra("newRequest_HospitalName") != null)
+            if (i.GetStringExtra("newRequest_Hospital") != null)
             {
                 //  Remove old shared preferences
                 RemoveFromPreferences(prefs, editor);
 
                 //  Receive hospital name data from intent
-                hospitalName = i.GetStringExtra("newRequest_HospitalName");
+                Hospital hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("newRequest_Hospital"));
+                hospitalName = hosp.HospitalName;
             }
             else
             {
@@ -111,35 +113,26 @@ namespace Dental_IT.Droid.Main
                         case Resource.Id.nav_home:
                             intent = new Intent(this, typeof(Main_Menu));
                             StartActivity(intent);
-                            Toast.MakeText(this, Resource.String.mainmenu, ToastLength.Short).Show();
                             break;
 
                         case Resource.Id.nav_RequestAppt:
                             intent = new Intent(this, typeof(Request_Appointment));
                             StartActivity(intent);
-
-                            Toast.MakeText(this, Resource.String.request_title, ToastLength.Short).Show();
                             break;
 
                         case Resource.Id.nav_MyAppt:
                             intent = new Intent(this, typeof(My_Appointments));
                             StartActivity(intent);
-
-                            Toast.MakeText(this, Resource.String.myAppts_title, ToastLength.Short).Show();
                             break;
 
                         case Resource.Id.nav_TreatmentInfo:
                             intent = new Intent(this, typeof(Treatment_Information));
                             StartActivity(intent);
-
-                            Toast.MakeText(this, Resource.String.treatmentInfo_title, ToastLength.Short).Show();
                             break;
 
                         case Resource.Id.nav_Search:
                             intent = new Intent(this, typeof(Search));
                             StartActivity(intent);
-
-                            Toast.MakeText(this, Resource.String.search_title, ToastLength.Short).Show();
                             break;
                     }
 

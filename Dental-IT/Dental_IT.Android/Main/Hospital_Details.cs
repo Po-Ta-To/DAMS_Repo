@@ -4,13 +4,14 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Hospital_Details : AppCompatActivity
     {
-        private string hospitalName;
+        private int hospitalId;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -35,20 +36,24 @@ namespace Dental_IT.Droid.Main
             //  Check if redirected from search hospital, treatments offered or offered by
             Intent i = Intent;
 
-            if (i.GetStringExtra("details_HospitalName") != null)
+            if (i.GetStringExtra("details_Hospital") != null)
             {
                 //  Receive data from search hospital or treatments offered
-                hospitalName = i.GetStringExtra("details_HospitalName");
+                Hospital hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("details_Hospital"));
+                hospitalId = hosp.ID;
             }
-            else if (i.GetStringExtra("offered_HospitalName") != null)
+            else if (i.GetStringExtra("offeredBy_Hospital") != null)
             {
                 //  Receive data from offered by
-                hospitalName = i.GetStringExtra("offered_HospitalName");
+                Hospital hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("offeredBy_Hospital"));
+                hospitalId = hosp.ID;
             }
             else
             {
-                hospitalName = "Data not available";
+                hospitalId = 0;
             }
+
+
 
             RunOnUiThread(() =>
             {
@@ -60,7 +65,7 @@ namespace Dental_IT.Droid.Main
                 hospDetails_EmailLabel.SetTypeface(hospDetails_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
 
                 //  Set hospital name
-                hospDetails_HospitalText.Text = hospitalName;
+                //hospDetails_HospitalText.Text = hospitalName;
 
                 //Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);

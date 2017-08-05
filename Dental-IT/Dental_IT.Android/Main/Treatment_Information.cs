@@ -46,7 +46,7 @@ namespace Dental_IT.Droid.Main
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
             searchView.SetOnQueryTextListener(this);
 
-            //  Get all the treatments from database
+            //  Main data retrieving + processing method
             Task.Run(async () =>
             {
                 try
@@ -102,35 +102,26 @@ namespace Dental_IT.Droid.Main
                         case Resource.Id.nav_home:
                             intent = new Intent(this, typeof(Main_Menu));
                             StartActivity(intent);
-                            Toast.MakeText(this, Resource.String.mainmenu, ToastLength.Short).Show();
                             break;
 
                         case Resource.Id.nav_RequestAppt:
                             intent = new Intent(this, typeof(Request_Appointment));
                             StartActivity(intent);
-
-                            Toast.MakeText(this, Resource.String.request_title, ToastLength.Short).Show();
                             break;
 
                         case Resource.Id.nav_MyAppt:
                             intent = new Intent(this, typeof(My_Appointments));
                             StartActivity(intent);
-
-                            Toast.MakeText(this, Resource.String.myAppts_title, ToastLength.Short).Show();
                             break;
 
                         case Resource.Id.nav_TreatmentInfo:
                             intent = new Intent(this, typeof(Treatment_Information));
                             StartActivity(intent);
-
-                            Toast.MakeText(this, Resource.String.treatmentInfo_title, ToastLength.Short).Show();
                             break;
 
                         case Resource.Id.nav_Search:
                             intent = new Intent(this, typeof(Search));
                             StartActivity(intent);
-
-                            Toast.MakeText(this, Resource.String.search_title, ToastLength.Short).Show();
                             break;
 
                     }

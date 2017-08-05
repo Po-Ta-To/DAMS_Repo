@@ -96,7 +96,7 @@ namespace Dental_IT.Droid.Adapters
             holder.ItemView.Click += delegate
             {
                 Intent intent = new Intent(context, typeof(Hospital_Details));
-                intent.PutExtra("details_HospitalName", holder.hospitalName.Text);
+                intent.PutExtra("details_Hospital", Newtonsoft.Json.JsonConvert.SerializeObject(hospitalList[holder.AdapterPosition]));
                 context.StartActivity(intent);
             };
 

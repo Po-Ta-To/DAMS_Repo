@@ -10,7 +10,7 @@
         // GET Appointments by UserID
         public static string global_connURL_getApptByID { get; } = conn + "/api/AppointmentsByUser/"; // + UserID
 
-        // GET Appointment details by Apptointment ID
+        // GET Appointment details by Appointment ID
         public static string global_connURL_getApptDetailsById { get; } = conn + "/api/Appointments/"; // + ApptID
 
         // CREATE/POST a new Appointment
@@ -28,28 +28,28 @@
         // GET Treatment details by Treatment ID
         public static string global_connURL_getTreatmentDetailsById { get; } = conn + "/api/Treatments/";
 
-        // GET Treatments by Hospital Clinic ID
+        // GET Treatments by Clinic Hospital ID
         public static string global_connURL_getTreatmentsByCHId { get; } = conn + "/api/TreatmentsByH/"; // + CH id
 
         // GET all Hospitals 
         public static string global_connURL_getAllHospitals { get; } = conn + "/api/ClinicHospitals";
 
-        // GET Hospital Detatils Clinic Hospital ID
+        // GET Clinic Hospital Details by Clinic Hospital ID
         public static string global_connURL_getCHDetailsById { get; } = conn + "/api/ClinicHospitals/"; // + CH id
 
-        // GET Hospital Clinic by Treatment ID
+        // GET Clinic Hospital by Treatment ID
         public static string global_connURL_getClinicHospitalsByTreatmentID { get; } = conn + "/api/ClinicHospitalsByTreatment/"; // + Treatment ID
 
-        // GET Opening Hours by Hospital Clinic ID
+        // GET Opening Hours by Clinic Hospital ID
         public static string global_connURL_getOpeningHoursByCHid { get; } = conn + "/api/OpeningHours/"; // + CH id
 
-        // GET Bookings (isFullyBooked) by Hospital Clinic ID
+        // GET Bookings (isFullyBooked) by Clinic Hospital ID
         public static string global_connURL_getBookingsByCHid { get; } = conn + "/api/Bookings/"; // + CH id
 
-        // GET Doctor Dentists by Hospital Clinic ID
+        // GET Doctor Dentists by Clinic Hospital ID
         public static string global_connURL_getDocDentistsByCHid { get; } = conn + "/api/DoctorDentistsByH/"; // + CH id
 
-        // GET TimeSlot by Hospital Clinic ID
+        // GET TimeSlot by Clinic Hospital ID
         public static string global_connURL_getClinicHospitalTimeSlotByCHid { get; } = conn + "/api/ClinicHospitalTimeSlotByH/"; // + CH id
     }
 }
