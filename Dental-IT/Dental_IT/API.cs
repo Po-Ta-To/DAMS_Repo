@@ -111,7 +111,7 @@ namespace Dental_IT
             }
         }
 
-        //  ClinicHospitals
+        //  Get ClinicHospitals
         public async Task<List<Hospital>> GetClinicHospitals()
         {
             List<Hospital> hospitalList = new List<Hospital>();
@@ -141,7 +141,11 @@ namespace Dental_IT
                             Hospital hospital = new Hospital()
                             {
                                 ID = obj["ID"],
-                                HospitalName = obj["ClinicHospitalName"]
+                                HospitalName = obj["ClinicHospitalName"],
+                                Address = obj["Address"],
+                                Telephone = obj["Telephone"],
+                                Email = obj["Email"],
+                                OpeningHours = obj["OpenHours"]
                             };
 
                             hospitalList.Add(hospital);
