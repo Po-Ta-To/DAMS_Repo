@@ -55,10 +55,37 @@ namespace DAMS_03.API
                                                       orderby oh.OpeningHoursDay ascending
                                                       select oh).ToList();
 
-                    string returnOpeningHours = "Monday to Friday " + openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n" +
-                        "Saturday " + openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n" +
-                        "Sundays and Public Holidays " + openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "";
+                    string returnOpeningHours = String.Empty;
 
+
+                    returnOpeningHours += "<b>Monday to Friday</b>\n";
+                    if (openingHours[0].TimeRangeStart == new TimeSpan(0) && openingHours[0].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed\n\n";
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n\n";
+                    }
+                    returnOpeningHours += "<b>Saturday</b>\n";
+                    if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed\n\n";
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n\n";
+                    }
+                    returnOpeningHours += "<b>Sundays and Public Holidays</b>\n";
+                    if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed\n\n";
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "\n\n";
+                    }
+                    
                     ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
                     {
                         ID = clinicHospital.ID,
@@ -128,10 +155,40 @@ namespace DAMS_03.API
             }
             else
             {
-                string openinghours = "Monday to Friday " + openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n" +
-                    "Saturday " + openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n" +
-                    "Sundays and Public Holidays " + openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "";
+                //string openinghours = "Monday to Friday " + openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n" +
+                //    "Saturday " + openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n" +
+                //    "Sundays and Public Holidays " + openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "";
 
+                string openinghours = String.Empty;
+
+
+                openinghours += "<b>Monday to Friday</b>\n";
+                if (openingHours[0].TimeRangeStart == new TimeSpan(0) && openingHours[0].TimeRangeEnd == new TimeSpan(0))
+                {
+                    openinghours += "Closed\n\n";
+                }
+                else
+                {
+                    openinghours += openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n\n";
+                }
+                openinghours += "<b>Saturday</b>\n";
+                if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
+                {
+                    openinghours += "Closed\n\n";
+                }
+                else
+                {
+                    openinghours += openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n\n";
+                }
+                openinghours += "<b>Sundays and Public Holidays</b>\n";
+                if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
+                {
+                    openinghours += "Closed\n\n";
+                }
+                else
+                {
+                    openinghours += openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "\n\n";
+                }
 
                 var returnModel = new
                 {
