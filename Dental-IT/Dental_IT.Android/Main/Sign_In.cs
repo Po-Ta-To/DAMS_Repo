@@ -16,6 +16,8 @@ namespace Dental_IT.Droid.Main
         private CheckBox signIn_RememberMeChkbox;
         private TextView signIn_RegisterText;
 
+        API api = new API();
+
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -64,15 +66,22 @@ namespace Dental_IT.Droid.Main
 
                 if (validated == true)
                 {
-                    //  Save user session (remember me) if checkbox is selected
-                    if (signIn_RememberMeChkbox.Checked == true)
+                    if (api.PostUserAccount(signIn_EmailField.Text, signIn_PasswordField.Text) == true)
                     {
-                        editor.PutBoolean("remembered", true);
-                        editor.Apply();
-                    }
+                        //  Save user session (remember me) if checkbox is selected
+                        if (signIn_RememberMeChkbox.Checked == true)
+                        {
+                            editor.PutBoolean("remembered", true);
+                            editor.Apply();
+                        }
 
-                    Intent intent = new Intent(this, typeof(Main_Menu));
-                    StartActivity(intent);
+                        Intent intent = new Intent(this, typeof(Main_Menu));
+                        StartActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "Invalid login", ToastLength.Short).Show();
+                    }
                 }
             };
 
