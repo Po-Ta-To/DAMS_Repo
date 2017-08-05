@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -14,13 +15,19 @@ namespace DAMS_03.API
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: api/AppointmentsByUser/2
+        [Authorize]
         [ResponseType(typeof(Appointment))]
-        public IHttpActionResult GetAppointmentsByUserID(int id)
+        public IHttpActionResult GetAppointmentsByUserID()
         {
+            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            string username = ClaimsPrincipal.Current.Identity.Name;
+            //string alsoName = User.Identity.Name;
+
             var appointments = from Appointment in db.Appointments
-                               where Appointment.UserID == id
                                join User in db.UserAccounts on Appointment.UserID equals User.ID
+                               join anu in db.AspNetUsers on User.AspNetID equals anu.Id
                                join ch in db.ClinicHospitals on Appointment.ClinicHospitalID equals ch.ID
+                               where anu.UserName == username
                                select new
                                {
                                    ID = Appointment.ID,

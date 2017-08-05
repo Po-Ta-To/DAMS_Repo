@@ -361,7 +361,7 @@
 	NULL,
 	0,
 	0,
-	'U111');
+	'TomT91@gmail.com');
 
 	INSERT INTO [dbo].[AspNetUserRoles]
 	Values ('82c2540d-ef60-4681-9a0b-abbfad07339f', 1);
@@ -388,7 +388,7 @@
 	NULL,
 	0,
 	0,
-	'U222');
+	'Harrylim94@gmail.com');
 
 	INSERT INTO [dbo].[AspNetUserRoles]
 	Values ('009115f3-68ed-4215-bba7-d48551dc4e5f', 1);
@@ -416,7 +416,7 @@
 	NULL,
 	0,
 	0,
-	'Johnny12');
+	'Johnny12@gmail.com');
 
 	INSERT INTO [dbo].[AspNetUserRoles]
 	Values ('a22ed221-f68b-45a7-8aa2-b83270bfa30b', 1);
@@ -445,7 +445,7 @@
 	NULL,
 	0,
 	0,
-	'RachelL92');
+	'RachelL92@gmail.com');
 
 	INSERT INTO [dbo].[AspNetUserRoles]
 	Values ('708c6558-4fb5-4102-8428-d5610fb53697', 1);
@@ -473,7 +473,7 @@
 	NULL,
 	0,
 	0,
-	'MaryG98');
+	'MaryG@gmail.com');
 
 	INSERT INTO [dbo].[AspNetUserRoles]
 	Values ('0fc9f461-bac9-4f7d-a3a5-ba91e77aeab7', 1);

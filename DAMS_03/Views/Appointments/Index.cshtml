@@ -1,4 +1,5 @@
 ﻿@model DAMS_03.Models.AppointmentIndexModel
+@using DAMS_03.HtmlHelpers
 
 @{
     ViewBag.Title = "Index";
@@ -10,6 +11,115 @@
 <p> @Model.maxRecords records found </p>
 
 <br />
+
+<div class="form-group">
+    Search By
+    <div class="col-md-10">
+        @{
+
+            int pageNo;
+            int perpageNo;
+
+            if (Request["page"] != null)
+            {
+                if (!Int32.TryParse(Request["page"].ToString(), out pageNo))
+                {
+                    pageNo = 1;
+                }
+                else if (pageNo < 1)
+                {
+                    pageNo = 1;
+                }
+            }
+            else
+            {
+                pageNo = 1;
+            }
+
+            int prevPage = pageNo - 1;
+            int nextPage = pageNo + 1;
+            int nextTenPage = pageNo + 10;
+            int prevTenPage = pageNo - 10;
+            int maxpage = Model.maxPages;
+
+            if (Request["perpage"] != null)
+            {
+                if (!Int32.TryParse(Request["perpage"].ToString(), out perpageNo))
+                {
+                    perpageNo = 10;
+                }
+            }
+            else
+            {
+                perpageNo = 10;
+            }
+
+            string search = String.Empty;
+            string searchby = String.Empty;
+
+            if (Request["search"] != null)
+            {
+                search = Request["search"];
+            }
+
+            if (Request["searchby"] != null)
+            {
+                searchby = Request["searchby"];
+            }
+
+            //
+
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            if (this.User.IsInRole("SysAdmin"))
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = "",
+                    Value = ""
+                });
+            }
+            listItems.Add(new SelectListItem
+            {
+                Text = "User name",
+                Value = "user"
+
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "placeholder",
+                Value = "ph"
+            });
+
+            BootstrapHtml.Dropdown("selectby", listItems);
+
+            <script type="text/javascript">
+                $("#selectby option:selected").text();
+
+                $(document).ready(function () {
+                    $("#btnSearch").click(function () {
+
+                        window.location.href('/Index');
+
+                    });
+                });
+
+            </script>
+
+            <button class="btn btn-primary" type="button" id="btnSearch"
+                    onclick="search()">
+                search
+            </button>
+
+            @*<button class="btn btn-primary" type="button" value="Page"
+                        onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = perpageNo, search = search, searchby = searchby })'">
+                    search
+                </button>*@
+
+        }
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="panel panel-primary pull-left">
@@ -137,103 +247,67 @@
 </div>
 
 @{
-    int pageNo;
-    int perpageNo;
-
-    if (Request["page"] != null)
-    {
-        if (!Int32.TryParse(Request["page"].ToString(), out pageNo))
-        {
-            pageNo = 1;
-        }
-        else if (pageNo < 1)
-        {
-            pageNo = 1;
-        }
-    }
-    else
-    {
-        pageNo = 1;
-    }
-
-    int prevPage = pageNo - 1;
-    int nextPage = pageNo + 1;
-    int nextTenPage = pageNo + 10;
-    int prevTenPage = pageNo - 10;
-    int maxpage = Model.maxPages;
-
-    if (Request["perpage"] != null)
-    {
-        if (!Int32.TryParse(Request["perpage"].ToString(), out perpageNo))
-        {
-            perpageNo = 10;
-        }
-    }
-    else
-    {
-        perpageNo = 10;
-    }
 
     <br /><br />
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = 1, perpage = perpageNo})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = 1, perpage = perpageNo, search = search, searchby = searchby})'">
         &lt&lt&lt First Page
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = prevTenPage, perpage = perpageNo})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = prevTenPage, perpage = perpageNo, search = search, searchby = searchby})'">
         &lt&lt Prev 10 Pages
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby})'">
         &lt Prev Page
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page= nextPage, perpage = perpageNo })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page= nextPage, perpage = perpageNo, search = search, searchby = searchby })'">
         Next Page &gt
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = nextTenPage, perpage = perpageNo})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = nextTenPage, perpage = perpageNo, search = search, searchby = searchby})'">
         Next 10 Pages &gt&gt
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = maxpage, perpage = perpageNo})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = maxpage, perpage = perpageNo, search = search, searchby = searchby})'">
         Last Page &gt&gt&gt
     </button>
 
     <br />
 
     <hr />
-    
+
     <p> Select number of results per page: </p>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 10 })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 10, search = search, searchby = searchby })'">
         10
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 20 })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 20, search = search, searchby = searchby })'">
         20
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 50 })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 50, search = search, searchby = searchby })'">
         50
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 100 })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 100, search = search, searchby = searchby })'">
         100
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 500 })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 500, search = search, searchby = searchby })'">
         500
     </button>
 }

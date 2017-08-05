@@ -17,11 +17,11 @@ namespace DAMS_03.API
     {
         private DAMS_01Entities db = new DAMS_01Entities();
 
-        // GET: api/Appointments
-        public IQueryable<Appointment> GetAppointments()
-        {
-            return db.Appointments;
-        }
+        //// GET: api/Appointments
+        //public IQueryable<Appointment> GetAppointments()
+        //{
+        //    return db.Appointments;
+        //}
 
         // GET: api/Appointments/5
         [ResponseType(typeof(Appointment))]
@@ -235,21 +235,21 @@ namespace DAMS_03.API
             return Ok();
         }
 
-        // DELETE: api/Appointments/5
-        [ResponseType(typeof(Appointment))]
-        public IHttpActionResult DeleteAppointment(int id)
-        {
-            Appointment appointment = db.Appointments.Find(id);
-            if (appointment == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Appointments/5
+        //[ResponseType(typeof(Appointment))]
+        //public IHttpActionResult DeleteAppointment(int id)
+        //{
+        //    Appointment appointment = db.Appointments.Find(id);
+        //    if (appointment == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Appointments.Remove(appointment);
-            db.SaveChanges();
+        //    db.Appointments.Remove(appointment);
+        //    db.SaveChanges();
 
-            return Ok(appointment);
-        }
+        //    return Ok(appointment);
+        //}
 
         protected override void Dispose(bool disposing)
         {
