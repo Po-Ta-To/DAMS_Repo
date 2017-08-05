@@ -74,7 +74,7 @@ namespace Dental_IT.Droid.Main
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
                     inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-                    //  Post credentials to get token
+                    //  Post credentials to get token from database
                     switch (api.PostUserForToken(signIn_EmailField.Text, signIn_PasswordField.Text))
                     {
                         //  Successful
@@ -99,14 +99,17 @@ namespace Dental_IT.Droid.Main
                             //}
                             break;
 
+                        //  Invalid credentials
                         case 2:
                             Toast.MakeText(this, Resource.String.invalid_signIn, ToastLength.Short).Show();
                             break;
 
+                        //  No internet connectivity
                         case 3:
                             Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
                             break;
 
+                        //  Backend problem
                         case 4:
                             Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
                             break;

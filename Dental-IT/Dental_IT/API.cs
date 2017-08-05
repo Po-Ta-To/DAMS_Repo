@@ -307,7 +307,7 @@ namespace Dental_IT
         }
 
         //  Post User Account
-        public bool PostUserAccount(string userJson)
+        public int PostUserAccount(string userJson)
         {
             try
             {
@@ -324,12 +324,26 @@ namespace Dental_IT
                 }
 
                 WebResponse wr = request.GetResponse();
-                return true;
+                return 1;
             }
             catch (WebException e)
             {
                 System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
-                return false;
+
+                // The remote server returned an error: (400) Bad Request.
+                if (e.Message.Contains("400"))
+                {
+                    return 2;
+                }
+                //  Error: ConnectFailure (Network is unreachable)
+                else if (e.Message.Contains("unreachable"))
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 4;
+                }
             }
         }
     }
