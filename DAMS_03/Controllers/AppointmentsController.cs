@@ -1798,7 +1798,7 @@ namespace DAMS_03.Controllers
                         model.listOfTreatments.Add(addTreatment);
                     }
                 }//end foreach
-                
+
                 model.listOfTimeslots = new List<SelectListItem>();
 
                 List<SelectListItem> timeslots = new List<SelectListItem>();
@@ -1901,6 +1901,12 @@ namespace DAMS_03.Controllers
             //end check for auth
 
             Appointment appointment = db.Appointments.Find(id);
+
+            List<AppointmentTreatment> treatmentRels = (from at in db.AppointmentTreatments
+                                                        join t in db.Treatments on at.TreatmentID equals t.ID
+                                                        where at.AppointmentID == id
+                                                        select at).ToList();
+            db.AppointmentTreatments.RemoveRange(treatmentRels);
             db.Appointments.Remove(appointment);
             db.SaveChanges();
             return RedirectToAction("Index", "Appointments");
@@ -2020,7 +2026,7 @@ namespace DAMS_03.Controllers
 
             return RedirectToAction("Details", "Appointments", new { id = id });
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

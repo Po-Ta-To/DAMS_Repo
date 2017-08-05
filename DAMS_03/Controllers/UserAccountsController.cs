@@ -249,8 +249,12 @@ namespace DAMS_03.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             UserAccount userAccount = db.UserAccounts.Find(id);
-            db.UserAccounts.Remove(userAccount);
+
+            userAccount.IsDeleted = true;
+            
+            db.Entry(userAccount).State = EntityState.Modified;
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

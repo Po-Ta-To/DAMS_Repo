@@ -10,9 +10,9 @@
     <h4>Are you sure you want to delete this?</h4>
     <hr />
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
         <div class="form-horizontal">
             <div class="form-group">
                 @Html.LabelFor(model => model.DoctorDentistID, "Dentist ID", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -35,6 +35,19 @@
                     </button>
                 </div>
             </div>
+            @if (Request["error"] != null)
+            {
+                string errorNo = Request["error"];
+                switch (errorNo)
+                {
+                    case ("547"):
+                        <p style="color:red">Error : This entity cannot be deleted because it is being used by another entity.</p>
+                        break;
+                    default:
+
+                        break;
+                }//END switch
+            }
         </div>
-}
+    }
 </div>

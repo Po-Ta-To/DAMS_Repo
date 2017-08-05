@@ -45,7 +45,7 @@ namespace DAMS_03.Models
         [Required]
         public int Mobile { get; set; }
 
-        [Required]
+        //[Required]
         public string Addrress { get; set; }
 
 
@@ -83,7 +83,7 @@ namespace DAMS_03.Models
         [Required]
         public int Mobile { get; set; }
 
-        [Required]
+        //[Required]
         public string Addrress { get; set; }
 
 

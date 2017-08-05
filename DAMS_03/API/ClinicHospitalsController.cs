@@ -19,14 +19,63 @@ namespace DAMS_03.API
         // GET: api/ClinicHospitals
         public IHttpActionResult GetClinicHospitals()
         {
-            var clinicHospitals = from ClinicHospital in db.ClinicHospitals
-                                  select new
-                                  {
-                                      ClinicHospital.ID,
-                                      ClinicHospital.ClinicHospitalName
-                                  };
+            //var clinicHospitals = from ClinicHospital in db.ClinicHospitals
+            //                      select new
+            //                      {
+            //                          ClinicHospital.ID,
+            //                          ClinicHospital.ClinicHospitalName
+            //                      };
 
-            return Ok(clinicHospitals);
+            var clinicHospitals = from ClinicHospital in db.ClinicHospitals
+                                  select ClinicHospital;
+
+            List<ClinicHospitalHelperModel> returnList = new List<ClinicHospitalHelperModel>();
+
+            foreach (ClinicHospital clinicHospital in clinicHospitals)
+            {
+                if (clinicHospital.IsStringOpenHours == true)
+                {
+                    ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
+                    {
+                        ID = clinicHospital.ID,
+                        ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                        ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                        Address = clinicHospital.ClinicHospitalAddress,
+                        Telephone = clinicHospital.ClinicHospitalTel,
+                        Email = clinicHospital.ClinicHospitalEmail,
+                        OpenHours = clinicHospital.ClinicHospitalOpenHours
+                    };
+
+                    returnList.Add(returnModel);
+                }
+                else
+                {
+                    List<OpeningHour> openingHours = (from oh in db.OpeningHours
+                                                      where oh.ClinicHospitalID == clinicHospital.ID
+                                                      orderby oh.OpeningHoursDay ascending
+                                                      select oh).ToList();
+
+                    string returnOpeningHours = "Monday to Friday " + openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n" +
+                        "Saturday " + openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n" +
+                        "Sundays and Public Holidays " + openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "";
+
+                    ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
+                    {
+                        ID = clinicHospital.ID,
+                        ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                        ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                        Address = clinicHospital.ClinicHospitalAddress,
+                        Telephone = clinicHospital.ClinicHospitalTel,
+                        Email = clinicHospital.ClinicHospitalEmail,
+                        OpenHours = returnOpeningHours
+                    };
+
+                    returnList.Add(returnModel);
+                }//end of if else
+            }//end of loop
+
+            return Ok(returnList);
+
         }
 
         // GET: api/ClinicHospitals/5
@@ -179,5 +228,17 @@ namespace DAMS_03.API
         {
             return db.ClinicHospitals.Count(e => e.ID == id) > 0;
         }
+
+        private class ClinicHospitalHelperModel
+        {
+            public int ID { get; set; }
+            public string ClinicHospitalID { get; set; }
+            public string ClinicHospitalName { get; set; }
+            public string Address { get; set; }
+            public string Telephone { get; set; }
+            public string Email { get; set; }
+            public string OpenHours { get; set; }
+        }
+
     }
 }

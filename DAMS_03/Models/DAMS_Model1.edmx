@@ -206,11 +206,11 @@
           <Property Name="DOB" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gender" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Addrress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Addrress" Type="nvarchar" MaxLength="50" />
           <Property Name="AspNetID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__AdminAcco__Admin__4CF5691D">
+        <Association Name="FK__AdminAcco__Admin__55AAAAAF">
           <End Role="AdminAccount" Type="Self.AdminAccount" Multiplicity="1" />
           <End Role="AdminAccountClinicHospital" Type="Self.AdminAccountClinicHospital" Multiplicity="*" />
           <ReferentialConstraint>
@@ -222,7 +222,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AdminAcco__AspNe__3EA749C6">
+        <Association Name="FK__AdminAcco__AspNe__475C8B58">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="AdminAccount" Type="Self.AdminAccount" Multiplicity="*" />
           <ReferentialConstraint>
@@ -234,7 +234,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AdminAcco__Clini__4C0144E4">
+        <Association Name="FK__AdminAcco__Clini__54B68676">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="AdminAccountClinicHospital" Type="Self.AdminAccountClinicHospital" Multiplicity="*" />
           <ReferentialConstraint>
@@ -246,7 +246,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Appoi__6991A7CB">
+        <Association Name="FK__Appointme__Appoi__7246E95D">
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
           <End Role="AppointmentTreatment" Type="Self.AppointmentTreatment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -258,7 +258,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Clini__5F141958">
+        <Association Name="FK__Appointme__Clini__67C95AEA">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -270,7 +270,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Docto__60083D91">
+        <Association Name="FK__Appointme__Docto__68BD7F23">
           <End Role="DoctorDentist" Type="Self.DoctorDentist" Multiplicity="0..1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -282,7 +282,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Reque__60FC61CA">
+        <Association Name="FK__Appointme__Reque__69B1A35C">
           <End Role="DoctorDentist" Type="Self.DoctorDentist" Multiplicity="0..1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -294,7 +294,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Treat__6A85CC04">
+        <Association Name="FK__Appointme__Treat__733B0D96">
           <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
           <End Role="AppointmentTreatment" Type="Self.AppointmentTreatment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -306,7 +306,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__UserI__5E1FF51F">
+        <Association Name="FK__Appointme__UserI__66D536B1">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -318,7 +318,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bookings__Clinic__4FD1D5C8">
+        <Association Name="FK__Bookings__Clinic__5887175A">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
           <ReferentialConstraint>
@@ -330,7 +330,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Adver__5772F790">
+        <Association Name="FK__ClinicHos__Adver__60283922">
           <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="1" />
           <End Role="ClinicHospitalAdvertisement" Type="Self.ClinicHospitalAdvertisement" Multiplicity="*" />
           <ReferentialConstraint>
@@ -342,7 +342,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Clini__436BFEE3">
+        <Association Name="FK__ClinicHos__Clini__4C214075">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="ClinicHospitalTimeslot" Type="Self.ClinicHospitalTimeslot" Multiplicity="*" />
           <ReferentialConstraint>
@@ -354,7 +354,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Clini__58671BC9">
+        <Association Name="FK__ClinicHos__Clini__611C5D5B">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="ClinicHospitalAdvertisement" Type="Self.ClinicHospitalAdvertisement" Multiplicity="*" />
           <ReferentialConstraint>
@@ -366,7 +366,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Clini__66B53B20">
+        <Association Name="FK__ClinicHos__Clini__6F6A7CB2">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="ClinicHospitalTreatment" Type="Self.ClinicHospitalTreatment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -378,7 +378,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Treat__65C116E7">
+        <Association Name="FK__ClinicHos__Treat__6E765879">
           <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
           <End Role="ClinicHospitalTreatment" Type="Self.ClinicHospitalTreatment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -390,7 +390,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DoctorDen__Clini__46486B8E">
+        <Association Name="FK__DoctorDen__Clini__4EFDAD20">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="DoctorDentist" Type="Self.DoctorDentist" Multiplicity="*" />
           <ReferentialConstraint>
@@ -402,7 +402,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DoctorDen__Docto__4924D839">
+        <Association Name="FK__DoctorDen__Docto__51DA19CB">
           <End Role="DoctorDentist" Type="Self.DoctorDentist" Multiplicity="1" />
           <End Role="DoctorDentistDateBooking" Type="Self.DoctorDentistDateBooking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -414,7 +414,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OpeningHo__Clini__52AE4273">
+        <Association Name="FK__OpeningHo__Clini__5B638405">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="OpeningHours" Type="Self.OpeningHours" Multiplicity="*" />
           <ReferentialConstraint>
@@ -426,7 +426,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserAccou__AspNe__5B438874">
+        <Association Name="FK__UserAccou__AspNe__63F8CA06">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
           <ReferentialConstraint>
@@ -515,79 +515,79 @@
           <EntitySet Name="OpeningHours" EntityType="Self.OpeningHours" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Treatment" EntityType="Self.Treatment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AdminAcco__Admin__4CF5691D" Association="Self.FK__AdminAcco__Admin__4CF5691D">
+          <AssociationSet Name="FK__AdminAcco__Admin__55AAAAAF" Association="Self.FK__AdminAcco__Admin__55AAAAAF">
             <End Role="AdminAccount" EntitySet="AdminAccount" />
             <End Role="AdminAccountClinicHospital" EntitySet="AdminAccountClinicHospital" />
           </AssociationSet>
-          <AssociationSet Name="FK__AdminAcco__AspNe__3EA749C6" Association="Self.FK__AdminAcco__AspNe__3EA749C6">
+          <AssociationSet Name="FK__AdminAcco__AspNe__475C8B58" Association="Self.FK__AdminAcco__AspNe__475C8B58">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AdminAccount" EntitySet="AdminAccount" />
           </AssociationSet>
-          <AssociationSet Name="FK__AdminAcco__Clini__4C0144E4" Association="Self.FK__AdminAcco__Clini__4C0144E4">
+          <AssociationSet Name="FK__AdminAcco__Clini__54B68676" Association="Self.FK__AdminAcco__Clini__54B68676">
             <End Role="ClinicHospital" EntitySet="ClinicHospital" />
             <End Role="AdminAccountClinicHospital" EntitySet="AdminAccountClinicHospital" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Appoi__6991A7CB" Association="Self.FK__Appointme__Appoi__6991A7CB">
+          <AssociationSet Name="FK__Appointme__Appoi__7246E95D" Association="Self.FK__Appointme__Appoi__7246E95D">
             <End Role="Appointment" EntitySet="Appointment" />
             <End Role="AppointmentTreatment" EntitySet="AppointmentTreatment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Clini__5F141958" Association="Self.FK__Appointme__Clini__5F141958">
+          <AssociationSet Name="FK__Appointme__Clini__67C95AEA" Association="Self.FK__Appointme__Clini__67C95AEA">
             <End Role="ClinicHospital" EntitySet="ClinicHospital" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Docto__60083D91" Association="Self.FK__Appointme__Docto__60083D91">
+          <AssociationSet Name="FK__Appointme__Docto__68BD7F23" Association="Self.FK__Appointme__Docto__68BD7F23">
             <End Role="DoctorDentist" EntitySet="DoctorDentist" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Reque__60FC61CA" Association="Self.FK__Appointme__Reque__60FC61CA">
+          <AssociationSet Name="FK__Appointme__Reque__69B1A35C" Association="Self.FK__Appointme__Reque__69B1A35C">
             <End Role="DoctorDentist" EntitySet="DoctorDentist" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Treat__6A85CC04" Association="Self.FK__Appointme__Treat__6A85CC04">
+          <AssociationSet Name="FK__Appointme__Treat__733B0D96" Association="Self.FK__Appointme__Treat__733B0D96">
             <End Role="Treatment" EntitySet="Treatment" />
             <End Role="AppointmentTreatment" EntitySet="AppointmentTreatment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__UserI__5E1FF51F" Association="Self.FK__Appointme__UserI__5E1FF51F">
+          <AssociationSet Name="FK__Appointme__UserI__66D536B1" Association="Self.FK__Appointme__UserI__66D536B1">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Appointment" EntitySet="Appointment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bookings__Clinic__4FD1D5C8" Association="Self.FK__Bookings__Clinic__4FD1D5C8">
+          <AssociationSet Name="FK__Bookings__Clinic__5887175A" Association="Self.FK__Bookings__Clinic__5887175A">
             <End Role="ClinicHospital" EntitySet="ClinicHospital" />
             <End Role="Bookings" EntitySet="Bookings" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Adver__5772F790" Association="Self.FK__ClinicHos__Adver__5772F790">
+          <AssociationSet Name="FK__ClinicHos__Adver__60283922" Association="Self.FK__ClinicHos__Adver__60283922">
             <End Role="Advertisement" EntitySet="Advertisement" />
             <End Role="ClinicHospitalAdvertisement" EntitySet="ClinicHospitalAdvertisement" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Clini__436BFEE3" Association="Self.FK__ClinicHos__Clini__436BFEE3">
+          <AssociationSet Name="FK__ClinicHos__Clini__4C214075" Association="Self.FK__ClinicHos__Clini__4C214075">
             <End Role="ClinicHospital" EntitySet="ClinicHospital" />
             <End Role="ClinicHospitalTimeslot" EntitySet="ClinicHospitalTimeslot" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Clini__58671BC9" Association="Self.FK__ClinicHos__Clini__58671BC9">
+          <AssociationSet Name="FK__ClinicHos__Clini__611C5D5B" Association="Self.FK__ClinicHos__Clini__611C5D5B">
             <End Role="ClinicHospital" EntitySet="ClinicHospital" />
             <End Role="ClinicHospitalAdvertisement" EntitySet="ClinicHospitalAdvertisement" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Clini__66B53B20" Association="Self.FK__ClinicHos__Clini__66B53B20">
+          <AssociationSet Name="FK__ClinicHos__Clini__6F6A7CB2" Association="Self.FK__ClinicHos__Clini__6F6A7CB2">
             <End Role="ClinicHospital" EntitySet="ClinicHospital" />
             <End Role="ClinicHospitalTreatment" EntitySet="ClinicHospitalTreatment" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Treat__65C116E7" Association="Self.FK__ClinicHos__Treat__65C116E7">
+          <AssociationSet Name="FK__ClinicHos__Treat__6E765879" Association="Self.FK__ClinicHos__Treat__6E765879">
             <End Role="Treatment" EntitySet="Treatment" />
             <End Role="ClinicHospitalTreatment" EntitySet="ClinicHospitalTreatment" />
           </AssociationSet>
-          <AssociationSet Name="FK__DoctorDen__Clini__46486B8E" Association="Self.FK__DoctorDen__Clini__46486B8E">
+          <AssociationSet Name="FK__DoctorDen__Clini__4EFDAD20" Association="Self.FK__DoctorDen__Clini__4EFDAD20">
             <End Role="ClinicHospital" EntitySet="ClinicHospital" />
             <End Role="DoctorDentist" EntitySet="DoctorDentist" />
           </AssociationSet>
-          <AssociationSet Name="FK__DoctorDen__Docto__4924D839" Association="Self.FK__DoctorDen__Docto__4924D839">
+          <AssociationSet Name="FK__DoctorDen__Docto__51DA19CB" Association="Self.FK__DoctorDen__Docto__51DA19CB">
             <End Role="DoctorDentist" EntitySet="DoctorDentist" />
             <End Role="DoctorDentistDateBooking" EntitySet="DoctorDentistDateBooking" />
           </AssociationSet>
-          <AssociationSet Name="FK__OpeningHo__Clini__52AE4273" Association="Self.FK__OpeningHo__Clini__52AE4273">
+          <AssociationSet Name="FK__OpeningHo__Clini__5B638405" Association="Self.FK__OpeningHo__Clini__5B638405">
             <End Role="ClinicHospital" EntitySet="ClinicHospital" />
             <End Role="OpeningHours" EntitySet="OpeningHours" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserAccou__AspNe__5B438874" Association="Self.FK__UserAccou__AspNe__5B438874">
+          <AssociationSet Name="FK__UserAccou__AspNe__63F8CA06" Association="Self.FK__UserAccou__AspNe__63F8CA06">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserAccount" EntitySet="UserAccount" />
           </AssociationSet>
@@ -623,8 +623,8 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SecurityLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AspNetID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AdminAccountClinicHospitals" Relationship="Self.FK__AdminAcco__Admin__4CF5691D" FromRole="AdminAccount" ToRole="AdminAccountClinicHospital" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__AdminAcco__AspNe__3EA749C6" FromRole="AdminAccount" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AdminAccountClinicHospitals" Relationship="Self.FK__AdminAcco__Admin__55AAAAAF" FromRole="AdminAccount" ToRole="AdminAccountClinicHospital" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__AdminAcco__AspNe__475C8B58" FromRole="AdminAccount" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AdminAccountClinicHospital">
           <Key>
@@ -633,8 +633,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClinicHospitalID" Type="Int32" Nullable="false" />
           <Property Name="AdminID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AdminAccount" Relationship="Self.FK__AdminAcco__Admin__4CF5691D" FromRole="AdminAccountClinicHospital" ToRole="AdminAccount" />
-          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__AdminAcco__Clini__4C0144E4" FromRole="AdminAccountClinicHospital" ToRole="ClinicHospital" />
+          <NavigationProperty Name="AdminAccount" Relationship="Self.FK__AdminAcco__Admin__55AAAAAF" FromRole="AdminAccountClinicHospital" ToRole="AdminAccount" />
+          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__AdminAcco__Clini__54B68676" FromRole="AdminAccountClinicHospital" ToRole="ClinicHospital" />
         </EntityType>
         <EntityType Name="Advertisement">
           <Key>
@@ -643,7 +643,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdvImage" Type="Binary" MaxLength="1" FixedLength="false" Nullable="false" />
           <Property Name="AdvDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ClinicHospitalAdvertisements" Relationship="Self.FK__ClinicHos__Adver__5772F790" FromRole="Advertisement" ToRole="ClinicHospitalAdvertisement" />
+          <NavigationProperty Name="ClinicHospitalAdvertisements" Relationship="Self.FK__ClinicHos__Adver__60283922" FromRole="Advertisement" ToRole="ClinicHospitalAdvertisement" />
         </EntityType>
         <EntityType Name="Appointment">
           <Key>
@@ -661,11 +661,11 @@
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AppointmentDate" Type="DateTime" Precision="0" />
           <Property Name="AppointmentTime" Type="Int32" />
-          <NavigationProperty Name="AppointmentTreatments" Relationship="Self.FK__Appointme__Appoi__6991A7CB" FromRole="Appointment" ToRole="AppointmentTreatment" />
-          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__Appointme__Clini__5F141958" FromRole="Appointment" ToRole="ClinicHospital" />
-          <NavigationProperty Name="DoctorDentist" Relationship="Self.FK__Appointme__Docto__60083D91" FromRole="Appointment" ToRole="DoctorDentist" />
-          <NavigationProperty Name="DoctorDentist1" Relationship="Self.FK__Appointme__Reque__60FC61CA" FromRole="Appointment" ToRole="DoctorDentist" />
-          <NavigationProperty Name="UserAccount" Relationship="Self.FK__Appointme__UserI__5E1FF51F" FromRole="Appointment" ToRole="UserAccount" />
+          <NavigationProperty Name="AppointmentTreatments" Relationship="Self.FK__Appointme__Appoi__7246E95D" FromRole="Appointment" ToRole="AppointmentTreatment" />
+          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__Appointme__Clini__67C95AEA" FromRole="Appointment" ToRole="ClinicHospital" />
+          <NavigationProperty Name="DoctorDentist" Relationship="Self.FK__Appointme__Docto__68BD7F23" FromRole="Appointment" ToRole="DoctorDentist" />
+          <NavigationProperty Name="DoctorDentist1" Relationship="Self.FK__Appointme__Reque__69B1A35C" FromRole="Appointment" ToRole="DoctorDentist" />
+          <NavigationProperty Name="UserAccount" Relationship="Self.FK__Appointme__UserI__66D536B1" FromRole="Appointment" ToRole="UserAccount" />
         </EntityType>
         <EntityType Name="AppointmentTreatment">
           <Key>
@@ -674,8 +674,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AppointmentID" Type="Int32" Nullable="false" />
           <Property Name="TreatmentID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Appointment" Relationship="Self.FK__Appointme__Appoi__6991A7CB" FromRole="AppointmentTreatment" ToRole="Appointment" />
-          <NavigationProperty Name="Treatment" Relationship="Self.FK__Appointme__Treat__6A85CC04" FromRole="AppointmentTreatment" ToRole="Treatment" />
+          <NavigationProperty Name="Appointment" Relationship="Self.FK__Appointme__Appoi__7246E95D" FromRole="AppointmentTreatment" ToRole="Appointment" />
+          <NavigationProperty Name="Treatment" Relationship="Self.FK__Appointme__Treat__733B0D96" FromRole="AppointmentTreatment" ToRole="Treatment" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -722,10 +722,10 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AdminAccounts" Relationship="Self.FK__AdminAcco__AspNe__3EA749C6" FromRole="AspNetUsers" ToRole="AdminAccount" />
+          <NavigationProperty Name="AdminAccounts" Relationship="Self.FK__AdminAcco__AspNe__475C8B58" FromRole="AspNetUsers" ToRole="AdminAccount" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="UserAccounts" Relationship="Self.FK__UserAccou__AspNe__5B438874" FromRole="AspNetUsers" ToRole="UserAccount" />
+          <NavigationProperty Name="UserAccounts" Relationship="Self.FK__UserAccou__AspNe__63F8CA06" FromRole="AspNetUsers" ToRole="UserAccount" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="Booking">
@@ -736,7 +736,7 @@
           <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsFullyBooked" Type="Boolean" Nullable="false" />
           <Property Name="ClinicHospitalID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__Bookings__Clinic__4FD1D5C8" FromRole="Bookings" ToRole="ClinicHospital" />
+          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__Bookings__Clinic__5887175A" FromRole="Bookings" ToRole="ClinicHospital" />
         </EntityType>
         <EntityType Name="ClinicHospital">
           <Key>
@@ -750,14 +750,14 @@
           <Property Name="ClinicHospitalTel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClinicHospitalEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsStringOpenHours" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AdminAccountClinicHospitals" Relationship="Self.FK__AdminAcco__Clini__4C0144E4" FromRole="ClinicHospital" ToRole="AdminAccountClinicHospital" />
-          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Clini__5F141958" FromRole="ClinicHospital" ToRole="Appointment" />
-          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__Clinic__4FD1D5C8" FromRole="ClinicHospital" ToRole="Bookings" />
-          <NavigationProperty Name="ClinicHospitalTimeslots" Relationship="Self.FK__ClinicHos__Clini__436BFEE3" FromRole="ClinicHospital" ToRole="ClinicHospitalTimeslot" />
-          <NavigationProperty Name="ClinicHospitalAdvertisements" Relationship="Self.FK__ClinicHos__Clini__58671BC9" FromRole="ClinicHospital" ToRole="ClinicHospitalAdvertisement" />
-          <NavigationProperty Name="ClinicHospitalTreatments" Relationship="Self.FK__ClinicHos__Clini__66B53B20" FromRole="ClinicHospital" ToRole="ClinicHospitalTreatment" />
-          <NavigationProperty Name="DoctorDentists" Relationship="Self.FK__DoctorDen__Clini__46486B8E" FromRole="ClinicHospital" ToRole="DoctorDentist" />
-          <NavigationProperty Name="OpeningHours" Relationship="Self.FK__OpeningHo__Clini__52AE4273" FromRole="ClinicHospital" ToRole="OpeningHours" />
+          <NavigationProperty Name="AdminAccountClinicHospitals" Relationship="Self.FK__AdminAcco__Clini__54B68676" FromRole="ClinicHospital" ToRole="AdminAccountClinicHospital" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Clini__67C95AEA" FromRole="ClinicHospital" ToRole="Appointment" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__Clinic__5887175A" FromRole="ClinicHospital" ToRole="Bookings" />
+          <NavigationProperty Name="ClinicHospitalTimeslots" Relationship="Self.FK__ClinicHos__Clini__4C214075" FromRole="ClinicHospital" ToRole="ClinicHospitalTimeslot" />
+          <NavigationProperty Name="ClinicHospitalAdvertisements" Relationship="Self.FK__ClinicHos__Clini__611C5D5B" FromRole="ClinicHospital" ToRole="ClinicHospitalAdvertisement" />
+          <NavigationProperty Name="ClinicHospitalTreatments" Relationship="Self.FK__ClinicHos__Clini__6F6A7CB2" FromRole="ClinicHospital" ToRole="ClinicHospitalTreatment" />
+          <NavigationProperty Name="DoctorDentists" Relationship="Self.FK__DoctorDen__Clini__4EFDAD20" FromRole="ClinicHospital" ToRole="DoctorDentist" />
+          <NavigationProperty Name="OpeningHours" Relationship="Self.FK__OpeningHo__Clini__5B638405" FromRole="ClinicHospital" ToRole="OpeningHours" />
         </EntityType>
         <EntityType Name="ClinicHospitalAdvertisement">
           <Key>
@@ -766,8 +766,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdvertisementID" Type="Int32" Nullable="false" />
           <Property Name="ClinicHospitalID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Advertisement" Relationship="Self.FK__ClinicHos__Adver__5772F790" FromRole="ClinicHospitalAdvertisement" ToRole="Advertisement" />
-          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__ClinicHos__Clini__58671BC9" FromRole="ClinicHospitalAdvertisement" ToRole="ClinicHospital" />
+          <NavigationProperty Name="Advertisement" Relationship="Self.FK__ClinicHos__Adver__60283922" FromRole="ClinicHospitalAdvertisement" ToRole="Advertisement" />
+          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__ClinicHos__Clini__611C5D5B" FromRole="ClinicHospitalAdvertisement" ToRole="ClinicHospital" />
         </EntityType>
         <EntityType Name="ClinicHospitalTimeslot">
           <Key>
@@ -777,7 +777,7 @@
           <Property Name="TimeslotIndex" Type="Int32" Nullable="false" />
           <Property Name="TimeRangeSlotString" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ClinicHospitalID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__ClinicHos__Clini__436BFEE3" FromRole="ClinicHospitalTimeslot" ToRole="ClinicHospital" />
+          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__ClinicHos__Clini__4C214075" FromRole="ClinicHospitalTimeslot" ToRole="ClinicHospital" />
         </EntityType>
         <EntityType Name="ClinicHospitalTreatment">
           <Key>
@@ -788,8 +788,8 @@
           <Property Name="ClinicHospitalID" Type="Int32" Nullable="false" />
           <Property Name="PriceLow" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="PriceHigh" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__ClinicHos__Clini__66B53B20" FromRole="ClinicHospitalTreatment" ToRole="ClinicHospital" />
-          <NavigationProperty Name="Treatment" Relationship="Self.FK__ClinicHos__Treat__65C116E7" FromRole="ClinicHospitalTreatment" ToRole="Treatment" />
+          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__ClinicHos__Clini__6F6A7CB2" FromRole="ClinicHospitalTreatment" ToRole="ClinicHospital" />
+          <NavigationProperty Name="Treatment" Relationship="Self.FK__ClinicHos__Treat__6E765879" FromRole="ClinicHospitalTreatment" ToRole="Treatment" />
         </EntityType>
         <EntityType Name="DoctorDentist">
           <Key>
@@ -800,10 +800,10 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaxBookings" Type="Int32" Nullable="false" />
           <Property Name="ClinicHospitalID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Docto__60083D91" FromRole="DoctorDentist" ToRole="Appointment" />
-          <NavigationProperty Name="Appointments1" Relationship="Self.FK__Appointme__Reque__60FC61CA" FromRole="DoctorDentist" ToRole="Appointment" />
-          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__DoctorDen__Clini__46486B8E" FromRole="DoctorDentist" ToRole="ClinicHospital" />
-          <NavigationProperty Name="DoctorDentistDateBookings" Relationship="Self.FK__DoctorDen__Docto__4924D839" FromRole="DoctorDentist" ToRole="DoctorDentistDateBooking" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Docto__68BD7F23" FromRole="DoctorDentist" ToRole="Appointment" />
+          <NavigationProperty Name="Appointments1" Relationship="Self.FK__Appointme__Reque__69B1A35C" FromRole="DoctorDentist" ToRole="Appointment" />
+          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__DoctorDen__Clini__4EFDAD20" FromRole="DoctorDentist" ToRole="ClinicHospital" />
+          <NavigationProperty Name="DoctorDentistDateBookings" Relationship="Self.FK__DoctorDen__Docto__51DA19CB" FromRole="DoctorDentist" ToRole="DoctorDentistDateBooking" />
         </EntityType>
         <EntityType Name="DoctorDentistDateBooking">
           <Key>
@@ -813,7 +813,7 @@
           <Property Name="DateOfBookings" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Bookings" Type="Int32" Nullable="false" />
           <Property Name="DoctorDentistID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DoctorDentist" Relationship="Self.FK__DoctorDen__Docto__4924D839" FromRole="DoctorDentistDateBooking" ToRole="DoctorDentist" />
+          <NavigationProperty Name="DoctorDentist" Relationship="Self.FK__DoctorDen__Docto__51DA19CB" FromRole="DoctorDentistDateBooking" ToRole="DoctorDentist" />
         </EntityType>
         <EntityType Name="OpeningHour">
           <Key>
@@ -824,7 +824,7 @@
           <Property Name="TimeRangeStart" Type="Time" Nullable="false" Precision="7" />
           <Property Name="TimeRangeEnd" Type="Time" Nullable="false" Precision="7" />
           <Property Name="ClinicHospitalID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__OpeningHo__Clini__52AE4273" FromRole="OpeningHours" ToRole="ClinicHospital" />
+          <NavigationProperty Name="ClinicHospital" Relationship="Self.FK__OpeningHo__Clini__5B638405" FromRole="OpeningHours" ToRole="ClinicHospital" />
         </EntityType>
         <EntityType Name="Treatment">
           <Key>
@@ -835,8 +835,8 @@
           <Property Name="TreatmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TreatmentDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsFollowUp" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AppointmentTreatments" Relationship="Self.FK__Appointme__Treat__6A85CC04" FromRole="Treatment" ToRole="AppointmentTreatment" />
-          <NavigationProperty Name="ClinicHospitalTreatments" Relationship="Self.FK__ClinicHos__Treat__65C116E7" FromRole="Treatment" ToRole="ClinicHospitalTreatment" />
+          <NavigationProperty Name="AppointmentTreatments" Relationship="Self.FK__Appointme__Treat__733B0D96" FromRole="Treatment" ToRole="AppointmentTreatment" />
+          <NavigationProperty Name="ClinicHospitalTreatments" Relationship="Self.FK__ClinicHos__Treat__6E765879" FromRole="Treatment" ToRole="ClinicHospitalTreatment" />
         </EntityType>
         <EntityType Name="UserAccount">
           <Key>
@@ -848,13 +848,13 @@
           <Property Name="DOB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Addrress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Addrress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AspNetID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__UserI__5E1FF51F" FromRole="UserAccount" ToRole="Appointment" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__UserAccou__AspNe__5B438874" FromRole="UserAccount" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__UserI__66D536B1" FromRole="UserAccount" ToRole="Appointment" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__UserAccou__AspNe__63F8CA06" FromRole="UserAccount" ToRole="AspNetUsers" />
         </EntityType>
-        <Association Name="FK__AdminAcco__Admin__4CF5691D">
+        <Association Name="FK__AdminAcco__Admin__55AAAAAF">
           <End Role="AdminAccount" Type="Self.AdminAccount" Multiplicity="1" />
           <End Role="AdminAccountClinicHospital" Type="Self.AdminAccountClinicHospital" Multiplicity="*" />
           <ReferentialConstraint>
@@ -866,7 +866,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AdminAcco__AspNe__3EA749C6">
+        <Association Name="FK__AdminAcco__AspNe__475C8B58">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="AdminAccount" Type="Self.AdminAccount" Multiplicity="*" />
           <ReferentialConstraint>
@@ -878,7 +878,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AdminAcco__Clini__4C0144E4">
+        <Association Name="FK__AdminAcco__Clini__54B68676">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="AdminAccountClinicHospital" Type="Self.AdminAccountClinicHospital" Multiplicity="*" />
           <ReferentialConstraint>
@@ -890,7 +890,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Adver__5772F790">
+        <Association Name="FK__ClinicHos__Adver__60283922">
           <End Role="Advertisement" Type="Self.Advertisement" Multiplicity="1" />
           <End Role="ClinicHospitalAdvertisement" Type="Self.ClinicHospitalAdvertisement" Multiplicity="*" />
           <ReferentialConstraint>
@@ -902,7 +902,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Appoi__6991A7CB">
+        <Association Name="FK__Appointme__Appoi__7246E95D">
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
           <End Role="AppointmentTreatment" Type="Self.AppointmentTreatment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -914,7 +914,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Clini__5F141958">
+        <Association Name="FK__Appointme__Clini__67C95AEA">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -926,7 +926,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Docto__60083D91">
+        <Association Name="FK__Appointme__Docto__68BD7F23">
           <End Role="DoctorDentist" Type="Self.DoctorDentist" Multiplicity="0..1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -938,7 +938,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Reque__60FC61CA">
+        <Association Name="FK__Appointme__Reque__69B1A35C">
           <End Role="DoctorDentist" Type="Self.DoctorDentist" Multiplicity="0..1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -950,7 +950,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__UserI__5E1FF51F">
+        <Association Name="FK__Appointme__UserI__66D536B1">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -962,7 +962,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Appointme__Treat__6A85CC04">
+        <Association Name="FK__Appointme__Treat__733B0D96">
           <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
           <End Role="AppointmentTreatment" Type="Self.AppointmentTreatment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1002,7 +1002,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserAccou__AspNe__5B438874">
+        <Association Name="FK__UserAccou__AspNe__63F8CA06">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1014,7 +1014,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bookings__Clinic__4FD1D5C8">
+        <Association Name="FK__Bookings__Clinic__5887175A">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1026,7 +1026,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Clini__436BFEE3">
+        <Association Name="FK__ClinicHos__Clini__4C214075">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="ClinicHospitalTimeslot" Type="Self.ClinicHospitalTimeslot" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1038,7 +1038,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Clini__58671BC9">
+        <Association Name="FK__ClinicHos__Clini__611C5D5B">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="ClinicHospitalAdvertisement" Type="Self.ClinicHospitalAdvertisement" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1050,7 +1050,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Clini__66B53B20">
+        <Association Name="FK__ClinicHos__Clini__6F6A7CB2">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="ClinicHospitalTreatment" Type="Self.ClinicHospitalTreatment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1062,7 +1062,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DoctorDen__Clini__46486B8E">
+        <Association Name="FK__DoctorDen__Clini__4EFDAD20">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="DoctorDentist" Type="Self.DoctorDentist" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1074,7 +1074,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OpeningHo__Clini__52AE4273">
+        <Association Name="FK__OpeningHo__Clini__5B638405">
           <End Role="ClinicHospital" Type="Self.ClinicHospital" Multiplicity="1" />
           <End Role="OpeningHours" Type="Self.OpeningHour" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1086,7 +1086,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ClinicHos__Treat__65C116E7">
+        <Association Name="FK__ClinicHos__Treat__6E765879">
           <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
           <End Role="ClinicHospitalTreatment" Type="Self.ClinicHospitalTreatment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1098,7 +1098,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DoctorDen__Docto__4924D839">
+        <Association Name="FK__DoctorDen__Docto__51DA19CB">
           <End Role="DoctorDentist" Type="Self.DoctorDentist" Multiplicity="1" />
           <End Role="DoctorDentistDateBooking" Type="Self.DoctorDentistDateBooking" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1114,7 +1114,7 @@
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="DAMS_01Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminAccounts" EntityType="Self.AdminAccount" />
           <EntitySet Name="AdminAccountClinicHospitals" EntityType="Self.AdminAccountClinicHospital" />
           <EntitySet Name="Advertisements" EntityType="Self.Advertisement" />
@@ -1134,43 +1134,43 @@
           <EntitySet Name="OpeningHours" EntityType="Self.OpeningHour" />
           <EntitySet Name="Treatments" EntityType="Self.Treatment" />
           <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
-          <AssociationSet Name="FK__AdminAcco__Admin__4CF5691D" Association="Self.FK__AdminAcco__Admin__4CF5691D">
+          <AssociationSet Name="FK__AdminAcco__Admin__55AAAAAF" Association="Self.FK__AdminAcco__Admin__55AAAAAF">
             <End Role="AdminAccount" EntitySet="AdminAccounts" />
             <End Role="AdminAccountClinicHospital" EntitySet="AdminAccountClinicHospitals" />
           </AssociationSet>
-          <AssociationSet Name="FK__AdminAcco__AspNe__3EA749C6" Association="Self.FK__AdminAcco__AspNe__3EA749C6">
+          <AssociationSet Name="FK__AdminAcco__AspNe__475C8B58" Association="Self.FK__AdminAcco__AspNe__475C8B58">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AdminAccount" EntitySet="AdminAccounts" />
           </AssociationSet>
-          <AssociationSet Name="FK__AdminAcco__Clini__4C0144E4" Association="Self.FK__AdminAcco__Clini__4C0144E4">
+          <AssociationSet Name="FK__AdminAcco__Clini__54B68676" Association="Self.FK__AdminAcco__Clini__54B68676">
             <End Role="ClinicHospital" EntitySet="ClinicHospitals" />
             <End Role="AdminAccountClinicHospital" EntitySet="AdminAccountClinicHospitals" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Adver__5772F790" Association="Self.FK__ClinicHos__Adver__5772F790">
+          <AssociationSet Name="FK__ClinicHos__Adver__60283922" Association="Self.FK__ClinicHos__Adver__60283922">
             <End Role="Advertisement" EntitySet="Advertisements" />
             <End Role="ClinicHospitalAdvertisement" EntitySet="ClinicHospitalAdvertisements" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Appoi__6991A7CB" Association="Self.FK__Appointme__Appoi__6991A7CB">
+          <AssociationSet Name="FK__Appointme__Appoi__7246E95D" Association="Self.FK__Appointme__Appoi__7246E95D">
             <End Role="Appointment" EntitySet="Appointments" />
             <End Role="AppointmentTreatment" EntitySet="AppointmentTreatments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Clini__5F141958" Association="Self.FK__Appointme__Clini__5F141958">
+          <AssociationSet Name="FK__Appointme__Clini__67C95AEA" Association="Self.FK__Appointme__Clini__67C95AEA">
             <End Role="ClinicHospital" EntitySet="ClinicHospitals" />
             <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Docto__60083D91" Association="Self.FK__Appointme__Docto__60083D91">
+          <AssociationSet Name="FK__Appointme__Docto__68BD7F23" Association="Self.FK__Appointme__Docto__68BD7F23">
             <End Role="DoctorDentist" EntitySet="DoctorDentists" />
             <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Reque__60FC61CA" Association="Self.FK__Appointme__Reque__60FC61CA">
+          <AssociationSet Name="FK__Appointme__Reque__69B1A35C" Association="Self.FK__Appointme__Reque__69B1A35C">
             <End Role="DoctorDentist" EntitySet="DoctorDentists" />
             <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__UserI__5E1FF51F" Association="Self.FK__Appointme__UserI__5E1FF51F">
+          <AssociationSet Name="FK__Appointme__UserI__66D536B1" Association="Self.FK__Appointme__UserI__66D536B1">
             <End Role="UserAccount" EntitySet="UserAccounts" />
             <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Appointme__Treat__6A85CC04" Association="Self.FK__Appointme__Treat__6A85CC04">
+          <AssociationSet Name="FK__Appointme__Treat__733B0D96" Association="Self.FK__Appointme__Treat__733B0D96">
             <End Role="Treatment" EntitySet="Treatments" />
             <End Role="AppointmentTreatment" EntitySet="AppointmentTreatments" />
           </AssociationSet>
@@ -1182,39 +1182,39 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserAccou__AspNe__5B438874" Association="Self.FK__UserAccou__AspNe__5B438874">
+          <AssociationSet Name="FK__UserAccou__AspNe__63F8CA06" Association="Self.FK__UserAccou__AspNe__63F8CA06">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserAccount" EntitySet="UserAccounts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bookings__Clinic__4FD1D5C8" Association="Self.FK__Bookings__Clinic__4FD1D5C8">
+          <AssociationSet Name="FK__Bookings__Clinic__5887175A" Association="Self.FK__Bookings__Clinic__5887175A">
             <End Role="ClinicHospital" EntitySet="ClinicHospitals" />
             <End Role="Bookings" EntitySet="Bookings" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Clini__436BFEE3" Association="Self.FK__ClinicHos__Clini__436BFEE3">
+          <AssociationSet Name="FK__ClinicHos__Clini__4C214075" Association="Self.FK__ClinicHos__Clini__4C214075">
             <End Role="ClinicHospital" EntitySet="ClinicHospitals" />
             <End Role="ClinicHospitalTimeslot" EntitySet="ClinicHospitalTimeslots" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Clini__58671BC9" Association="Self.FK__ClinicHos__Clini__58671BC9">
+          <AssociationSet Name="FK__ClinicHos__Clini__611C5D5B" Association="Self.FK__ClinicHos__Clini__611C5D5B">
             <End Role="ClinicHospital" EntitySet="ClinicHospitals" />
             <End Role="ClinicHospitalAdvertisement" EntitySet="ClinicHospitalAdvertisements" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Clini__66B53B20" Association="Self.FK__ClinicHos__Clini__66B53B20">
+          <AssociationSet Name="FK__ClinicHos__Clini__6F6A7CB2" Association="Self.FK__ClinicHos__Clini__6F6A7CB2">
             <End Role="ClinicHospital" EntitySet="ClinicHospitals" />
             <End Role="ClinicHospitalTreatment" EntitySet="ClinicHospitalTreatments" />
           </AssociationSet>
-          <AssociationSet Name="FK__DoctorDen__Clini__46486B8E" Association="Self.FK__DoctorDen__Clini__46486B8E">
+          <AssociationSet Name="FK__DoctorDen__Clini__4EFDAD20" Association="Self.FK__DoctorDen__Clini__4EFDAD20">
             <End Role="ClinicHospital" EntitySet="ClinicHospitals" />
             <End Role="DoctorDentist" EntitySet="DoctorDentists" />
           </AssociationSet>
-          <AssociationSet Name="FK__OpeningHo__Clini__52AE4273" Association="Self.FK__OpeningHo__Clini__52AE4273">
+          <AssociationSet Name="FK__OpeningHo__Clini__5B638405" Association="Self.FK__OpeningHo__Clini__5B638405">
             <End Role="ClinicHospital" EntitySet="ClinicHospitals" />
             <End Role="OpeningHours" EntitySet="OpeningHours" />
           </AssociationSet>
-          <AssociationSet Name="FK__ClinicHos__Treat__65C116E7" Association="Self.FK__ClinicHos__Treat__65C116E7">
+          <AssociationSet Name="FK__ClinicHos__Treat__6E765879" Association="Self.FK__ClinicHos__Treat__6E765879">
             <End Role="Treatment" EntitySet="Treatments" />
             <End Role="ClinicHospitalTreatment" EntitySet="ClinicHospitalTreatments" />
           </AssociationSet>
-          <AssociationSet Name="FK__DoctorDen__Docto__4924D839" Association="Self.FK__DoctorDen__Docto__4924D839">
+          <AssociationSet Name="FK__DoctorDen__Docto__51DA19CB" Association="Self.FK__DoctorDen__Docto__51DA19CB">
             <End Role="DoctorDentist" EntitySet="DoctorDentists" />
             <End Role="DoctorDentistDateBooking" EntitySet="DoctorDentistDateBookings" />
           </AssociationSet>
@@ -1228,7 +1228,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DAMS_01ModelStoreContainer" CdmEntityContainer="DAMS_01Entities">
+        <EntityContainerMapping StorageEntityContainer="DAMS_01ModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="AdminAccounts">
             <EntityTypeMapping TypeName="DAMS_01Model.AdminAccount">
               <MappingFragment StoreEntitySet="AdminAccount">

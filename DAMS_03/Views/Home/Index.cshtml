@@ -1,35 +1,35 @@
-﻿@if (User.Identity.IsAuthenticated)
-{
-    <link href="~/content/container.css" rel="stylesheet" />
-
-    <div class="row">
-        <div class="form-group col-md-7">
-            <div class="bluebox">
-                <div class="centeralign">
-                    <h2><b>Admin Controls</b></h2> <br /><br /><br /><br />   
-                    <p><img src="~/wwwroot/images/account icon.png" height="30"/> &nbsp; <a href="@Url.Action("Index", "AccountControls")">Account Controls </a></p> <br /><br /> <br /><br /><br /><br />
-                    <p><img src="~/wwwroot/images/listing icon.png" height="30" /> &nbsp; <a href="@Url.Action("Index", "ListingControls")">Listing Controls </a></p>
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-md-offset-7">
-            <div class="bluebox2">
-                <div class="centeralign">
-                    <h2><b>Manage Appointments</b></h2><br /><br /><br />
-
-                    <p><img src="~/wwwroot/images/viewall.png" height="30" /> &nbsp; <a href="@Url.Action("Index", "Appointments")">View All Appointments</a></p><br /><br />
-
-                    <p><img src="~/wwwroot/images/view booked appts.png" height="30"/> &nbsp; <a href="@Url.Action("IndexBy", "Appointments", new { id = "3" })">View Booked Appointments</a></p><br /><br />
-                    <p><img src="~/wwwroot/images/view appt requests.png" height="30" /> &nbsp; <a href="@Url.Action("IndexBy","Appointments", new { id = "1" })">View Appointment Requests</a></p><br /><br />
-                    <p><img src="~/wwwroot/images/view appt update requests.png" height="30" /> &nbsp; <a href="@Url.Action("IndexBy","Appointments", new { id = "2" })">View Appointment Cancelled and Declined Requests</a></p><br /><br />
-                    <p><img src="~/wwwroot/images/viewcomplete.png" height="30" /> &nbsp; <a href="@Url.Action("IndexBy","Appointments", new { id = "5" })">View Completed Appointment</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-else
-{
-
+﻿
+@{
+    ViewBag.Title = "Index";
 }
 
+<link href="~/content/container.css" rel="stylesheet" />
+
+<h2>Welcome!</h2>
+
+<body class="loginBody">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <hr />
+        <br />
+
+        <button class="btn btn-primary" type="button" value="Page"
+                onclick="location.href='@Url.Action("Menu", "Home", new { id = "loginLink" })'">
+            Click Here to access admin controls
+        </button>
+        <br />
+    }
+    else
+    {
+        <hr />
+        <br />
+
+        <button class="btn btn-primary" type="button" value="Page"
+                onclick="location.href='@Url.Action("Login", "Account", new { id = "loginLink" })'">
+            Click Here to Login
+        </button>
+        <br />
+    }
+
+</body>

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DAMS_03.Models;
 using DAMS_03.Authorization;
+using System.Data.SqlClient;
 
 namespace DAMS_03.Controllers
 {
@@ -117,10 +118,29 @@ namespace DAMS_03.Controllers
         [AuthorizeAdmin(Roles = "SysAdmin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Treatment treatment = db.Treatments.Find(id);
-            db.Treatments.Remove(treatment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            try
+            {
+                Treatment treatment = db.Treatments.Find(id);
+                db.Treatments.Remove(treatment);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                SqlException sqle = (SqlException)e.InnerException.InnerException;
+
+                if (sqle.Number == 547)
+                {
+                    return RedirectToAction("Delete", "Treatments", new { id = id, error = "547" });
+                }
+                throw;
+            }
+
+            //Treatment treatment = db.Treatments.Find(id);
+            //db.Treatments.Remove(treatment);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

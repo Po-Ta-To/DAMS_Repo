@@ -7,7 +7,7 @@ using DAMS_03.Authorization;
 
 namespace DAMS_03.Controllers
 {
-    [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+    //[Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -16,5 +16,14 @@ namespace DAMS_03.Controllers
 
             return View();
         }
+
+        [AuthorizeAdmin(Roles = "SysAdmin, HospAdmin, ClerkAdmin")]
+        public ActionResult Menu()
+        {
+            ViewBag.Title = "Home Page";
+
+            return View();
+        }
+
     }
 }
