@@ -44,7 +44,7 @@ namespace Dental_IT.Droid.Fragments
             slider.TextFormat = "$0";
             slider.SetSelectedMaxValue(slider.GetAbsoluteMaxValue());
 
-            //  Get all the treatments from database
+            //  Main data retrieving + processing method
             Task.Run(async () =>
             {
                 try

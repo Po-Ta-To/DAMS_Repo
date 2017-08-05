@@ -33,7 +33,7 @@ namespace Dental_IT.Droid.Main
             //  Receive data from search treatments
             treatmentId = Intent.GetIntExtra("offeredBy_TreatmentId", 0);
 
-            //  Get all the treatments from database
+            //  Main data retrieving + processing method
             Task.Run(async () =>
             {
                 try

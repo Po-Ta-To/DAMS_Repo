@@ -46,7 +46,7 @@ namespace Dental_IT.Droid.Main
             searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
             searchView.SetOnQueryTextListener(this);
 
-            //  Get all the treatments from database
+            //  Main data retrieving + processing method
             Task.Run(async () =>
             {
                 try

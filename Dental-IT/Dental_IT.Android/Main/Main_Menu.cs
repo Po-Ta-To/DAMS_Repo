@@ -89,7 +89,7 @@ namespace Dental_IT.Droid.Main
                         break;
 
                         case Resource.Id.nav_RequestAppt:
-                            intent = new Intent(this, typeof(Request_Appointment));
+                            intent = new Intent(this, typeof(Select_Hospital));
                         StartActivity(intent);
 
                         Toast.MakeText(this, Resource.String.request_title, ToastLength.Short).Show();
