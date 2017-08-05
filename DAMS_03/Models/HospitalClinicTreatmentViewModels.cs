@@ -21,16 +21,16 @@ namespace DAMS_03.Models
         [Display(Name = "Address")]
         public string ClinicHospitalAddress { get; set; }
         [Required]
-        [Display(Name = "Opening Hours String")]
+        [Display(Name = "Custom Opening Hours Description")]
         public string ClinicHospitalOpenHours { get; set; }
         [Required]
-        [Display(Name = "Tel")]
+        [Display(Name = "Telephone")]
         public string ClinicHospitalTel { get; set; }
         [Required]
         [Display(Name = "Email")]
         public string ClinicHospitalEmail { get; set; }
         [Required]
-        [Display(Name = "Use Opening Hours String")]
+        [Display(Name = "Use Custom Opening Hours Description")]
         public bool IsStringOpenHours { get; set; }
 
         [Required]
@@ -56,16 +56,16 @@ namespace DAMS_03.Models
         [Display(Name = "Address")]
         public string ClinicHospitalAddress { get; set; }
         [Required]
-        [Display(Name = "Opening Hours String")]
+        [Display(Name = "Custom Opening Hours Description")]
         public string ClinicHospitalOpenHours { get; set; }
         [Required]
-        [Display(Name = "Tel")]
+        [Display(Name = "Telephone")]
         public string ClinicHospitalTel { get; set; }
         [Required]
         [Display(Name = "Email")]
         public string ClinicHospitalEmail { get; set; }
         [Required]
-        [Display(Name = "Use Opening Hours String")]
+        [Display(Name = "Use Custom Opening Hours Description")]
         public bool IsStringOpenHours { get; set; }
 
         //[Display(Name = "")]
@@ -92,16 +92,16 @@ namespace DAMS_03.Models
         [Display(Name = "Address")]
         public string ClinicHospitalAddress { get; set; }
         [Required]
-        [Display(Name = "Opening Hours String")]
+        [Display(Name = "Custom Opening Hours Description")]
         public string ClinicHospitalOpenHours { get; set; }
         [Required]
-        [Display(Name = "Tel")]
+        [Display(Name = "Telephone")]
         public string ClinicHospitalTel { get; set; }
         [Required]
         [Display(Name = "Email")]
         public string ClinicHospitalEmail { get; set; }
         [Required]
-        [Display(Name = "Use Opening Hours String")]
+        [Display(Name = "Use Custom Opening Hours Description")]
         public bool IsStringOpenHours { get; set; }
 
 
@@ -123,15 +123,19 @@ namespace DAMS_03.Models
         //public int ID { get; set; }
 
         [Required]
+        [Display(Name = "ID")]
         public int TreatmentID { get; set; }
 
         [Required]
+        [Display(Name = "Name")]
         public string TreatmentName { get; set; }
 
         [Required]
+        [Display(Name = "Description")]
         public string TreatmentDesc { get; set; }
 
         [Required]
+        [Display(Name = "Is followup treatment")]
         public bool IsFollowUp { get; set; }
 
         [Required]
@@ -139,9 +143,11 @@ namespace DAMS_03.Models
         public bool IsChecked { get; set; }
 
         [Required]
+        [Display(Name = "Price range low")]
         public decimal PriceLow { get; set; }
 
         [Required]
+        [Display(Name = "Price range high")]
         public decimal PriceHigh { get; set; }
 
 
@@ -154,15 +160,19 @@ namespace DAMS_03.Models
 
 
         [Required]
+        [Display(Name = "ID")]
         public int TreatmentID { get; set; }
 
         [Required]//may not req for post
+        [Display(Name = "Name")]
         public string TreatmentName { get; set; }
 
         [Required]//may not req for post
+        [Display(Name = "Description")]
         public string TreatmentDesc { get; set; }
 
         [Required]//may not req for post
+        [Display(Name = "Is followup treatment")]
         public bool IsFollowUp { get; set; }
 
         [Required]
@@ -170,9 +180,11 @@ namespace DAMS_03.Models
         public bool IsChecked { get; set; }
 
         [Required]
+        [Display(Name = "Price range low")]
         public decimal PriceLow { get; set; }
 
         [Required]
+        [Display(Name = "Price range high")]
         public decimal PriceHigh { get; set; }
         
     }
@@ -181,7 +193,8 @@ namespace DAMS_03.Models
     {
         [Required]
         public int TimeslotIndex { get; set; }
-        
+
+        [Display(Name = "Timeslot Display")]
         public string TimeRangeSlotString { get; set; }
 
     }

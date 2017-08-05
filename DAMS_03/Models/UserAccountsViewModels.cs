@@ -37,15 +37,19 @@ namespace DAMS_03.Models
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Date of birth")]
         public string DOB { get; set; }
 
         [Required]
+        [Display(Name = "Preferred gender")]
         public string Gender { get; set; }
 
         [Required]
+        [Display(Name = "Mobile no")]
         public int Mobile { get; set; }
 
         //[Required]
+        [Display(Name = "Address")]
         public string Addrress { get; set; }
 
 

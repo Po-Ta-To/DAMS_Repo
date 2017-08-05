@@ -67,6 +67,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.appointments[0].PreferredDate)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.appointments[0].AppointmentDate)
+                            </th>
                             @*<th>
                                     @Html.DisplayNameFor(model => model.appointments[0].PreferredTime)
                                 </th>*@
@@ -76,7 +79,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.appointments[0].RequestDoctorDentistName)
                             </th>
-
+                            <th>
+                                @Html.DisplayNameFor(model => model.appointments[0].DoctorDentistName)
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -98,6 +103,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => Model.appointments[i].PreferredDate)
                                 </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.appointments[i].AppointmentDate)
+                                </td>
                                 @*<td>
                                         @Html.DisplayFor(modelItem => Model.appointments[i].PreferredTime)
                                     </td>*@
@@ -116,6 +124,19 @@
                                         </a>
                                     }
                                 </td>
+                                <td>
+                                    @if (Model.appointments[i].DoctorDentistName == null)
+                                    {
+                                        @Html.DisplayFor(modelItem => Model.appointments[i].DoctorDentistName)
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Details", "DoctorDentists", new { id = Model.appointments[i].DoctorDentistID })">
+                                            @Html.DisplayFor(modelItem => Model.appointments[i].DoctorDentistName)
+                                        </a>
+                                    }
+                                </td>
+
 
                                 <td>
                                     <button class="btn btn-primary" type="button"

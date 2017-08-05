@@ -58,7 +58,7 @@ namespace DAMS_03.API
                     string returnOpeningHours = String.Empty;
 
 
-                    returnOpeningHours += "<b>Monday to Friday</b>\n";
+                    returnOpeningHours += "Monday to Friday\n";
                     if (openingHours[0].TimeRangeStart == new TimeSpan(0) && openingHours[0].TimeRangeEnd == new TimeSpan(0))
                     {
                         returnOpeningHours += "Closed\n\n";
@@ -67,7 +67,7 @@ namespace DAMS_03.API
                     {
                         returnOpeningHours += openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n\n";
                     }
-                    returnOpeningHours += "<b>Saturday</b>\n";
+                    returnOpeningHours += "Saturday\n";
                     if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
                     {
                         returnOpeningHours += "Closed\n\n";
@@ -76,10 +76,10 @@ namespace DAMS_03.API
                     {
                         returnOpeningHours += openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n\n";
                     }
-                    returnOpeningHours += "<b>Sundays and Public Holidays</b>\n";
+                    returnOpeningHours += "Sundays and Public Holidays\n";
                     if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
                     {
-                        returnOpeningHours += "Closed\n\n";
+                        returnOpeningHours += "Closed";
                     }
                     else
                     {
