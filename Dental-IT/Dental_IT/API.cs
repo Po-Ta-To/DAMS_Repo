@@ -277,6 +277,7 @@ namespace Dental_IT
                 request.ContentType = "application/json";
                 request.Method = "GET";
                 request.Headers.Add("Authorization", "bearer " + accessToken);
+                request.Timeout = 10000;
 
                 // Send the request to the server and wait for the response:
                 using (WebResponse response = request.GetResponse())
@@ -310,6 +311,7 @@ namespace Dental_IT
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createUser));
                 request.ContentType = "application/JSON";
                 request.Method = "POST";
+                request.Timeout = 10000;
 
                 byte[] buffer = Encoding.Default.GetBytes(userJson);
                 if (buffer != null)
