@@ -48,21 +48,27 @@
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:layout_below="@id/hospDetails_HospitalLayout"
-                android:gravity="center_vertical">
-                <ImageView
-                    android:id="@+id/appt_DateImage"
+                android:gravity="top">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_calendar"
-                    android:scaleX="0.75"
-                    android:scaleY="0.75" />
-                <TextView
-                    android:id="@+id/hospDetails_AddressLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dark_blue"
-                    android:text="@string/address" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:id="@+id/appt_DateImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_calendar"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75" />
+                    <TextView
+                        android:id="@+id/hospDetails_AddressLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/address" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/hospDetails_AddressText"
                     android:layout_width="wrap_content"
@@ -80,21 +86,27 @@
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:layout_below="@id/hospDetails_AddressLayout"
-                android:gravity="center_vertical">
-                <ImageView
-                    android:id="@+id/appt_SessionImage"
+                android:gravity="top">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_clock"
-                    android:scaleX="0.75"
-                    android:scaleY="0.75" />
-                <TextView
-                    android:id="@+id/hospDetails_OpeningHoursLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dark_blue"
-                    android:text="@string/opening_hours" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:id="@+id/appt_OpeningHoursImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_clock"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75" />
+                    <TextView
+                        android:id="@+id/hospDetails_OpeningHoursLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/opening_hours" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/hospDetails_OpeningHoursText"
                     android:layout_width="wrap_content"
