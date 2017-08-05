@@ -161,5 +161,59 @@ namespace Dental_IT
                 return hospitalList;
             }
         }
+
+        //  Post Token
+        public bool PostToken(string email, string password)
+        {
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_postToken));
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.Method = "POST";
+
+                byte[] buffer = Encoding.Default.GetBytes("grant_type=password&username=" + email + "&password=" + password);
+                if (buffer != null)
+                {
+                    request.ContentLength = buffer.Length;
+                    request.GetRequestStream().Write(buffer, 0, buffer.Length);
+                }
+
+                WebResponse wr = request.GetResponse();
+                return true;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+                return false;
+            }
+        }
+
+        //  Post UserAccount
+        public bool PostUserAccount(string userJson)
+        {
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createUser));
+                request.ContentType = "application/JSON";
+                request.Method = "POST";
+
+                byte[] buffer = Encoding.Default.GetBytes(userJson);
+                if (buffer != null)
+                {
+                    request.ContentLength = buffer.Length;
+                    request.GetRequestStream().Write(buffer, 0, buffer.Length);
+                }
+
+                WebResponse wr = request.GetResponse();
+                return true;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+                return false;
+            }
+        }
     }
 }

@@ -4,6 +4,9 @@
     {
         private static string conn = "http://192.168.137.1:49814";
 
+        // POST user to get token (Sign in)
+        public static string global_connURL_postToken { get; } = conn + "/token";
+
         // CREATE/POST a new public user
         public static string global_connURL_createUser { get; } = conn + "/api/UserAccounts";
 
