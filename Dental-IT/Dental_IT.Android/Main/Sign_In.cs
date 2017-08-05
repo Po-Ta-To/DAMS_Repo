@@ -80,8 +80,8 @@ namespace Dental_IT.Droid.Main
                         //  Successful
                         case 1:
                             //  Get user account with token
-                            //if (api.GetUserAccount(UserAccount.AccessToken) == true)
-                            //{
+                            if (api.GetUserAccount(UserAccount.AccessToken) == true)
+                            {
                                 //  Save user session (remember me) if checkbox is selected
                                 if (signIn_RememberMeChkbox.Checked == true)
                                 {
@@ -92,11 +92,11 @@ namespace Dental_IT.Droid.Main
                                 //Toast.MakeText(this, UserAccount.AccessToken, ToastLength.Short).Show();
                                 Intent intent = new Intent(this, typeof(Main_Menu));
                                 StartActivity(intent);
-                            //}
-                            //else
-                            //{
-                            //    Toast.MakeText(this, Resource.String.access_denied, ToastLength.Short).Show();
-                            //}
+                            }
+                            else
+                            {
+                                Toast.MakeText(this, Resource.String.access_denied, ToastLength.Short).Show();
+                            }
                             break;
 
                         //  Invalid credentials

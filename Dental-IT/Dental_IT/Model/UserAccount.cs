@@ -8,6 +8,6 @@ namespace Dental_IT.Model
     {
         public static string UserName { get; set; }
         public static string AccessToken { get; set; }
-        public static string UserId { get; set; }
+        public static string Name { get; set; }
     }
 }

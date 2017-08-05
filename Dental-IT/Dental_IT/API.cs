@@ -289,7 +289,7 @@ namespace Dental_IT
                         JsonValue jsonDoc = JsonValue.Load(stream);
                         System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
 
-                        UserAccount.UserId = jsonDoc["ID"];
+                        UserAccount.Name = jsonDoc[0]["Name"];
                     }
                 }
 

@@ -100,15 +100,13 @@ namespace Dental_IT.Droid.Main
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
+                navigationView.SetCheckedItem(Resource.Id.nav_RequestAppt);
 
                 navigationView.NavigationItemSelected += (sender, e) =>
                 {
-                    e.MenuItem.SetChecked(true);
-
                     Intent intent;
                     switch (e.MenuItem.ItemId)
                     {
-
                         case Resource.Id.nav_home:
                             intent = new Intent(this, typeof(Main_Menu));
                             StartActivity(intent);
