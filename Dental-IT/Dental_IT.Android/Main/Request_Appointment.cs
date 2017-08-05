@@ -11,6 +11,7 @@ using Dental_IT.Droid.Adapters;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {
@@ -50,13 +51,14 @@ namespace Dental_IT.Droid.Main
             Intent i = Intent;
 
             //  If redirected from select hospital or hospital details page (New request)
-            if (i.GetStringExtra("newRequest_HospitalName") != null)
+            if (i.GetStringExtra("newRequest_Hospital") != null)
             {
                 //  Remove old shared preferences
                 RemoveFromPreferences(prefs, editor);
 
                 //  Receive hospital name data from intent
-                hospitalName = i.GetStringExtra("newRequest_HospitalName");
+                Hospital hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("newRequest_Hospital"));
+                hospitalName = hosp.HospitalName;
             }
             else
             {

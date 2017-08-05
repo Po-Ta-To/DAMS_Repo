@@ -2,6 +2,7 @@
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
+using Android.Support.V4.Content;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -105,11 +106,11 @@ namespace Dental_IT.Droid.Adapters
 
     class MyImageButton : ImageButton, IOnTouchListener
     {
-        public float[] BT_SELECTED_DARK = new float[] { 1, 0, 0, 0, -50, 0, 1,
-            0, 0, -50, 0, 0, 1, 0, -50, 0, 0, 0, 1, 0 };
+        private Context context;
 
         public MyImageButton(Context context, IAttributeSet attrs) : base(context, attrs)
         {
+            this.context = context;
             this.SetOnTouchListener(this);
         }
 
@@ -118,7 +119,7 @@ namespace Dental_IT.Droid.Adapters
             if (e.Action == MotionEventActions.Down)
             {
                 ImageView iv = (ImageView)v;
-                iv.SetColorFilter(new ColorMatrixColorFilter(BT_SELECTED_DARK));
+                iv.SetColorFilter(new Android.Graphics.Color(context.GetColor(Resource.Color._5_grey)));
             }
             else if (e.Action == MotionEventActions.Up)
             {
