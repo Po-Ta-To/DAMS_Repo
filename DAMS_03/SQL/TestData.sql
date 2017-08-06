@@ -57,7 +57,7 @@
 	'Closed on Weekends',
 	'63248802',
 	'appointment@ndcs.com.sg',
-	2);
+	0);
 
 	INSERT INTO OpeningHours
 	Values(1,
@@ -159,7 +159,7 @@
 	'Closed on Sundays and PH',
 	'65380890',
 	'askus@lqdent.com.sg',
-	2);
+	1);
 
 	INSERT INTO OpeningHours
 	Values(1,

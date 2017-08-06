@@ -19,6 +19,7 @@ namespace DAMS_03.Models
         public string searchby { get; set; }
         public string order { get; set; }
         public string orderBy { get; set; }
+        public string indexby { get; set; }
 
     }
 
