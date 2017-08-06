@@ -1,7 +1,7 @@
-﻿<menu xmlns:android="http://schemas.android.com/apk/res/android">
+﻿  <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <group android:checkableBehavior="single">
     <item
-      android:id="@+id/nav_home"
+      android:id="@+id/nav_Home"
       android:title="Home" />
     <item
       android:id="@+id/nav_RequestAppt"
@@ -16,11 +16,10 @@
       android:id="@+id/nav_Search"
       android:title="Search" />
   </group>
-  <item android:title="Others">
+  <item android:id="@+id/nav_User">
     <menu>
       <item
-        android:title="Settings" />
-      <item
+        android:id="@+id/nav_Logout"
         android:title="Logout" />
     </menu>
   </item>

@@ -18,9 +18,9 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Request_Appointment : AppCompatActivity
     {
-        DrawerLayout drawerLayout;
-        NavigationView navigationView;
-        private string hospitalName;
+        private DrawerLayout drawerLayout;
+        private NavigationView navigationView;
+        private Hospital hosp;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,13 +57,12 @@ namespace Dental_IT.Droid.Main
                 RemoveFromPreferences(prefs, editor);
 
                 //  Receive hospital name data from intent
-                Hospital hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("newRequest_Hospital"));
-                hospitalName = hosp.HospitalName;
+                hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("newRequest_Hospital"));
             }
             else
             {
                 //  Receive data from shared preferences
-                hospitalName = prefs.GetString("hospitalName", "Data not available");
+                hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(prefs.GetString("hospital", "null"));
                 request_DateField.Text = prefs.GetString("date", GetString(Resource.String.select_date));
             }
 
@@ -82,7 +81,7 @@ namespace Dental_IT.Droid.Main
                 request_RemarksLabel.SetTypeface(request_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
 
                 //  Set hospital name
-                request_HospitalField.Text = hospitalName;
+                request_HospitalField.Text = hosp.HospitalName;
 
                 //  Configure spinner adapter for dentist and session dropdowns
                 request_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
@@ -93,7 +92,7 @@ namespace Dental_IT.Droid.Main
                 toolbar.SetTitle(Resource.String.request_title);
                 SetSupportActionBar(toolbar);
 
-                //Set menu hambuger
+                //Set navigation drawer
                 SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -101,16 +100,15 @@ namespace Dental_IT.Droid.Main
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
+                navigationView.SetCheckedItem(Resource.Id.nav_RequestAppt);
+                navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(UserAccount.Name);
 
                 navigationView.NavigationItemSelected += (sender, e) =>
                 {
-                    e.MenuItem.SetChecked(true);
-
                     Intent intent;
                     switch (e.MenuItem.ItemId)
                     {
-
-                        case Resource.Id.nav_home:
+                        case Resource.Id.nav_Home:
                             intent = new Intent(this, typeof(Main_Menu));
                             StartActivity(intent);
                             break;
@@ -134,6 +132,23 @@ namespace Dental_IT.Droid.Main
                             intent = new Intent(this, typeof(Search));
                             StartActivity(intent);
                             break;
+
+                        case Resource.Id.nav_Logout:
+
+                            //  Remove user session from shared preferences
+                            editor.Remove("remembered");
+                            editor.Apply();
+
+                            //  Clear user data
+                            UserAccount.UserName = null;
+                            UserAccount.AccessToken = null;
+                            UserAccount.Name = null;
+
+                            //  Redirect to sign in page
+                            intent = new Intent(this, typeof(Sign_In));
+                            StartActivity(intent);
+
+                            break;
                     }
 
                     //react to click here and swap fragments or navigate
@@ -152,6 +167,7 @@ namespace Dental_IT.Droid.Main
             request_TreatmentsBtn.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Select_Treatment));
+                intent.PutExtra("selectTreatment_HospId", hosp.ID);
                 StartActivity(intent);
             };
 
@@ -205,17 +221,17 @@ namespace Dental_IT.Droid.Main
             //  Save hospital name to shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
-            editor.PutString("hospitalName", hospitalName);
+            editor.PutString("hospital", Newtonsoft.Json.JsonConvert.SerializeObject(hosp));
             editor.Apply();
         }
 
         //  Method to remove old shared preferences
         public void RemoveFromPreferences(ISharedPreferences prefs, ISharedPreferencesEditor editor)
         {
-            //  Remove hospital name from shared preferences
-            if (prefs.Contains("hospitalName"))
+            //  Remove hospital from shared preferences
+            if (prefs.Contains("hospital"))
             {
-                editor.Remove("hospitalName");
+                editor.Remove("hospital");
             }
 
             //  Remove selected treatments from shared preferences

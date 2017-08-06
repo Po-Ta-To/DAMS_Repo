@@ -4,12 +4,15 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Preferences;
+using Dental_IT.Model;
+using Android.Views.InputMethods;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
 	public class Sign_In : Activity
 	{
+        private RelativeLayout signIn_Layout;
         private EditText signIn_EmailField;
         private EditText signIn_PasswordField;
         private Button signIn_SignInBtn;
@@ -46,6 +49,7 @@ namespace Dental_IT.Droid.Main
             SetContentView (Resource.Layout.Sign_In);
 
             //  Create widgets
+            signIn_Layout = FindViewById<RelativeLayout>(Resource.Id.signIn_Layout);
             signIn_EmailField = FindViewById<EditText>(Resource.Id.signIn_EmailField);
             signIn_PasswordField = FindViewById<EditText>(Resource.Id.signIn_PasswordField);
             signIn_SignInBtn = FindViewById<Button>(Resource.Id.signIn_SignInBtn);
@@ -66,21 +70,49 @@ namespace Dental_IT.Droid.Main
 
                 if (validated == true)
                 {
-                    if (api.PostUserAccount(signIn_EmailField.Text, signIn_PasswordField.Text) == true)
-                    {
-                        //  Save user session (remember me) if checkbox is selected
-                        if (signIn_RememberMeChkbox.Checked == true)
-                        {
-                            editor.PutBoolean("remembered", true);
-                            editor.Apply();
-                        }
+                    //  Close keyboard
+                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-                        Intent intent = new Intent(this, typeof(Main_Menu));
-                        StartActivity(intent);
-                    }
-                    else
+                    //  Post credentials to get token from database
+                    switch (api.PostUserForToken(signIn_EmailField.Text, signIn_PasswordField.Text))
                     {
-                        Toast.MakeText(this, "Invalid login", ToastLength.Short).Show();
+                        //  Successful
+                        case 1:
+                            //  Get user account with token
+                            if (api.GetUserAccount(UserAccount.AccessToken) == true)
+                            {
+                                //  Save user session (remember me) if checkbox is selected
+                                if (signIn_RememberMeChkbox.Checked == true)
+                                {
+                                    editor.PutBoolean("remembered", true);
+                                    editor.Apply();
+                                }
+
+                                //Toast.MakeText(this, UserAccount.AccessToken, ToastLength.Short).Show();
+                                Intent intent = new Intent(this, typeof(Main_Menu));
+                                StartActivity(intent);
+                            }
+                            else
+                            {
+                                Toast.MakeText(this, Resource.String.access_denied, ToastLength.Short).Show();
+                            }
+                            break;
+
+                        //  Invalid credentials
+                        case 2:
+                            Toast.MakeText(this, Resource.String.invalid_signIn, ToastLength.Short).Show();
+                            break;
+
+                        //  No internet connectivity
+                        case 3:
+                            Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
+                            break;
+
+                        //  Backend problem
+                        case 4:
+                            Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                            break;
                     }
                 }
             };

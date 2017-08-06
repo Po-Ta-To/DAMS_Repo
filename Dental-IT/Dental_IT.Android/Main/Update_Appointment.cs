@@ -66,7 +66,7 @@ namespace Dental_IT.Droid.Main
                 toolbar.SetTitle(Resource.String.update_title);
                 SetSupportActionBar(toolbar);
 
-                //  Set menu hambuger
+                //  Set navigation drawer
                 SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -84,7 +84,7 @@ namespace Dental_IT.Droid.Main
                     switch (e.MenuItem.ItemId)
                     {
 
-                        case Resource.Id.nav_home:
+                        case Resource.Id.nav_Home:
                             intent = new Intent(this, typeof(Main_Menu));
                             StartActivity(intent);
                             break;
