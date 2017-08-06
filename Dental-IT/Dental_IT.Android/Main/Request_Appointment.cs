@@ -14,6 +14,7 @@ using System.Net.Http;
 using Dental_IT.Model;
 using System.Collections.Generic;
 using System;
+using Android.Views.InputMethods;
 
 namespace Dental_IT.Droid.Main
 {
@@ -23,7 +24,8 @@ namespace Dental_IT.Droid.Main
         private DrawerLayout drawerLayout;
         private NavigationView navigationView;
         private Hospital hosp;
-        private List<string> dentists = new List<string>(){ "Select dentist" };
+        // private List<Dentist> dentists = new List<Dentist>(){ "Select dentist" };
+        private List<Dentist> dentists = new List<Dentist>() { };
         private List<string> sessions = new List<string>(){ "Select session" };
 
         API api = new API();
@@ -78,11 +80,11 @@ namespace Dental_IT.Droid.Main
                 try
                 {
                     //  Get dentists
-                    List<string> tempDentistList = await api.GetDentistsByClinicHospital(hosp.ID);
+                    List<Dentist> tempDentistList = await api.GetDentistsByClinicHospital(hosp.ID);
 
-                    foreach (string dentist in tempDentistList)
+                    foreach (Dentist den in tempDentistList)
                     {
-                        dentists.Add(dentist);
+                        dentists.Add(den);
                     }
 
                     //  Get sessions
@@ -209,22 +211,25 @@ namespace Dental_IT.Droid.Main
             //  Handle request button
             request_SubmitBtn.Click += delegate
             {
-                Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
+                //Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
 
-                //Task.Run(async () =>
-                //{
-                //    try
-                //    {
-                //        string url = Web_Config.global_connURL_createAppointment;
+                //  Close keyboard
+                InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-                //        // Post new Appt by passing the URL
-                //        await RequestAppointment(url);
-                //    }
-                //    catch (Exception e)
-                //    {
-                //        System.Diagnostics.Debug.Write(e.Message());
-                //    }
-                //});
+                // Create new appointment
+                Appointment appt = new Appointment()
+                {
+                    // AppointmentID = "",
+                    // UserID = ?
+                    ClinicHospitalID = hosp.ID,
+                    // PreferredDentistID = 1,
+                    PreferredDate = request_DateField.Text,
+                    // PreferredDentistID = ?
+                    // Session
+                    // Treatments 
+                    Remarks = request_RemarksField.Text
+                };
 
                 Intent intent = new Intent(this, typeof(My_Appointments));
                 StartActivity(intent);

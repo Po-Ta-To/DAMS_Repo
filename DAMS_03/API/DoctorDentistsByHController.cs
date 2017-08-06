@@ -21,6 +21,7 @@ namespace DAMS_03.API
                               where DoctorDentist.ClinicHospitalID == id
                               select new
                               {
+                                  ID = DoctorDentist.ID,
                                   Name = DoctorDentist.Name
                               }).ToList();
 

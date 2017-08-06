@@ -275,10 +275,51 @@ namespace Dental_IT
             }
         }
 
-        //  Get Dentists by ClinicHospital
-        public async Task<List<string>> GetDentistsByClinicHospital(int id)
+        // POST Appointment
+        public int PostAppointment(string apptJson)
         {
-            List<string> dentistList = new List<string>();
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createUser));
+                request.ContentType = "application/JSON";
+                request.Method = "POST";
+
+                byte[] buffer = Encoding.Default.GetBytes(apptJson);
+                if (buffer != null)
+                {
+                    request.ContentLength = buffer.Length;
+                    request.GetRequestStream().Write(buffer, 0, buffer.Length);
+                }
+
+                WebResponse wr = request.GetResponse();
+                return 1;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+
+                // The remote server returned an error: (400) Bad Request.
+                if (e.Message.Contains("400"))
+                {
+                    return 2;
+                }
+                //  Error: ConnectFailure (Network is unreachable)
+                else if (e.Message.Contains("unreachable"))
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 4;
+                }
+            }
+        }
+
+        //  Get Dentists by ClinicHospital
+        public async Task<List<Dentist>> GetDentistsByClinicHospital(int id)
+        {
+            List<Dentist> dentistList = new List<Dentist>();
 
             try
             {
@@ -302,7 +343,9 @@ namespace Dental_IT
                         {
                             System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
 
-                            dentistList.Add(obj["Name"]);
+                            Dentist den = new Dentist();
+                            den.DentistID = (int)(obj["ID"]);
+                            den.DentistName = obj["Name"];
                         }
                     }
                 }
