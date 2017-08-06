@@ -608,6 +608,7 @@
 	--0,
 	--3);
 
+
 	INSERT INTO [dbo].[Appointment]
 	Values('AP1',
 	1,
@@ -1949,3 +1950,13 @@
 	'No Remarks',
 	'20170801',
 	1);
+
+
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(1,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(1,
+	2)
