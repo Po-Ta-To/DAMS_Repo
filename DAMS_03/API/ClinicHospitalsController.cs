@@ -83,7 +83,7 @@ namespace DAMS_03.API
                     }
                     else
                     {
-                        returnOpeningHours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                        returnOpeningHours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00");
                     }
                     
                     ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
@@ -187,7 +187,7 @@ namespace DAMS_03.API
                 }
                 else
                 {
-                    openinghours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                    openinghours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00");
                 }
 
                 var returnModel = new
