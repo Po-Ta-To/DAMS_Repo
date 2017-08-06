@@ -4006,6 +4006,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06008a
 			public const int access_denied = 2131099786;
 			
+			// aapt resource value: 0x7f06008c
+			public const int account_taken = 2131099788;
+			
 			// aapt resource value: 0x7f06004f
 			public const int address = 2131099727;
 			
@@ -4119,9 +4122,6 @@ namespace Dental_IT.Droid
 			
 			// aapt resource value: 0x7f06007f
 			public const int invalid_password = 2131099775;
-			
-			// aapt resource value: 0x7f06008c
-			public const int invalid_register = 2131099788;
 			
 			// aapt resource value: 0x7f060080
 			public const int invalid_repeat = 2131099776;
