@@ -1960,3 +1960,163 @@
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(1,
 	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(9,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(9,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(10,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(10,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(19,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(19,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(20,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(20,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(29,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(29,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(30,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(30,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(39,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(39,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(40,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(40,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(49,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(49,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(50,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(50,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(59,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(59,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(60,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(60,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(69,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(69,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(70,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(70,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(79,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(79,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(80,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(80,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(89,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(89,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(90,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(90,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(99,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(99,
+	2)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(100,
+	1)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(100,
+	2)
