@@ -93,7 +93,7 @@
   <string name="require_password">Please enter your password</string>
   <string name="required_field">Required field！</string>
   <string name="invalid_email">Invalid email address</string>
-  <string name="invalid_password">Password must have at least 6 characters</string>
+  <string name="invalid_password">Password must have at least 6 characters, contain a number, an uppercase letter, and a special character.</string>
   <string name="invalid_repeat">Repeat password is not the same as password</string>
   <string name="invalid_mobile">Invalid mobile number</string>
   <string name="no_date">Please select a date</string>

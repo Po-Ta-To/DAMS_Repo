@@ -9,6 +9,7 @@ using Dental_IT.Droid.Adapters;
 using Dental_IT.Model;
 using Android.Views.InputMethods;
 using System.Collections.Generic;
+using Java.Util.Regex;
 
 namespace Dental_IT.Droid.Main
 {
@@ -229,14 +230,23 @@ namespace Dental_IT.Droid.Main
                     if (field == register_PasswordField)
                     {
                         //  Check if password meets requirements
-                        if (field.Text.Length < 6)
+                        Java.Util.Regex.Pattern pattern;
+                        Matcher matcher;
+
+                        string PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
+
+                        pattern = Java.Util.Regex.Pattern.Compile(PASSWORD_PATTERN);
+                        matcher = pattern.Matcher(field.Text);
+
+                        bool match =  matcher.Matches();
+
+                        if (match == false)
                         {
                             field.RequestFocus();
                             field.Error = GetString(Resource.String.invalid_password);
 
                             return false;
                         }
-
                     }
                     
                     if (field == register_RepeatPasswordField)

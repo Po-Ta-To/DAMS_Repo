@@ -92,29 +92,27 @@ namespace Dental_IT.Droid.Adapters
         }
     }
 
-    class MyImageButton : ImageButton, IOnTouchListener
+    class MyImageButton : ImageButton
     {
         private Context context;
 
         public MyImageButton(Context context, IAttributeSet attrs) : base(context, attrs)
         {
             this.context = context;
-            this.SetOnTouchListener(this);
         }
 
-        public bool OnTouch(View v, MotionEvent e)
+        public override bool OnTouchEvent(MotionEvent e)
         {
             if (e.Action == MotionEventActions.Down)
             {
-                ImageView iv = (ImageView)v;
-                iv.SetColorFilter(new Android.Graphics.Color(context.GetColor(Resource.Color._5_grey)));
+                this.SetColorFilter(new Android.Graphics.Color(context.GetColor(Resource.Color._5_grey)));
             }
             else if (e.Action == MotionEventActions.Up)
             {
-                ImageView iv = (ImageView)v;
-                iv.ClearColorFilter();
+                this.ClearColorFilter();
             }
-            return true;
+            
+            return base.OnTouchEvent(e);
         }
     };
 }
