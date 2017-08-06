@@ -34,9 +34,97 @@ namespace DAMS_03.Controllers
         }
 
         // GET: UserAccounts
-        public ActionResult Index()
+        public ActionResult Index(int? page, int? perpage, string search)
         {
-            return View(db.UserAccounts.ToList());
+            UserAccountIndexModel returnModel = new UserAccountIndexModel();
+
+            int noOfResults = 10;
+            if (perpage != null)
+            {
+                noOfResults = (int)perpage;
+                returnModel.perpage = (int)perpage;
+            }
+            else
+            {
+                returnModel.perpage = 10;
+            }
+            if (page != null)
+            {
+                returnModel.page = (int)page;
+            }
+            else
+            {
+                returnModel.page = 1;
+            }
+            returnModel.search = search;
+
+            List<UserAccount> userAccounts;
+
+            if (search != null)
+            {
+                userAccounts = (from ua in db.UserAccounts
+                                orderby ua.ID ascending
+                                where ua.Name.Contains(search)
+                                select ua).ToList();
+            }
+            else
+            {
+                userAccounts = (from ua in db.UserAccounts
+                                orderby ua.ID ascending
+                                select ua).ToList();
+            }
+
+            //
+
+            int endingPoint = 0;
+
+            if (page == null || page < 1)
+            {
+                page = 1;
+            }
+
+            int startingPoint = ((int)page - 1) * noOfResults;
+
+            if (userAccounts.Count < (noOfResults + startingPoint))
+            {
+                endingPoint = userAccounts.Count;
+            }
+            else
+            {
+                endingPoint = noOfResults + startingPoint;
+            }
+
+            int maxpage = endingPoint / noOfResults;
+            if ((endingPoint % noOfResults) != 0)
+            {
+                maxpage++;
+            }
+
+            if (startingPoint >= endingPoint && userAccounts.Count != 0)
+            {
+                return RedirectToAction("Index", "UserAccounts", new { page = maxpage, perpage = perpage, search = search });
+            }
+
+            int maxpageOverall = userAccounts.Count / noOfResults;
+            if (userAccounts.Count != 0)
+            {
+                if ((endingPoint % userAccounts.Count) != 0)
+                {
+                    maxpageOverall++;
+                }
+            }
+            returnModel.maxPages = maxpageOverall;
+
+            returnModel.maxRecords = userAccounts.Count;
+
+            returnModel.UserAccounts = new List<UserAccount>();
+
+            for (int i = startingPoint; i < endingPoint; i++)
+            {
+                returnModel.UserAccounts.Add(userAccounts[i]);
+            }
+
+            return View(returnModel);
         }
 
         // GET: UserAccounts/Details/5
@@ -251,7 +339,7 @@ namespace DAMS_03.Controllers
             UserAccount userAccount = db.UserAccounts.Find(id);
 
             userAccount.IsDeleted = true;
-            
+
             db.Entry(userAccount).State = EntityState.Modified;
             db.SaveChanges();
 
