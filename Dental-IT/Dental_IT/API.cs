@@ -211,6 +211,57 @@ namespace Dental_IT
             }
         }
 
+        //  Get Appointments
+        public async Task<List<Appointment>> GetAppointments()
+        {
+            List<Appointment> appointmentList = new List<Appointment>();
+
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_getAppt));
+                request.ContentType = "application/json";
+                request.Method = "GET";
+                request.Headers.Add("Authorization", "bearer " + UserAccount.AccessToken);
+
+                // Send the request to the server and wait for the response:
+                using (WebResponse response = request.GetResponse())
+                {
+                    // Get a stream representation of the HTTP web response:
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        // Use this stream to build a JSON document object:
+                        JsonValue jsonDoc = await Task.Run(() => JsonValue.Load(stream));
+                        System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
+
+                        //  Create objects from json value and populate lists
+                        foreach (JsonObject obj in jsonDoc)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
+
+                            Appointment appointment = new Appointment()
+                            {
+                                ID = obj["ID"],
+                                Treatments = obj["ApprovalState"],  
+                                Dentist = obj["DoctorDentistName"],
+                                Date = obj["AppointmentDate"],
+                                Time = obj["ApprovalState"]
+                            };
+
+                            appointmentList.Add(appointment);
+                        }
+                    }
+                }
+
+                return appointmentList;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+                return appointmentList;
+            }
+        }
+
         //  Post User Credentials for Token
         public int PostUserForToken(string email, string password)
         {

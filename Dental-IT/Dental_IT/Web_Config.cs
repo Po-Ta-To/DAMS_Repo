@@ -14,7 +14,7 @@
         public static string global_connURL_createUser { get; } = conn + "/api/UserAccounts";
 
         // GET Appointments by UserID
-        public static string global_connURL_getApptByID { get; } = conn + "/api/AppointmentsByUser/"; // + UserID
+        public static string global_connURL_getAppt { get; } = conn + "/api/AppointmentsByUser/";
 
         // GET Appointment details by Appointment ID
         public static string global_connURL_getApptDetailsById { get; } = conn + "/api/Appointments/"; // + ApptID
