@@ -212,6 +212,7 @@
     <Compile Include="API\ClinicHospitalsByTreatmentController.cs" />
     <Compile Include="API\ClinicHospitalsController.cs" />
     <Compile Include="API\ClinicHospitalTimeSlotByHController.cs" />
+    <Compile Include="API\ClinicHospitalTimeslotsController.cs" />
     <Compile Include="API\ClinicHospitalTreatmentPriceController.cs" />
     <Compile Include="API\DoctorDentistsByHController.cs" />
     <Compile Include="API\DoctorDentistsController.cs" />
