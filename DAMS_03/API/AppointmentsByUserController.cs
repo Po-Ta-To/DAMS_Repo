@@ -105,7 +105,7 @@ namespace DAMS_03.API
                 {
                     insertTimeslotFinal = timeslots[(int)appointment.AppointmentTime].TimeRangeSlotString;
                 }
-                
+
                 AppointmentApiHelperModel addAppt = new AppointmentApiHelperModel()
                 {
                     ID = appointment.ID,
@@ -123,6 +123,19 @@ namespace DAMS_03.API
                     PreferredTime_s = insertTimeslotPreferred,
                     AppointmentTime_s = insertTimeslotFinal
                 };
+
+                addAppt.listOfTreatments = (from t in db.Treatments
+                                            join at in db.AppointmentTreatments on t.ID equals at.TreatmentID
+                                            join a in db.Appointments on at.AppointmentID equals a.ID
+                                            where a.ID == addAppt.ID
+                                            select new TreatmentApiHelperModel()
+                                            {
+                                                ID = t.ID,
+                                                TreatmentID = t.TreatmentID,
+                                                TreatmentName = t.TreatmentName,
+                                                TreatmentDesc = t.TreatmentDesc,
+                                                IsFollowUp = t.IsFollowUp
+                                            }).ToList();
 
                 if (reqDoc != null)
                 {
@@ -158,6 +171,15 @@ namespace DAMS_03.API
             public string TimeRangeSlotString { get; set; }
         }
 
+        private class TreatmentApiHelperModel
+        {
+            public int ID { get; set; }
+            public string TreatmentID { get; set; }
+            public string TreatmentName { get; set; }
+            public string TreatmentDesc { get; set; }
+            public bool IsFollowUp { get; set; }
+        }
+
         private class AppointmentApiHelperModel
         {
             public int ID { get; set; }
@@ -178,7 +200,7 @@ namespace DAMS_03.API
             public System.DateTime? AppointmentDate { get; set; }
             public int? AppointmentTime { get; set; }
             public string AppointmentTime_s { get; set; }
-            public List<Treatment> listOfTreatments { get; set; }
+            public List<TreatmentApiHelperModel> listOfTreatments { get; set; }
             public string approvalString { get; set; }
         }
 
