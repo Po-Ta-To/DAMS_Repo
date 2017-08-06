@@ -127,7 +127,7 @@ namespace Dental_IT.Droid.Main
                     //  Create new user
                     User user = new User()
                     {
-                        UserName = register_NameField.Text,
+                        UserName = register_EmailField.Text,
                         Name = register_NameField.Text,
                         Email = register_EmailField.Text,
                         Password = register_PasswordField.Text,
@@ -143,8 +143,8 @@ namespace Dental_IT.Droid.Main
                     {
                         //  Successful
                         case 1:
-                            Toast.MakeText(this, Resource.String.welcome + user.Name + "!", ToastLength.Short).Show();
-                            Intent intent = new Intent(this, typeof(Main_Menu));
+                            Toast.MakeText(this, GetString(Resource.String.account_created), ToastLength.Short).Show();
+                            Intent intent = new Intent(this, typeof(Sign_In));
                             StartActivity(intent);
                             break;
 
@@ -233,7 +233,7 @@ namespace Dental_IT.Droid.Main
                         Java.Util.Regex.Pattern pattern;
                         Matcher matcher;
 
-                        string PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
+                        string PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{6,}$";
 
                         pattern = Java.Util.Regex.Pattern.Compile(PASSWORD_PATTERN);
                         matcher = pattern.Matcher(field.Text);
