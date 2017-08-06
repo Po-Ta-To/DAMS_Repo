@@ -10,6 +10,7 @@ using Dental_IT.Droid.Adapters;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
+using Android.Support.V4.Widget;
 
 namespace Dental_IT.Droid.Main
 {
@@ -20,6 +21,9 @@ namespace Dental_IT.Droid.Main
         private ICharSequence[] titles;
         private int position;
         private SearchView searchView;
+
+        DrawerLayout drawerLayout;
+        NavigationView navigationView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -59,9 +63,54 @@ namespace Dental_IT.Droid.Main
                 toolbar.SetTitle(Resource.String.search_title);
                 SetSupportActionBar(toolbar);
 
-                //Set backarrow as Default
+                //Set menu hambuger
+                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
+                navigationView.InflateMenu(Resource.Menu.nav_menu);
             });
+
+            navigationView.NavigationItemSelected += (sender, e) =>
+            {
+                e.MenuItem.SetChecked(true);
+
+                Intent intent;
+
+                switch (e.MenuItem.ItemId)
+                {
+
+                    case Resource.Id.nav_home:
+                        intent = new Intent(this, typeof(Main_Menu));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_RequestAppt:
+                        intent = new Intent(this, typeof(Select_Hospital));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_MyAppt:
+                        intent = new Intent(this, typeof(My_Appointments));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_TreatmentInfo:
+                        intent = new Intent(this, typeof(Treatment_Information));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_Search:
+                        intent = new Intent(this, typeof(Search));
+                        StartActivity(intent);
+                        break;
+
+                }
+                //react to click here and swap fragments or navigate
+                drawerLayout.CloseDrawers();
+            };
         }
 
         //Implement menus in the action bar; backarrow
@@ -73,8 +122,12 @@ namespace Dental_IT.Droid.Main
         //Redirect to main menu when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            Intent intent = new Intent(this, typeof(Main_Menu));
-            StartActivity(intent);
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    return true;
+            }
 
             return base.OnOptionsItemSelected(item);
         }

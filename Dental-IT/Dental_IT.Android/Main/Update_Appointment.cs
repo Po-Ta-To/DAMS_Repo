@@ -66,53 +66,8 @@ namespace Dental_IT.Droid.Main
                 toolbar.SetTitle(Resource.String.update_title);
                 SetSupportActionBar(toolbar);
 
-                //  Set menu hambuger
-                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+                //Set backarrow as Default
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-
-                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
-                navigationView.InflateMenu(Resource.Menu.nav_menu);
-
-                navigationView.NavigationItemSelected += (sender, e) =>
-                {
-                    e.MenuItem.SetChecked(true);
-
-                    Intent intent;
-
-                    switch (e.MenuItem.ItemId)
-                    {
-
-                        case Resource.Id.nav_home:
-                            intent = new Intent(this, typeof(Main_Menu));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_RequestAppt:
-                            intent = new Intent(this, typeof(Request_Appointment));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_MyAppt:
-                            intent = new Intent(this, typeof(My_Appointments));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_TreatmentInfo:
-                            intent = new Intent(this, typeof(Treatment_Information));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_Search:
-                            intent = new Intent(this, typeof(Search));
-                            StartActivity(intent);
-                            break;
-
-                    }
-
-                    drawerLayout.CloseDrawers();
-                };
             });
 
             //  Intent to redirect to calendar page
@@ -149,12 +104,9 @@ namespace Dental_IT.Droid.Main
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch (item.ItemId)
-            {
-                case Android.Resource.Id.Home:
-                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
-                    return true;
-            }
+            Intent intent = new Intent(this, typeof(Appointment_Details));
+            StartActivity(intent);
+
             return base.OnOptionsItemSelected(item);
         }
 
