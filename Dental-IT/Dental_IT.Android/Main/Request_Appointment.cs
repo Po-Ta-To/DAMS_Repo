@@ -98,7 +98,7 @@ namespace Dental_IT.Droid.Main
                     RunOnUiThread(() =>
                     {
                         //  Configure spinner adapter for dentist and session dropdowns
-                        request_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
+                        //request_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
                         request_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
                     });
                 }
@@ -227,7 +227,7 @@ namespace Dental_IT.Droid.Main
                     PreferredDate = request_DateField.Text,
                     // PreferredDentistID = ?
                     // Session
-                    // Treatments 
+                    // Treatments
                     Remarks = request_RemarksField.Text
                 };
 
