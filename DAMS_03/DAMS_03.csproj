@@ -406,6 +406,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bower.json" />
+    <Content Include="SQL\DropTable.sql" />
     <Content Include="SQL\setup_db.sql" />
     <Content Include="SQL\TestData.sql" />
     <Content Include="wwwroot\images\account icon.png" />

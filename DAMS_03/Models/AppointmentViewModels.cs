@@ -11,6 +11,15 @@ namespace DAMS_03.Models
         public List<AppointmentDetailViewModel> appointments { get; set; }
         public int maxPages { get; set; }
         public int maxRecords { get; set; }
+        public int pageNo { get; set; }
+        public int perpageNo { get; set; }
+        [Display(Name = "Search for")]
+        public string search { get; set; }
+        [Display(Name = "Search query")]
+        public string searchby { get; set; }
+        public string order { get; set; }
+        public string orderBy { get; set; }
+
     }
 
     public class AppointmentCreateModel
@@ -54,6 +63,7 @@ namespace DAMS_03.Models
 
     public class AppointmentDetailViewModel
     {
+        [Display(Name = "Index")]
         public int ID { get; set; }
         [Display(Name = "Appointment ID")]
         public string AppointmentID { get; set; }
