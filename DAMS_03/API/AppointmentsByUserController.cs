@@ -44,7 +44,7 @@ namespace DAMS_03.API
                                    AppointmentTime = Appointment.AppointmentTime//
                                };
 
-            List<AppointmentDetailViewModel> returnApptList = new List<AppointmentDetailViewModel>();
+            List<AppointmentApiHelperModel> returnApptList = new List<AppointmentApiHelperModel>();
 
             foreach (var appointment in appointments)
             {
@@ -89,7 +89,24 @@ namespace DAMS_03.API
                                DoctorDentistID = d.ID
                            }).SingleOrDefault();
 
-                AppointmentDetailViewModel addAppt = new AppointmentDetailViewModel()
+                List<TimeslotApiHelperModel> timeslots = (from cht in db.ClinicHospitalTimeslots
+                                                          join ch in db.ClinicHospitals on cht.ClinicHospitalID equals ch.ID
+                                                          orderby cht.TimeslotIndex ascending
+                                                          where ch.ID == appointment.ClinicHospitalID
+                                                          select new TimeslotApiHelperModel()
+                                                          {
+                                                              TimeslotIndex = cht.TimeslotIndex,
+                                                              TimeRangeSlotString = cht.TimeRangeSlotString,
+                                                          }).ToList();
+
+                string insertTimeslotPreferred = timeslots[appointment.PreferredTime].TimeRangeSlotString;
+                string insertTimeslotFinal = "Not Confirmed";
+                if (appointment.AppointmentTime != null)
+                {
+                    insertTimeslotFinal = timeslots[(int)appointment.AppointmentTime].TimeRangeSlotString;
+                }
+                
+                AppointmentApiHelperModel addAppt = new AppointmentApiHelperModel()
                 {
                     ID = appointment.ID,
                     AppointmentID = appointment.AppointmentID,
@@ -102,7 +119,9 @@ namespace DAMS_03.API
                     PreferredTime = appointment.PreferredTime,
                     Remarks = appointment.Remarks,
                     AppointmentDate = appointment.AppointmentDate,
-                    AppointmentTime = appointment.AppointmentTime
+                    AppointmentTime = appointment.AppointmentTime,
+                    PreferredTime_s = insertTimeslotPreferred,
+                    AppointmentTime_s = insertTimeslotFinal
                 };
 
                 if (reqDoc != null)
@@ -132,6 +151,36 @@ namespace DAMS_03.API
             return Ok(returnApptList);
 
         } // End of GetAppointmentsByUserID() method
+
+        private class TimeslotApiHelperModel
+        {
+            public int TimeslotIndex { get; set; }
+            public string TimeRangeSlotString { get; set; }
+        }
+
+        private class AppointmentApiHelperModel
+        {
+            public int ID { get; set; }
+            public string AppointmentID { get; set; }
+            public string UserName { get; set; }
+            public int UserID { get; set; }
+            public string ClinicHospitalName { get; set; }
+            public int ClinicHospitalID { get; set; }
+            public string ApprovalState { get; set; }
+            public System.DateTime PreferredDate { get; set; }
+            public int PreferredTime { get; set; }
+            public string PreferredTime_s { get; set; }
+            public string DoctorDentistName { get; set; }
+            public int? DoctorDentistID { get; set; }
+            public string RequestDoctorDentistName { get; set; }
+            public int? RequestDoctorDentistID { get; set; }
+            public string Remarks { get; set; }
+            public System.DateTime? AppointmentDate { get; set; }
+            public int? AppointmentTime { get; set; }
+            public string AppointmentTime_s { get; set; }
+            public List<Treatment> listOfTreatments { get; set; }
+            public string approvalString { get; set; }
+        }
+
     } // End of AppointmentsByUserController
 } // End of namespace
- 

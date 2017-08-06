@@ -55,7 +55,7 @@ namespace DAMS_03.API
 
             string approvalString = "";
 
-            AppointmentDetailViewModel returnAppointment = new AppointmentDetailViewModel();
+            AppointmentApiHelperModel returnAppointment = new AppointmentApiHelperModel();
 
             foreach (var appt in appointment)
             {
@@ -99,7 +99,7 @@ namespace DAMS_03.API
                                DoctorDentistID = d.ID
                            }).SingleOrDefault();
 
-                returnAppointment = new AppointmentDetailViewModel()
+                returnAppointment = new AppointmentApiHelperModel()
                 {
                     ID = appt.ID,
                     AppointmentID = appt.AppointmentID,
@@ -136,7 +136,11 @@ namespace DAMS_03.API
                     returnAppointment.DoctorDentistName = "Unassigned";
                     //addModel.DoctorDentistID = 0;
                 }
-            }
+
+
+
+            }//end foreach
+            
             return Ok(returnAppointment);
         }
 
@@ -264,5 +268,30 @@ namespace DAMS_03.API
         {
             return db.Appointments.Count(e => e.ID == id) > 0;
         }
+
+        private class AppointmentApiHelperModel
+        {
+            public int ID { get; set; }
+            public string AppointmentID { get; set; }
+            public string UserName { get; set; }
+            public int UserID { get; set; }
+            public string ClinicHospitalName { get; set; }
+            public int ClinicHospitalID { get; set; }
+            public string ApprovalState { get; set; }
+            public System.DateTime PreferredDate { get; set; }
+            public int PreferredTime { get; set; }
+            public string PreferredTime_s { get; set; }
+            public string DoctorDentistName { get; set; }
+            public int? DoctorDentistID { get; set; }
+            public string RequestDoctorDentistName { get; set; }
+            public int? RequestDoctorDentistID { get; set; }
+            public string Remarks { get; set; }
+            public System.DateTime? AppointmentDate { get; set; }
+            public int? AppointmentTime { get; set; }
+            public string AppointmentTime_s { get; set; }
+            public List<Treatment> listOfTreatments { get; set; }
+            public string approvalString { get; set; }
+        }
+
     }
 }
