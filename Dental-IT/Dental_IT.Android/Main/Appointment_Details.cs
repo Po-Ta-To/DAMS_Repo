@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
 using Dental_IT.Model;
+using System;
 
 namespace Dental_IT.Droid.Main
 {
@@ -36,15 +37,14 @@ namespace Dental_IT.Droid.Main
             TextView apptDetails_StatusLabel = FindViewById<TextView>(Resource.Id.apptDetails_StatusLabel);
             TextView apptDetails_StatusText = FindViewById<TextView>(Resource.Id.apptDetails_StatusText);
             Button apptDetails_UpdateBtn = FindViewById<Button>(Resource.Id.apptDetails_UpdateBtn);
-            Button apptDetails_DeleteBtn = FindViewById<Button>(Resource.Id.apptDetails_DeleteBtn);
+            Button apptDetails_CancelBtn = FindViewById<Button>(Resource.Id.apptDetails_CancelBtn);
 
             //  Get intents
             Intent i = Intent;
 
-            //  Receive data from hospital_details
+            //  Receive data from appointments
             if (i.GetStringExtra("appointment") != null)
             {
-                //  Receive data from search hospital or treatments offered
                 appointment = Newtonsoft.Json.JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("appointment"));
             }
             else
@@ -70,6 +70,16 @@ namespace Dental_IT.Droid.Main
                 apptDetails_TreatmentText.Text = appointment.Treatments;
                 apptDetails_StatusText.Text = appointment.Status;
 
+                //  Disable buttons on past appointments
+                if (appointment.Date < DateTime.Today.Date)
+                {
+                    apptDetails_UpdateBtn.Enabled = false;
+                    apptDetails_CancelBtn.Enabled = false;
+
+                    apptDetails_UpdateBtn.SetBackgroundColor(new Android.Graphics.Color(GetColor(Resource.Color._5_grey)));
+                    apptDetails_CancelBtn.SetBackgroundColor(new Android.Graphics.Color(GetColor(Resource.Color._5_grey)));
+                }
+
                 //Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 toolbar.SetTitle(Resource.String.apptDetails_title);
@@ -88,23 +98,23 @@ namespace Dental_IT.Droid.Main
             };
 
             //  Handle delete button
-            apptDetails_DeleteBtn.Click += delegate
+            apptDetails_CancelBtn.Click += delegate
             {
-                Android.App.AlertDialog.Builder delConfirm = new Android.App.AlertDialog.Builder(this);
-                delConfirm.SetTitle(Resource.String.delete_title);
-                delConfirm.SetMessage(Resource.String.delete_text);
-                delConfirm.SetNegativeButton(Resource.String.confirm_delete, delegate
+                Android.App.AlertDialog.Builder cancelConfirm = new Android.App.AlertDialog.Builder(this);
+                cancelConfirm.SetTitle(Resource.String.cancel_title);
+                cancelConfirm.SetMessage(Resource.String.cancel_text);
+                cancelConfirm.SetNegativeButton(Resource.String.confirm_cancel, delegate
                 {
-                    Toast.MakeText(this, Resource.String.delete_OK, ToastLength.Short).Show();
+                    Toast.MakeText(this, Resource.String.cancel_OK, ToastLength.Short).Show();
 
                     Intent intent = new Intent(this, typeof(My_Appointments));
                     StartActivity(intent);
                 });
-                delConfirm.SetNeutralButton(Resource.String.cancel, delegate
+                cancelConfirm.SetNeutralButton(Resource.String.cancel, delegate
                 {
-                    delConfirm.Dispose();
+                    cancelConfirm.Dispose();
                 });
-                delConfirm.Show();
+                cancelConfirm.Show();
             };
         }
 
