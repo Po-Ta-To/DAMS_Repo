@@ -12,6 +12,7 @@ using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Support.V4.Widget;
 using Dental_IT.Model;
+using Android.Preferences;
 
 namespace Dental_IT.Droid.Main
 {
@@ -74,59 +75,64 @@ namespace Dental_IT.Droid.Main
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
                 navigationView.SetCheckedItem(Resource.Id.nav_Home);
-                navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(UserAccount.Name);
-            });
 
-            navigationView.NavigationItemSelected += (sender, e) =>
-            {
-                switch (e.MenuItem.ItemId)
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                if (prefs.Contains("name"))
                 {
-
-                    case Resource.Id.nav_Home:
-                        intent = new Intent(this, typeof(Main_Menu));
-                        StartActivity(intent);
-                        break;
-
-                    case Resource.Id.nav_RequestAppt:
-                        intent = new Intent(this, typeof(Select_Hospital));
-                        StartActivity(intent);
-                        break;
-
-                    case Resource.Id.nav_MyAppt:
-                        intent = new Intent(this, typeof(My_Appointments));
-                        StartActivity(intent);
-                        break;
-
-                    case Resource.Id.nav_TreatmentInfo:
-                        intent = new Intent(this, typeof(Treatment_Information));
-                        StartActivity(intent);
-                        break;
-
-                    case Resource.Id.nav_Search:
-                        intent = new Intent(this, typeof(Search));
-                        StartActivity(intent);
-                        break;
-
-                    case Resource.Id.nav_ClearData:
-                        ClearData();
-                        break;
-
-                    case Resource.Id.nav_Logout:
-                        Logout();
-                        break;
+                    navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(prefs.GetString("name", "User not found"));
                 }
-                //react to click here and swap fragments or navigate
-                drawerLayout.CloseDrawers();
-            };
+
+                navigationView.NavigationItemSelected += (sender, e) =>
+                {
+                    switch (e.MenuItem.ItemId)
+                    {
+
+                        case Resource.Id.nav_Home:
+                            intent = new Intent(this, typeof(Main_Menu));
+                            StartActivity(intent);
+                            break;
+
+                        case Resource.Id.nav_RequestAppt:
+                            intent = new Intent(this, typeof(Select_Hospital));
+                            StartActivity(intent);
+                            break;
+
+                        case Resource.Id.nav_MyAppt:
+                            intent = new Intent(this, typeof(My_Appointments));
+                            StartActivity(intent);
+                            break;
+
+                        case Resource.Id.nav_TreatmentInfo:
+                            intent = new Intent(this, typeof(Treatment_Information));
+                            StartActivity(intent);
+                            break;
+
+                        case Resource.Id.nav_Search:
+                            intent = new Intent(this, typeof(Search));
+                            StartActivity(intent);
+                            break;
+
+                        case Resource.Id.nav_ClearData:
+                            ClearData();
+                            break;
+
+                        case Resource.Id.nav_Logout:
+                            Logout();
+                            break;
+                    }
+                    //  React to click here and swap fragments or navigate
+                    drawerLayout.CloseDrawers();
+                };
+            });
         }
 
-        //Implement menus in the action bar; backarrow
+        //  Implement menus in the action bar; backarrow
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return true;
         }
 
-        //Redirect to main menu when back arrow is tapped
+        //  Redirect to main menu when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -207,7 +213,6 @@ namespace Dental_IT.Droid.Main
                 editor.Apply();
 
                 //  Clear user data
-                UserAccount.UserName = null;
                 UserAccount.AccessToken = null;
                 UserAccount.Name = null;
 
@@ -235,6 +240,14 @@ namespace Dental_IT.Droid.Main
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Clear();
                 editor.Apply();
+
+                //  Clear remaining user data
+                UserAccount.AccessToken = null;
+                UserAccount.Name = null;
+
+                //  Redirect to sign in page
+                intent = new Intent(this, typeof(Sign_In));
+                StartActivity(intent);
             });
             clearConfirm.SetNeutralButton(Resource.String.cancel, delegate
             {

@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
@@ -64,15 +65,19 @@ namespace Dental_IT.Droid.Main
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
                 navigationView.SetCheckedItem(Resource.Id.nav_Home);
-                navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(UserAccount.Name);
-            });
 
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                if (prefs.Contains("name"))
+                {
+                    navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(prefs.GetString("name", "User not found"));
+                }
+                
+            });
 
             navigationView.NavigationItemSelected += (sender, e) =>
             {
                 switch (e.MenuItem.ItemId)
                 {
-
                     case Resource.Id.nav_Home:
                         intent = new Intent(this, typeof(Main_Menu));
                         StartActivity(intent);
@@ -106,7 +111,8 @@ namespace Dental_IT.Droid.Main
                         Logout();
                         break;
                 }
-                //react to click here and swap fragments or navigate
+
+                //  React to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers();
             };
         }
@@ -165,7 +171,6 @@ namespace Dental_IT.Droid.Main
                 editor.Apply();
 
                 //  Clear user data
-                UserAccount.UserName = null;
                 UserAccount.AccessToken = null;
                 UserAccount.Name = null;
 
@@ -193,6 +198,14 @@ namespace Dental_IT.Droid.Main
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Clear();
                 editor.Apply();
+
+                //  Clear remaining user data
+                UserAccount.AccessToken = null;
+                UserAccount.Name = null;
+
+                //  Redirect to sign in page
+                intent = new Intent(this, typeof(Sign_In));
+                StartActivity(intent);
             });
             clearConfirm.SetNeutralButton(Resource.String.cancel, delegate
             {

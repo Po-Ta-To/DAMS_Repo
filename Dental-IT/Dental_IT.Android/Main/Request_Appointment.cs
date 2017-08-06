@@ -176,7 +176,6 @@ namespace Dental_IT.Droid.Main
                             editor.Apply();
 
                             //  Clear user data
-                            UserAccount.UserName = null;
                             UserAccount.AccessToken = null;
                             UserAccount.Name = null;
 
@@ -187,7 +186,7 @@ namespace Dental_IT.Droid.Main
                             break;
                     }
 
-                    //react to click here and swap fragments or navigate
+                    //  React to click here and swap fragments or navigate
                     drawerLayout.CloseDrawers();
                 };
             });
@@ -232,7 +231,7 @@ namespace Dental_IT.Droid.Main
             };
         }
 
-        //Implement menus in the action bar; backarrow
+        //  Implement menus in the action bar; backarrow
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return true;

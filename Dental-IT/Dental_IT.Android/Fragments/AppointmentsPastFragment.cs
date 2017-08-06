@@ -1,4 +1,6 @@
-﻿using Android.OS;
+﻿using Android.Content;
+using Android.OS;
+using Android.Preferences;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Dental_IT.Droid.Adapters;
@@ -15,6 +17,7 @@ namespace Dental_IT.Droid.Fragments
         private List<Appointment> finalAppointmentList = new List<Appointment>();
         private RecyclerView appointmentsPast_RecyclerView;
         private RecyclerViewAdapter_Appointments adapter;
+        private string accessToken;
 
         API api = new API();
 
@@ -39,8 +42,15 @@ namespace Dental_IT.Droid.Fragments
             {
                 try
                 {
+                    //  Retrieve access token
+                    ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Context);
+                    if (prefs.Contains("token"))
+                    {
+                        accessToken = prefs.GetString("token", "");
+                    }
+
                     //  Get appointments
-                    appointmentList = await api.GetAppointments();
+                    appointmentList = await api.GetAppointments(accessToken);
 
                     //  Check if appointment is past
                     foreach (Appointment appointment in appointmentList)

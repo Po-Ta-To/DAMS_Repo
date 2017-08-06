@@ -212,7 +212,7 @@ namespace Dental_IT
         }
 
         //  Get Appointments
-        public async Task<List<Appointment>> GetAppointments()
+        public async Task<List<Appointment>> GetAppointments(string accessToken)
         {
             List<Appointment> appointmentList = new List<Appointment>();
             List<string> treatmentsList = new List<string>();
@@ -224,7 +224,7 @@ namespace Dental_IT
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_getAppt));
                 request.ContentType = "application/json";
                 request.Method = "GET";
-                request.Headers.Add("Authorization", "bearer " + UserAccount.AccessToken);
+                request.Headers.Add("Authorization", "bearer " + accessToken);
 
                 // Send the request to the server and wait for the response:
                 using (WebResponse response = request.GetResponse())
@@ -389,7 +389,6 @@ namespace Dental_IT
                         JsonValue jsonDoc = JsonValue.Load(stream);
                         System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
 
-                        UserAccount.UserName = jsonDoc["userName"];
                         UserAccount.AccessToken = jsonDoc["access_token"];
                     }
                 }

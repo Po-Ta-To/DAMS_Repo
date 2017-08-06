@@ -79,6 +79,10 @@ namespace Dental_IT.Droid.Main
                     {
                         //  Successful
                         case 1:
+                            //  Save access token to shared preferences
+                            editor.PutString("token", UserAccount.AccessToken);
+                            editor.Apply();
+
                             //  Get user account with token
                             if (api.GetUserAccount(UserAccount.AccessToken) == true)
                             {
@@ -89,7 +93,11 @@ namespace Dental_IT.Droid.Main
                                     editor.Apply();
                                 }
 
-                                //Toast.MakeText(this, UserAccount.AccessToken, ToastLength.Short).Show();
+                                //  Save name to shared preferences
+                                editor.PutString("name", UserAccount.Name);
+                                editor.Apply();
+
+                                //  Redirect to main menu
                                 Intent intent = new Intent(this, typeof(Main_Menu));
                                 StartActivity(intent);
                             }

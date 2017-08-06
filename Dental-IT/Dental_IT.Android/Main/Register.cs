@@ -167,13 +167,13 @@ namespace Dental_IT.Droid.Main
             };
         }
 
-        //Implement menus in the action bar; backarrow
+        //  Implement menus in the action bar; backarrow
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return true;
         }
         
-        //Redirect to sign in page when back arrow is tapped
+        //  Redirect to sign in page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Sign_In));
