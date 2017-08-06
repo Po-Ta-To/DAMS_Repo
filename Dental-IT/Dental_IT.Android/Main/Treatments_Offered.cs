@@ -97,7 +97,7 @@ namespace Dental_IT.Droid.Main
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Hospital_Details));
-            intent.PutExtra("details_HospitalName", hospitalName);
+            intent.PutExtra("details_Hospital", Newtonsoft.Json.JsonConvert.SerializeObject(hosp));
             StartActivity(intent);
 
             return base.OnOptionsItemSelected(item);
