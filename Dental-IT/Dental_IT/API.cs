@@ -280,12 +280,12 @@ namespace Dental_IT
         }
 
         // CANCEL Appointment
-        public async Task<JsonValue> CancelAppointment()
+        public async Task<JsonValue> CancelAppointment(int apptID)
         {
             try
             {
                 // Create an HTTP web request using the URL:
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_cancelApptByID));
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_cancelApptByID + apptID));
                 request.ContentType = "application/JSON";
                 request.Method = "GET";
 

@@ -112,7 +112,7 @@ namespace Dental_IT.Droid.Main
                         try
                         {
                             //  Get Update Appt
-                            JsonValue updatedAppt = await api.CancelAppointment();
+                            JsonValue updatedAppt = await api.CancelAppointment(appointment.ID);
 
                             if(updatedAppt == null)
                             {
