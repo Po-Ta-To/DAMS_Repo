@@ -110,7 +110,7 @@ namespace Dental_IT.Droid.Main
                     Intent intent = new Intent(this, typeof(My_Appointments));
                     StartActivity(intent);
                 });
-                cancelConfirm.SetNeutralButton(Resource.String.cancel, delegate
+                cancelConfirm.SetNeutralButton(Resource.String.no, delegate
                 {
                     cancelConfirm.Dispose();
                 });
