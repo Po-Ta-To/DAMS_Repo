@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using DAMS_03.Models;
 using DAMS_03.Authorization;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace DAMS_03.Controllers
 {
@@ -541,10 +542,23 @@ namespace DAMS_03.Controllers
             }
             //end check for auth
 
-            DoctorDentist doctorDentist = db.DoctorDentists.Find(id);
-            db.DoctorDentists.Remove(doctorDentist);
-            db.SaveChanges();
-            return RedirectToAction("Index", "DoctorDentists");
+            try
+            {
+                DoctorDentist doctorDentist = db.DoctorDentists.Find(id);
+                db.DoctorDentists.Remove(doctorDentist);
+                db.SaveChanges();
+                return RedirectToAction("Index", "DoctorDentists");
+            }
+            catch (Exception e)
+            {
+                SqlException sqle = (SqlException) e.InnerException.InnerException;
+
+                if (sqle.Number == 547)
+                {
+                    return RedirectToAction("Delete", "DoctorDentists", new { id = id, error = "547" });
+                }
+                throw;
+            }
         }
 
         protected override void Dispose(bool disposing)

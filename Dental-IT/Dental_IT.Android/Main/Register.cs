@@ -6,12 +6,15 @@ using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Fragments;
 using Dental_IT.Droid.Adapters;
+using Dental_IT.Model;
+using Android.Views.InputMethods;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Register : Android.Support.V7.App.AppCompatActivity
     {
+        private EditText register_NameField;
         private EditText register_EmailField;
         private EditText register_PasswordField;
         private EditText register_RepeatPasswordField;
@@ -24,6 +27,8 @@ namespace Dental_IT.Droid.Main
         private TextView register_PdpaText;
         private Button register_RegisterBtn;
 
+        API api = new API();
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,6 +37,7 @@ namespace Dental_IT.Droid.Main
             SetContentView(Resource.Layout.Register);
 
             //  Create widgets
+            register_NameField = FindViewById<EditText>(Resource.Id.register_NameField);
             register_EmailField = FindViewById<EditText>(Resource.Id.register_EmailField);
             register_PasswordField = FindViewById<EditText>(Resource.Id.register_PasswordField);
             register_RepeatPasswordField = FindViewById<EditText>(Resource.Id.register_RepeatPasswordField);
@@ -43,11 +49,12 @@ namespace Dental_IT.Droid.Main
             register_PdpaText = FindViewById<TextView>(Resource.Id.register_PdpaText);
             register_RegisterBtn = FindViewById<Button>(Resource.Id.register_RegisterBtn);
 
-            EditText[] fields = { register_EmailField, register_PasswordField, register_RepeatPasswordField, register_NRICField, register_MobileField };
+            EditText[] fields = { register_NameField, register_EmailField, register_PasswordField, register_RepeatPasswordField, register_NRICField, register_MobileField };
 
             RunOnUiThread(() =>
             {
                 //  Set textfield text sizes to be same as button text sizes
+                register_NameField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
                 register_EmailField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
                 register_PasswordField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
                 register_RepeatPasswordField.SetTextSize(Android.Util.ComplexUnitType.Px, register_RegisterBtn.TextSize);
@@ -111,8 +118,49 @@ namespace Dental_IT.Droid.Main
 
                 if (validated == true)
                 {
-                    Intent intent = new Intent(this, typeof(Main_Menu));
-                    StartActivity(intent);
+                    //  Close keyboard
+                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+
+                    //  Create new user
+                    User user = new User()
+                    {
+                        UserName = register_NameField.Text,
+                        Name = register_NameField.Text,
+                        Email = register_EmailField.Text,
+                        Password = register_PasswordField.Text,
+                        ConfirmPassword = register_RepeatPasswordField.Text,
+                        DOB = register_DOBField.Text,
+                        Gender = register_GenderSpinner.SelectedItem.ToString(),
+                        NRIC = register_NRICField.Text,
+                        Mobile = register_MobileField.Text
+                    };
+
+                    //  Send create request to database
+                    switch (api.PostUserAccount(Newtonsoft.Json.JsonConvert.SerializeObject(user)))
+                    {
+                        //  Successful
+                        case 1:
+                            Toast.MakeText(this, Resource.String.welcome + user.Name + "!", ToastLength.Short).Show();
+                            Intent intent = new Intent(this, typeof(Main_Menu));
+                            StartActivity(intent);
+                            break;
+
+                        //  Invalid fields (Should NOT happen)
+                        case 2:
+                            Toast.MakeText(this, Resource.String.invalid_register, ToastLength.Short).Show();
+                            break;
+
+                        //  No internet connectivity
+                        case 3:
+                            Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
+                            break;
+
+                        //  Backend problem
+                        case 4:
+                            Toast.MakeText(this, Resource.String.register_error, ToastLength.Short).Show();
+                            break;
+                    }
                 }
             };
         }

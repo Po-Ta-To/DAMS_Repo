@@ -51,8 +51,8 @@ namespace DAMS_03.API
 
                 if (getprice.PriceLow == getprice.PriceHigh)
                 {
-                    string stringPx = String.Format("{0:C0}", getprice.PriceLow.ToString());
-                    string stringPx_d = String.Format("{0:C}", getprice.PriceLow.ToString());
+                    string stringPx = String.Format("{0:C0}", getprice.PriceLow);
+                    string stringPx_d = String.Format("{0:C}", getprice.PriceLow);
                     t.Price = stringPx;
                     t.Price_d = stringPx_d;
                 }

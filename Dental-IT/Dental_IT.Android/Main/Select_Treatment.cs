@@ -9,30 +9,20 @@ using Android.Support.V7.Widget;
 using Dental_IT.Droid.Adapters;
 using Android.Preferences;
 using Dental_IT.Model;
+using System.Threading.Tasks;
+using System;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Select_Treatment : AppCompatActivity
     {
-        //private Treatment a = new Treatment(1, "Treatment 1", 100, 500);
-        //private Treatment b = new Treatment(2, "Treatment 2", 200, 800);
-        //private Treatment c = new Treatment(3, "Treatment 3", 1350, 5400);
-        //private Treatment d = new Treatment(4, "Treatment 4", 45, 150);
-        //private Treatment e = new Treatment(5, "Treatment 5", 800, 1200);
-        //private Treatment f = new Treatment(6, "Treatment 6", 150, 300);
-        //private Treatment g = new Treatment(7, "Treatment 7", 500, 1000);
-        //private Treatment h = new Treatment(8, "Treatment 8", 100, 500);
-        //private Treatment i = new Treatment(9, "Treatment 9", 200, 800);
-        //private Treatment j = new Treatment(10, "Treatment 10", 1350, 5400);
-        //private Treatment k = new Treatment(11, "Treatment 11", 45, 150);
-        //private Treatment l = new Treatment(12, "Treatment 12", 800, 1200);
-        //private Treatment m = new Treatment(13, "Treatment 13", 150, 300);
-        //private Treatment n = new Treatment(14, "Treatment 14", 500, 1000);
-
         private List<Treatment> treatmentList = new List<Treatment>();
         private List<int> prefList = new List<int>();
         private List<ToggleState> tempSelectedList = new List<ToggleState>();
+        private RecyclerView selectTreatment_RecyclerView;
+
+        API api = new API();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -42,59 +32,69 @@ namespace Dental_IT.Droid.Main
             SetContentView(Resource.Layout.Select_Treatment);
 
             //  Create widgets
-            RecyclerView selectTreatment_RecyclerView = FindViewById<RecyclerView>(Resource.Id.selectTreatment_RecyclerView);
-
-            //treatmentList.Add(a);
-            //treatmentList.Add(b);
-            //treatmentList.Add(c);
-            //treatmentList.Add(d);
-            //treatmentList.Add(e);
-            //treatmentList.Add(f);
-            //treatmentList.Add(g);
-            //treatmentList.Add(h);
-            //treatmentList.Add(i);
-            //treatmentList.Add(j);
-            //treatmentList.Add(k);
-            //treatmentList.Add(l);
-            //treatmentList.Add(m);
-            //treatmentList.Add(n);
-
+            selectTreatment_RecyclerView = FindViewById<RecyclerView>(Resource.Id.selectTreatment_RecyclerView);
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+
+            //  Receive data from request appointment
+            int hospId = Intent.GetIntExtra("selectTreatment_HospId", 0);
 
             //  Uncomment to clear shared preferences
             //ISharedPreferencesEditor editor = prefs.Edit();
             //editor.Clear();
             //editor.Apply();
 
-            //  If shared preferences contains treatments
-            if (prefs.Contains("treatments"))
+            //  Main data retrieving + processing method
+            Task.Run(async () =>
             {
-                //  Retrieve list of treatment ids that are selected
-                prefList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(prefs.GetString("treatments", "null"));
-
-                //  Create a temporary list of selected treatments with all the treatments
-                foreach (Treatment treatment in treatmentList)
+                try
                 {
-                    ToggleState tempSelected = new ToggleState(treatment.ID);
+                    //  Get treatments
+                    treatmentList = await api.GetTreatmentsByClinicHospital(hospId);
 
-                    //  Set favourited to true if hospital id corresponds with id in shared preferences
-                    if (prefList.Exists(e => (e.Equals(treatment.ID))))
+                    //  If shared preferences contains treatments
+                    if (prefs.Contains("treatments"))
                     {
-                        tempSelected.toggled = true;
+                        //  Retrieve list of treatment ids that are selected
+                        prefList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(prefs.GetString("treatments", "null"));
+
+                        //  Create a temporary list of selected treatments with all the treatments
+                        foreach (Treatment treatment in treatmentList)
+                        {
+                            ToggleState tempSelected = new ToggleState(treatment.ID);
+
+                            //  Set favourited to true if hospital id corresponds with id in shared preferences
+                            if (prefList.Exists(e => (e.Equals(treatment.ID))))
+                            {
+                                tempSelected.toggled = true;
+                            }
+
+                            tempSelectedList.Add(tempSelected);
+                        }
                     }
 
-                    tempSelectedList.Add(tempSelected);
-                }
-            }
+                    //  Else if shared preferences is empty, create a temporary list of favourites with all the hospitals, setting all favourited to false by default
+                    else
+                    {
+                        foreach (Treatment treatment in treatmentList)
+                        {
+                            tempSelectedList.Add(new ToggleState(treatment.ID));
+                        }
+                    }
 
-            //  Else if shared preferences is empty, create a temporary list of favourites with all the hospitals, setting all favourited to false by default
-            else
-            {
-                foreach (Treatment treatment in treatmentList)
-                {
-                    tempSelectedList.Add(new ToggleState(treatment.ID));
+                    RunOnUiThread(() =>
+                    {
+                        //  Configure custom adapter for recyclerview
+                        selectTreatment_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
+
+                        RecyclerViewAdapter_SelectTreatment adapter = new RecyclerViewAdapter_SelectTreatment(this, treatmentList, prefList, tempSelectedList);
+                        selectTreatment_RecyclerView.SetAdapter(adapter);
+                    });
                 }
-            }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.Write("Obj: " + e.Message + e.StackTrace);
+                }
+            });
 
             RunOnUiThread(() =>
             {

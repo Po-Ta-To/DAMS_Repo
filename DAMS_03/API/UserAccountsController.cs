@@ -137,8 +137,12 @@ namespace DAMS_03.API
                 addUserAccount.DOB = model.DOB;
                 addUserAccount.Gender = model.Gender;
                 addUserAccount.Mobile   = model.Mobile.ToString();
-                addUserAccount.Addrress = model.Addrress;
                 addUserAccount.AspNetID = aspID;
+
+                if (addUserAccount.Addrress != null)
+                {
+                    addUserAccount.Addrress = model.Addrress;
+                }
 
                 db.UserAccounts.Add(addUserAccount);
                 db.SaveChanges();

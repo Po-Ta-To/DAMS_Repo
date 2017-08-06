@@ -16,27 +16,33 @@ namespace DAMS_03.Models
     public class AppointmentCreateModel
     {
         [Required]
+        [Display(Name = "Appointment ID")]
         public string AppointmentID { get; set; }
 
         [Required]
+        [Display(Name = "User")]
         public int UserID { get; set; }
 
         [Required]
+        [Display(Name = "Clinic/Hospital Name")]
         public int ClinicHospitalID { get; set; }
 
         //[Required]
         //public int ApprovalState { get; set; }
         
         [Required]
+        [Display(Name = "Preferred Date")]
         public System.DateTime PreferredDate { get; set; }
 
         [Required]
+        [Display(Name = "Preferred Timeslot")]
         public int PreferredTime { get; set; }
 
         //[Required]
         //public int DoctorDentistID { get; set; }
 
         [Required]
+        [Display(Name = "Requested Dentist")]
         public int RequestDoctorDentistID { get; set; }
 
         [Required]
@@ -69,10 +75,10 @@ namespace DAMS_03.Models
         [Display(Name = "Preferred Timeslot")]
         public string PreferredTime_s { get; set; }
         
-        [Display(Name = "Assigned Doctor/Dentist Name")]
+        [Display(Name = "Assigned Dentist Name")]
         public string DoctorDentistName { get; set; }
         public int? DoctorDentistID { get; set; }
-        [Display(Name = "Requested Doctor/Dentist Name")]
+        [Display(Name = "Requested Dentist Name")]
         public string RequestDoctorDentistName { get; set; }
         public int? RequestDoctorDentistID { get; set; }
         public string Remarks { get; set; }
@@ -129,12 +135,12 @@ namespace DAMS_03.Models
         //public string DoctorDentistName { get; set; }
         public List<System.Web.Mvc.SelectListItem> selectDoctorDentist { get; set; }
 
-        [Display(Name = "Assigned Doctor/Dentist Name")]
+        [Display(Name = "Assigned Dentist Name")]
         public string DoctorDentistID { get; set; }//
 
         //public string RequestDoctorDentistName { get; set; }
 
-        [Display(Name = "Requested Doctor/Dentist Name")]
+        [Display(Name = "Requested Dentist Name")]
         public string RequestDoctorDentistID { get; set; }//
 
         [Required]
@@ -198,12 +204,12 @@ namespace DAMS_03.Models
 
         public List<System.Web.Mvc.SelectListItem> selectDoctorDentist { get; set; }
 
-        [Display(Name = "Assigned Doctor/Dentist Name")]
+        [Display(Name = "Assigned Dentist Name")]
         public string DoctorDentistID { get; set; }
 
         public string RequestDoctorDentistName { get; set; }
 
-        [Display(Name = "Requested Doctor/Dentist Name")]
+        [Display(Name = "Requested Dentist Name")]
         public string RequestDoctorDentistID { get; set; }
 
         [Required]

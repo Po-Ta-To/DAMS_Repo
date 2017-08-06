@@ -11,17 +11,19 @@ using Dental_IT.Droid.Adapters;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Widget;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class My_Appointments : AppCompatActivity
     {
-        DrawerLayout drawerLayout;
-        NavigationView navigationView;
+        private DrawerLayout drawerLayout;
+        private NavigationView navigationView;
+        private Intent intent;
 
-        Android.Support.V4.App.Fragment[] fragments;
-        ICharSequence[] titles;
+        private Android.Support.V4.App.Fragment[] fragments;
+        private ICharSequence[] titles;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -65,7 +67,7 @@ namespace Dental_IT.Droid.Main
                 toolbar.SetTitle(Resource.String.myAppts_title);
                 SetSupportActionBar(toolbar);
 
-                //Set menu hambuger
+                //Set navigation drawer
                 SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -73,16 +75,15 @@ namespace Dental_IT.Droid.Main
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
+                navigationView.SetCheckedItem(Resource.Id.nav_MyAppt);
+                navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(UserAccount.Name);
 
                 navigationView.NavigationItemSelected += (sender, e) =>
                 {
-                    e.MenuItem.SetChecked(true);
-
-                    Intent intent;
                     switch (e.MenuItem.ItemId)
                     {
 
-                        case Resource.Id.nav_home:
+                        case Resource.Id.nav_Home:
                             intent = new Intent(this, typeof(Main_Menu));
                             StartActivity(intent);
                             break;
@@ -106,6 +107,10 @@ namespace Dental_IT.Droid.Main
                             intent = new Intent(this, typeof(Search));
                             StartActivity(intent);
                             break;
+
+                        case Resource.Id.nav_Logout:
+                            Logout();
+                            break;
                     }
 
                     //react to click here and swap fragments or navigate
@@ -120,10 +125,9 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-        //Toast displayed and redirected to MainMenu page when back arrow is tapped
+        //Redirect to main menu page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
@@ -131,6 +135,36 @@ namespace Dental_IT.Droid.Main
                     return true;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        //  Logout function
+        public void Logout()
+        {
+            //  Logout confirmation dialog
+            Android.App.AlertDialog.Builder logoutConfirm = new Android.App.AlertDialog.Builder(this);
+            logoutConfirm.SetMessage(Resource.String.logout_text);
+            logoutConfirm.SetNegativeButton(Resource.String.confirm_logout, delegate
+            {
+                //  Remove user session from shared preferences
+                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                editor.Remove("remembered");
+                editor.Apply();
+
+                //  Clear user data
+                UserAccount.UserName = null;
+                UserAccount.AccessToken = null;
+                UserAccount.Name = null;
+
+                //  Redirect to sign in page
+                intent = new Intent(this, typeof(Sign_In));
+                StartActivity(intent);
+            });
+            logoutConfirm.SetNeutralButton(Resource.String.cancel, delegate
+            {
+                logoutConfirm.Dispose();
+            });
+            logoutConfirm.Show();
         }
     }
 }

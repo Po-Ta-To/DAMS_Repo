@@ -4,12 +4,17 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
+using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Appointment_Details : AppCompatActivity
     {
+        private Appointment appointment;
+
+        API api = new API();
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -33,6 +38,20 @@ namespace Dental_IT.Droid.Main
             Button apptDetails_UpdateBtn = FindViewById<Button>(Resource.Id.apptDetails_UpdateBtn);
             Button apptDetails_DeleteBtn = FindViewById<Button>(Resource.Id.apptDetails_DeleteBtn);
 
+            //  Get intents
+            Intent i = Intent;
+
+            //  Receive data from hospital_details
+            if (i.GetStringExtra("appointment") != null)
+            {
+                //  Receive data from search hospital or treatments offered
+                appointment = Newtonsoft.Json.JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("appointment"));
+            }
+            else
+            {
+                appointment = new Appointment();
+            }
+
             RunOnUiThread(() =>
             {
                 //  Set label typeface to be same as button typeface
@@ -42,6 +61,14 @@ namespace Dental_IT.Droid.Main
                 apptDetails_SessionLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 apptDetails_TreatmentLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 apptDetails_StatusLabel.SetTypeface(apptDetails_UpdateBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
+
+                //  Set appointment details
+                apptDetails_HospitalText.Text = appointment.ClinicHospital;
+                apptDetails_DateText.Text = appointment.Date;
+                apptDetails_DentistText.Text = appointment.Dentist;
+                apptDetails_SessionText.Text = appointment.Time;
+                apptDetails_TreatmentText.Text = "kdlsad salk dasdklasdsakld salkdasd ksadlksd askl dsaklddl ksadklsad sakld asklsadkl skadlak skdlskldsakldskla dkasldsakldlkasd sakdl";
+                apptDetails_StatusText.Text = appointment.Status;
 
                 //Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);

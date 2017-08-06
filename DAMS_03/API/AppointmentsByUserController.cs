@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -14,13 +15,19 @@ namespace DAMS_03.API
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: api/AppointmentsByUser/2
+        [Authorize]
         [ResponseType(typeof(Appointment))]
-        public IHttpActionResult GetAppointmentsByUserID(int id)
+        public IHttpActionResult GetAppointmentsByUserID()
         {
+            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            string username = ClaimsPrincipal.Current.Identity.Name;
+            //string alsoName = User.Identity.Name;
+
             var appointments = from Appointment in db.Appointments
-                               where Appointment.UserID == id
                                join User in db.UserAccounts on Appointment.UserID equals User.ID
+                               join anu in db.AspNetUsers on User.AspNetID equals anu.Id
                                join ch in db.ClinicHospitals on Appointment.ClinicHospitalID equals ch.ID
+                               where anu.UserName == username
                                select new
                                {
                                    ID = Appointment.ID,
@@ -37,7 +44,7 @@ namespace DAMS_03.API
                                    AppointmentTime = Appointment.AppointmentTime//
                                };
 
-            List<AppointmentDetailViewModel> returnApptList = new List<AppointmentDetailViewModel>();
+            List<AppointmentApiHelperModel> returnApptList = new List<AppointmentApiHelperModel>();
 
             foreach (var appointment in appointments)
             {
@@ -82,7 +89,24 @@ namespace DAMS_03.API
                                DoctorDentistID = d.ID
                            }).SingleOrDefault();
 
-                AppointmentDetailViewModel addAppt = new AppointmentDetailViewModel()
+                List<TimeslotApiHelperModel> timeslots = (from cht in db.ClinicHospitalTimeslots
+                                                          join ch in db.ClinicHospitals on cht.ClinicHospitalID equals ch.ID
+                                                          orderby cht.TimeslotIndex ascending
+                                                          where ch.ID == appointment.ClinicHospitalID
+                                                          select new TimeslotApiHelperModel()
+                                                          {
+                                                              TimeslotIndex = cht.TimeslotIndex,
+                                                              TimeRangeSlotString = cht.TimeRangeSlotString,
+                                                          }).ToList();
+
+                string insertTimeslotPreferred = timeslots[appointment.PreferredTime].TimeRangeSlotString;
+                string insertTimeslotFinal = "Not Confirmed";
+                if (appointment.AppointmentTime != null)
+                {
+                    insertTimeslotFinal = timeslots[(int)appointment.AppointmentTime].TimeRangeSlotString;
+                }
+
+                AppointmentApiHelperModel addAppt = new AppointmentApiHelperModel()
                 {
                     ID = appointment.ID,
                     AppointmentID = appointment.AppointmentID,
@@ -95,8 +119,23 @@ namespace DAMS_03.API
                     PreferredTime = appointment.PreferredTime,
                     Remarks = appointment.Remarks,
                     AppointmentDate = appointment.AppointmentDate,
-                    AppointmentTime = appointment.AppointmentTime
+                    AppointmentTime = appointment.AppointmentTime,
+                    PreferredTime_s = insertTimeslotPreferred,
+                    AppointmentTime_s = insertTimeslotFinal
                 };
+
+                addAppt.listOfTreatments = (from t in db.Treatments
+                                            join at in db.AppointmentTreatments on t.ID equals at.TreatmentID
+                                            join a in db.Appointments on at.AppointmentID equals a.ID
+                                            where a.ID == addAppt.ID
+                                            select new TreatmentApiHelperModel()
+                                            {
+                                                ID = t.ID,
+                                                TreatmentID = t.TreatmentID,
+                                                TreatmentName = t.TreatmentName,
+                                                TreatmentDesc = t.TreatmentDesc,
+                                                IsFollowUp = t.IsFollowUp
+                                            }).ToList();
 
                 if (reqDoc != null)
                 {
@@ -125,6 +164,45 @@ namespace DAMS_03.API
             return Ok(returnApptList);
 
         } // End of GetAppointmentsByUserID() method
+
+        private class TimeslotApiHelperModel
+        {
+            public int TimeslotIndex { get; set; }
+            public string TimeRangeSlotString { get; set; }
+        }
+
+        private class TreatmentApiHelperModel
+        {
+            public int ID { get; set; }
+            public string TreatmentID { get; set; }
+            public string TreatmentName { get; set; }
+            public string TreatmentDesc { get; set; }
+            public bool IsFollowUp { get; set; }
+        }
+
+        private class AppointmentApiHelperModel
+        {
+            public int ID { get; set; }
+            public string AppointmentID { get; set; }
+            public string UserName { get; set; }
+            public int UserID { get; set; }
+            public string ClinicHospitalName { get; set; }
+            public int ClinicHospitalID { get; set; }
+            public string ApprovalState { get; set; }
+            public System.DateTime PreferredDate { get; set; }
+            public int PreferredTime { get; set; }
+            public string PreferredTime_s { get; set; }
+            public string DoctorDentistName { get; set; }
+            public int? DoctorDentistID { get; set; }
+            public string RequestDoctorDentistName { get; set; }
+            public int? RequestDoctorDentistID { get; set; }
+            public string Remarks { get; set; }
+            public System.DateTime? AppointmentDate { get; set; }
+            public int? AppointmentTime { get; set; }
+            public string AppointmentTime_s { get; set; }
+            public List<TreatmentApiHelperModel> listOfTreatments { get; set; }
+            public string approvalString { get; set; }
+        }
+
     } // End of AppointmentsByUserController
 } // End of namespace
- 

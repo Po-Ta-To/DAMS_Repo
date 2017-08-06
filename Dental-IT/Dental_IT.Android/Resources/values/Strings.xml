@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">Dental-IT</string>
+  <string name="name">Name</string>
   <string name="email">Email</string>
   <string name="password">Password</string>
   <string name="sign_in">Sign In</string>
@@ -99,5 +100,14 @@
   <string name="no_gender">Please select a gender</string>
   <string name="pdpa_unchecked">Please indicate that you have read and agreed to the terms and conditions to register on this application.</string>
   <string name="OK">OK</string>
-  <string name="error">Oops! Something went wrong. Please try again later</string>
+  <string name="error">Oops! Something went wrong. Please try again later.</string>
+  <string name="invalid_signIn">Invalid login. Please check that your email/password is correct.</string>
+  <string name="server_error">Unable to connect to the server. Please try again later.</string>
+  <string name="network_error">Unable to connect to the server. Please check your network.</string>
+  <string name="access_denied">Access denied</string>
+  <string name="welcome">Welcome, </string>
+  <string name="invalid_register">Unable to create your account. Please check your fields</string>
+  <string name="register_error">Unable to create your account. Please try again later.</string>
+  <string name="logout_text">Are you sure you want to logout?</string>
+  <string name="confirm_logout">Logout</string>
 </resources>

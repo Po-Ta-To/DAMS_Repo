@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_calendar"                    
+                    android:src="@drawable/ic_calendar"
                     android:scaleX="0.75"
                     android:scaleY="0.75" />
                 <TextView
@@ -156,22 +156,28 @@
                 android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:layout_below="@id/apptDetails_SessionLayout"
-                android:gravity="center_vertical">
-                <ImageView
-                    android:id="@+id/appt_TreatmentImage"
+                android:gravity="top">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_tooth"
-                    android:scaleX="0.75"
-                    android:scaleY="0.75" />
-                <TextView
-                    android:id="@+id/apptDetails_TreatmentLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/dark_blue"
-                    android:text="@string/treatments" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:id="@+id/appt_TreatmentImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_tooth"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75" />
+                    <TextView
+                        android:id="@+id/apptDetails_TreatmentLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_blue"
+                        android:text="@string/treatments" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/apptDetails_TreatmentText"
                     android:layout_width="wrap_content"

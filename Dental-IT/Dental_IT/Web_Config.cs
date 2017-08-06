@@ -4,11 +4,17 @@
     {
         private static string conn = "http://192.168.137.1:49814";
 
+        // POST user to get token (Sign in)
+        public static string global_connURL_postToken { get; } = conn + "/token";
+
+        // GET user account with token (Sign in)
+        public static string global_connURL_getUser { get; } = conn + "/api/UserAccountByUN";
+
         // CREATE/POST a new public user
         public static string global_connURL_createUser { get; } = conn + "/api/UserAccounts";
 
         // GET Appointments by UserID
-        public static string global_connURL_getApptByID { get; } = conn + "/api/AppointmentsByUser/"; // + UserID
+        public static string global_connURL_getAppt { get; } = conn + "/api/AppointmentsByUser/";
 
         // GET Appointment details by Appointment ID
         public static string global_connURL_getApptDetailsById { get; } = conn + "/api/Appointments/"; // + ApptID

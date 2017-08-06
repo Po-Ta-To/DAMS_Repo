@@ -19,14 +19,90 @@ namespace DAMS_03.API
         // GET: api/ClinicHospitals
         public IHttpActionResult GetClinicHospitals()
         {
-            var clinicHospitals = from ClinicHospital in db.ClinicHospitals
-                                  select new
-                                  {
-                                      ClinicHospital.ID,
-                                      ClinicHospital.ClinicHospitalName
-                                  };
+            //var clinicHospitals = from ClinicHospital in db.ClinicHospitals
+            //                      select new
+            //                      {
+            //                          ClinicHospital.ID,
+            //                          ClinicHospital.ClinicHospitalName
+            //                      };
 
-            return Ok(clinicHospitals);
+            var clinicHospitals = from ClinicHospital in db.ClinicHospitals
+                                  select ClinicHospital;
+
+            List<ClinicHospitalHelperModel> returnList = new List<ClinicHospitalHelperModel>();
+
+            foreach (ClinicHospital clinicHospital in clinicHospitals)
+            {
+                if (clinicHospital.IsStringOpenHours == true)
+                {
+                    ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
+                    {
+                        ID = clinicHospital.ID,
+                        ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                        ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                        Address = clinicHospital.ClinicHospitalAddress,
+                        Telephone = clinicHospital.ClinicHospitalTel,
+                        Email = clinicHospital.ClinicHospitalEmail,
+                        OpenHours = clinicHospital.ClinicHospitalOpenHours
+                    };
+
+                    returnList.Add(returnModel);
+                }
+                else
+                {
+                    List<OpeningHour> openingHours = (from oh in db.OpeningHours
+                                                      where oh.ClinicHospitalID == clinicHospital.ID
+                                                      orderby oh.OpeningHoursDay ascending
+                                                      select oh).ToList();
+
+                    string returnOpeningHours = String.Empty;
+
+
+                    returnOpeningHours += "Monday to Friday\n";
+                    if (openingHours[0].TimeRangeStart == new TimeSpan(0) && openingHours[0].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed\n\n";
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[0].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[0].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[0].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[0].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                    }
+                    returnOpeningHours += "Saturday\n";
+                    if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed\n\n";
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[1].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[1].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[1].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[1].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                    }
+                    returnOpeningHours += "Sundays and Public Holidays\n";
+                    if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed";
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00");
+                    }
+                    
+                    ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
+                    {
+                        ID = clinicHospital.ID,
+                        ClinicHospitalID = clinicHospital.ClinicHospitalID,
+                        ClinicHospitalName = clinicHospital.ClinicHospitalName,
+                        Address = clinicHospital.ClinicHospitalAddress,
+                        Telephone = clinicHospital.ClinicHospitalTel,
+                        Email = clinicHospital.ClinicHospitalEmail,
+                        OpenHours = returnOpeningHours
+                    };
+
+                    returnList.Add(returnModel);
+                }//end of if else
+            }//end of loop
+
+            return Ok(returnList);
+
         }
 
         // GET: api/ClinicHospitals/5
@@ -79,10 +155,40 @@ namespace DAMS_03.API
             }
             else
             {
-                string openinghours = "Monday to Friday " + openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n" +
-                    "Saturday " + openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n" +
-                    "Sundays and Public Holidays " + openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "";
+                //string openinghours = "Monday to Friday " + openingHours[0].TimeRangeStart + " - " + openingHours[0].TimeRangeEnd + "\n" +
+                //    "Saturday " + openingHours[1].TimeRangeStart + " - " + openingHours[1].TimeRangeEnd + "\n" +
+                //    "Sundays and Public Holidays " + openingHours[2].TimeRangeStart + " - " + openingHours[2].TimeRangeEnd + "";
 
+                string openinghours = String.Empty;
+
+
+                openinghours += "Monday to Friday\n";
+                if (openingHours[0].TimeRangeStart == new TimeSpan(0) && openingHours[0].TimeRangeEnd == new TimeSpan(0))
+                {
+                    openinghours += "Closed\n\n";
+                }
+                else
+                {
+                    openinghours += openingHours[0].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[0].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[0].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[0].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                }
+                openinghours += "Saturday\n";
+                if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
+                {
+                    openinghours += "Closed\n\n";
+                }
+                else
+                {
+                    openinghours += openingHours[1].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[1].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[1].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[1].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                }
+                openinghours += "Sundays and Public Holidays\n";
+                if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
+                {
+                    openinghours += "Closed";
+                }
+                else
+                {
+                    openinghours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00");
+                }
 
                 var returnModel = new
                 {
@@ -179,5 +285,17 @@ namespace DAMS_03.API
         {
             return db.ClinicHospitals.Count(e => e.ID == id) > 0;
         }
+
+        private class ClinicHospitalHelperModel
+        {
+            public int ID { get; set; }
+            public string ClinicHospitalID { get; set; }
+            public string ClinicHospitalName { get; set; }
+            public string Address { get; set; }
+            public string Telephone { get; set; }
+            public string Email { get; set; }
+            public string OpenHours { get; set; }
+        }
+
     }
 }

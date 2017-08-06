@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using DAMS_03.Models;
 using DAMS_03.Authorization;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace DAMS_03.Controllers
 {
@@ -782,10 +783,28 @@ namespace DAMS_03.Controllers
             }
             //end check for auth
 
-            ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
-            db.ClinicHospitals.Remove(clinicHospital);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
+                db.ClinicHospitals.Remove(clinicHospital);
+                db.SaveChanges();
+                return RedirectToAction("Index", "DoctorDentists");
+            }
+            catch (Exception e)
+            {
+                SqlException sqle = (SqlException)e.InnerException.InnerException;
+
+                if (sqle.Number == 547)
+                {
+                    return RedirectToAction("Delete", "ClinicHospitals", new { id = id, error = "547" });
+                }
+                throw;
+            }
+
+            //ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
+            //db.ClinicHospitals.Remove(clinicHospital);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
