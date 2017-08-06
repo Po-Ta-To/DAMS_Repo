@@ -18,7 +18,7 @@ namespace DAMS_03.Controllers
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: Appointments
-        public ActionResult Index(int? page, int? perpage, string search, string searchby, string orderBy, string order)
+        public ActionResult Index(int? page, int? perpage, string search, string searchby, string orderBy, string order, int? indexby)
         {
             AppointmentIndexModel returnModel = new AppointmentIndexModel();
 
@@ -42,6 +42,11 @@ namespace DAMS_03.Controllers
             }
             returnModel.search = search;
             returnModel.searchby = searchby;
+            int indexBy = 0;
+            if(indexby != null)
+            {
+                indexBy = (int)indexby;
+            }
 
             //var appointments = db.Appointments.Include(a => a.ClinicHospital).Include(a => a.DoctorDentist).Include(a => a.DoctorDentist1).Include(a => a.UserAccount);
 
@@ -313,7 +318,7 @@ namespace DAMS_03.Controllers
                                         AppointmentTime = apt.AppointmentTime//
                                     }).ToList();
                 }
-            }
+            }//End of search if else
 
             switch (orderBy)
             {
@@ -366,7 +371,36 @@ namespace DAMS_03.Controllers
                     break;
                 default:
                     break;
-            }
+            }//End of orderby switch
+
+            if(indexby != null)
+            {
+                switch (indexby)
+                {
+                    case 1:
+                        appointments.RemoveAll(o => o.ApprovalState != "1");
+                        break;
+                    case 2:
+                        appointments.RemoveAll(o => o.ApprovalState != "2");
+                        break;
+                    case 3:
+                        appointments.RemoveAll(o => o.ApprovalState != "3");
+                        break;
+                    case 4:
+                        appointments.RemoveAll(o => o.ApprovalState != "4");
+                        break;
+                    case 5:
+                        appointments.RemoveAll(o => o.ApprovalState != "5");
+                        break;
+                    case 6:
+                        appointments.RemoveAll(o => o.ApprovalState == "1");
+                        appointments.RemoveAll(o => o.ApprovalState == "3");
+                        appointments.RemoveAll(o => o.ApprovalState == "5");
+                        break;
+                    default:
+                        break;
+                }
+            }//End of indexby switch
 
             List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
@@ -396,8 +430,7 @@ namespace DAMS_03.Controllers
 
             if (startingPoint >= endingPoint && appointments.Count != 0)
             {
-
-                return RedirectToAction("Index", "Appointments", new { page = maxpage, perpage = perpage, search = search, searchby = searchby, order = order, orderBy = orderBy });
+                return RedirectToAction("Index", "Appointments", new { page = maxpage, perpage = perpage, search = search, searchby = searchby, order = order, orderBy = orderBy, indexby = indexBy });
             }
 
             int maxpageOverall = appointments.Count / noOfResults;
@@ -2315,7 +2348,7 @@ namespace DAMS_03.Controllers
         {
 
             //return View();
-            return RedirectToAction("Index", "Appointments", new { page = model.pageNo, perpage = model.perpageNo, search = model.search, searchby = model.searchby, order = model.order, orderBy = model.orderBy });
+            return RedirectToAction("Index", "Appointments", new { page = model.pageNo, perpage = model.perpageNo, search = model.search, searchby = model.searchby, order = model.order, orderBy = model.orderBy, indexby = model.indexby });
         }
 
 
