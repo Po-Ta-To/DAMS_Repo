@@ -108,7 +108,7 @@
 	'Closed on Sundays and PH',
 	'63977177',
 	'enquiry@aboutbraces.org',
-	1);
+	0);
 
 	INSERT INTO OpeningHours
 	Values(1,
@@ -159,7 +159,7 @@
 	'Closed on Sundays and PH',
 	'65380890',
 	'askus@lqdent.com.sg',
-	1);
+	0);
 
 	INSERT INTO OpeningHours
 	Values(1,
@@ -734,12 +734,12 @@
 	1,
 	1,
 	'20170731',
-	1,
+	2,
 	2,
 	1,
 	'No Remarks',
-	'20170801',
-	1);
+	'20170803',
+	2);
 
 
 
@@ -856,10 +856,10 @@
 	1,
 	'20171214',
 	1,
-	5,
-	6,
+	1,
+	1,
 	'No Remarks',
-	'20171213',
+	'20171204',
 	1);
 
 
@@ -870,11 +870,11 @@
 	1,
 	'20170731',
 	1,
-	2,
 	1,
+	2,
 	'No Remarks',
-	'20170801',
-	1);
+	'20170906',
+	2);
 
 
 
@@ -991,10 +991,10 @@
 	1,
 	'20171214',
 	1,
-	5,
-	6,
+	3,
+	3,
 	'No Remarks',
-	'20171213',
+	'20171119',
 	1);
 
 
@@ -1005,11 +1005,11 @@
 	1,
 	'20170731',
 	1,
-	2,
-	1,
+	3,
+	3,
 	'No Remarks',
-	'20170801',
-	1);
+	'20171120',
+	3);
 
 
 
@@ -1126,10 +1126,10 @@
 	1,
 	'20171214',
 	1,
-	5,
-	6,
+	3,
+	3,
 	'No Remarks',
-	'20171213',
+	'20170822',
 	1);
 
 
@@ -1140,11 +1140,11 @@
 	1,
 	'20170731',
 	1,
-	2,
-	1,
+	6,
+	6,
 	'No Remarks',
-	'20170801',
-	1);
+	'20171222',
+	2);
 
 
 	-----41-50
@@ -1249,7 +1249,7 @@
 	1,
 	3,
 	3,
-	'Appointment time has to be in morning',
+	'No Remarks',
 	'20171106',
 	1);
 
@@ -1260,10 +1260,10 @@
 	1,
 	'20171214',
 	1,
-	5,
+	6,
 	6,
 	'No Remarks',
-	'20171213',
+	'20170916',
 	1);
 
 
@@ -1274,11 +1274,11 @@
 	1,
 	'20170731',
 	1,
-	2,
-	1,
+	5,
+	5,
 	'No Remarks',
-	'20170801',
-	1);
+	'20170914',
+	3);
 
 
 
@@ -1395,10 +1395,10 @@
 	1,
 	'20171214',
 	1,
-	5,
-	6,
+	1,
+	1,
 	'No Remarks',
-	'20171213',
+	'20170730',
 	1);
 
 
@@ -1409,8 +1409,8 @@
 	1,
 	'20170731',
 	1,
-	2,
 	1,
+	2,
 	'No Remarks',
 	'20170801',
 	1);
@@ -1529,10 +1529,10 @@
 	1,
 	'20171214',
 	1,
-	5,
+	6,
 	6,
 	'No Remarks',
-	'20171213',
+	'20171020',
 	1);
 
 
@@ -1543,8 +1543,8 @@
 	1,
 	'20170731',
 	1,
-	2,
-	1,
+	6,
+	4,
 	'No Remarks',
 	'20170801',
 	1);
@@ -1963,30 +1963,26 @@
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(9,
-	1)
+	3)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(9,
-	2)
+	4)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(10,
-	1)
+	5)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(10,
-	2)
+	6)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(19,
-	1)
+	7)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(19,
-	2)
-
-	INSERT INTO [dbo].[AppointmentTreatment]
-	Values(20,
 	1)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
@@ -1994,20 +1990,24 @@
 	2)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
-	Values(29,
-	1)
+	Values(20,
+	3)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(29,
-	2)
+	4)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(29,
+	5)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(30,
-	1)
+	6)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(30,
-	2)
+	7)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(39,
@@ -2019,15 +2019,15 @@
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(40,
-	1)
+	3)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(40,
-	2)
+	4)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(49,
-	1)
+	5)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(49,
@@ -2035,15 +2035,15 @@
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(50,
-	1)
+	3)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(50,
-	2)
+	8)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(59,
-	1)
+	9)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(59,
@@ -2051,7 +2051,7 @@
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(60,
-	1)
+	4)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(60,
@@ -2059,11 +2059,11 @@
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(69,
-	1)
+	3)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(69,
-	2)
+	1)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(70,
@@ -2071,35 +2071,35 @@
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(70,
-	2)
+	6)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(79,
-	1)
+	9)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(79,
-	2)
+	9)
+
+	INSERT INTO [dbo].[AppointmentTreatment]
+	Values(80,
+	3)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(80,
 	1)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
-	Values(80,
-	2)
+	Values(89,
+	8)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(89,
-	1)
-
-	INSERT INTO [dbo].[AppointmentTreatment]
-	Values(89,
-	2)
+	4)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(90,
-	1)
+	6)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(90,
@@ -2111,12 +2111,12 @@
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(99,
-	2)
+	7)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(100,
-	1)
+	6)
 
 	INSERT INTO [dbo].[AppointmentTreatment]
 	Values(100,
-	2)
+	5)

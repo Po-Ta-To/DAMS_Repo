@@ -145,7 +145,11 @@ namespace Dental_IT
                             {
                                 ID = obj["ID"],
                                 HospitalName = obj["ClinicHospitalName"],
-                                Price = obj["Price"]
+                                Price = obj["Price"],
+                                Address = obj["Address"],
+                                Telephone = obj["Telephone"],
+                                Email = obj["Email"],
+                                OpeningHours = obj["OpenHours"]
                             };
 
                             hospList.Add(hosp);

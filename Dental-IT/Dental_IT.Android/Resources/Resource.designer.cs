@@ -2586,6 +2586,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f0800a0
 			public const int appointmentsUpcoming_RecyclerView = 2131230880;
 			
+			// aapt resource value: 0x7f08009e
+			public const int apptDetails_CancelBtn = 2131230878;
+			
 			// aapt resource value: 0x7f08008b
 			public const int apptDetails_DateLabel = 2131230859;
 			
@@ -2594,9 +2597,6 @@ namespace Dental_IT.Droid
 			
 			// aapt resource value: 0x7f08008c
 			public const int apptDetails_DateText = 2131230860;
-			
-			// aapt resource value: 0x7f08009e
-			public const int apptDetails_DeleteBtn = 2131230878;
 			
 			// aapt resource value: 0x7f08008f
 			public const int apptDetails_DentistLabel = 2131230863;
@@ -3892,8 +3892,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060038
 			public const int NRIC = 2131099704;
 			
-			// aapt resource value: 0x7f060085
-			public const int OK = 2131099781;
+			// aapt resource value: 0x7f060086
+			public const int OK = 2131099782;
 			
 			// aapt resource value: 0x7f060003
 			public const int abc_action_bar_home_description = 2131099651;
@@ -3988,14 +3988,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060015
 			public const int abc_toolbar_collapse_description = 2131099669;
 			
-			// aapt resource value: 0x7f06008a
-			public const int access_denied = 2131099786;
-			
 			// aapt resource value: 0x7f06008b
-			public const int account_created = 2131099787;
+			public const int access_denied = 2131099787;
 			
 			// aapt resource value: 0x7f06008c
-			public const int account_taken = 2131099788;
+			public const int account_created = 2131099788;
+			
+			// aapt resource value: 0x7f06008d
+			public const int account_taken = 2131099789;
 			
 			// aapt resource value: 0x7f06004f
 			public const int address = 2131099727;
@@ -4021,53 +4021,53 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060062
 			public const int calendarView_title = 2131099746;
 			
-			// aapt resource value: 0x7f060066
-			public const int cancel = 2131099750;
+			// aapt resource value: 0x7f060067
+			public const int cancel = 2131099751;
+			
+			// aapt resource value: 0x7f06006c
+			public const int cancel_OK = 2131099756;
+			
+			// aapt resource value: 0x7f06004e
+			public const int cancel_appt = 2131099726;
+			
+			// aapt resource value: 0x7f060069
+			public const int cancel_text = 2131099753;
+			
+			// aapt resource value: 0x7f060068
+			public const int cancel_title = 2131099752;
 			
 			// aapt resource value: 0x7f060026
 			public const int character_counter_pattern = 2131099686;
 			
-			// aapt resource value: 0x7f060090
-			public const int clearData_text = 2131099792;
+			// aapt resource value: 0x7f060091
+			public const int clearData_text = 2131099793;
 			
 			// aapt resource value: 0x7f060064
 			public const int close = 2131099748;
 			
-			// aapt resource value: 0x7f060077
-			public const int closed = 2131099767;
+			// aapt resource value: 0x7f060078
+			public const int closed = 2131099768;
 			
-			// aapt resource value: 0x7f06006f
-			public const int confirm = 2131099759;
-			
-			// aapt resource value: 0x7f060091
-			public const int confirm_clearData = 2131099793;
+			// aapt resource value: 0x7f060070
+			public const int confirm = 2131099760;
 			
 			// aapt resource value: 0x7f060065
-			public const int confirm_delete = 2131099749;
+			public const int confirm_cancel = 2131099749;
 			
-			// aapt resource value: 0x7f06007a
-			public const int confirm_exit = 2131099770;
+			// aapt resource value: 0x7f060092
+			public const int confirm_clearData = 2131099794;
 			
-			// aapt resource value: 0x7f06008f
-			public const int confirm_logout = 2131099791;
+			// aapt resource value: 0x7f06007b
+			public const int confirm_exit = 2131099771;
 			
-			// aapt resource value: 0x7f060075
-			public const int confirmed = 2131099765;
+			// aapt resource value: 0x7f060090
+			public const int confirm_logout = 2131099792;
+			
+			// aapt resource value: 0x7f060076
+			public const int confirmed = 2131099766;
 			
 			// aapt resource value: 0x7f060048
 			public const int date = 2131099720;
-			
-			// aapt resource value: 0x7f06004e
-			public const int delete = 2131099726;
-			
-			// aapt resource value: 0x7f06006b
-			public const int delete_OK = 2131099755;
-			
-			// aapt resource value: 0x7f060068
-			public const int delete_text = 2131099752;
-			
-			// aapt resource value: 0x7f060067
-			public const int delete_title = 2131099751;
 			
 			// aapt resource value: 0x7f060002
 			public const int demo_max_label = 2131099650;
@@ -4084,14 +4084,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060030
 			public const int email = 2131099696;
 			
-			// aapt resource value: 0x7f060086
-			public const int error = 2131099782;
+			// aapt resource value: 0x7f060087
+			public const int error = 2131099783;
+			
+			// aapt resource value: 0x7f06007a
+			public const int exit_text = 2131099770;
 			
 			// aapt resource value: 0x7f060079
-			public const int exit_text = 2131099769;
-			
-			// aapt resource value: 0x7f060078
-			public const int fully_booked = 2131099768;
+			public const int fully_booked = 2131099769;
 			
 			// aapt resource value: 0x7f060037
 			public const int gender = 2131099703;
@@ -4105,32 +4105,32 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06003e
 			public const int hospital = 2131099710;
 			
-			// aapt resource value: 0x7f06006d
-			public const int hospital_tab = 2131099757;
-			
-			// aapt resource value: 0x7f06007e
-			public const int invalid_email = 2131099774;
-			
-			// aapt resource value: 0x7f060081
-			public const int invalid_mobile = 2131099777;
+			// aapt resource value: 0x7f06006e
+			public const int hospital_tab = 2131099758;
 			
 			// aapt resource value: 0x7f06007f
-			public const int invalid_password = 2131099775;
+			public const int invalid_email = 2131099775;
+			
+			// aapt resource value: 0x7f060082
+			public const int invalid_mobile = 2131099778;
 			
 			// aapt resource value: 0x7f060080
-			public const int invalid_repeat = 2131099776;
+			public const int invalid_password = 2131099776;
 			
-			// aapt resource value: 0x7f060087
-			public const int invalid_signIn = 2131099783;
+			// aapt resource value: 0x7f060081
+			public const int invalid_repeat = 2131099777;
+			
+			// aapt resource value: 0x7f060088
+			public const int invalid_signIn = 2131099784;
+			
+			// aapt resource value: 0x7f060074
+			public const int legend = 2131099764;
+			
+			// aapt resource value: 0x7f06008f
+			public const int logout_text = 2131099791;
 			
 			// aapt resource value: 0x7f060073
-			public const int legend = 2131099763;
-			
-			// aapt resource value: 0x7f06008e
-			public const int logout_text = 2131099790;
-			
-			// aapt resource value: 0x7f060072
-			public const int mainmenu = 2131099762;
+			public const int mainmenu = 2131099763;
 			
 			// aapt resource value: 0x7f060039
 			public const int mobile = 2131099705;
@@ -4141,17 +4141,20 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06002f
 			public const int name = 2131099695;
 			
-			// aapt resource value: 0x7f060089
-			public const int network_error = 2131099785;
+			// aapt resource value: 0x7f06008a
+			public const int network_error = 2131099786;
 			
 			// aapt resource value: 0x7f06002d
 			public const int next = 2131099693;
 			
-			// aapt resource value: 0x7f060082
-			public const int no_date = 2131099778;
+			// aapt resource value: 0x7f060066
+			public const int no = 2131099750;
 			
 			// aapt resource value: 0x7f060083
-			public const int no_gender = 2131099779;
+			public const int no_date = 2131099779;
+			
+			// aapt resource value: 0x7f060084
+			public const int no_gender = 2131099780;
 			
 			// aapt resource value: 0x7f06005f
 			public const int offeredBy_title = 2131099743;
@@ -4165,8 +4168,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060027
 			public const int password_toggle_content_description = 2131099687;
 			
-			// aapt resource value: 0x7f060071
-			public const int past_tab = 2131099761;
+			// aapt resource value: 0x7f060072
+			public const int past_tab = 2131099762;
 			
 			// aapt resource value: 0x7f060028
 			public const int path_password_eye = 2131099688;
@@ -4189,14 +4192,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06003b
 			public const int pdpa_title = 2131099707;
 			
-			// aapt resource value: 0x7f060084
-			public const int pdpa_unchecked = 2131099780;
+			// aapt resource value: 0x7f060085
+			public const int pdpa_unchecked = 2131099781;
 			
-			// aapt resource value: 0x7f060074
-			public const int pending = 2131099764;
+			// aapt resource value: 0x7f060075
+			public const int pending = 2131099765;
 			
-			// aapt resource value: 0x7f060076
-			public const int pending_confirmed = 2131099766;
+			// aapt resource value: 0x7f060077
+			public const int pending_confirmed = 2131099767;
 			
 			// aapt resource value: 0x7f06003f
 			public const int pref_date = 2131099711;
@@ -4210,14 +4213,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06002e
 			public const int previous = 2131099694;
 			
-			// aapt resource value: 0x7f06006c
-			public const int price = 2131099756;
+			// aapt resource value: 0x7f06006d
+			public const int price = 2131099757;
 			
 			// aapt resource value: 0x7f06003d
 			public const int register = 2131099709;
 			
-			// aapt resource value: 0x7f06008d
-			public const int register_error = 2131099789;
+			// aapt resource value: 0x7f06008e
+			public const int register_error = 2131099790;
 			
 			// aapt resource value: 0x7f060034
 			public const int register_text = 2131099700;
@@ -4237,20 +4240,20 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060054
 			public const int request = 2131099732;
 			
-			// aapt resource value: 0x7f060069
-			public const int request_OK = 2131099753;
+			// aapt resource value: 0x7f06006a
+			public const int request_OK = 2131099754;
 			
 			// aapt resource value: 0x7f060057
 			public const int request_title = 2131099735;
 			
-			// aapt resource value: 0x7f06007b
-			public const int require_email = 2131099771;
-			
 			// aapt resource value: 0x7f06007c
-			public const int require_password = 2131099772;
+			public const int require_email = 2131099772;
 			
 			// aapt resource value: 0x7f06007d
-			public const int required_field = 2131099773;
+			public const int require_password = 2131099773;
+			
+			// aapt resource value: 0x7f06007e
+			public const int required_field = 2131099774;
 			
 			// aapt resource value: 0x7f060016
 			public const int search_menu_title = 2131099670;
@@ -4276,8 +4279,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060045
 			public const int select_treatments = 2131099717;
 			
-			// aapt resource value: 0x7f060088
-			public const int server_error = 2131099784;
+			// aapt resource value: 0x7f060089
+			public const int server_error = 2131099785;
 			
 			// aapt resource value: 0x7f06004a
 			public const int session = 2131099722;
@@ -4300,8 +4303,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06005b
 			public const int treatmentInfo_title = 2131099739;
 			
-			// aapt resource value: 0x7f06006e
-			public const int treatment_tab = 2131099758;
+			// aapt resource value: 0x7f06006f
+			public const int treatment_tab = 2131099759;
 			
 			// aapt resource value: 0x7f06004b
 			public const int treatments = 2131099723;
@@ -4312,14 +4315,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060053
 			public const int treatments_offered = 2131099731;
 			
-			// aapt resource value: 0x7f060070
-			public const int upcoming_tab = 2131099760;
+			// aapt resource value: 0x7f060071
+			public const int upcoming_tab = 2131099761;
+			
+			// aapt resource value: 0x7f06006b
+			public const int update_OK = 2131099755;
 			
 			// aapt resource value: 0x7f06004d
-			public const int update = 2131099725;
-			
-			// aapt resource value: 0x7f06006a
-			public const int update_OK = 2131099754;
+			public const int update_appt = 2131099725;
 			
 			// aapt resource value: 0x7f060058
 			public const int update_title = 2131099736;

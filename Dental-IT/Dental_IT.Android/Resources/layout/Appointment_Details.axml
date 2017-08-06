@@ -222,11 +222,11 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:textColor="@color/white"
-                android:text="@string/update"
+                android:text="@string/update_appt"
                 android:textAllCaps="false"
                 android:background="@color/blue" />
             <Button
-                android:id="@+id/apptDetails_DeleteBtn"
+                android:id="@+id/apptDetails_CancelBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/apptDetails_UpdateBtn"
@@ -234,7 +234,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:textColor="@color/white"
-                android:text="@string/delete"
+                android:text="@string/cancel_appt"
                 android:textAllCaps="false"
                 android:background="@color/red" />
         </RelativeLayout>

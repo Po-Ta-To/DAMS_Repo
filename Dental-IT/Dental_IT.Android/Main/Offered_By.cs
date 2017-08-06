@@ -68,7 +68,7 @@ namespace Dental_IT.Droid.Main
             });
         }
 
-        //  Redirect to main menu when back arrow is tapped
+        //  Redirect to search when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Search));

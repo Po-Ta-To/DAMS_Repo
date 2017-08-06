@@ -6,6 +6,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAMS_03.Models
 {
+    public class UserAccountIndexModel
+    {
+        public List<UserAccount> UserAccounts { get; set; }
+        public int page { get; set; }
+        public int perpage { get; set; }
+        public string search { get; set; }
+        public int maxPages { get; set; }
+        public int maxRecords { get; set; }
+    }
+
     public class UserAccountCreateModel
     {
         [Required]
