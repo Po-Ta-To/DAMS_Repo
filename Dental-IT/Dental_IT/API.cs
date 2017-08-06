@@ -242,10 +242,12 @@ namespace Dental_IT
                             Appointment appointment = new Appointment()
                             {
                                 ID = obj["ID"],
-                                Treatments = obj["ApprovalState"],  
+                                Treatments = obj["ApprovalState"],
+                                ClinicHospital = obj["ClinicHospitalName"],
                                 Dentist = obj["DoctorDentistName"],
                                 Date = obj["AppointmentDate"],
-                                Time = obj["ApprovalState"]
+                                Time = obj["ApprovalState"],
+                                Status = obj["ApprovalState"]
                             };
 
                             appointmentList.Add(appointment);
