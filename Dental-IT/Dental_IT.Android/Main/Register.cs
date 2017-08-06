@@ -148,9 +148,9 @@ namespace Dental_IT.Droid.Main
                             StartActivity(intent);
                             break;
 
-                        //  Invalid fields (Should NOT happen)
+                        //  Account exists
                         case 2:
-                            Toast.MakeText(this, Resource.String.invalid_register, ToastLength.Short).Show();
+                            Toast.MakeText(this, Resource.String.account_taken, ToastLength.Short).Show();
                             break;
 
                         //  No internet connectivity
