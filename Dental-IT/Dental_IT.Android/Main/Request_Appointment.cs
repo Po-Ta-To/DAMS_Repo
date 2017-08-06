@@ -24,8 +24,7 @@ namespace Dental_IT.Droid.Main
         private DrawerLayout drawerLayout;
         private NavigationView navigationView;
         private Hospital hosp;
-        // private List<Dentist> dentists = new List<Dentist>(){ "Select dentist" };
-        private List<Dentist> dentists = new List<Dentist>() { };
+        private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<string> sessions = new List<string>(){ "Select session" };
 
         API api = new API();
@@ -98,7 +97,7 @@ namespace Dental_IT.Droid.Main
                     RunOnUiThread(() =>
                     {
                         //  Configure spinner adapter for dentist and session dropdowns
-                        //request_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
+                        request_DentistSpinner.Adapter = new SpinnerAdapter_Dentist(this, dentists);
                         request_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
                     });
                 }

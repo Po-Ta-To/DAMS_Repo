@@ -130,6 +130,7 @@
     <Compile Include="Adapters\RecyclerViewAdapter_SearchHospital.cs" />
     <Compile Include="Adapters\RecyclerViewAdapter_SelectHospital.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
+    <Compile Include="Adapters\SpinnerAdapter_Dentist.cs" />
     <Compile Include="Adapters\TabsAdapter.cs" />
     <Compile Include="Fragments\DatePickerFragment.cs" />
     <Compile Include="Fragments\AppointmentsPastFragment.cs" />

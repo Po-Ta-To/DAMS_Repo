@@ -132,7 +132,7 @@ namespace Dental_IT.Droid.Main
                         }
                     });
                 });
-                cancelConfirm.SetNeutralButton(Resource.String.cancel, delegate
+                cancelConfirm.SetNeutralButton(Resource.String.no, delegate
                 {
                     cancelConfirm.Dispose();
                 });

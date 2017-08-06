@@ -378,8 +378,10 @@ namespace Dental_IT
                             System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
 
                             Dentist den = new Dentist();
-                            den.DentistID = (int)(obj["ID"]);
+                            den.DentistID = obj["ID"];
                             den.DentistName = obj["Name"];
+
+                            dentistList.Add(den);
                         }
                     }
                 }
