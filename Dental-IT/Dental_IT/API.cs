@@ -242,11 +242,11 @@ namespace Dental_IT
                             Appointment appointment = new Appointment()
                             {
                                 ID = obj["ID"],
-                                Treatments = obj["ApprovalState"],
+                                Treatments = obj["listOfTreatments"].ToString(),
                                 ClinicHospital = obj["ClinicHospitalName"],
                                 Dentist = obj["DoctorDentistName"],
-                                Date = obj["AppointmentDate"],
-                                Time = obj["ApprovalState"],
+                                Date = DateTime.Parse(obj["AppointmentDate"]),
+                                Time = obj["AppointmentTime_s"],
                                 Status = obj["ApprovalState"]
                             };
 
@@ -261,6 +261,92 @@ namespace Dental_IT
             {
                 System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
                 return appointmentList;
+            }
+        }
+
+        //  Get Dentists by ClinicHospital
+        public async Task<List<string>> GetDentistsByClinicHospital(int id)
+        {
+            List<string> dentistList = new List<string>();
+
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_getDocDentistsByCHid + id));
+                request.ContentType = "application/json";
+                request.Method = "GET";
+
+                // Send the request to the server and wait for the response:
+                using (WebResponse response = request.GetResponse())
+                {
+                    // Get a stream representation of the HTTP web response:
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        // Use this stream to build a JSON document object:
+                        JsonValue jsonDoc = await Task.Run(() => JsonValue.Load(stream));
+                        System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
+
+                        //  Create objects from json value and populate lists
+                        foreach (JsonObject obj in jsonDoc)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
+
+                            dentistList.Add(obj["Name"]);
+                        }
+                    }
+                }
+
+                return dentistList;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+                return dentistList;
+            }
+        }
+
+        //  Get Sessions by ClinicHospital
+        public async Task<List<string>> GetSessionsByClinicHospital(int id)
+        {
+            List<string> sessionList = new List<string>();
+
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_getClinicHospitalTimeSlotByCHid + id));
+                request.ContentType = "application/json";
+                request.Method = "GET";
+
+                // Send the request to the server and wait for the response:
+                using (WebResponse response = request.GetResponse())
+                {
+                    // Get a stream representation of the HTTP web response:
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        // Use this stream to build a JSON document object:
+                        JsonValue jsonDoc = await Task.Run(() => JsonValue.Load(stream));
+                        System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
+
+                        //  Create objects from json value and populate lists
+                        foreach (JsonObject obj in jsonDoc)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
+
+                            //  Check if empty
+                            if (obj["TimeRangeSlotString"].ToString().Length != 2)
+                            {
+                                sessionList.Add(obj["TimeRangeSlotString"]);
+                            }                            
+                        }
+                    }
+                }
+
+                return sessionList;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+                return sessionList;
             }
         }
 
@@ -341,6 +427,11 @@ namespace Dental_IT
                         // Use this stream to build a JSON document object:
                         JsonValue jsonDoc = JsonValue.Load(stream);
                         System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
+
+                        if (jsonDoc.Count == 0)
+                        {
+                            return false;
+                        }
 
                         UserAccount.Name = jsonDoc[0]["Name"];
                     }

@@ -57,8 +57,7 @@ namespace Dental_IT.Droid.Adapters
             // Set view data
             vh.treatmentsName.Text = appointmentList[position].Treatments;
             vh.dentistName.Text = appointmentList[position].Dentist;
-            //vh.dateTime.Text = appointmentList[position].date.ToString("dd/MM/yyyy") + ", " + appointmentList[position].time;
-            vh.dateTime.Text = appointmentList[position].Date.ToString() + ", " + appointmentList[position].Time;
+            vh.dateTime.Text = appointmentList[position].Date.ToString("d MMMM yyyy") + ", " + appointmentList[position].Time;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

@@ -64,7 +64,7 @@ namespace Dental_IT.Droid.Main
 
                 //  Set appointment details
                 apptDetails_HospitalText.Text = appointment.ClinicHospital;
-                apptDetails_DateText.Text = appointment.Date;
+                apptDetails_DateText.Text = appointment.Date.ToString("d MMMM yyyy");
                 apptDetails_DentistText.Text = appointment.Dentist;
                 apptDetails_SessionText.Text = appointment.Time;
                 apptDetails_TreatmentText.Text = "kdlsad salk dasdklasdsakld salkdasd ksadlksd askl dsaklddl ksadklsad sakld asklsadkl skadlak skdlskldsakldskla dkasldsakldlkasd sakdl";

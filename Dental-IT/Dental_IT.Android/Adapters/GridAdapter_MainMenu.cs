@@ -52,18 +52,6 @@ namespace Dental_IT.Droid.Adapters
                 button = convertView.FindViewById<MyImageButton>(Resource.Id.mainMenu_ImgBtn);
           
                 button.SetMinimumHeight(Main_Menu.GRID_HEIGHT / numRows);
-
-                //TypedValue tv = new TypedValue();
-                //context.Theme.ResolveAttribute(Resource.Attribute.selectableItemBackground, tv, true);
-                //button.SetBackgroundResource(tv.ResourceId);
-
-                //  This code is another method that works similarly to the above
-                //int[] attrs = new int[] { Android.Resource.Attribute.SelectableItemBackground };
-                //TypedArray ta = context.ObtainStyledAttributes(attrs);
-                //Drawable drawableFromTheme = ta.GetDrawable(0);
-                //ta.Recycle();
-                //button.SetBackgroundDrawable(drawableFromTheme);
-
                 button.SetImageResource(buttonImages[position]);
 
                 switch (position)
