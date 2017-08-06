@@ -1,16 +1,17 @@
 ﻿using Android.Content;
 using Android.Views;
 using Android.Widget;
+using System.Collections.Generic;
 
 namespace Dental_IT.Droid.Adapters
 {
     class SpinnerAdapter : BaseAdapter, ISpinnerAdapter
     {
         private readonly Context context;
-        private string[] items;
+        private List<string> items;
         private bool toCenter;
 
-        public SpinnerAdapter(Context c, string[] i, bool t)
+        public SpinnerAdapter(Context c, List<string> i, bool t)
         {
             context = c;
             items = i;
@@ -19,7 +20,7 @@ namespace Dental_IT.Droid.Adapters
 
         public override int Count
         {
-            get { return items.Length; }
+            get { return items.Count; }
         }
 
         public override Java.Lang.Object GetItem(int position)

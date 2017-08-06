@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http;
 using Dental_IT.Model;
+using System.Collections.Generic;
+using System;
 
 namespace Dental_IT.Droid.Main
 {
@@ -21,6 +23,10 @@ namespace Dental_IT.Droid.Main
         private DrawerLayout drawerLayout;
         private NavigationView navigationView;
         private Hospital hosp;
+        private List<string> dentists = new List<string>(){ "Select dentist" };
+        private List<string> sessions = new List<string>(){ "Select session" };
+
+        API api = new API();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -66,6 +72,40 @@ namespace Dental_IT.Droid.Main
                 request_DateField.Text = prefs.GetString("date", GetString(Resource.String.select_date));
             }
 
+            //  Retrieve dentist and session data from database
+            Task.Run(async () =>
+            {
+                try
+                {
+                    //  Get dentists
+                    List<string> tempDentistList = await api.GetDentistsByClinicHospital(hosp.ID);
+
+                    foreach (string dentist in tempDentistList)
+                    {
+                        dentists.Add(dentist);
+                    }
+
+                    //  Get sessions
+                    List<string> tempSessionList = await api.GetSessionsByClinicHospital(hosp.ID);
+
+                    foreach (string session in tempSessionList)
+                    {
+                        sessions.Add(session);
+                    }
+
+                    RunOnUiThread(() =>
+                    {
+                        //  Configure spinner adapter for dentist and session dropdowns
+                        request_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
+                        request_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
+                    });
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.Write("Obj: " + e.Message + e.StackTrace);
+                }
+            });
+
             RunOnUiThread(() =>
             {
                 //  Set textfield text sizes to be same as textview text sizes
@@ -82,10 +122,6 @@ namespace Dental_IT.Droid.Main
 
                 //  Set hospital name
                 request_HospitalField.Text = hosp.HospitalName;
-
-                //  Configure spinner adapter for dentist and session dropdowns
-                request_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
-                request_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
 
                 //Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
@@ -248,34 +284,6 @@ namespace Dental_IT.Droid.Main
 
             editor.Apply();
         }
-
-        //  List of dentists to populate spinner adapter
-        private string[] dentists =
-        {
-            "Select dentist",
-            "Dentist A",
-            "Dentist B",
-            "Dentist C",
-            "Dentist D",
-            "Dentist E",
-            "Dentist F",
-            "Dentist G",
-            "Dentist H",
-            "Dentist I",
-            "Dentist J",
-            "Dentist K",
-            "Dentist L"
-        };
-
-        //  List of sessions to populate spinner adapter
-        private string[] sessions =
-        {
-            "Select session",
-            "Session 1",
-            "Session 2",
-            "Session 3",
-            "Session 4"
-        };
 
         //// Method that Post an appointment using passed url & item value
         //public async Task RequestAppointment(string url, Appointment appt)

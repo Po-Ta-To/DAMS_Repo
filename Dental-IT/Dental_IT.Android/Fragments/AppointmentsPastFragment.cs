@@ -34,10 +34,10 @@ namespace Dental_IT.Droid.Fragments
             //  Check if appointment is past
             foreach (Appointment a in appointmentList)
             {
-                //if (a.date < DateTime.Today.Date)
-                //{
+                if (a.Date < DateTime.Today.Date)
+                {
                     finalAppointmentList.Add(a);
-                //}
+                }
             }
         }
 

@@ -58,8 +58,8 @@ namespace Dental_IT.Droid.Main
                 update_HospitalField.Text = hospitalName;
 
                 //  Configure spinner adapter for dentist and session dropdowns
-                update_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
-                update_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
+                //update_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
+                //update_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
 
                 //  Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);

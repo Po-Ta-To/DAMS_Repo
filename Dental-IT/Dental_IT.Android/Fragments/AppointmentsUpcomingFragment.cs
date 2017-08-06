@@ -54,10 +54,10 @@ namespace Dental_IT.Droid.Fragments
                     //  Check if appointment is past
                     foreach (Appointment appointment in appointmentList)
                     {
-                        //if (appointment.Date >= DateTime.Today.Date)
-                        //{
+                        if (appointment.Date >= DateTime.Today.Date)
+                        {
                             finalAppointmentList.Add(appointment);
-                        //}
+                        }
                     }
 
                     Activity.RunOnUiThread(() =>

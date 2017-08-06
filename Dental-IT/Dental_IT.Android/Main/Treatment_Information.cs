@@ -26,6 +26,7 @@ namespace Dental_IT.Droid.Main
         private RecyclerView treatmentInformation_RecyclerView;
         private Android.Support.V7.Widget.SearchView searchView;
         private RecyclerViewAdapter_TreatmentInformation adapter;
+        private Intent intent;
 
         private DrawerLayout drawerLayout;
         private NavigationView navigationView;
@@ -94,8 +95,6 @@ namespace Dental_IT.Droid.Main
 
                 navigationView.NavigationItemSelected += (sender, e) =>
                 {
-                    Intent intent;
-
                     switch (e.MenuItem.ItemId)
                     {
 
@@ -125,24 +124,8 @@ namespace Dental_IT.Droid.Main
                             break;
 
                         case Resource.Id.nav_Logout:
-
-                            //  Remove user session from shared preferences
-                            ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
-                            ISharedPreferencesEditor editor = prefs.Edit();
-                            editor.Remove("remembered");
-                            editor.Apply();
-
-                            //  Clear user data
-                            UserAccount.UserName = null;
-                            UserAccount.AccessToken = null;
-                            UserAccount.Name = null;
-
-                            //  Redirect to sign in page
-                            intent = new Intent(this, typeof(Sign_In));
-                            StartActivity(intent);
-
+                            Logout();
                             break;
-
                     }
                     //react to click here and swap fragments or navigate
                     drawerLayout.CloseDrawers();
@@ -202,6 +185,36 @@ namespace Dental_IT.Droid.Main
             }
 
             return filteredList;
+        }
+
+        //  Logout function
+        public void Logout()
+        {
+            //  Logout confirmation dialog
+            Android.App.AlertDialog.Builder logoutConfirm = new Android.App.AlertDialog.Builder(this);
+            logoutConfirm.SetMessage(Resource.String.logout_text);
+            logoutConfirm.SetNegativeButton(Resource.String.confirm_logout, delegate
+            {
+                //  Remove user session from shared preferences
+                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                editor.Remove("remembered");
+                editor.Apply();
+
+                //  Clear user data
+                UserAccount.UserName = null;
+                UserAccount.AccessToken = null;
+                UserAccount.Name = null;
+
+                //  Redirect to sign in page
+                intent = new Intent(this, typeof(Sign_In));
+                StartActivity(intent);
+            });
+            logoutConfirm.SetNeutralButton(Resource.String.cancel, delegate
+            {
+                logoutConfirm.Dispose();
+            });
+            logoutConfirm.Show();
         }
 
         //// Gets Treatments data from the passed URL.

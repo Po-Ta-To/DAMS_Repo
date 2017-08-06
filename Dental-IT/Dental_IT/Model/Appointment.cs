@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Dental_IT.Model
 {
@@ -8,7 +9,7 @@ namespace Dental_IT.Model
         public string Treatments { get; set; }
         public string ClinicHospital { get; set; }
         public string Dentist { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public string Time { get; set; }
         public string Status { get; set; }
     }

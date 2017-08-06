@@ -8,6 +8,7 @@ using Dental_IT.Droid.Fragments;
 using Dental_IT.Droid.Adapters;
 using Dental_IT.Model;
 using Android.Views.InputMethods;
+using System.Collections.Generic;
 
 namespace Dental_IT.Droid.Main
 {
@@ -192,7 +193,7 @@ namespace Dental_IT.Droid.Main
         }
 
         //  List of genders to populate spinner adapter
-        private string[] genders =
+        private List<string> genders = new List<string>()
         {
             "Gender",
             "Male",
