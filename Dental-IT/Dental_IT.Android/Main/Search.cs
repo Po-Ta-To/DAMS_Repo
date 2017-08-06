@@ -82,7 +82,7 @@ namespace Dental_IT.Droid.Main
                 switch (e.MenuItem.ItemId)
                 {
 
-                    case Resource.Id.nav_home:
+                    case Resource.Id.nav_Home:
                         intent = new Intent(this, typeof(Main_Menu));
                         StartActivity(intent);
                         break;
