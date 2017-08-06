@@ -108,4 +108,6 @@
   <string name="welcome">Welcome, </string>
   <string name="invalid_register">Unable to create your account. Please check your fields</string>
   <string name="register_error">Unable to create your account. Please try again later.</string>
+  <string name="logout_text">Are you sure you want to logout?</string>
+  <string name="confirm_logout">Logout</string>
 </resources>

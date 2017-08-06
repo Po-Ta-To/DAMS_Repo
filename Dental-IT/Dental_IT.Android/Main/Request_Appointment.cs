@@ -92,7 +92,7 @@ namespace Dental_IT.Droid.Main
                 toolbar.SetTitle(Resource.String.request_title);
                 SetSupportActionBar(toolbar);
 
-                //Set menu hambuger
+                //Set navigation drawer
                 SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -101,13 +101,14 @@ namespace Dental_IT.Droid.Main
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
                 navigationView.SetCheckedItem(Resource.Id.nav_RequestAppt);
+                navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(UserAccount.Name);
 
                 navigationView.NavigationItemSelected += (sender, e) =>
                 {
                     Intent intent;
                     switch (e.MenuItem.ItemId)
                     {
-                        case Resource.Id.nav_home:
+                        case Resource.Id.nav_Home:
                             intent = new Intent(this, typeof(Main_Menu));
                             StartActivity(intent);
                             break;
@@ -130,6 +131,23 @@ namespace Dental_IT.Droid.Main
                         case Resource.Id.nav_Search:
                             intent = new Intent(this, typeof(Search));
                             StartActivity(intent);
+                            break;
+
+                        case Resource.Id.nav_Logout:
+
+                            //  Remove user session from shared preferences
+                            editor.Remove("remembered");
+                            editor.Apply();
+
+                            //  Clear user data
+                            UserAccount.UserName = null;
+                            UserAccount.AccessToken = null;
+                            UserAccount.Name = null;
+
+                            //  Redirect to sign in page
+                            intent = new Intent(this, typeof(Sign_In));
+                            StartActivity(intent);
+
                             break;
                     }
 

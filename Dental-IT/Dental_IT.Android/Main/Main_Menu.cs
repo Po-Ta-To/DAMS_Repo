@@ -7,6 +7,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Adapters;
+using Dental_IT.Model;
 using System;
 
 namespace Dental_IT.Droid.Main
@@ -18,9 +19,10 @@ namespace Dental_IT.Droid.Main
         public static int ACTIONBAR_HEIGHT;
         public static int GRID_HEIGHT;
 
-        DrawerLayout drawerLayout;
-        NavigationView navigationView;
-        Android.Support.V4.App.FragmentTransaction fragmentTransaction;
+        private DrawerLayout drawerLayout;
+        private NavigationView navigationView;
+        private Android.Support.V4.App.FragmentTransaction fragmentTransaction;
+        private Intent intent;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,10 +38,7 @@ namespace Dental_IT.Droid.Main
             GridView mainMenu_GridView = FindViewById<GridView>(Resource.Id.mainMenu_GridView);
 
             //  Uncomment to clear shared preferences
-            ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
-            ISharedPreferencesEditor editor = prefs.Edit();
-            editor.Remove("remembered");
-            editor.Apply();
+            
 
             RunOnUiThread(() =>
             {
@@ -62,7 +61,7 @@ namespace Dental_IT.Droid.Main
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 SetSupportActionBar(toolbar);
 
-                //Set menu hambuger
+                //Set navigation drawer
                 SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
@@ -70,47 +69,49 @@ namespace Dental_IT.Droid.Main
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
-                navigationView.SetCheckedItem(Resource.Id.nav_home);
+                navigationView.SetCheckedItem(Resource.Id.nav_Home);
+                navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(UserAccount.Name);
             });
-        
-             
+
+
             navigationView.NavigationItemSelected += (sender, e) =>
             {
-                Intent intent;
-
                 switch (e.MenuItem.ItemId)
                 {
 
-                    case Resource.Id.nav_home:
-                         intent = new Intent(this, typeof(Main_Menu));
+                    case Resource.Id.nav_Home:
+                        intent = new Intent(this, typeof(Main_Menu));
                         StartActivity(intent);
                         break;
 
-                        case Resource.Id.nav_RequestAppt:
-                            intent = new Intent(this, typeof(Select_Hospital));
+                    case Resource.Id.nav_RequestAppt:
+                        intent = new Intent(this, typeof(Select_Hospital));
                         StartActivity(intent);
                         break;
 
-                       case Resource.Id.nav_MyAppt:
-                           intent = new Intent(this, typeof(My_Appointments));
+                    case Resource.Id.nav_MyAppt:
+                        intent = new Intent(this, typeof(My_Appointments));
                         StartActivity(intent);
                         break;
 
-                        case Resource.Id.nav_TreatmentInfo:
-                            intent = new Intent(this, typeof(Treatment_Information));
+                    case Resource.Id.nav_TreatmentInfo:
+                        intent = new Intent(this, typeof(Treatment_Information));
                         StartActivity(intent);
                         break;
 
-                        case Resource.Id.nav_Search:
-                            intent = new Intent(this, typeof(Search));
+                    case Resource.Id.nav_Search:
+                        intent = new Intent(this, typeof(Search));
                         StartActivity(intent);
                         break;
 
+                    case Resource.Id.nav_Logout:
+                        Logout();
+                        break;
                 }
                 //react to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers();
-            };  
-       }
+            };
+        }
 
         static void HandleExceptions(object sender, UnhandledExceptionEventArgs e)
         {
@@ -119,13 +120,13 @@ namespace Dental_IT.Droid.Main
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-           switch (item.ItemId)
-           {
-               case Android.Resource.Id.Home:
-                   drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
-                  return true;
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    return true;
             }
-     
+
             return base.OnOptionsItemSelected(item);
         }
 
@@ -155,5 +156,35 @@ namespace Dental_IT.Droid.Main
             Resource.Drawable.ic_treatment_info,
             Resource.Drawable.ic_search
         };
+
+        //  Logout function
+        public void Logout()
+        {
+            //  Logout confirmation dialog
+            Android.App.AlertDialog.Builder logoutConfirm = new Android.App.AlertDialog.Builder(this);
+            logoutConfirm.SetMessage(Resource.String.logout_text);
+            logoutConfirm.SetNegativeButton(Resource.String.confirm_logout, delegate
+            {
+                //  Remove user session from shared preferences
+                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                editor.Remove("remembered");
+                editor.Apply();
+
+                //  Clear user data
+                UserAccount.UserName = null;
+                UserAccount.AccessToken = null;
+                UserAccount.Name = null;
+
+                //  Redirect to sign in page
+                intent = new Intent(this, typeof(Sign_In));
+                StartActivity(intent);
+            });
+            logoutConfirm.SetNeutralButton(Resource.String.cancel, delegate
+            {
+                logoutConfirm.Dispose();
+            });
+            logoutConfirm.Show();
+        }
     }
 }
