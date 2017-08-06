@@ -215,6 +215,8 @@ namespace Dental_IT
         public async Task<List<Appointment>> GetAppointments()
         {
             List<Appointment> appointmentList = new List<Appointment>();
+            List<string> treatmentsList = new List<string>();
+            string treatments;
 
             try
             {
@@ -239,10 +241,19 @@ namespace Dental_IT
                         {
                             System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
 
+                            treatmentsList.Clear();
+
+                            foreach (JsonObject treatment in obj["listOfTreatments"])
+                            {
+                                treatmentsList.Add(treatment["TreatmentName"]);
+                            }
+
+                            treatments = String.Join(", ", treatmentsList);
+
                             Appointment appointment = new Appointment()
                             {
                                 ID = obj["ID"],
-                                Treatments = obj["listOfTreatments"].ToString(),
+                                Treatments = treatments,
                                 ClinicHospital = obj["ClinicHospitalName"],
                                 Dentist = obj["DoctorDentistName"],
                                 Date = DateTime.Parse(obj["AppointmentDate"]),
