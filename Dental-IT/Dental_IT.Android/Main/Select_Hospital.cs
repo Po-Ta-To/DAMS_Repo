@@ -46,11 +46,6 @@ namespace Dental_IT.Droid.Main
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 
-            //  Uncomment to clear shared preferences
-            //ISharedPreferencesEditor editor = prefs.Edit();
-            //editor.Clear();
-            //editor.Apply();
-
             //  Main data retrieving + processing method
             Task.Run(async () =>
             {

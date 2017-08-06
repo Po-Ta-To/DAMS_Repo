@@ -67,7 +67,7 @@ namespace Dental_IT.Droid.Main
                 apptDetails_DateText.Text = appointment.Date.ToString("d MMMM yyyy");
                 apptDetails_DentistText.Text = appointment.Dentist;
                 apptDetails_SessionText.Text = appointment.Time;
-                apptDetails_TreatmentText.Text = "kdlsad salk dasdklasdsakld salkdasd ksadlksd askl dsaklddl ksadklsad sakld asklsadkl skadlak skdlskldsakldskla dkasldsakldlkasd sakdl";
+                apptDetails_TreatmentText.Text = appointment.Treatments;
                 apptDetails_StatusText.Text = appointment.Status;
 
                 //Implement CustomTheme ActionBar

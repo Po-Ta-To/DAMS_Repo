@@ -123,6 +123,10 @@ namespace Dental_IT.Droid.Main
                             StartActivity(intent);
                             break;
 
+                        case Resource.Id.nav_ClearData:
+                            ClearData();
+                            break;
+
                         case Resource.Id.nav_Logout:
                             Logout();
                             break;
@@ -217,37 +221,26 @@ namespace Dental_IT.Droid.Main
             logoutConfirm.Show();
         }
 
-        //// Gets Treatments data from the passed URL.
-        //private async Task<JsonValue> GetTreatments(string url)
-        //{
-        //    try
-        //    {
-        //        // Create an HTTP web request using the URL:
-        //        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-        //        request.ContentType = "application/json";
-        //        request.Method = "GET";
-
-        //        // Send the request to the server and wait for the response:
-        //        using (WebResponse response = request.GetResponse())
-        //        {
-        //            // Get a stream representation of the HTTP web response:
-        //            using (Stream stream = response.GetResponseStream())
-        //            {
-        //                // Use this stream to build a JSON document object:
-        //                JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-        //                System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
-
-        //                // Return the JSON document:
-        //                return jsonDoc;
-        //            }
-        //        }
-        //    }
-        //    catch (WebException e)
-        //    {
-        //        System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
-        //        return new JsonArray();
-        //    }
-        //} // End of GetTreatments() method
+        //  Clear data function
+        public void ClearData()
+        {
+            //  Logout confirmation dialog
+            Android.App.AlertDialog.Builder clearConfirm = new Android.App.AlertDialog.Builder(this);
+            clearConfirm.SetMessage(Resource.String.clearData_text);
+            clearConfirm.SetNegativeButton(Resource.String.confirm_clearData, delegate
+            {
+                //  Remove user data from shared preferences
+                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                editor.Clear();
+                editor.Apply();
+            });
+            clearConfirm.SetNeutralButton(Resource.String.cancel, delegate
+            {
+                clearConfirm.Dispose();
+            });
+            clearConfirm.Show();
+        }
     }
 }
 

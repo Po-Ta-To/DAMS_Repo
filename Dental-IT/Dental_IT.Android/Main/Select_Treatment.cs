@@ -38,11 +38,6 @@ namespace Dental_IT.Droid.Main
             //  Receive data from request appointment
             int hospId = Intent.GetIntExtra("selectTreatment_HospId", 0);
 
-            //  Uncomment to clear shared preferences
-            //ISharedPreferencesEditor editor = prefs.Edit();
-            //editor.Clear();
-            //editor.Apply();
-
             //  Main data retrieving + processing method
             Task.Run(async () =>
             {

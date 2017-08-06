@@ -28,17 +28,11 @@ namespace Dental_IT.Droid.Main
         {
             base.OnCreate(savedInstanceState);
 
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += HandleExceptions;
-
             //  Set view to main menu layout
             SetContentView(Resource.Layout.Main_Menu);
 
             //  Create widgets
             GridView mainMenu_GridView = FindViewById<GridView>(Resource.Id.mainMenu_GridView);
-
-            //  Uncomment to clear shared preferences
-            
 
             RunOnUiThread(() =>
             {
@@ -104,6 +98,10 @@ namespace Dental_IT.Droid.Main
                         StartActivity(intent);
                         break;
 
+                    case Resource.Id.nav_ClearData:
+                        ClearData();
+                        break;
+
                     case Resource.Id.nav_Logout:
                         Logout();
                         break;
@@ -111,11 +109,6 @@ namespace Dental_IT.Droid.Main
                 //react to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers();
             };
-        }
-
-        static void HandleExceptions(object sender, UnhandledExceptionEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine(e.ExceptionObject.ToString());
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -185,6 +178,27 @@ namespace Dental_IT.Droid.Main
                 logoutConfirm.Dispose();
             });
             logoutConfirm.Show();
+        }
+
+        //  Clear data function
+        public void ClearData()
+        {
+            //  Logout confirmation dialog
+            Android.App.AlertDialog.Builder clearConfirm = new Android.App.AlertDialog.Builder(this);
+            clearConfirm.SetMessage(Resource.String.clearData_text);
+            clearConfirm.SetNegativeButton(Resource.String.confirm_clearData, delegate
+            {
+                //  Remove user data from shared preferences
+                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                editor.Clear();
+                editor.Apply();
+            });
+            clearConfirm.SetNeutralButton(Resource.String.cancel, delegate
+            {
+                clearConfirm.Dispose();
+            });
+            clearConfirm.Show();
         }
     }
 }

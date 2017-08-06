@@ -3015,11 +3015,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f08001b
 			public const int multiply = 2131230747;
 			
+			// aapt resource value: 0x7f080153
+			public const int nav_ClearData = 2131231059;
+			
 			// aapt resource value: 0x7f08014d
 			public const int nav_Home = 2131231053;
 			
-			// aapt resource value: 0x7f080153
-			public const int nav_Logout = 2131231059;
+			// aapt resource value: 0x7f080154
+			public const int nav_Logout = 2131231060;
 			
 			// aapt resource value: 0x7f08014f
 			public const int nav_MyAppt = 2131231055;
@@ -4042,6 +4045,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060026
 			public const int character_counter_pattern = 2131099686;
 			
+			// aapt resource value: 0x7f060090
+			public const int clearData_text = 2131099792;
+			
 			// aapt resource value: 0x7f060064
 			public const int close = 2131099748;
 			
@@ -4050,6 +4056,9 @@ namespace Dental_IT.Droid
 			
 			// aapt resource value: 0x7f06006f
 			public const int confirm = 2131099759;
+			
+			// aapt resource value: 0x7f060091
+			public const int confirm_clearData = 2131099793;
 			
 			// aapt resource value: 0x7f060065
 			public const int confirm_delete = 2131099749;

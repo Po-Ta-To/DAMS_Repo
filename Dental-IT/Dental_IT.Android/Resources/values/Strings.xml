@@ -110,4 +110,6 @@
   <string name="register_error">Unable to create your account. Please try again later.</string>
   <string name="logout_text">Are you sure you want to logout?</string>
   <string name="confirm_logout">Logout</string>
+  <string name="clearData_text">This will clear all user data such as current login session and favourited hospital/clinics. It will NOT make any changes to your appointments or account details. Proceed to clear user data?</string>
+  <string name="confirm_clearData">Clear</string>
 </resources>
