@@ -108,7 +108,7 @@
 	'Closed on Sundays and PH',
 	'63977177',
 	'enquiry@aboutbraces.org',
-	1);
+	0);
 
 	INSERT INTO OpeningHours
 	Values(1,
@@ -159,7 +159,7 @@
 	'Closed on Sundays and PH',
 	'65380890',
 	'askus@lqdent.com.sg',
-	1);
+	0);
 
 	INSERT INTO OpeningHours
 	Values(1,
