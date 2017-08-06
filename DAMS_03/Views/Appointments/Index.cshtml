@@ -13,7 +13,7 @@
 <br />
 
 <div class="form-group">
-    Search By
+    
     <div class="col-md-10">
         @{
 
@@ -69,30 +69,30 @@
 
             //
 
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            if (this.User.IsInRole("SysAdmin"))
-            {
-                listItems.Add(new SelectListItem
-                {
-                    Text = "",
-                    Value = ""
-                });
-            }
-            listItems.Add(new SelectListItem
-            {
-                Text = "User name",
-                Value = "user"
+            //List<SelectListItem> listItems = new List<SelectListItem>();
+            //if (this.User.IsInRole("SysAdmin"))
+            //{
+            //    listItems.Add(new SelectListItem
+            //    {
+            //        Text = "",
+            //        Value = ""
+            //    });
+            //}
+            //listItems.Add(new SelectListItem
+            //{
+            //    Text = "User name",
+            //    Value = "user"
 
-            });
-            listItems.Add(new SelectListItem
-            {
-                Text = "placeholder",
-                Value = "ph"
-            });
+            //});
+            //listItems.Add(new SelectListItem
+            //{
+            //    Text = "placeholder",
+            //    Value = "ph"
+            //});
 
-            BootstrapHtml.Dropdown("selectby", listItems);
+            //BootstrapHtml.Dropdown("selectby", listItems);
 
-            <script type="text/javascript">
+            @*<script type="text/javascript">
                 $("#selectby option:selected").text();
 
                 $(document).ready(function () {
@@ -108,7 +108,7 @@
             <button class="btn btn-primary" type="button" id="btnSearch"
                     onclick="search()">
                 search
-            </button>
+            </button>*@
 
             @*<button class="btn btn-primary" type="button" value="Page"
                         onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = perpageNo, search = search, searchby = searchby })'">

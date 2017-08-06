@@ -65,7 +65,7 @@ namespace DAMS_03.API
                     }
                     else
                     {
-                        returnOpeningHours += openingHours[0].TimeRangeStart.Hours + ":" + openingHours[0].TimeRangeStart.Minutes + " - " + openingHours[0].TimeRangeEnd.Hours + ":" + openingHours[0].TimeRangeEnd.Minutes + "\n\n";
+                        returnOpeningHours += openingHours[0].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[0].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[0].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[0].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
                     }
                     returnOpeningHours += "Saturday\n";
                     if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
@@ -74,7 +74,7 @@ namespace DAMS_03.API
                     }
                     else
                     {
-                        returnOpeningHours += openingHours[1].TimeRangeStart.Hours + ":" + openingHours[1].TimeRangeStart.Minutes + " - " + openingHours[1].TimeRangeEnd.Hours + ":" + openingHours[1].TimeRangeEnd.Minutes + "\n\n";
+                        returnOpeningHours += openingHours[1].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[1].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[1].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[1].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
                     }
                     returnOpeningHours += "Sundays and Public Holidays\n";
                     if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
@@ -83,7 +83,7 @@ namespace DAMS_03.API
                     }
                     else
                     {
-                        returnOpeningHours += openingHours[2].TimeRangeStart.Hours + ":" + openingHours[2].TimeRangeStart.Minutes + " - " + openingHours[2].TimeRangeEnd.Hours + ":" + openingHours[2].TimeRangeEnd.Minutes + "\n\n";
+                        returnOpeningHours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
                     }
                     
                     ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
@@ -169,7 +169,7 @@ namespace DAMS_03.API
                 }
                 else
                 {
-                    openinghours += openingHours[0].TimeRangeStart.Hours + ":" + openingHours[0].TimeRangeStart.Minutes + " - " + openingHours[0].TimeRangeEnd.Hours + ":" + openingHours[0].TimeRangeEnd.Minutes + "\n\n";
+                    openinghours += openingHours[0].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[0].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[0].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[0].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
                 }
                 openinghours += "Saturday\n";
                 if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
@@ -178,7 +178,7 @@ namespace DAMS_03.API
                 }
                 else
                 {
-                    openinghours += openingHours[1].TimeRangeStart.Hours + ":" + openingHours[1].TimeRangeStart.Minutes + " - " + openingHours[1].TimeRangeEnd.Hours + ":" + openingHours[1].TimeRangeEnd.Minutes + "\n\n";
+                    openinghours += openingHours[1].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[1].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[1].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[1].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
                 }
                 openinghours += "Sundays and Public Holidays\n";
                 if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
@@ -187,7 +187,7 @@ namespace DAMS_03.API
                 }
                 else
                 {
-                    openinghours += openingHours[2].TimeRangeStart.Hours + ":" + openingHours[2].TimeRangeStart.Minutes + " - " + openingHours[2].TimeRangeEnd.Hours + ":" + openingHours[2].TimeRangeEnd.Minutes + "\n\n";
+                    openinghours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
                 }
 
                 var returnModel = new
