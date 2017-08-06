@@ -11,6 +11,45 @@
 
 @{
 
+    int pageNo;
+    int perpageNo;
+
+    if (Request["page"] != null)
+    {
+        if (!Int32.TryParse(Request["page"].ToString(), out pageNo))
+        {
+            pageNo = 1;
+        }
+        else if (pageNo < 1)
+        {
+            pageNo = 1;
+        }
+    }
+    else
+    {
+        pageNo = 1;
+    }
+
+    int prevPage = pageNo - 1;
+    int nextPage = pageNo + 1;
+    int nextTenPage = pageNo + 10;
+    int prevTenPage = pageNo - 10;
+    int maxpage = Model.maxPages;
+
+    if (Request["perpage"] != null)
+    {
+        if (!Int32.TryParse(Request["perpage"].ToString(), out perpageNo))
+        {
+            perpageNo = 10;
+        }
+    }
+    else
+    {
+        perpageNo = 10;
+    }
+
+    //
+
     var id_v = ViewContext.RouteData.Values["id"];
     int id_i;
     Int32.TryParse((string)id_v, out id_i);
@@ -165,43 +204,7 @@
 
 
 @{
-    int pageNo;
-    int perpageNo;
-
-    if (Request["page"] != null)
-    {
-        if (!Int32.TryParse(Request["page"].ToString(), out pageNo))
-        {
-            pageNo = 1;
-        }
-        else if (pageNo < 1)
-        {
-            pageNo = 1;
-        }
-    }
-    else
-    {
-        pageNo = 1;
-    }
-
-    int prevPage = pageNo - 1;
-    int nextPage = pageNo + 1;
-    int nextTenPage = pageNo + 10;
-    int prevTenPage = pageNo - 10;
-    int maxpage = Model.maxPages;
-
-    if (Request["perpage"] != null)
-    {
-        if (!Int32.TryParse(Request["perpage"].ToString(), out perpageNo))
-        {
-            perpageNo = 10;
-        }
-    }
-    else
-    {
-        perpageNo = 10;
-    }
-
+    
     <br /><br />
 
     <button class="btn btn-primary" type="button" value="Page"

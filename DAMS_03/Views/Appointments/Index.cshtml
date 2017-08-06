@@ -12,8 +12,8 @@
 
 <br />
 
-<div class="form-group">
-    
+<div class="form-horizontal">
+
     <div class="col-md-10">
         @{
 
@@ -54,6 +54,8 @@
                 perpageNo = 10;
             }
 
+            //
+
             string search = String.Empty;
             string searchby = String.Empty;
 
@@ -67,58 +69,92 @@
                 searchby = Request["searchby"];
             }
 
+            string order = String.Empty;
+            string orderBy = String.Empty;
+
+            if (Request["order"] != null)
+            {
+                order = Request["order"];
+            }
+
+            if (Request["orderBy"] != null)
+            {
+                orderBy = Request["orderBy"];
+            }
+
             //
 
-            //List<SelectListItem> listItems = new List<SelectListItem>();
-            //if (this.User.IsInRole("SysAdmin"))
-            //{
-            //    listItems.Add(new SelectListItem
-            //    {
-            //        Text = "",
-            //        Value = ""
-            //    });
-            //}
+        }
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.pageNo)
+            @Html.HiddenFor(model => model.perpageNo)
+            @Html.HiddenFor(model => model.order)
+            @Html.HiddenFor(model => model.orderBy)
+
+            List<SelectListItem> listItems = new List<SelectListItem>();
             //listItems.Add(new SelectListItem
             //{
-            //    Text = "User name",
-            //    Value = "user"
-
+            //    Text = "",
+            //    Value = ""
             //});
-            //listItems.Add(new SelectListItem
-            //{
-            //    Text = "placeholder",
-            //    Value = "ph"
-            //});
+            listItems.Add(new SelectListItem
+            {
+                Text = "Appointment ID",
+                Value = "apptid"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "User name",
+                Value = "user"
 
-            //BootstrapHtml.Dropdown("selectby", listItems);
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "Dentist",
+                Value = "dentist"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "Date",
+                Value = "date"
+            });
 
-            @*<script type="text/javascript">
-                $("#selectby option:selected").text();
+            <div class="form-group">
+                @Html.LabelFor(model => model.searchby, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @BootstrapHtml.Dropdown("searchby", listItems, searchby)
+                </div>
+            </div>
 
-                $(document).ready(function () {
-                    $("#btnSearch").click(function () {
+            <div class="form-group">
+                @Html.LabelFor(model => model.search, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.search, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
 
-                        window.location.href('/Index');
+            <input type="submit" value="Search" class="btn btn-primary" />
 
-                    });
-                });
+            <button class="btn btn-primary" type="button" value="Page"
+                    onclick="location.href='@Url.Action("Index", "Appointments", new { page = pageNo, perpage = perpageNo, search = "", searchby = ""})'">
+                View all
+            </button>
 
-            </script>
-
-            <button class="btn btn-primary" type="button" id="btnSearch"
-                    onclick="search()">
-                search
-            </button>*@
-
-            @*<button class="btn btn-primary" type="button" value="Page"
-                        onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = perpageNo, search = search, searchby = searchby })'">
-                    search
-                </button>*@
+            if (search != "" && searchby != "")
+            {
+                <hr />
+                <p>Searching for @searchby with query : @search</p>
+            }
 
         }
+        <br /><br />
     </div>
 </div>
 
+<hr />
 
 
 <div class="row">
@@ -138,6 +174,22 @@
                     <thead>
                         <tr>
                             <th>
+                                @*@Html.DisplayNameFor(model => model.appointments[0].AppointmentID)*@
+                                @if (order.Equals("asec"))
+                                {
+                                    <a href="@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby, order = "desc", orderBy = "apptId"})">
+                                        @Html.DisplayNameFor(model => model.appointments[0].ID)
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby, order = "asec", orderBy = "apptId"})">
+                                        @Html.DisplayNameFor(model => model.appointments[0].ID)
+                                    </a>
+                                }
+
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.appointments[0].AppointmentID)
                             </th>
                             <th>
@@ -147,10 +199,36 @@
                                 @Html.DisplayNameFor(model => model.appointments[0].ApprovalState)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.appointments[0].PreferredDate)
+                                @*@Html.DisplayNameFor(model => model.appointments[0].PreferredDate)*@
+                                @if (order.Equals("asec"))
+                                {
+                                    <a href="@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby, order = "desc", orderBy = "prefdate"})">
+                                        @Html.DisplayNameFor(model => model.appointments[0].PreferredDate)
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby, order = "asec", orderBy = "prefdate"})">
+                                        @Html.DisplayNameFor(model => model.appointments[0].PreferredDate)
+                                    </a>
+                                }
+
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.appointments[0].AppointmentDate)
+                                @*@Html.DisplayNameFor(model => model.appointments[0].AppointmentDate)*@
+                                @if (order.Equals("asec"))
+                                {
+                                    <a href="@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby, order = "desc", orderBy = "apptdate"})">
+                                        @Html.DisplayNameFor(model => model.appointments[0].AppointmentDate)
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby, order = "asec", orderBy = "apptdate"})">
+                                        @Html.DisplayNameFor(model => model.appointments[0].AppointmentDate)
+                                    </a>
+                                }
+
                             </th>
                             @*<th>
                                     @Html.DisplayNameFor(model => model.appointments[0].PreferredTime)
@@ -172,6 +250,9 @@
                         @for (int i = 0; i < Model.appointments.Count; i++)
                         {
                             <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.appointments[i].ID)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => Model.appointments[i].AppointmentID)
                                 </td>
@@ -251,32 +332,32 @@
     <br /><br />
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = 1, perpage = perpageNo, search = search, searchby = searchby})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = 1, perpage = perpageNo, search = search, searchby = searchby, order = order, orderBy = orderBy})'">
         &lt&lt&lt First Page
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = prevTenPage, perpage = perpageNo, search = search, searchby = searchby})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = prevTenPage, perpage = perpageNo, search = search, searchby = searchby, order = order, orderBy = orderBy})'">
         &lt&lt Prev 10 Pages
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = prevPage, perpage = perpageNo, search = search, searchby = searchby, order = order, orderBy = orderBy})'">
         &lt Prev Page
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page= nextPage, perpage = perpageNo, search = search, searchby = searchby })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page= nextPage, perpage = perpageNo, search = search, searchby = searchby, order = order, orderBy = orderBy })'">
         Next Page &gt
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = nextTenPage, perpage = perpageNo, search = search, searchby = searchby})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = nextTenPage, perpage = perpageNo, search = search, searchby = searchby, order = order, orderBy = orderBy})'">
         Next 10 Pages &gt&gt
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page = maxpage, perpage = perpageNo, search = search, searchby = searchby})'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page = maxpage, perpage = perpageNo, search = search, searchby = searchby, order = order, orderBy = orderBy})'">
         Last Page &gt&gt&gt
     </button>
 
@@ -287,27 +368,27 @@
     <p> Select number of results per page: </p>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 10, search = search, searchby = searchby })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 10, search = search, searchby = searchby, order = order, orderBy = orderBy })'">
         10
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 20, search = search, searchby = searchby })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 20, search = search, searchby = searchby, order = order, orderBy = orderBy })'">
         20
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 50, search = search, searchby = searchby })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 50, search = search, searchby = searchby, order = order, orderBy = orderBy })'">
         50
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 100, search = search, searchby = searchby })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 100, search = search, searchby = searchby, order = order, orderBy = orderBy })'">
         100
     </button>
 
     <button class="btn btn-primary" type="button" value="Page"
-            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 500, search = search, searchby = searchby })'">
+            onclick="location.href='@Url.Action("Index", "Appointments", new { page=pageNo, perpage = 500, search = search, searchby = searchby, order = order, orderBy = orderBy })'">
         500
     </button>
 }

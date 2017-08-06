@@ -18,15 +18,30 @@ namespace DAMS_03.Controllers
         private DAMS_01Entities db = new DAMS_01Entities();
 
         // GET: Appointments
-        public ActionResult Index(int? page, int? perpage, string search, string searchby)
+        public ActionResult Index(int? page, int? perpage, string search, string searchby, string orderBy, string order)
         {
+            AppointmentIndexModel returnModel = new AppointmentIndexModel();
+
             int noOfResults = 10;
             if (perpage != null)
             {
                 noOfResults = (int)perpage;
+                returnModel.perpageNo = (int)perpage;
             }
-            
-            AppointmentIndexModel returnModel = new AppointmentIndexModel();
+            else
+            {
+                returnModel.perpageNo = 10;
+            }
+            if (page != null)
+            {
+                returnModel.pageNo = (int)page;
+            }
+            else
+            {
+                returnModel.pageNo = 1;
+            }
+            returnModel.search = search;
+            returnModel.searchby = searchby;
 
             //var appointments = db.Appointments.Include(a => a.ClinicHospital).Include(a => a.DoctorDentist).Include(a => a.DoctorDentist1).Include(a => a.UserAccount);
 
@@ -95,6 +110,157 @@ namespace DAMS_03.Controllers
                         }
 
                         break;
+                    case "dentist":
+                        if (hospid == 0)
+                        {
+                            appointments = (from apt in db.Appointments
+                                            join u in db.UserAccounts on apt.UserID equals u.ID
+                                            join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                            join dd1 in db.DoctorDentists on apt.DoctorDentistID equals dd1.ID
+                                            join dd2 in db.DoctorDentists on apt.RequestDoctorDentistID equals dd2.ID
+                                            where dd1.Name.Contains(search) || dd2.Name.Contains(search)
+                                            orderby apt.ID descending
+                                            select new AppointmentDetailViewModel()
+                                            {
+                                                ID = apt.ID,
+                                                AppointmentID = apt.AppointmentID,
+                                                UserName = u.Name,
+                                                UserID = u.ID,
+                                                ClinicHospitalName = ch.ClinicHospitalName,
+                                                ClinicHospitalID = ch.ID,
+                                                ApprovalState = apt.ApprovalState.ToString(),
+                                                PreferredDate = apt.PreferredDate,
+                                                PreferredTime = apt.PreferredTime,
+                                                Remarks = apt.Remarks,
+                                                AppointmentDate = apt.AppointmentDate,//
+                                                AppointmentTime = apt.AppointmentTime//
+                                            }).ToList();
+                        }
+                        else
+                        {
+                            appointments = (from apt in db.Appointments
+                                            join u in db.UserAccounts on apt.UserID equals u.ID
+                                            join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                            join dd1 in db.DoctorDentists on apt.DoctorDentistID equals dd1.ID
+                                            join dd2 in db.DoctorDentists on apt.RequestDoctorDentistID equals dd2.ID
+                                            where dd1.Name.Contains(search) || dd2.Name.Contains(search)
+                                            orderby apt.ID descending
+                                            where ch.ID == hospid
+                                            select new AppointmentDetailViewModel()
+                                            {
+                                                ID = apt.ID,
+                                                AppointmentID = apt.AppointmentID,
+                                                UserName = u.Name,
+                                                UserID = u.ID,
+                                                ClinicHospitalName = ch.ClinicHospitalName,
+                                                ClinicHospitalID = ch.ID,
+                                                ApprovalState = apt.ApprovalState.ToString(),
+                                                PreferredDate = apt.PreferredDate,
+                                                PreferredTime = apt.PreferredTime,
+                                                Remarks = apt.Remarks,
+                                                AppointmentDate = apt.AppointmentDate,//
+                                                AppointmentTime = apt.AppointmentTime//
+                                            }).ToList();
+                        }
+                        break;
+                    case "date":
+                        if (hospid == 0)
+                        {
+                            appointments = (from apt in db.Appointments
+                                            join u in db.UserAccounts on apt.UserID equals u.ID
+                                            join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                            where apt.PreferredDate.ToString().Contains(search) || apt.AppointmentDate.ToString().Contains(search)
+                                            orderby apt.ID descending
+                                            select new AppointmentDetailViewModel()
+                                            {
+                                                ID = apt.ID,
+                                                AppointmentID = apt.AppointmentID,
+                                                UserName = u.Name,
+                                                UserID = u.ID,
+                                                ClinicHospitalName = ch.ClinicHospitalName,
+                                                ClinicHospitalID = ch.ID,
+                                                ApprovalState = apt.ApprovalState.ToString(),
+                                                PreferredDate = apt.PreferredDate,
+                                                PreferredTime = apt.PreferredTime,
+                                                Remarks = apt.Remarks,
+                                                AppointmentDate = apt.AppointmentDate,//
+                                                AppointmentTime = apt.AppointmentTime//
+                                            }).ToList();
+                        }
+                        else
+                        {
+                            appointments = (from apt in db.Appointments
+                                            join u in db.UserAccounts on apt.UserID equals u.ID
+                                            join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                            where apt.PreferredDate.ToString().Contains(search) || apt.AppointmentDate.ToString().Contains(search)
+                                            orderby apt.ID descending
+                                            where ch.ID == hospid
+                                            select new AppointmentDetailViewModel()
+                                            {
+                                                ID = apt.ID,
+                                                AppointmentID = apt.AppointmentID,
+                                                UserName = u.Name,
+                                                UserID = u.ID,
+                                                ClinicHospitalName = ch.ClinicHospitalName,
+                                                ClinicHospitalID = ch.ID,
+                                                ApprovalState = apt.ApprovalState.ToString(),
+                                                PreferredDate = apt.PreferredDate,
+                                                PreferredTime = apt.PreferredTime,
+                                                Remarks = apt.Remarks,
+                                                AppointmentDate = apt.AppointmentDate,//
+                                                AppointmentTime = apt.AppointmentTime//
+                                            }).ToList();
+                        }
+                        break;
+                    case "apptid":
+                        if (hospid == 0)
+                        {
+                            appointments = (from apt in db.Appointments
+                                            join u in db.UserAccounts on apt.UserID equals u.ID
+                                            join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                            where apt.ID.ToString().Contains(search) || apt.AppointmentID.ToString().Contains(search)
+                                            orderby apt.ID descending
+                                            select new AppointmentDetailViewModel()
+                                            {
+                                                ID = apt.ID,
+                                                AppointmentID = apt.AppointmentID,
+                                                UserName = u.Name,
+                                                UserID = u.ID,
+                                                ClinicHospitalName = ch.ClinicHospitalName,
+                                                ClinicHospitalID = ch.ID,
+                                                ApprovalState = apt.ApprovalState.ToString(),
+                                                PreferredDate = apt.PreferredDate,
+                                                PreferredTime = apt.PreferredTime,
+                                                Remarks = apt.Remarks,
+                                                AppointmentDate = apt.AppointmentDate,//
+                                                AppointmentTime = apt.AppointmentTime//
+                                            }).ToList();
+                        }
+                        else
+                        {
+                            appointments = (from apt in db.Appointments
+                                            join u in db.UserAccounts on apt.UserID equals u.ID
+                                            join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                            where apt.ID.ToString().Contains(search) || apt.AppointmentID.ToString().Contains(search)
+                                            orderby apt.ID descending
+                                            where ch.ID == hospid
+                                            select new AppointmentDetailViewModel()
+                                            {
+                                                ID = apt.ID,
+                                                AppointmentID = apt.AppointmentID,
+                                                UserName = u.Name,
+                                                UserID = u.ID,
+                                                ClinicHospitalName = ch.ClinicHospitalName,
+                                                ClinicHospitalID = ch.ID,
+                                                ApprovalState = apt.ApprovalState.ToString(),
+                                                PreferredDate = apt.PreferredDate,
+                                                PreferredTime = apt.PreferredTime,
+                                                Remarks = apt.Remarks,
+                                                AppointmentDate = apt.AppointmentDate,//
+                                                AppointmentTime = apt.AppointmentTime//
+                                            }).ToList();
+                        }
+                        break;
                     default:
 
                         break;
@@ -149,6 +315,58 @@ namespace DAMS_03.Controllers
                 }
             }
 
+            switch (orderBy)
+            {
+                case "apptId":
+                    if (order.Equals("desc"))
+                    {
+                        appointments = appointments.OrderByDescending(o => o.ID).ToList();
+                    }
+                    else
+                    {
+                        appointments = appointments.OrderBy(o => o.ID).ToList();
+                        //appointments = (from apt in appointments
+                        //                orderby apt.ID ascending
+                        //                select new AppointmentDetailViewModel()
+                        //                {
+                        //                    ID = apt.ID,
+                        //                    AppointmentID = apt.AppointmentID,
+                        //                    UserName = apt.UserName,
+                        //                    UserID = apt.UserID,
+                        //                    ClinicHospitalName = apt.ClinicHospitalName,
+                        //                    ClinicHospitalID = apt.ClinicHospitalID,
+                        //                    ApprovalState = apt.ApprovalState.ToString(),
+                        //                    PreferredDate = apt.PreferredDate,
+                        //                    PreferredTime = apt.PreferredTime,
+                        //                    Remarks = apt.Remarks,
+                        //                    AppointmentDate = apt.AppointmentDate,//
+                        //                    AppointmentTime = apt.AppointmentTime//
+                        //                }).ToList();
+                    }
+                    break;
+                case "apptdate":
+                    if (order.Equals("desc"))
+                    {
+                        appointments = appointments.OrderByDescending(o => o.AppointmentDate ?? DateTime.MaxValue).ToList();
+                    }
+                    else
+                    {
+                        appointments = appointments.OrderBy(o => o.AppointmentDate ?? DateTime.MaxValue).ToList();
+                    }
+                    break;
+                case "prefdate":
+                    if (order.Equals("desc"))
+                    {
+                        appointments = appointments.OrderByDescending(o => o.PreferredDate).ToList();
+                    }
+                    else
+                    {
+                        appointments = appointments.OrderBy(o => o.PreferredDate).ToList();
+                    }
+                    break;
+                default:
+                    break;
+            }
 
             List<AppointmentDetailViewModel> returnList = new List<AppointmentDetailViewModel>();
 
@@ -179,7 +397,7 @@ namespace DAMS_03.Controllers
             if (startingPoint >= endingPoint && appointments.Count != 0)
             {
 
-                return RedirectToAction("Index", "Appointments", new { page = maxpage, perpage = perpage });
+                return RedirectToAction("Index", "Appointments", new { page = maxpage, perpage = perpage, search = search, searchby = searchby, order = order, orderBy = orderBy });
             }
 
             int maxpageOverall = appointments.Count / noOfResults;
@@ -2089,6 +2307,17 @@ namespace DAMS_03.Controllers
 
             return RedirectToAction("Details", "Appointments", new { id = id });
         }
+
+        // POST: Appointments/Index
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(AppointmentIndexModel model)
+        {
+
+            //return View();
+            return RedirectToAction("Index", "Appointments", new { page = model.pageNo, perpage = model.perpageNo, search = model.search, searchby = model.searchby, order = model.order, orderBy = model.orderBy });
+        }
+
 
         protected override void Dispose(bool disposing)
         {

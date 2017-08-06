@@ -40,13 +40,16 @@ namespace DAMS_03.API
 
                                }).SingleOrDefault();
 
+                string returnPriceLow = String.Format("{0:C0}", getPrice.PriceLow);
+                string returnPriceHigh = String.Format("{0:C0}", getPrice.PriceHigh);
+
                 if (getPrice.PriceLow == getPrice.PriceHigh)
                 {
-                    ch.Price = getPrice.PriceLow.ToString();
+                    ch.Price = returnPriceLow;
                 }
                 else
                 {
-                    ch.Price = getPrice.PriceLow + " - " + getPrice.PriceHigh;
+                    ch.Price = returnPriceLow + " - " + returnPriceHigh;
                 }
             }// End of foreach()
             return Ok(clinicHospitals);
