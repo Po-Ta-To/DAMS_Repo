@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)API.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Appointment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AppointmentDate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Dentist.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Hospital.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Session.cs" />
