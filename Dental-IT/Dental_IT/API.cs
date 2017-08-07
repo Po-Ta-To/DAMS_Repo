@@ -279,6 +279,36 @@ namespace Dental_IT
             }
         }
 
+        // CANCEL Appointment
+        public async Task<JsonValue> CancelAppointment(int apptID)
+        {
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_cancelApptByID + apptID));
+                request.ContentType = "application/JSON";
+                request.Method = "GET";
+
+                // Send the request to the server and wait for the response:
+                using (WebResponse response = request.GetResponse())
+                {
+                    // Get a stream representation of the HTTP web response:
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        // Use this stream to build a JSON document object:
+                        JsonValue jsonDoc = await Task.Run(() => JsonValue.Load(stream));
+
+                        return jsonDoc;
+                    }
+                }
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+                return null;
+            }
+        }
+
         //  Get Appointment dates
         public async Task<List<AppointmentDate>> GetAppointmentDates(string accessToken)
         {

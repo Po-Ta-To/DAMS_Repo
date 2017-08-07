@@ -226,7 +226,7 @@ namespace Dental_IT.Droid.Main
                     PreferredDate = request_DateField.Text,
                     // PreferredDentistID = ?
                     // Session
-                    // Treatments 
+                    // Treatments
                     Remarks = request_RemarksField.Text
                 };
 

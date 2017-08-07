@@ -34,7 +34,7 @@ namespace DAMS_03.API
 
             db.Entry(appointment).State = EntityState.Modified;
             db.SaveChanges();
-            return Ok();
+            return Ok(appointment);
         }
         
     }

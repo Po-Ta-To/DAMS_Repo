@@ -6,6 +6,8 @@ using Android.Widget;
 using Android.Support.V7.App;
 using Dental_IT.Model;
 using System;
+using System.Threading.Tasks;
+using System.Json;
 
 namespace Dental_IT.Droid.Main
 {
@@ -105,10 +107,30 @@ namespace Dental_IT.Droid.Main
                 cancelConfirm.SetMessage(Resource.String.cancel_text);
                 cancelConfirm.SetNegativeButton(Resource.String.confirm_cancel, delegate
                 {
-                    Toast.MakeText(this, Resource.String.cancel_OK, ToastLength.Short).Show();
+                    Task.Run(async () =>
+                    {
+                        try
+                        {
+                            //  Get Update Appt
+                            JsonValue updatedAppt = await api.CancelAppointment(appointment.ID);
 
-                    Intent intent = new Intent(this, typeof(My_Appointments));
-                    StartActivity(intent);
+                            if(updatedAppt == null)
+                            {
+                                Toast.MakeText(this, "The appointment couln't be cancelled. Please try again later.", ToastLength.Short).Show();
+                            }
+                            else
+                            {
+                                Toast.MakeText(this, Resource.String.cancel_OK, ToastLength.Short).Show();
+
+                                Intent intent = new Intent(this, typeof(My_Appointments));
+                                StartActivity(intent);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            System.Diagnostics.Debug.Write("Obj: " + e.Message + e.StackTrace);
+                        }
+                    });
                 });
                 cancelConfirm.SetNeutralButton(Resource.String.no, delegate
                 {

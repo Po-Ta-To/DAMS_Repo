@@ -25,8 +25,8 @@
         // UPDATE Appointment Details by Appointment ID
         public static string global_connURL_updateApptDetails { get; } = conn + "/api/Appointments/"; // + ApptID
 
-        // DELETE Appointment by ApptID 
-        public static string global_connURL_deleteApptByID { get; } = conn + "/api/Appointments/"; // + ApptID
+        // CANCEL Appointment by ApptID 
+        public static string global_connURL_cancelApptByID { get; } = conn + "/api/CancelAppointment/"; // + ApptID
 
         // GET all Treatments
         public static string global_connURL_getTreatment { get; } = conn + "/api/Treatments";
