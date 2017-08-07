@@ -279,6 +279,54 @@ namespace Dental_IT
             }
         }
 
+        //  Get Appointment dates
+        public async Task<List<AppointmentDate>> GetAppointmentDates(string accessToken)
+        {
+            List<AppointmentDate> dateList = new List<AppointmentDate>();
+
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_getAppt));
+                request.ContentType = "application/json";
+                request.Method = "GET";
+                request.Headers.Add("Authorization", "bearer " + accessToken);
+
+                // Send the request to the server and wait for the response:
+                using (WebResponse response = request.GetResponse())
+                {
+                    // Get a stream representation of the HTTP web response:
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        // Use this stream to build a JSON document object:
+                        JsonValue jsonDoc = await Task.Run(() => JsonValue.Load(stream));
+                        System.Diagnostics.Debug.WriteLine("JSON doc: " + jsonDoc.ToString());
+
+                        //  Create objects from json value and populate lists
+                        foreach (JsonObject obj in jsonDoc)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
+
+                            AppointmentDate date = new AppointmentDate()
+                            {
+                                Date = DateTime.Parse(obj["AppointmentDate"]),
+                                Status = obj["ApprovalState"]
+                            };
+
+                            dateList.Add(date);
+                        }
+                    }
+                }
+
+                return dateList;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+                return dateList;
+            }
+        }
+
         // POST Appointment
         public int PostAppointment(string apptJson)
         {

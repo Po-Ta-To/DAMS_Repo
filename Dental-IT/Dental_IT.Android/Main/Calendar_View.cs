@@ -9,6 +9,11 @@ using Android.Views;
 using Android.Support.V4.Content;
 using Android.Graphics.Drawables;
 using Com.Prolificinteractive.Materialcalendarview.Spans;
+using System.Threading.Tasks;
+using Dental_IT.Model;
+using Android.Preferences;
+using System;
+using Java.Util;
 
 namespace Dental_IT.Droid.Main
 {
@@ -16,6 +21,14 @@ namespace Dental_IT.Droid.Main
     public class Calendar_View : AppCompatActivity
     {
         private static Java.Text.DateFormat formatter = Java.Text.DateFormat.DateInstance;
+        private List<AppointmentDate> dateList;
+        private List<CalendarDay> pendingDateList = new List<CalendarDay>();
+        private List<CalendarDay> tempPendingDateList = new List<CalendarDay>();
+        private List<CalendarDay> confirmedDateList = new List<CalendarDay>();
+        private List<CalendarDay> bothDateList = new List<CalendarDay>();
+        private string accessToken;
+
+        API api = new API();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,37 +40,71 @@ namespace Dental_IT.Droid.Main
             //  Create widgets
             MaterialCalendarView calendar = FindViewById<MaterialCalendarView>(Resource.Id.calendar);
 
-            List<CalendarDay> dates = new List<CalendarDay>();
+            //  Main data retrieving + processing method
+            Task.Run(async () =>
+            {
+                try
+                {
+                    //  Retrieve access token
+                    ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                    if (prefs.Contains("token"))
+                    {
+                        accessToken = prefs.GetString("token", "");
+                    }
 
-            CalendarDay b = CalendarDay.From(2017, 6, 15);
-            CalendarDay c = CalendarDay.From(2017, 6, 9);
-            CalendarDay d = CalendarDay.From(2017, 6, 1);
+                    //  Get dates
+                    dateList = await api.GetAppointmentDates(accessToken);
 
-            dates.Add(b);
-            dates.Add(c);
-            dates.Add(d);
+                    //  Place dates into respective lists
+                    foreach (AppointmentDate date in dateList)
+                    {
+                        //System.Diagnostics.Debug.WriteLine(date.Date.ToString());
+                        //System.Diagnostics.Debug.WriteLine(new Date(date.Date.Year, date.Date.Month, date.Date.Day));
+                        //System.Diagnostics.Debug.WriteLine(new CalendarDay(date.Date.Year, date.Date.Month, date.Date.Day));
 
-            List<CalendarDay> dates2 = new List<CalendarDay>();
+                        if (date.Status.Equals("Pending"))
+                        {
+                            pendingDateList.Add(new CalendarDay(date.Date.Year, date.Date.Month, date.Date.Day));
+                            tempPendingDateList.Add(new CalendarDay(date.Date.Year, date.Date.Month, date.Date.Day));
+                        }
 
-            CalendarDay e = CalendarDay.From(2017, 6, 10);
-            CalendarDay f = CalendarDay.From(2017, 6, 20);
-            CalendarDay h = CalendarDay.From(2017, 6, 24);
+                        if (date.Status.Equals("Confirmed"))
+                        {
+                            confirmedDateList.Add(new CalendarDay(date.Date.Year, date.Date.Month, date.Date.Day));
+                        }
+                    }
 
-            dates2.Add(e);
-            dates2.Add(f);
-            dates2.Add(h);
+                    foreach (CalendarDay day in confirmedDateList)
+                    {
+                        System.Diagnostics.Debug.WriteLine(day.Date.ToString());
+                    }
 
-            List<CalendarDay> dates3 = new List<CalendarDay>();
+                    //  Check if day has both pending and confirmed
+                    foreach (CalendarDay day in pendingDateList)
+                    {
+                        if (confirmedDateList.Exists(e => (e.Date == day.Date)))
+                        {
+                            tempPendingDateList.Remove(day);
+                            confirmedDateList.Remove(day);
+                            bothDateList.Add(day);
+                        }
+                    }
 
-            CalendarDay i = CalendarDay.From(2017, 6, 27);
-            CalendarDay j = CalendarDay.From(2017, 6, 5);
+                    pendingDateList = tempPendingDateList;
 
-            dates3.Add(i);
-            dates3.Add(j);
-
-            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_gold)), dates));
-            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_green)), dates2));
-            calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_blue_lotus)), dates3));
+                    RunOnUiThread(() =>
+                    {
+                        //  Decorate calendar
+                        calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_gold)), pendingDateList));
+                        calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_green)), confirmedDateList));
+                        calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_blue_lotus)), bothDateList));
+                    });
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.Write("Obj: " + e.Message + e.StackTrace);
+                }
+            });
 
             RunOnUiThread(() =>
             {
@@ -114,14 +161,14 @@ namespace Dental_IT.Droid.Main
                 dateBg.Mutate();    //To allow applying individual filters without affecting the rest
                 dateBg.SetTint(color);
                 view.SetBackgroundDrawable(dateBg);
-            }                
+            }
         }
 
         public bool ShouldDecorate(CalendarDay day)
         {
             bool b = false;
 
-            if (day != null)
+            if (dates != null)
             {
                 foreach (CalendarDay cDay in dates)
                 {
