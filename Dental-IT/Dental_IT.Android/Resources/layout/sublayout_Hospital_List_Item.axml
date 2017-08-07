@@ -14,12 +14,23 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:textColor="@color/dark_blue" />
-    <ToggleButton
-        android:id="@+id/list_FavouritesToggle"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
-        android:layout_gravity="center_vertical"
         android:gravity="center"
-        android:layout_marginRight="25dp" />
+        android:layout_gravity="center"
+        android:layout_marginRight="25dp">
+        <ToggleButton
+            android:id="@+id/list_FavouritesToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/button_selector"
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
 </LinearLayout>
