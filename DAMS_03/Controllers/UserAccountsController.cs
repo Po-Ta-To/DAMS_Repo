@@ -108,7 +108,7 @@ namespace DAMS_03.Controllers
             int maxpageOverall = userAccounts.Count / noOfResults;
             if (userAccounts.Count != 0)
             {
-                if ((endingPoint % userAccounts.Count) != 0)
+                if ((userAccounts.Count % noOfResults) != 0)
                 {
                     maxpageOverall++;
                 }

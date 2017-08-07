@@ -501,11 +501,11 @@ namespace DAMS_03.Controllers
                 string userAspId = User.Identity.GetUserId();
 
                 int chkhospid = (from ch in db.ClinicHospitals
-                              join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
-                              join aa in db.AdminAccounts on ach.AdminID equals aa.ID
-                              join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
-                              where aspu.Id == userAspId
-                              select ch.ID).SingleOrDefault();
+                                 join ach in db.AdminAccountClinicHospitals on ch.ID equals ach.ClinicHospitalID
+                                 join aa in db.AdminAccounts on ach.AdminID equals aa.ID
+                                 join aspu in db.AspNetUsers on aa.AspNetID equals aspu.Id
+                                 where aspu.Id == userAspId
+                                 select ch.ID).SingleOrDefault();
 
                 if (chkhospid != 0)
                 {
@@ -783,12 +783,66 @@ namespace DAMS_03.Controllers
             }
             //end check for auth
 
+            if (Request.Form["DeleteAll"] != null)
+            {
+                ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
+                List<ClinicHospitalTimeslot> clinicHospitalTimeslots = (from cht in db.ClinicHospitalTimeslots
+                                                                        join ch in db.ClinicHospitals on cht.ClinicHospitalID equals ch.ID
+                                                                        where ch.ID == id
+                                                                        select cht).ToList();
+                List<ClinicHospitalTreatment> clinicHospitalTreatments = (from cht in db.ClinicHospitalTreatments
+                                                                          join ch in db.ClinicHospitals on cht.ClinicHospitalID equals ch.ID
+                                                                          where ch.ID == id
+                                                                          select cht).ToList();
+                List<DoctorDentist> doctorDentist = (from dd in db.DoctorDentists
+                                                     join ch in db.ClinicHospitals on dd.ClinicHospitalID equals ch.ID
+                                                     where ch.ID == id
+                                                     select dd).ToList();
+                foreach (DoctorDentist doc in doctorDentist)
+                {
+                    List<DoctorDentistDateBooking> doctorDentistBookings = (from dat in db.DoctorDentistDateBookings
+                                                                            join dd in db.DoctorDentists on dat.DoctorDentistID equals dd.ID
+                                                                            where dd.ID == doc.ID
+                                                                            select dat).ToList();
+                    db.DoctorDentistDateBookings.RemoveRange(doctorDentistBookings);
+                }
+                List<Appointment> appointments = (from apt in db.Appointments
+                                                  join ch in db.ClinicHospitals on apt.ClinicHospitalID equals ch.ID
+                                                  where ch.ID == id
+                                                  select apt).ToList();
+                foreach (Appointment apt in appointments)
+                {
+                    List<AppointmentTreatment> appointmentTreatments = (from at in db.AppointmentTreatments
+                                                                        join a in db.Appointments on at.AppointmentID equals a.ID
+                                                                        where a.ID == apt.ID
+                                                                        select at).ToList();
+                    db.AppointmentTreatments.RemoveRange(appointmentTreatments);
+                }
+                List<AdminAccountClinicHospital> adminAccountClinicHospitals = (from aach in db.AdminAccountClinicHospitals
+                                                                                join ch in db.ClinicHospitals on aach.ClinicHospitalID equals ch.ID
+                                                                                where ch.ID == id
+                                                                                select aach).ToList();
+                List<OpeningHour> OpeningHours = (from oh in db.OpeningHours
+                                                  join ch in db.ClinicHospitals on oh.ClinicHospitalID equals ch.ID
+                                                  where ch.ID == id
+                                                  select oh).ToList();
+                db.OpeningHours.RemoveRange(OpeningHours);
+                db.AdminAccountClinicHospitals.RemoveRange(adminAccountClinicHospitals);
+                db.Appointments.RemoveRange(appointments);
+                db.DoctorDentists.RemoveRange(doctorDentist);
+                db.ClinicHospitalTimeslots.RemoveRange(clinicHospitalTimeslots);
+                db.ClinicHospitalTreatments.RemoveRange(clinicHospitalTreatments);
+                db.ClinicHospitals.Remove(clinicHospital);
+                db.SaveChanges();
+                return RedirectToAction("Index", "ClinicHospitals");
+            }
+
             try
             {
                 ClinicHospital clinicHospital = db.ClinicHospitals.Find(id);
                 db.ClinicHospitals.Remove(clinicHospital);
                 db.SaveChanges();
-                return RedirectToAction("Index", "DoctorDentists");
+                return RedirectToAction("Index", "ClinicHospitals");
             }
             catch (Exception e)
             {

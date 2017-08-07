@@ -436,7 +436,7 @@ namespace DAMS_03.Controllers
             int maxpageOverall = appointments.Count / noOfResults;
             if (appointments.Count != 0)
             {
-                if ((endingPoint % appointments.Count) != 0)
+                if ((appointments.Count % noOfResults) != 0)
                 {
                     maxpageOverall++;
                 }
