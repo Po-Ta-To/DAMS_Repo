@@ -46,46 +46,40 @@ namespace DAMS_03.API
                         OpenHours = clinicHospital.ClinicHospitalOpenHours
                     };
 
-                    returnList.Add(returnModel);
-                }
-                else
-                {
                     List<OpeningHour> openingHours = (from oh in db.OpeningHours
                                                       where oh.ClinicHospitalID == clinicHospital.ID
                                                       orderby oh.OpeningHoursDay ascending
                                                       select oh).ToList();
 
-                    string returnOpeningHours = String.Empty;
-
-
-                    returnOpeningHours += "Monday to Friday\n";
                     if (openingHours[0].TimeRangeStart == new TimeSpan(0) && openingHours[0].TimeRangeEnd == new TimeSpan(0))
                     {
-                        returnOpeningHours += "Closed\n\n";
+                        returnModel.IsOpenMonFri = false;
                     }
                     else
                     {
-                        returnOpeningHours += openingHours[0].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[0].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[0].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[0].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                        returnModel.IsOpenMonFri = true;
                     }
-                    returnOpeningHours += "Saturday\n";
                     if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
                     {
-                        returnOpeningHours += "Closed\n\n";
+                        returnModel.IsOpenSat = false;
                     }
                     else
                     {
-                        returnOpeningHours += openingHours[1].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[1].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[1].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[1].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                        returnModel.IsOpenSat = true;
                     }
-                    returnOpeningHours += "Sundays and Public Holidays\n";
                     if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
                     {
-                        returnOpeningHours += "Closed";
+                        returnModel.IsOpenSunPh = false;
                     }
                     else
                     {
-                        returnOpeningHours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00");
+                        returnModel.IsOpenSunPh = true;
                     }
-                    
+
+                    returnList.Add(returnModel);
+                }
+                else
+                {
                     ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
                     {
                         ID = clinicHospital.ID,
@@ -93,10 +87,52 @@ namespace DAMS_03.API
                         ClinicHospitalName = clinicHospital.ClinicHospitalName,
                         Address = clinicHospital.ClinicHospitalAddress,
                         Telephone = clinicHospital.ClinicHospitalTel,
-                        Email = clinicHospital.ClinicHospitalEmail,
-                        OpenHours = returnOpeningHours
+                        Email = clinicHospital.ClinicHospitalEmail
                     };
 
+                    List<OpeningHour> openingHours = (from oh in db.OpeningHours
+                                                      where oh.ClinicHospitalID == clinicHospital.ID
+                                                      orderby oh.OpeningHoursDay ascending
+                                                      select oh).ToList();
+
+                    string returnOpeningHours = String.Empty;
+                    
+                    returnOpeningHours += "Monday to Friday\n";
+                    if (openingHours[0].TimeRangeStart == new TimeSpan(0) && openingHours[0].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed\n\n";
+                        returnModel.IsOpenMonFri = false;
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[0].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[0].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[0].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[0].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                        returnModel.IsOpenMonFri = true;
+                    }
+                    returnOpeningHours += "Saturday\n";
+                    if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed\n\n";
+                        returnModel.IsOpenSat = false;
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[1].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[1].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[1].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[1].TimeRangeEnd.Minutes.ToString("00") + "\n\n";
+                        returnModel.IsOpenSat = true;
+                    }
+                    returnOpeningHours += "Sundays and Public Holidays\n";
+                    if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
+                    {
+                        returnOpeningHours += "Closed";
+                        returnModel.IsOpenSunPh = false;
+                    }
+                    else
+                    {
+                        returnOpeningHours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00");
+                        returnModel.IsOpenSunPh = true;
+                    }
+
+                    returnModel.OpenHours = returnOpeningHours;
+                    
                     returnList.Add(returnModel);
                 }//end of if else
             }//end of loop
@@ -295,6 +331,10 @@ namespace DAMS_03.API
             public string Telephone { get; set; }
             public string Email { get; set; }
             public string OpenHours { get; set; }
+            public bool IsOpenMonFri { get; set; }
+            public bool IsOpenSat { get; set; }
+            public bool IsOpenSunPh { get; set; }
+
         }
 
     }
