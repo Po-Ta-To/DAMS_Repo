@@ -15,7 +15,6 @@ using Dental_IT.Model;
 using System.Collections.Generic;
 using System;
 using Android.Views.InputMethods;
-
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
@@ -26,6 +25,7 @@ namespace Dental_IT.Droid.Main
         private Hospital hosp;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<string> sessions = new List<string>(){ "Select session" };
+        int[] dentistIDArr;
 
         API api = new API();
 
@@ -80,10 +80,14 @@ namespace Dental_IT.Droid.Main
                 {
                     //  Get dentists
                     List<Dentist> tempDentistList = await api.GetDentistsByClinicHospital(hosp.ID);
+                    dentistIDArr = new int[tempDentistList.Count];
+
+                    int count = 0;
 
                     foreach (Dentist den in tempDentistList)
                     {
                         dentists.Add(den);
+                        dentistIDArr[count] = den.DentistID;
                     }
 
                     //  Get sessions
@@ -216,19 +220,24 @@ namespace Dental_IT.Droid.Main
                 InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
                 inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
+                // Randomly generate a 3 digit number
+                int rgNumber = (new Random()).Next(100, 1000);
+
                 // Create new appointment
                 Appointment appt = new Appointment()
                 {
-                    // AppointmentID = "",
-                    // UserID = ?
+                    AppointmentID = "A" + rgNumber,
+                    UserID = 1,
                     ClinicHospitalID = hosp.ID,
-                    // PreferredDentistID = 1,
                     PreferredDate = request_DateField.Text,
-                    // PreferredDentistID = ?
-                    // Session
+                    //PreferredTime = request_SessionSpinner.getSelectedItemPosition(), //Session
+                    //RequestDoctorDentistID = dentistIDArr[request_DentistSpinner.getSelectedItemPosition()],
                     // Treatments
                     Remarks = request_RemarksField.Text
                 };
+
+                // Post the appointment
+                // api.PostAppointment(appt + "");
 
                 Intent intent = new Intent(this, typeof(My_Appointments));
                 StartActivity(intent);

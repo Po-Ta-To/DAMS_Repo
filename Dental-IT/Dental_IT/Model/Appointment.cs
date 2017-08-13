@@ -15,9 +15,11 @@ namespace Dental_IT.Model
         public string Status { get; set; }
 
         // For POST & PUT Appt
+        public string AppointmentID { get; set; }
         public int ClinicHospitalID { get; set; }
         public string PreferredDate { get; set; }
-        public int PreferredDentistID { get; set; }
+        public int PreferredTime { get; set; }
+        public int RequestDoctorDentistID { get; set; }
         public string Remarks { get; set; }
     }
 }

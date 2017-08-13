@@ -358,16 +358,16 @@ namespace Dental_IT
         }
 
         // POST Appointment
-        public int PostAppointment(string apptJson)
+        public int PostAppointment(string newAppt)
         {
             try
-            {
+            {   
                 // Create an HTTP web request using the URL:
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createUser));
                 request.ContentType = "application/JSON";
                 request.Method = "POST";
 
-                byte[] buffer = Encoding.Default.GetBytes(apptJson);
+                byte[] buffer = Encoding.Default.GetBytes(newAppt);
                 if (buffer != null)
                 {
                     request.ContentLength = buffer.Length;
