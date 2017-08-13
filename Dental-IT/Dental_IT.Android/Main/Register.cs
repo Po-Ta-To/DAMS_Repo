@@ -22,7 +22,6 @@ namespace Dental_IT.Droid.Main
         private EditText register_RepeatPasswordField;
         private EditText register_DOBField;
         private Spinner register_GenderSpinner;
-        private EditText register_GenderFieldInvis;
         private EditText register_NRICField;
         private EditText register_MobileField;
         private CheckBox register_PdpaChkbox;

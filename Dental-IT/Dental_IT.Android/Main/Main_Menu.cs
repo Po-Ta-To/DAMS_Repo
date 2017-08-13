@@ -9,7 +9,6 @@ using Android.Views;
 using Android.Widget;
 using Dental_IT.Droid.Adapters;
 using Dental_IT.Model;
-using System;
 
 namespace Dental_IT.Droid.Main
 {
@@ -22,7 +21,6 @@ namespace Dental_IT.Droid.Main
 
         private DrawerLayout drawerLayout;
         private NavigationView navigationView;
-        private Android.Support.V4.App.FragmentTransaction fragmentTransaction;
         private Intent intent;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -165,7 +163,7 @@ namespace Dental_IT.Droid.Main
             logoutConfirm.SetNegativeButton(Resource.String.confirm_logout, delegate
             {
                 //  Remove user session from shared preferences
-                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Remove("remembered");
                 editor.Apply();
@@ -173,6 +171,7 @@ namespace Dental_IT.Droid.Main
                 //  Clear user data
                 UserAccount.AccessToken = null;
                 UserAccount.Name = null;
+                UserAccount.ID = 0;
 
                 //  Redirect to sign in page
                 intent = new Intent(this, typeof(Sign_In));
@@ -194,7 +193,7 @@ namespace Dental_IT.Droid.Main
             clearConfirm.SetNegativeButton(Resource.String.confirm_clearData, delegate
             {
                 //  Remove user data from shared preferences
-                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Clear();
                 editor.Apply();

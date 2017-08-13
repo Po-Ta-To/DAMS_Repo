@@ -103,9 +103,9 @@ namespace Dental_IT.Droid.Fragments
             return v;
         }
 
-        public override void OnStop()
+        public override void OnPause()
         {
-            base.OnStop();
+            base.OnPause();
 
             //  Save favourites to shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Activity);

@@ -3,19 +3,13 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Android.Support.Design.Widget;
-using Android.Support.V4.Widget;
 using Android.Support.V7.App;
-using Dental_IT.Droid.Adapters;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Update_Appointment : AppCompatActivity
     {
-        DrawerLayout drawerLayout;
-        NavigationView navigationView;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

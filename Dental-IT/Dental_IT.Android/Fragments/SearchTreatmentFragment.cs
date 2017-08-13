@@ -4,12 +4,8 @@ using Android.Views;
 using Android.Support.V7.Widget;
 using Dental_IT.Droid.Adapters;
 using System.Threading.Tasks;
-using System.Json;
-using System.Net;
-using System.IO;
 using System;
 using Dental_IT.Model;
-using Android.Widget;
 
 namespace Dental_IT.Droid.Fragments
 {

@@ -358,7 +358,7 @@ namespace Dental_IT
         }
 
         // POST Appointment
-        public int PostAppointment(string newAppt)
+        public int PostAppointment(string newAppt, string accessToken)
         {
             try
             {   
@@ -366,6 +366,7 @@ namespace Dental_IT
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createUser));
                 request.ContentType = "application/JSON";
                 request.Method = "POST";
+                request.Headers.Add("Authorization", "bearer " + accessToken);
 
                 byte[] buffer = Encoding.Default.GetBytes(newAppt);
                 if (buffer != null)
@@ -379,7 +380,7 @@ namespace Dental_IT
             }
             catch (WebException e)
             {
-                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Data.ToString());
 
                 // The remote server returned an error: (400) Bad Request.
                 if (e.Message.Contains("400"))
@@ -423,9 +424,8 @@ namespace Dental_IT
                         //  Create objects from json value and populate lists
                         foreach (JsonObject obj in jsonDoc)
                         {
-                            System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
-
                             Dentist den = new Dentist();
+
                             den.DentistID = obj["ID"];
                             den.DentistName = obj["Name"];
 
@@ -444,9 +444,9 @@ namespace Dental_IT
         }
 
         //  Get Sessions by ClinicHospital
-        public async Task<List<string>> GetSessionsByClinicHospital(int id)
+        public async Task<List<Session>> GetSessionsByClinicHospital(int id)
         {
-            List<string> sessionList = new List<string>();
+            List<Session> sessionList = new List<Session>();
 
             try
             {
@@ -473,7 +473,12 @@ namespace Dental_IT
                             //  Check if empty
                             if (obj["TimeRangeSlotString"].ToString().Length != 2)
                             {
-                                sessionList.Add(obj["TimeRangeSlotString"]);
+                                Session session = new Session();
+
+                                session.SlotID = obj["TimeslotIndex"];
+                                session.SlotString = obj["TimeRangeSlotString"];
+
+                                sessionList.Add(session);
                             }                            
                         }
                     }
@@ -571,6 +576,7 @@ namespace Dental_IT
                         }
 
                         UserAccount.Name = jsonDoc[0]["Name"];
+                        UserAccount.ID = jsonDoc[0]["ID"];
                     }
                 }
 

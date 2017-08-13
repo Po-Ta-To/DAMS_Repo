@@ -10,7 +10,6 @@ using Android.Support.V4.View;
 using Dental_IT.Droid.Adapters;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
-using Android.Widget;
 using Dental_IT.Model;
 using Android.Preferences;
 
@@ -95,7 +94,7 @@ namespace Dental_IT.Droid.Main
                             break;
 
                         case Resource.Id.nav_RequestAppt:
-                            intent = new Intent(this, typeof(Request_Appointment));
+                            intent = new Intent(this, typeof(Select_Hospital));
                             StartActivity(intent);
                             break;
 
@@ -156,7 +155,7 @@ namespace Dental_IT.Droid.Main
             logoutConfirm.SetNegativeButton(Resource.String.confirm_logout, delegate
             {
                 //  Remove user session from shared preferences
-                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Remove("remembered");
                 editor.Apply();
@@ -185,7 +184,7 @@ namespace Dental_IT.Droid.Main
             clearConfirm.SetNegativeButton(Resource.String.confirm_clearData, delegate
             {
                 //  Remove user data from shared preferences
-                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Clear();
                 editor.Apply();

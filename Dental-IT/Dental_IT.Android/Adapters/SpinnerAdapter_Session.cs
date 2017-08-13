@@ -6,12 +6,12 @@ using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Adapters
 {
-    class SpinnerAdapter_Dentist : BaseAdapter, ISpinnerAdapter
+    class SpinnerAdapter_Session : BaseAdapter, ISpinnerAdapter
     {
         private readonly Context context;
-        private List<Dentist> items;
+        private List<Session> items;
 
-        public SpinnerAdapter_Dentist(Context c, List<Dentist> i)
+        public SpinnerAdapter_Session(Context c, List<Session> i)
         {
             context = c;
             items = i;
@@ -42,7 +42,7 @@ namespace Dental_IT.Droid.Adapters
                 convertView = inflater.Inflate(Resource.Layout.sublayout_Spinner_View, null);
 
                 TextView itemText = convertView.FindViewById<TextView>(Resource.Id.spinnerItem);
-                itemText.Text = items[position].DentistName;
+                itemText.Text = items[position].SlotString;
             }
 
             return convertView;
@@ -64,14 +64,14 @@ namespace Dental_IT.Droid.Adapters
                 spinnerView = convertView;
             }
 
-            if (items[position].DentistID == 0)
+            if (items[position].SlotID == 0)
             {
                 ((TextView)spinnerView).Text = "";
             }
             else
             {
-                ((TextView)spinnerView).Text = items[position].DentistName;
-            }            
+                ((TextView)spinnerView).Text = items[position].SlotString;
+            }
 
             return spinnerView;
         }

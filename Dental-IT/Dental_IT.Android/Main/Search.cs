@@ -207,7 +207,7 @@ namespace Dental_IT.Droid.Main
             logoutConfirm.SetNegativeButton(Resource.String.confirm_logout, delegate
             {
                 //  Remove user session from shared preferences
-                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Remove("remembered");
                 editor.Apply();
@@ -236,7 +236,7 @@ namespace Dental_IT.Droid.Main
             clearConfirm.SetNegativeButton(Resource.String.confirm_clearData, delegate
             {
                 //  Remove user data from shared preferences
-                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Clear();
                 editor.Apply();

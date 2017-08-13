@@ -3,22 +3,18 @@ using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
 using System.Collections.Generic;
 using Dental_IT.Droid.Adapters;
 using Android.Preferences;
 using Android.Support.V7.App;
 using System;
 using System.Threading.Tasks;
-using System.Json;
-using System.Net;
-using System.IO;
 using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Select_Hospital : AppCompatActivity, Android.Support.V7.Widget.SearchView.IOnQueryTextListener
+    public class Select_Hospital : AppCompatActivity, SearchView.IOnQueryTextListener
     {
         private List<Hospital> hospitalList = new List<Hospital>();
         private List<Hospital> tempHospitalList = new List<Hospital>();
@@ -26,7 +22,7 @@ namespace Dental_IT.Droid.Main
         private List<int> prefList = new List<int>();
         RecyclerViewAdapter_SelectHospital adapter;
         private List<ToggleState> tempFavouriteList = new List<ToggleState>();
-        private Android.Support.V7.Widget.SearchView searchView;
+        private SearchView searchView;
 
         API api = new API();
 
@@ -41,7 +37,7 @@ namespace Dental_IT.Droid.Main
             RecyclerView selectHospital_RecyclerView = FindViewById<RecyclerView>(Resource.Id.selectHospital_RecyclerView);
 
             //  Set searchview listener
-            searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
+            searchView = FindViewById<SearchView>(Resource.Id.searchView);
             searchView.SetOnQueryTextListener(this);
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);

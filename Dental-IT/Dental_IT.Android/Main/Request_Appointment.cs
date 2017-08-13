@@ -10,7 +10,6 @@ using Android.Preferences;
 using Dental_IT.Droid.Adapters;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Net.Http;
 using Dental_IT.Model;
 using System.Collections.Generic;
 using System;
@@ -24,8 +23,25 @@ namespace Dental_IT.Droid.Main
         private NavigationView navigationView;
         private Hospital hosp;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
-        private List<string> sessions = new List<string>(){ "Select session" };
-        int[] dentistIDArr;
+        private List<Session> sessions = new List<Session>() { new Session() };
+        private int[] dentistIDArr;
+        private int[] sessionIDArr;
+        private int[] treatmentIDArr;
+        private int userID;
+        private string accessToken;
+
+        private TextView request_HospitalLabel;
+        private EditText request_HospitalField;
+        private TextView request_DateLabel;
+        private EditText request_DateField;
+        private TextView request_DentistLabel;
+        private Spinner request_DentistSpinner;
+        private TextView request_SessionLabel;
+        private Spinner request_SessionSpinner;
+        private Button request_TreatmentsBtn;
+        private TextView request_RemarksLabel;
+        private EditText request_RemarksField;
+        private Button request_SubmitBtn;
 
         API api = new API();
 
@@ -37,18 +53,18 @@ namespace Dental_IT.Droid.Main
             SetContentView(Resource.Layout.Request_Appointment);
 
             //  Create widgets
-            TextView request_HospitalLabel = FindViewById<TextView>(Resource.Id.request_HospitalLabel);
-            EditText request_HospitalField = FindViewById<EditText>(Resource.Id.request_HospitalField);
-            TextView request_DateLabel = FindViewById<TextView>(Resource.Id.request_DateLabel);
-            EditText request_DateField = FindViewById<EditText>(Resource.Id.request_DateField);
-            TextView request_DentistLabel = FindViewById<TextView>(Resource.Id.request_DentistLabel);
-            Spinner request_DentistSpinner = FindViewById<Spinner>(Resource.Id.request_DentistSpinner);
-            TextView request_SessionLabel = FindViewById<TextView>(Resource.Id.request_SessionLabel);
-            Spinner request_SessionSpinner = FindViewById<Spinner>(Resource.Id.request_SessionSpinner);
-            Button request_TreatmentsBtn = FindViewById<Button>(Resource.Id.request_TreatmentsBtn);
-            TextView request_RemarksLabel = FindViewById<TextView>(Resource.Id.request_RemarksLabel);
-            EditText request_RemarksField = FindViewById<EditText>(Resource.Id.request_RemarksField);
-            Button request_SubmitBtn = FindViewById<Button>(Resource.Id.request_SubmitBtn);
+            request_HospitalLabel = FindViewById<TextView>(Resource.Id.request_HospitalLabel);
+            request_HospitalField = FindViewById<EditText>(Resource.Id.request_HospitalField);
+            request_DateLabel = FindViewById<TextView>(Resource.Id.request_DateLabel);
+            request_DateField = FindViewById<EditText>(Resource.Id.request_DateField);
+            request_DentistLabel = FindViewById<TextView>(Resource.Id.request_DentistLabel);
+            request_DentistSpinner = FindViewById<Spinner>(Resource.Id.request_DentistSpinner);
+            request_SessionLabel = FindViewById<TextView>(Resource.Id.request_SessionLabel);
+            request_SessionSpinner = FindViewById<Spinner>(Resource.Id.request_SessionSpinner);
+            request_TreatmentsBtn = FindViewById<Button>(Resource.Id.request_TreatmentsBtn);
+            request_RemarksLabel = FindViewById<TextView>(Resource.Id.request_RemarksLabel);
+            request_RemarksField = FindViewById<EditText>(Resource.Id.request_RemarksField);
+            request_SubmitBtn = FindViewById<Button>(Resource.Id.request_SubmitBtn);
 
             //  Shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
@@ -64,12 +80,12 @@ namespace Dental_IT.Droid.Main
                 RemoveFromPreferences(prefs, editor);
 
                 //  Receive hospital name data from intent
-                hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("newRequest_Hospital"));
+                hosp = JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("newRequest_Hospital"));
             }
             else
             {
                 //  Receive data from shared preferences
-                hosp = Newtonsoft.Json.JsonConvert.DeserializeObject<Hospital>(prefs.GetString("hospital", "null"));
+                hosp = JsonConvert.DeserializeObject<Hospital>(prefs.GetString("hospital", "null"));
                 request_DateField.Text = prefs.GetString("date", GetString(Resource.String.select_date));
             }
 
@@ -82,27 +98,42 @@ namespace Dental_IT.Droid.Main
                     List<Dentist> tempDentistList = await api.GetDentistsByClinicHospital(hosp.ID);
                     dentistIDArr = new int[tempDentistList.Count];
 
-                    int count = 0;
+                    int x = 0;
 
                     foreach (Dentist den in tempDentistList)
                     {
                         dentists.Add(den);
-                        dentistIDArr[count] = den.DentistID;
+                        dentistIDArr[x] = den.DentistID;
+
+                        x++;
                     }
 
                     //  Get sessions
-                    List<string> tempSessionList = await api.GetSessionsByClinicHospital(hosp.ID);
+                    List<Session> tempSessionList = await api.GetSessionsByClinicHospital(hosp.ID);
+                    sessionIDArr = new int[tempSessionList.Count];
 
-                    foreach (string session in tempSessionList)
+                    int y = 0;
+
+                    foreach (Session session in tempSessionList)
                     {
                         sessions.Add(session);
+                        sessionIDArr[y] = session.SlotID;
+
+                        y++;
                     }
 
                     RunOnUiThread(() =>
                     {
                         //  Configure spinner adapter for dentist and session dropdowns
                         request_DentistSpinner.Adapter = new SpinnerAdapter_Dentist(this, dentists);
-                        request_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
+                        request_SessionSpinner.Adapter = new SpinnerAdapter_Session(this, sessions);
+
+                        if (i.GetStringExtra("newRequest_Hospital") == null)
+                        {
+                            //  Receive spinner data from shared preferences
+                            request_DentistSpinner.SetSelection(prefs.GetInt("dentist", 0));
+                            request_SessionSpinner.SetSelection(prefs.GetInt("session", 0));
+                        }
                     });
                 }
                 catch (Exception e)
@@ -214,8 +245,6 @@ namespace Dental_IT.Droid.Main
             //  Handle request button
             request_SubmitBtn.Click += delegate
             {
-                //Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
-
                 //  Close keyboard
                 InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
                 inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
@@ -223,24 +252,73 @@ namespace Dental_IT.Droid.Main
                 // Randomly generate a 3 digit number
                 int rgNumber = (new Random()).Next(100, 1000);
 
+                //  Retrieve access token
+                if (prefs.Contains("token"))
+                {
+                    accessToken = prefs.GetString("token", "");
+                }
+
+                //  Get UserID
+                if (prefs.Contains("userID"))
+                {
+                    userID = prefs.GetInt("userID", 0);
+                }
+
+                //  Get selected treatments
+                if (prefs.Contains("treatments"))
+                {
+                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("treatments", "null"));
+
+                    treatmentIDArr = new int[tempTreatmentIDList.Count];
+
+                    int count = 0;
+
+                    foreach (int id in tempTreatmentIDList)
+                    {
+                        treatmentIDArr[count] = id;
+                        count++;
+                    }
+                }
+
                 // Create new appointment
-                Appointment appt = new Appointment()
+                AppointmentRequest appt = new AppointmentRequest()
                 {
                     AppointmentID = "A" + rgNumber,
-                    UserID = 1,
+                    UserID = userID,
                     ClinicHospitalID = hosp.ID,
                     PreferredDate = request_DateField.Text,
-                    //PreferredTime = request_SessionSpinner.getSelectedItemPosition(), //Session
-                    //RequestDoctorDentistID = dentistIDArr[request_DentistSpinner.getSelectedItemPosition()],
-                    // Treatments
+                    PreferredTime = sessionIDArr[request_SessionSpinner.SelectedItemPosition],
+                    RequestDoctorDentistID = dentistIDArr[request_DentistSpinner.SelectedItemPosition],
+                    Treatments = treatmentIDArr,
                     Remarks = request_RemarksField.Text
                 };
 
                 // Post the appointment
-                // api.PostAppointment(appt + "");
+                switch (api.PostAppointment(JsonConvert.SerializeObject(appt), accessToken))
+                {
+                    //  Successful
+                    case 1:
+                        Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
 
-                Intent intent = new Intent(this, typeof(My_Appointments));
-                StartActivity(intent);
+                        Intent intent = new Intent(this, typeof(My_Appointments));
+                        StartActivity(intent);
+                        break;
+
+                    //  Invalid request
+                    case 2:
+                        Toast.MakeText(this, Resource.String.invalid_request, ToastLength.Short).Show();
+                        break;
+
+                    //  No internet connectivity
+                    case 3:
+                        Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
+                        break;
+
+                    //  Backend problem
+                    case 4:
+                        Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                        break;
+                }
             };
         }
 
@@ -269,7 +347,9 @@ namespace Dental_IT.Droid.Main
             //  Save hospital name to shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
-            editor.PutString("hospital", Newtonsoft.Json.JsonConvert.SerializeObject(hosp));
+            editor.PutString("hospital", JsonConvert.SerializeObject(hosp));
+            editor.PutInt("dentist", request_DentistSpinner.SelectedItemPosition);
+            editor.PutInt("session", request_SessionSpinner.SelectedItemPosition);
             editor.Apply();
         }
 
@@ -294,22 +374,19 @@ namespace Dental_IT.Droid.Main
                 editor.Remove("date");
             }
 
+            //  Remove selected dentist from shared preferences
+            if (prefs.Contains("dentist"))
+            {
+                editor.Remove("dentist");
+            }
+
+            //  Remove selected session from shared preferences
+            if (prefs.Contains("session"))
+            {
+                editor.Remove("session");
+            }
+
             editor.Apply();
         }
-
-        //// Method that Post an appointment using passed url & item value
-        //public async Task RequestAppointment(string url, Appointment appt)
-        //{
-        //    var json = JsonConvert.SerializeObject(appt);
-        //    var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        //    HttpResponseMessage response = null;
-        //    response = await client.PostAsync(new Uri(url), content);
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        Debug.WriteLine("Appointment successfully saved.");
-        //    }
-        //}
     }
 }

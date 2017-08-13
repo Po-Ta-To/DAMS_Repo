@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Dental_IT.Model;
 using Android.Preferences;
 using System;
-using Java.Util;
 
 namespace Dental_IT.Droid.Main
 {

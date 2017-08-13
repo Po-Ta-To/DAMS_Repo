@@ -93,8 +93,9 @@ namespace Dental_IT.Droid.Main
                                     editor.Apply();
                                 }
 
-                                //  Save name to shared preferences
+                                //  Save name and userID to shared preferences
                                 editor.PutString("name", UserAccount.Name);
+                                editor.PutInt("userID", UserAccount.ID);
                                 editor.Apply();
 
                                 //  Redirect to main menu

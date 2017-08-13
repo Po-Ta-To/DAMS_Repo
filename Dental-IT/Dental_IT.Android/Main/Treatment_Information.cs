@@ -7,25 +7,21 @@ using Android.Views;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
-using Android.Widget;
 using Android.Content;
 using System;
 using System.Threading.Tasks;
-using System.Json;
-using System.Net;
-using System.IO;
 using Dental_IT.Model;
 using Android.Preferences;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class Treatment_Information : AppCompatActivity, Android.Support.V7.Widget.SearchView.IOnQueryTextListener
+    public class Treatment_Information : AppCompatActivity, SearchView.IOnQueryTextListener
     {
         private List<Treatment> tempTreatmentList = new List<Treatment>();
 
         private RecyclerView treatmentInformation_RecyclerView;
-        private Android.Support.V7.Widget.SearchView searchView;
+        private SearchView searchView;
         private RecyclerViewAdapter_TreatmentInformation adapter;
         private Intent intent;
 
@@ -45,7 +41,7 @@ namespace Dental_IT.Droid.Main
             treatmentInformation_RecyclerView = FindViewById<RecyclerView>(Resource.Id.treatmentInformation_RecyclerView);
 
             //  Set searchview listener
-            searchView = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.searchView);
+            searchView = FindViewById<SearchView>(Resource.Id.searchView);
             searchView.SetOnQueryTextListener(this);
 
             //  Main data retrieving + processing method
@@ -110,7 +106,7 @@ namespace Dental_IT.Droid.Main
                             break;
 
                         case Resource.Id.nav_RequestAppt:
-                            intent = new Intent(this, typeof(Request_Appointment));
+                            intent = new Intent(this, typeof(Select_Hospital));
                             StartActivity(intent);
                             break;
 
@@ -206,7 +202,7 @@ namespace Dental_IT.Droid.Main
             logoutConfirm.SetNegativeButton(Resource.String.confirm_logout, delegate
             {
                 //  Remove user session from shared preferences
-                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Remove("remembered");
                 editor.Apply();
@@ -235,7 +231,7 @@ namespace Dental_IT.Droid.Main
             clearConfirm.SetNegativeButton(Resource.String.confirm_clearData, delegate
             {
                 //  Remove user data from shared preferences
-                ISharedPreferences prefs = Android.Preferences.PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
                 editor.Clear();
                 editor.Apply();

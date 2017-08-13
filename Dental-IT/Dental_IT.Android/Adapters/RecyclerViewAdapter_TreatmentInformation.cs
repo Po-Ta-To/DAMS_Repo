@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using Dental_IT.Droid.Fragments;
 using Android.OS;
 using Dental_IT.Droid.Main;
-using System;
 using Dental_IT.Model;
 
 namespace Dental_IT.Droid.Adapters

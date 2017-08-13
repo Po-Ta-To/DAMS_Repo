@@ -33,10 +33,10 @@
   <string name="select_date">Select date</string>
   <string name="pref_dentist">Preferred dentist (optional) :</string>
   <string name="select_dentist">Select dentist</string>
-  <string name="pref_session">Preferred session :</string>
+  <string name="pref_session">Preferred session (optional) :</string>
   <string name="select_session">Select session</string>
   <string name="select_treatments">Select treatment(s)</string>
-  <string name="remarks">Remarks :</string>
+  <string name="remarks">Remarks (optional) :</string>
   <string name="submit">Submit</string>
   <string name="date">Date :</string>
   <string name="dentist">Dentist :</string>
@@ -113,4 +113,5 @@
   <string name="confirm_logout">Logout</string>
   <string name="clearData_text">This will sign you out and clear all user data such as current login session and favourited hospital/clinics. It will NOT make any changes to your appointments or account details. Proceed to clear user data?</string>
   <string name="confirm_clearData">Clear</string>
+  <string name="invalid_request">Unable to submit your request. Please check all fields.</string>
 </resources>

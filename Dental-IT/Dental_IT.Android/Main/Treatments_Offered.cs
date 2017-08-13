@@ -5,8 +5,6 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Support.V7.App;
-using Android.Support.V4.Widget;
-using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
 using Dental_IT.Droid.Adapters;
 using Dental_IT.Model;
@@ -20,9 +18,6 @@ namespace Dental_IT.Droid.Main
     {
         private List<Treatment> list = new List<Treatment>();
 
-        DrawerLayout drawerLayout;
-        NavigationView navigationView;
-        private string hospitalName;
         RecyclerViewAdapter_TreatmentInformation adapter;
         private Hospital hosp;
 
