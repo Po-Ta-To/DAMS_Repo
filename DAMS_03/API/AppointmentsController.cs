@@ -164,6 +164,11 @@ namespace DAMS_03.API
             newAppointment.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
             newAppointment.Remarks = appointment.Remarks;
 
+            //set confirmed dentist, date and time to preferred values, fields are nullable
+            newAppointment.DoctorDentistID = appointment.RequestDoctorDentistID;
+            newAppointment.AppointmentDate = appointment.PreferredDate;
+            newAppointment.AppointmentTime = appointment.PreferredTime;
+
             // Add the new appointment 
             db.Appointments.Add(newAppointment);
             db.SaveChanges();
