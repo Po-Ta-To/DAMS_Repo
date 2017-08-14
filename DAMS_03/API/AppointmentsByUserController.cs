@@ -50,22 +50,27 @@ namespace DAMS_03.API
             foreach (var appointment in appointments)
             {
                 string approvalString = "";
+                System.DateTime? apptDate = new System.DateTime();
+                 
                 switch (appointment.ApprovalState)
                 {
                     case 1:
                         approvalString = "Pending";
+                        apptDate = appointment.PreferredDate;
                         break;
                     case 2:
                         approvalString = "Cancelled";
                         break;
                     case 3:
                         approvalString = "Confirmed";
+                        apptDate = appointment.AppointmentDate;
                         break;
                     case 4:
                         approvalString = "Declined";
                         break;
                     case 5:
                         approvalString = "Completed";
+                        apptDate = appointment.AppointmentDate;
                         break;
                     default:
                         approvalString = "Error";
@@ -119,7 +124,7 @@ namespace DAMS_03.API
                     PreferredDate = appointment.PreferredDate,
                     PreferredTime = appointment.PreferredTime,
                     Remarks = appointment.Remarks,
-                    AppointmentDate = appointment.AppointmentDate,
+                    AppointmentDate = apptDate,
                     AppointmentTime = appointment.AppointmentTime,
                     PreferredTime_s = insertTimeslotPreferred,
                     AppointmentTime_s = insertTimeslotFinal
@@ -190,7 +195,7 @@ namespace DAMS_03.API
             public string ClinicHospitalName { get; set; }
             public int ClinicHospitalID { get; set; }
             public string ApprovalState { get; set; }
-            public System.DateTime PreferredDate { get; set; }
+            public System.DateTime? PreferredDate { get; set; }
             public int PreferredTime { get; set; }
             public string PreferredTime_s { get; set; }
             public string DoctorDentistName { get; set; }
