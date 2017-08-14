@@ -51,26 +51,34 @@ namespace DAMS_03.API
             {
                 string approvalString = "";
                 System.DateTime? apptDate = new System.DateTime();
-                 
+                int? apptTime = appointment.AppointmentTime;
+                                 
                 switch (appointment.ApprovalState)
                 {
                     case 1:
                         approvalString = "Pending";
-                        apptDate = appointment.PreferredDate;
+                        if(appointment.AppointmentDate == null)
+                        {
+                            apptDate = appointment.PreferredDate;
+                        }
+                        if (appointment.AppointmentTime == null)
+                        {
+                            apptTime = appointment.PreferredTime;
+                        }
                         break;
                     case 2:
                         approvalString = "Cancelled";
                         break;
                     case 3:
                         approvalString = "Confirmed";
-                        apptDate = appointment.AppointmentDate;
+                        //apptDate = appointment.AppointmentDate;
                         break;
                     case 4:
                         approvalString = "Declined";
                         break;
                     case 5:
                         approvalString = "Completed";
-                        apptDate = appointment.AppointmentDate;
+                        //apptDate = appointment.AppointmentDate;
                         break;
                     default:
                         approvalString = "Error";
@@ -125,7 +133,7 @@ namespace DAMS_03.API
                     PreferredTime = appointment.PreferredTime,
                     Remarks = appointment.Remarks,
                     AppointmentDate = apptDate,
-                    AppointmentTime = appointment.AppointmentTime,
+                    AppointmentTime = apptTime,
                     PreferredTime_s = insertTimeslotPreferred,
                     AppointmentTime_s = insertTimeslotFinal
                 };
@@ -161,7 +169,9 @@ namespace DAMS_03.API
                 }
                 else
                 {
-                    addAppt.DoctorDentistName = "Unassigned";
+                    addAppt.DoctorDentistName = reqDoc.RequestDoctorDentistName;
+                    addAppt.DoctorDentistID = reqDoc.RequestDoctorDentistID;
+                    //addAppt.DoctorDentistName = "Unassigned";
                     //addModel.DoctorDentistID = 0;
                 }
                 returnApptList.Add(addAppt);
