@@ -91,11 +91,11 @@ namespace Dental_IT.Droid.Main
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             });
 
-            //  Intent to redirect to update appointment page
+            //  Handle update button
             apptDetails_UpdateBtn.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Update_Appointment));
-                intent.PutExtra("update_HospitalName", apptDetails_HospitalText.Text);
+                intent.PutExtra("update_Appointment", Newtonsoft.Json.JsonConvert.SerializeObject(appointment));
                 StartActivity(intent);
             };
 

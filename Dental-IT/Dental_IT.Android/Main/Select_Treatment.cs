@@ -22,6 +22,8 @@ namespace Dental_IT.Droid.Main
         private List<ToggleState> tempSelectedList = new List<ToggleState>();
         private RecyclerView selectTreatment_RecyclerView;
 
+        private int hospId;
+
         API api = new API();
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -35,8 +37,25 @@ namespace Dental_IT.Droid.Main
             selectTreatment_RecyclerView = FindViewById<RecyclerView>(Resource.Id.selectTreatment_RecyclerView);
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
 
-            //  Receive data from request appointment
-            int hospId = Intent.GetIntExtra("selectTreatment_HospId", 0);
+            //  Get intents
+            Intent i = Intent;
+
+            //  If redirected from request appointment
+            if (i.GetIntExtra("selectTreatmentFromRequest_HospId", 0) != null)
+            {
+                //  Receive data from request appointment
+                hospId = i.GetIntExtra("selectTreatmentFromRequest_HospId", 0);
+            }
+            //  Else if redirected from update appointment
+            else if (i.GetIntExtra("selectTreatmentFromUpdate_HospId", 0) != null)
+            {
+                //  Receive data from update appointment
+                hospId = i.GetIntExtra("selectTreatmentFromUpdate_HospId", 0);
+            }
+            else
+            {
+                hospId = 0;
+            }
 
             //  Main data retrieving + processing method
             Task.Run(async () =>
