@@ -27,7 +27,7 @@ namespace DAMS_03.API
                                join User in db.UserAccounts on Appointment.UserID equals User.ID
                                join anu in db.AspNetUsers on User.AspNetID equals anu.Id
                                join ch in db.ClinicHospitals on Appointment.ClinicHospitalID equals ch.ID
-                               orderby Appointment.AppointmentDate ascending
+                               //orderby Appointment.AppointmentDate ascending
                                where anu.UserName == username
                                select new
                                {
@@ -61,9 +61,17 @@ namespace DAMS_03.API
                         {
                             apptDate = appointment.PreferredDate;
                         }
+                        else
+                        {
+                            apptDate = appointment.AppointmentDate;
+                        }
                         if (appointment.AppointmentTime == null)
                         {
                             apptTime = appointment.PreferredTime;
+                        }
+                        else
+                        {
+                            apptTime = appointment.AppointmentTime;
                         }
                         break;
                     case 2:
@@ -176,6 +184,8 @@ namespace DAMS_03.API
                 }
                 returnApptList.Add(addAppt);
             } // End of foreach()
+
+            returnApptList = returnApptList.OrderBy(o => o.AppointmentDate).ToList();
 
             return Ok(returnApptList);
 

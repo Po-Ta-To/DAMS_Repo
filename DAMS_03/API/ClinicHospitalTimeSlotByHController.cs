@@ -23,11 +23,13 @@ namespace DAMS_03.API
                                       TimeslotIndex = ClinicHospitalTimeslot.TimeslotIndex,
                                       TimeRangeSlotString = ClinicHospitalTimeslot.TimeRangeSlotString
                                   }).ToList();
-
+            
             if(chTimeSlotList == null)
             {
                 return NotFound();
             }
+
+            //chTimeSlotList.RemoveAll(x => x.TimeRangeSlotString.Equals(""));
 
             return Ok(chTimeSlotList);
         }
