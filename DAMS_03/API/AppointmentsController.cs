@@ -164,6 +164,11 @@ namespace DAMS_03.API
             newAppointment.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
             newAppointment.Remarks = appointment.Remarks;
 
+            //set confirmed dentist, date and time to preferred values, fields are nullable
+            newAppointment.DoctorDentistID = appointment.RequestDoctorDentistID;
+            newAppointment.AppointmentDate = appointment.PreferredDate;
+            newAppointment.AppointmentTime = appointment.PreferredTime;
+
             // Add the new appointment 
             db.Appointments.Add(newAppointment);
             db.SaveChanges();
@@ -202,7 +207,7 @@ namespace DAMS_03.API
 
                 // Update the Appointment table
                 apptToBeUpdated.ClinicHospitalID = appointment.ClinicHospitalID;
-                apptToBeUpdated.ApprovalState = 1;
+                apptToBeUpdated.ApprovalState = 1; // Approval state will be set to pending
                 apptToBeUpdated.PreferredDate = appointment.PreferredDate;
                 apptToBeUpdated.PreferredTime = appointment.PreferredTime;
                 apptToBeUpdated.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
@@ -233,22 +238,6 @@ namespace DAMS_03.API
             }
             return Ok();
         }
-
-        //// DELETE: api/Appointments/5
-        //[ResponseType(typeof(Appointment))]
-        //public IHttpActionResult DeleteAppointment(int id)
-        //{
-        //    Appointment appointment = db.Appointments.Find(id);
-        //    if (appointment == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.Appointments.Remove(appointment);
-        //    db.SaveChanges();
-
-        //    return Ok(appointment);
-        //}
 
         protected override void Dispose(bool disposing)
         {

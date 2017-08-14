@@ -27,7 +27,7 @@ namespace DAMS_03.API
                                join User in db.UserAccounts on Appointment.UserID equals User.ID
                                join anu in db.AspNetUsers on User.AspNetID equals anu.Id
                                join ch in db.ClinicHospitals on Appointment.ClinicHospitalID equals ch.ID
-                               orderby Appointment.AppointmentDate ascending
+                               //orderby Appointment.AppointmentDate ascending
                                where anu.UserName == username
                                select new
                                {
@@ -51,26 +51,42 @@ namespace DAMS_03.API
             {
                 string approvalString = "";
                 System.DateTime? apptDate = new System.DateTime();
-                 
+                int? apptTime = appointment.AppointmentTime;
+                                 
                 switch (appointment.ApprovalState)
                 {
                     case 1:
                         approvalString = "Pending";
-                        apptDate = appointment.PreferredDate;
+                        if(appointment.AppointmentDate == null)
+                        {
+                            apptDate = appointment.PreferredDate;
+                        }
+                        else
+                        {
+                            apptDate = appointment.AppointmentDate;
+                        }
+                        if (appointment.AppointmentTime == null)
+                        {
+                            apptTime = appointment.PreferredTime;
+                        }
+                        else
+                        {
+                            apptTime = appointment.AppointmentTime;
+                        }
                         break;
                     case 2:
                         approvalString = "Cancelled";
                         break;
                     case 3:
                         approvalString = "Confirmed";
-                        apptDate = appointment.AppointmentDate;
+                        //apptDate = appointment.AppointmentDate;
                         break;
                     case 4:
                         approvalString = "Declined";
                         break;
                     case 5:
                         approvalString = "Completed";
-                        apptDate = appointment.AppointmentDate;
+                        //apptDate = appointment.AppointmentDate;
                         break;
                     default:
                         approvalString = "Error";
@@ -106,10 +122,10 @@ namespace DAMS_03.API
                                                           }).ToList();
 
                 string insertTimeslotPreferred = timeslots[appointment.PreferredTime].TimeRangeSlotString;
-                string insertTimeslotFinal = "Not Confirmed";
-                if (appointment.AppointmentTime != null)
+                string insertTimeslotFinal = "Error";
+                if (apptTime != null)
                 {
-                    insertTimeslotFinal = timeslots[(int)appointment.AppointmentTime].TimeRangeSlotString;
+                    insertTimeslotFinal = timeslots[(int)apptTime].TimeRangeSlotString;
                 }
 
                 AppointmentApiHelperModel addAppt = new AppointmentApiHelperModel()
@@ -125,7 +141,7 @@ namespace DAMS_03.API
                     PreferredTime = appointment.PreferredTime,
                     Remarks = appointment.Remarks,
                     AppointmentDate = apptDate,
-                    AppointmentTime = appointment.AppointmentTime,
+                    AppointmentTime = apptTime,
                     PreferredTime_s = insertTimeslotPreferred,
                     AppointmentTime_s = insertTimeslotFinal
                 };
@@ -161,11 +177,15 @@ namespace DAMS_03.API
                 }
                 else
                 {
-                    addAppt.DoctorDentistName = "Unassigned";
+                    addAppt.DoctorDentistName = reqDoc.RequestDoctorDentistName;
+                    addAppt.DoctorDentistID = reqDoc.RequestDoctorDentistID;
+                    //addAppt.DoctorDentistName = "Unassigned";
                     //addModel.DoctorDentistID = 0;
                 }
                 returnApptList.Add(addAppt);
             } // End of foreach()
+
+            returnApptList = returnApptList.OrderBy(o => o.AppointmentDate).ToList();
 
             return Ok(returnApptList);
 

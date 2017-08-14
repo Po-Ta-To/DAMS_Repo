@@ -171,6 +171,7 @@ namespace Dental_IT.Droid.Main
             request_DateField.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Calendar_Select));
+                intent.PutExtra("selectDate_From", "Request");
                 StartActivity(intent);
             };
 
@@ -178,7 +179,7 @@ namespace Dental_IT.Droid.Main
             request_TreatmentsBtn.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Select_Treatment));
-                intent.PutExtra("selectTreatment_HospId", hosp.ID);
+                intent.PutExtra("selectTreatmentFromRequest_HospId", hosp.ID);
                 StartActivity(intent);
             };
 
