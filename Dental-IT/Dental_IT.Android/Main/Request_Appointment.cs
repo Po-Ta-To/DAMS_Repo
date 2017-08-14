@@ -19,8 +19,6 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Request_Appointment : AppCompatActivity
     {
-        private DrawerLayout drawerLayout;
-        private NavigationView navigationView;
         private Hospital hosp;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<Session> sessions = new List<Session>() { new Session() };
@@ -164,67 +162,9 @@ namespace Dental_IT.Droid.Main
                 toolbar.SetTitle(Resource.String.request_title);
                 SetSupportActionBar(toolbar);
 
-                //Set navigation drawer
-                SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+                //Set backarrow as Default
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-                drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-                navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-                navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
-                navigationView.InflateMenu(Resource.Menu.nav_menu);
-                navigationView.SetCheckedItem(Resource.Id.nav_RequestAppt);
-                navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(UserAccount.Name);
-
-                navigationView.NavigationItemSelected += (sender, e) =>
-                {
-                    Intent intent;
-                    switch (e.MenuItem.ItemId)
-                    {
-                        case Resource.Id.nav_Home:
-                            intent = new Intent(this, typeof(Main_Menu));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_RequestAppt:
-                            intent = new Intent(this, typeof(Request_Appointment));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_MyAppt:
-                            intent = new Intent(this, typeof(My_Appointments));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_TreatmentInfo:
-                            intent = new Intent(this, typeof(Treatment_Information));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_Search:
-                            intent = new Intent(this, typeof(Search));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_Logout:
-
-                            //  Remove user session from shared preferences
-                            editor.Remove("remembered");
-                            editor.Apply();
-
-                            //  Clear user data
-                            UserAccount.AccessToken = null;
-                            UserAccount.Name = null;
-
-                            //  Redirect to sign in page
-                            intent = new Intent(this, typeof(Sign_In));
-                            StartActivity(intent);
-
-                            break;
-                    }
-
-                    //  React to click here and swap fragments or navigate
-                    drawerLayout.CloseDrawers();
-                };
             });
 
             //  Intent to redirect to calendar page
@@ -332,12 +272,8 @@ namespace Dental_IT.Droid.Main
         //Toast displayed and redirected to SignIn page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            switch (item.ItemId)
-            {
-                case Android.Resource.Id.Home:
-                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
-                    return true;
-            }
+            Intent intent = new Intent(this, typeof(Select_Hospital));
+            StartActivity(intent);
             return base.OnOptionsItemSelected(item);
         }
 
