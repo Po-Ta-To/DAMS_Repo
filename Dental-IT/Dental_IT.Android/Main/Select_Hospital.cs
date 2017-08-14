@@ -179,19 +179,24 @@ namespace Dental_IT.Droid.Main
             };
         }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
+
         //  Implement menus in the action bar; backarrow
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return true;
         }
 
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            Intent intent = new Intent(this, typeof(Request_Appointment));
-            StartActivity(intent);
-            return base.OnOptionsItemSelected(item);
-        }
 
         protected override void OnStop()
         {
