@@ -145,6 +145,7 @@ namespace DAMS_03.API
         }
 
         // POST: api/Appointments
+        [HttpPost]
         [ResponseType(typeof(Appointment))]
         public IHttpActionResult PostAppointment(AppointmentCreateModel appointment)
         {
@@ -193,9 +194,12 @@ namespace DAMS_03.API
         }
 
         // PUT: api/Appointments/5
+        [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAppointment(int id, AppointmentCreateModel appointment)
+        public IHttpActionResult PutAppointment(AppointmentCreateModel appointment)
         {
+            var id = appointment.ID;
+
             if (db.Appointments.Find(id) == null)
             {
                 return NotFound();
@@ -206,7 +210,7 @@ namespace DAMS_03.API
                 Appointment apptToBeUpdated = db.Appointments.Find(id);
 
                 // Update the Appointment table
-                apptToBeUpdated.ClinicHospitalID = appointment.ClinicHospitalID;
+                //apptToBeUpdated.ClinicHospitalID = appointment.ClinicHospitalID;
                 apptToBeUpdated.ApprovalState = 1; // Approval state will be set to pending
                 apptToBeUpdated.PreferredDate = appointment.PreferredDate;
                 apptToBeUpdated.PreferredTime = appointment.PreferredTime;

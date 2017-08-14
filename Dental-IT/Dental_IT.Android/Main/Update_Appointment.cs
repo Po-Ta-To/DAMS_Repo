@@ -25,6 +25,7 @@ namespace Dental_IT.Droid.Main
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<Session> sessions = new List<Session>() { new Session() };
         private Appointment appt;
+        private int apptID;
         private int[] treatmentIDArr;
         private int userID;
         private string accessToken;
@@ -80,6 +81,7 @@ namespace Dental_IT.Droid.Main
 
                 //  Receive appointment data from intent
                 appt = JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("update_Appointment"));
+                apptID = appt.ID;
             }
             else
             {
@@ -194,11 +196,44 @@ namespace Dental_IT.Droid.Main
                     accessToken = prefs.GetString("token", "");
                 }
 
-                // GET the ApptI
+                // Create new appointment to store updated values
+                Appointment apptToBeUpdated = new Appointment()
+                {
+                    ID = apptID,
+                    UserID = userID,
+                    PreferredDate = update_DateField.Text,
+                    PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
+                    RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
+                    Treatments = treatmentIDArr,
+                    Remarks = update_RemarksField.Text
+                };
 
+                // Post the appointment
+                switch (api.PutAppointment(JsonConvert.SerializeObject(apptToBeUpdated), accessToken))
+                {
+                    //  Successful
+                    case 1:
+                        Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
 
-                Intent intent = new Intent(this, typeof(My_Appointments));
-                StartActivity(intent);
+                        Intent intent = new Intent(this, typeof(My_Appointments));
+                        StartActivity(intent);
+                        break;
+
+                    //  Invalid request
+                    case 2:
+                        Toast.MakeText(this, Resource.String.invalid_request, ToastLength.Short).Show();
+                        break;
+
+                    //  No internet connectivity
+                    case 3:
+                        Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
+                        break;
+
+                    //  Backend problem
+                    case 4:
+                        Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                        break;
+                }
             };
         }
 
