@@ -20,6 +20,7 @@ namespace Dental_IT.Droid.Main
     {
         private static Java.Text.DateFormat formatter = Java.Text.DateFormat.DateInstance;
         private string selectedDate;
+        private string prefString;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -59,6 +60,26 @@ namespace Dental_IT.Droid.Main
             dates2.Add(g);
             dates2.Add(h);
 
+            //  Get intents
+            Intent i = Intent;
+
+            //  Check which appointment page it is redirected from
+            if (i.GetStringExtra("selectDate_From") != null)
+            {
+                if (i.GetStringExtra("selectDate_From").Equals("Request"))
+                {
+                    prefString = "request_Date";
+                }
+                else if (i.GetStringExtra("selectDate_From").Equals("Update"))
+                {
+                    prefString = "update_Date";
+                }
+            }
+            else
+            {
+                prefString = null;
+            }
+
             RunOnUiThread(() =>
             {
                 //  Set initial select date
@@ -92,7 +113,7 @@ namespace Dental_IT.Droid.Main
                 //  Save selected date to shared preferences
                 ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 ISharedPreferencesEditor editor = prefs.Edit();
-                editor.PutString("date", selectedDate);
+                editor.PutString(prefString, selectedDate);
                 editor.Apply();
 
                 Intent intent = new Intent(this, typeof(Request_Appointment));

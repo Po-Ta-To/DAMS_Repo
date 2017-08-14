@@ -220,6 +220,8 @@ namespace Dental_IT
         {
             List<Appointment> appointmentList = new List<Appointment>();
             List<string> treatmentsList = new List<string>();
+            List<int> treatmentsIDList = new List<int>();
+            int[] treatmentIDArr;
             string treatments;
 
             try
@@ -246,22 +248,38 @@ namespace Dental_IT
                             System.Diagnostics.Debug.WriteLine("Obj: " + obj.ToString());
 
                             treatmentsList.Clear();
+                            treatmentsIDList.Clear();
 
                             foreach (JsonObject treatment in obj["listOfTreatments"])
                             {
                                 treatmentsList.Add(treatment["TreatmentName"]);
+                                treatmentsIDList.Add(treatment["ID"]);
                             }
 
                             treatments = String.Join(", ", treatmentsList);
 
+                            treatmentIDArr = new int[treatmentsIDList.Count];
+
+                            int x = 0;
+
+                            foreach (int id in treatmentsIDList)
+                            {
+                                treatmentIDArr[x] = id;
+                                x++;
+                            }
+
                             Appointment appointment = new Appointment()
                             {
                                 ID = obj["ID"],
-                                Treatments = treatments,
+                                Treatments = treatmentIDArr,
+                                TreatmentsName = treatments,
                                 ClinicHospital = obj["ClinicHospitalName"],
-                                Dentist = obj["DoctorDentistName"],
+                                ClinicHospitalID = obj["ClinicHospitalID"],
+                                DoctorDentistID = obj["DoctorDentistID"],
+                                DentistName = obj["DoctorDentistName"],
                                 Date = DateTime.Parse(obj["AppointmentDate"]),
-                                Time = obj["AppointmentTime_s"],
+                                AppointmentTime = obj["AppointmentTime"],
+                                TimeString = obj["AppointmentTime_s"],
                                 Status = obj["ApprovalState"]
                             };
 
@@ -279,7 +297,7 @@ namespace Dental_IT
             }
         }
 
-        // CANCEL Appointment
+        //  Cancel Appointment
         public async Task<JsonValue> CancelAppointment(int apptID)
         {
             try
@@ -357,7 +375,7 @@ namespace Dental_IT
             }
         }
 
-        // POST Appointment
+        //  Post Appointment
         public int PostAppointment(string newAppt, string accessToken)
         {
             try
@@ -380,7 +398,49 @@ namespace Dental_IT
             }
             catch (WebException e)
             {
-                System.Diagnostics.Debug.Write("JSON doc: " + e.Data.ToString());
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+
+                // The remote server returned an error: (400) Bad Request.
+                if (e.Message.Contains("400"))
+                {
+                    return 2;
+                }
+                //  Error: ConnectFailure (Network is unreachable)
+                else if (e.Message.Contains("unreachable"))
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 4;
+                }
+            }
+        }
+
+        //  Put Appointment
+        public int PutAppointment(string updateAppt, string accessToken)
+        {
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createAppointment));
+                request.ContentType = "application/JSON";
+                request.Method = "POST";
+                request.Headers.Add("Authorization", "bearer " + accessToken);
+
+                byte[] buffer = Encoding.Default.GetBytes(updateAppt);
+                if (buffer != null)
+                {
+                    request.ContentLength = buffer.Length;
+                    request.GetRequestStream().Write(buffer, 0, buffer.Length);
+                }
+
+                WebResponse wr = request.GetResponse();
+                return 1;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
 
                 // The remote server returned an error: (400) Bad Request.
                 if (e.Message.Contains("400"))

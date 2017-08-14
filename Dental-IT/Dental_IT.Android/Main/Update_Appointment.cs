@@ -10,6 +10,10 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Dental_IT.Model;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using Dental_IT.Droid.Adapters;
+using System;
 
 namespace Dental_IT.Droid.Main
 {
@@ -20,8 +24,7 @@ namespace Dental_IT.Droid.Main
         private NavigationView navigationView;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<Session> sessions = new List<Session>() { new Session() };
-        private int[] dentistIDArr;
-        private int[] sessionIDArr;
+        private Appointment appt;
         private int[] treatmentIDArr;
         private int userID;
         private string accessToken;
@@ -48,9 +51,6 @@ namespace Dental_IT.Droid.Main
             //  Set view to update appointment layout
             SetContentView(Resource.Layout.Update_Appointment);
 
-            //  Receive data from select_hospital
-            string hospitalName = Intent.GetStringExtra("update_HospitalName") ?? "Data not available";
-
             //  Create widgets
             update_HospitalLabel = FindViewById<TextView>(Resource.Id.update_HospitalLabel);
             update_HospitalField = FindViewById<EditText>(Resource.Id.update_HospitalField);
@@ -72,21 +72,70 @@ namespace Dental_IT.Droid.Main
             //  Get intents
             Intent i = Intent;
 
-            //  If redirected from hospital details page (New update)
+            //  If redirected from appointment details page (New update)
             if (i.GetStringExtra("update_Appointment") != null)
             {
                 //  Remove old shared preferences
                 RemoveFromPreferences(prefs, editor);
 
-                //  Receive hospital name data from intent
-                hosp = JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("newRequest_Hospital"));
+                //  Receive appointment data from intent
+                appt = JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("update_Appointment"));
             }
             else
             {
                 //  Receive data from shared preferences
-                hosp = JsonConvert.DeserializeObject<Hospital>(prefs.GetString("hospital", "null"));
-                request_DateField.Text = prefs.GetString("date", GetString(Resource.String.select_date));
+                appt = JsonConvert.DeserializeObject<Appointment>(prefs.GetString("appointment", "null"));
+                update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
             }
+
+            //  Retrieve dentist and session data from database
+            Task.Run(async () =>
+            {
+                try
+                {
+                    //  Get dentists
+                    List<Dentist> tempDentistList = await api.GetDentistsByClinicHospital(appt.ClinicHospitalID);
+
+                    foreach (Dentist dentist in tempDentistList)
+                    {
+                        dentists.Add(dentist);
+                    }
+
+                    //  Get sessions
+                    List<Session> tempSessionList = await api.GetSessionsByClinicHospital(appt.ClinicHospitalID);
+
+                    foreach (Session session in tempSessionList)
+                    {
+                        sessions.Add(session);
+                    }
+
+                    RunOnUiThread(() =>
+                    {
+                        //  Configure spinner adapter for dentist and session dropdowns
+                        update_DentistSpinner.Adapter = new SpinnerAdapter_Dentist(this, dentists);
+                        update_SessionSpinner.Adapter = new SpinnerAdapter_Session(this, sessions);
+
+                        if (i.GetStringExtra("update_Appointment") == null)
+                        {
+                            //  Receive spinner data from shared preferences
+                            update_DentistSpinner.SetSelection(prefs.GetInt("update_Dentist", 0));
+                            update_SessionSpinner.SetSelection(prefs.GetInt("update_Session", 0));
+                        }
+                        else
+                        {
+                            //  Receive spinner data from appointment object
+                            int a = dentists.FindIndex(e => e.DentistID == appt.DoctorDentistID);
+                            update_DentistSpinner.SetSelection(dentists.FindIndex(e => e.DentistID == appt.DoctorDentistID));
+                            int b = sessions.FindIndex(e => e.SlotID == appt.AppointmentTime);
+                            update_SessionSpinner.SetSelection(sessions.FindIndex(e => e.SlotID == appt.AppointmentTime));
+                        }
+                    });
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.Write("Obj: " + e.Message + e.StackTrace);
+                }
+            });
 
             RunOnUiThread(() =>
             {
@@ -102,12 +151,10 @@ namespace Dental_IT.Droid.Main
                 update_SessionLabel.SetTypeface(update_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 update_RemarksLabel.SetTypeface(update_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
 
-                //  Set hospital name
-                update_HospitalField.Text = hospitalName;
-
-                //  Configure spinner adapter for dentist and session dropdowns
-                //update_DentistSpinner.Adapter = new SpinnerAdapter(this, dentists, false);
-                //update_SessionSpinner.Adapter = new SpinnerAdapter(this, sessions, false);
+                //  Set appointment details
+                update_HospitalField.Text = appt.ClinicHospital;
+                update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
+                update_RemarksField.Text = appt.Remarks;
 
                 //  Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
@@ -122,6 +169,7 @@ namespace Dental_IT.Droid.Main
             update_DateField.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Calendar_Select));
+                intent.PutExtra("selectDate_From", "Update");
                 StartActivity(intent);
             };
 
@@ -129,6 +177,7 @@ namespace Dental_IT.Droid.Main
             update_TreatmentsBtn.Click += delegate
             {
                 Intent intent = new Intent(this, typeof(Select_Treatment));
+                intent.PutExtra("selectTreatmentFromUpdate_Appointment", JsonConvert.SerializeObject(appt));
                 StartActivity(intent);
             };
 
@@ -169,32 +218,53 @@ namespace Dental_IT.Droid.Main
             return base.OnOptionsItemSelected(item);
         }
 
-        //  List of dentists to populate spinner adapter
-        private string[] dentists =
+        protected override void OnPause()
         {
-            "Select dentist",
-            "Dentist A",
-            "Dentist B",
-            "Dentist C",
-            "Dentist D",
-            "Dentist E",
-            "Dentist F",
-            "Dentist G",
-            "Dentist H",
-            "Dentist I",
-            "Dentist J",
-            "Dentist K",
-            "Dentist L"
-        };
+            base.OnStop();
 
-        //  List of sessions to populate spinner adapter
-        private string[] sessions =
+            //  Save hospital name to shared preferences
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutString("appointment", JsonConvert.SerializeObject(appt));
+            editor.PutInt("update_Dentist", update_DentistSpinner.SelectedItemPosition);
+            editor.PutInt("update_Session", update_SessionSpinner.SelectedItemPosition);
+            editor.Apply();
+        }
+
+        //  Method to remove old shared preferences
+        public void RemoveFromPreferences(ISharedPreferences prefs, ISharedPreferencesEditor editor)
         {
-            "Select session",
-            "Session 1",
-            "Session 2",
-            "Session 3",
-            "Session 4"
-        };
+            //  Remove appointment from shared preferences
+            if (prefs.Contains("appointment"))
+            {
+                editor.Remove("appointment");
+            }
+
+            //  Remove selected treatments from shared preferences
+            if (prefs.Contains("update_Treatments"))
+            {
+                editor.Remove("update_Treatments");
+            }
+
+            //  Remove selected date from shared preferences
+            if (prefs.Contains("update_Date"))
+            {
+                editor.Remove("update_Date");
+            }
+
+            //  Remove selected dentist from shared preferences
+            if (prefs.Contains("update_Dentist"))
+            {
+                editor.Remove("update_Dentist");
+            }
+
+            //  Remove selected session from shared preferences
+            if (prefs.Contains("update_Session"))
+            {
+                editor.Remove("update_Session");
+            }
+
+            editor.Apply();
+        }
     }
 }
