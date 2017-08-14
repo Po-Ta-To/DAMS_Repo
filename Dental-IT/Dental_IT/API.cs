@@ -363,7 +363,7 @@ namespace Dental_IT
             try
             {   
                 // Create an HTTP web request using the URL:
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createUser));
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createAppointment));
                 request.ContentType = "application/JSON";
                 request.Method = "POST";
                 request.Headers.Add("Authorization", "bearer " + accessToken);

@@ -153,11 +153,6 @@ namespace DAMS_03.API
                 return BadRequest(ModelState);
             }
 
-            if (appointment == null)
-            {
-                return BadRequest();
-            }
-
             Appointment newAppointment = new Appointment();
 
             newAppointment.AppointmentID = appointment.AppointmentID;
