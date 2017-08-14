@@ -114,10 +114,10 @@ namespace DAMS_03.API
                                                           }).ToList();
 
                 string insertTimeslotPreferred = timeslots[appointment.PreferredTime].TimeRangeSlotString;
-                string insertTimeslotFinal = "Not Confirmed";
-                if (appointment.AppointmentTime != null)
+                string insertTimeslotFinal = "Error";
+                if (apptTime != null)
                 {
-                    insertTimeslotFinal = timeslots[(int)appointment.AppointmentTime].TimeRangeSlotString;
+                    insertTimeslotFinal = timeslots[(int)apptTime].TimeRangeSlotString;
                 }
 
                 AppointmentApiHelperModel addAppt = new AppointmentApiHelperModel()
