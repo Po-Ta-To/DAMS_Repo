@@ -210,7 +210,6 @@ namespace DAMS_03.API
                 Appointment apptToBeUpdated = db.Appointments.Find(id);
 
                 // Update the Appointment table
-                //apptToBeUpdated.ClinicHospitalID = appointment.ClinicHospitalID;
                 apptToBeUpdated.ApprovalState = 1; // Approval state will be set to pending
                 apptToBeUpdated.PreferredDate = appointment.PreferredDate;
                 apptToBeUpdated.PreferredTime = appointment.PreferredTime;
