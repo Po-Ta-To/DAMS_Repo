@@ -104,6 +104,7 @@ namespace Dental_IT.Droid.Main
                     //  Else if shared preferences is empty, create a temporary list of favourites with all the hospitals, setting all favourited to false by default, or according to selected treatments if from update
                     else
                     {
+                        //  Update appointment
                         if (prefString.Equals("update_Treatments"))
                         {
                             foreach (Treatment treatment in treatmentList)
@@ -118,7 +119,16 @@ namespace Dental_IT.Droid.Main
 
                                 tempSelectedList.Add(tempSelected);
                             }
+
+                            foreach (ToggleState toggle in tempSelectedList)
+                            {
+                                if (toggle.toggled == true)
+                                {
+                                    prefList.Add(toggle.id);
+                                }                                
+                            }
                         }
+                        //  Request appointment
                         else
                         {
                             foreach (Treatment treatment in treatmentList)

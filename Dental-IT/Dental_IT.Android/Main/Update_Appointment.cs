@@ -88,6 +88,7 @@ namespace Dental_IT.Droid.Main
                 //  Receive data from shared preferences
                 appt = JsonConvert.DeserializeObject<Appointment>(prefs.GetString("appointment", "null"));
                 update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
+                update_RemarksField.Text = prefs.GetString("remarks", "");
             }
 
             //  Retrieve dentist and session data from database
@@ -243,8 +244,7 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        //  Redirect to appointment details page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Appointment_Details));
@@ -263,6 +263,7 @@ namespace Dental_IT.Droid.Main
             editor.PutString("appointment", JsonConvert.SerializeObject(appt));
             editor.PutInt("update_Dentist", update_DentistSpinner.SelectedItemPosition);
             editor.PutInt("update_Session", update_SessionSpinner.SelectedItemPosition);
+            editor.PutString("remarks", update_RemarksField.Text);
             editor.Apply();
         }
 

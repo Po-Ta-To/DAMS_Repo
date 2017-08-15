@@ -255,7 +255,7 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        //  Redirect to select hospital page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Select_Hospital));

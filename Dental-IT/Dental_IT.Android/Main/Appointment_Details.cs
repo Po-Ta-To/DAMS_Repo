@@ -162,7 +162,7 @@ namespace Dental_IT.Droid.Main
         }
 
 
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        //  Redirect to my appointments page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(My_Appointments));
