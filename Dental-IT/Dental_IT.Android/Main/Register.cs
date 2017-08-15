@@ -119,7 +119,10 @@ namespace Dental_IT.Droid.Main
                 {
                     //  Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                    if (inputManager != null)
+                    {
+                        inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                    }                    
 
                     //  Create new user
                     User user = new User()
@@ -158,6 +161,10 @@ namespace Dental_IT.Droid.Main
                         //  Backend problem
                         case 4:
                             Toast.MakeText(this, Resource.String.register_error, ToastLength.Short).Show();
+                            break;
+
+                        default:
+                            Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
                             break;
                     }
                 }

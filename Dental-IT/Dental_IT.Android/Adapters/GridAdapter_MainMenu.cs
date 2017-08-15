@@ -66,6 +66,7 @@ namespace Dental_IT.Droid.Adapters
                             context.StartActivity(intent);
                         };
                         break;
+
                     case 2:
                         button.Click += delegate
                         {
@@ -73,6 +74,7 @@ namespace Dental_IT.Droid.Adapters
                             context.StartActivity(intent);
                         };
                         break;
+
                     case 3:
                         button.Click += delegate
                         {
@@ -100,7 +102,7 @@ namespace Dental_IT.Droid.Adapters
         {
             if (e.Action == MotionEventActions.Down)
             {
-                //this.SetColorFilter(new Android.Graphics.Color(context.GetColor(Resource.Color._5_grey)));
+                this.SetColorFilter(new Android.Graphics.Color(context.GetColor(Resource.Color._5_grey)));
             }
             else if (e.Action == MotionEventActions.Up)
             {

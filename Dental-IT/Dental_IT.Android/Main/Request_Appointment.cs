@@ -193,7 +193,10 @@ namespace Dental_IT.Droid.Main
                 {
                     //  Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                    if (inputManager != null)
+                    {
+                        inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                    }
 
                     // Randomly generate a 3 digit number
                     int rgNumber = (new Random()).Next(100, 1000);
@@ -254,6 +257,10 @@ namespace Dental_IT.Droid.Main
                         //  Backend problem
                         case 4:
                             Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                            break;
+
+                        default:
+                            Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
                             break;
                     }
                 }

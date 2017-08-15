@@ -17,6 +17,7 @@ namespace Dental_IT.Droid.Main
     public class Appointment_Details : AppCompatActivity
     {
         private Appointment appointment;
+        private string accessToken;
 
         API api = new API();
 
@@ -121,30 +122,42 @@ namespace Dental_IT.Droid.Main
                 cancelConfirm.SetMessage(Resource.String.cancel_text);
                 cancelConfirm.SetNegativeButton(Resource.String.confirm_cancel, delegate
                 {
-                    Task.Run(async () =>
+                    //  Retrieve access token
+                    if (prefs.Contains("token"))
                     {
-                        try
-                        {
-                            //  Get Update Appt
-                            JsonValue updatedAppt = await api.CancelAppointment(appointment.ID);
+                        accessToken = prefs.GetString("token", "");
+                    }
 
-                            if(updatedAppt == null)
-                            {
-                                Toast.MakeText(this, "The appointment couln't be cancelled. Please try again later.", ToastLength.Short).Show();
-                            }
-                            else
-                            {
-                                Toast.MakeText(this, Resource.String.cancel_OK, ToastLength.Short).Show();
+                    // Cancel the appointment
+                    switch (api.CancelAppointment(appointment.ID, accessToken))
+                    {
+                        //  Successful
+                        case 1:
+                            Toast.MakeText(this, Resource.String.cancel_OK, ToastLength.Short).Show();
 
-                                Intent intent = new Intent(this, typeof(My_Appointments));
-                                StartActivity(intent);
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            System.Diagnostics.Debug.Write("Obj: " + e.Message + e.StackTrace);
-                        }
-                    });
+                            Intent intent = new Intent(this, typeof(My_Appointments));
+                            StartActivity(intent);
+                            break;
+
+                        //  Invalid request
+                        case 2:
+                            Toast.MakeText(this, Resource.String.invalid_cancel, ToastLength.Short).Show();
+                            break;
+
+                        //  No internet connectivity
+                        case 3:
+                            Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
+                            break;
+
+                        //  Backend problem
+                        case 4:
+                            Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                            break;
+
+                        default:
+                            Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
+                            break;
+                    }
                 });
                 cancelConfirm.SetNeutralButton(Resource.String.no, delegate
                 {
