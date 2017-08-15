@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Dental_IT.Droid.Adapters;
 using System;
+using Android.Support.V4.Content;
 
 namespace Dental_IT.Droid.Main
 {
@@ -181,6 +182,7 @@ namespace Dental_IT.Droid.Main
                 Intent intent = new Intent(this, typeof(Calendar_Select));
                 intent.PutExtra("selectDate_From", "Update");
                 intent.PutExtra("initial_UpdateDate", update_DateField.Text);
+                //intent.PutExtra("hosp_OpenDays", JsonConvert.SerializeObject(hosp));
                 StartActivity(intent);
             };
 

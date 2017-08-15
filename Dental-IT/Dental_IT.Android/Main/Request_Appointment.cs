@@ -160,6 +160,7 @@ namespace Dental_IT.Droid.Main
             {
                 Intent intent = new Intent(this, typeof(Calendar_Select));
                 intent.PutExtra("selectDate_From", "Request");
+                intent.PutExtra("hosp_OpenDays", JsonConvert.SerializeObject(hosp));
                 StartActivity(intent);
             };
 
