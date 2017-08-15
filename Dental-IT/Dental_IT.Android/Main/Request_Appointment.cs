@@ -14,6 +14,8 @@ using Dental_IT.Model;
 using System.Collections.Generic;
 using System;
 using Android.Views.InputMethods;
+using Android.Support.V4.Content;
+
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
@@ -339,14 +341,14 @@ namespace Dental_IT.Droid.Main
             {
                 TextView errorText = (TextView)request_DateField;
                 errorText.Hint = GetString(Resource.String.no_date);
-                //errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
 
                 return false;
             } else if (DateTime.ParseExact(request_DateField.Text, "d MMMM yyyy", null) < DateTime.Today){
                 TextView errorText = (TextView)request_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);
-                //errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
 
                 return false;

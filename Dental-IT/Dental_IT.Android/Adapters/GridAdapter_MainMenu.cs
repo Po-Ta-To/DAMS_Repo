@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Support.V4.Content;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -102,7 +103,7 @@ namespace Dental_IT.Droid.Adapters
         {
             if (e.Action == MotionEventActions.Down)
             {
-                this.SetColorFilter(new Android.Graphics.Color(context.GetColor(Resource.Color._5_grey)));
+                this.SetColorFilter(new Android.Graphics.Color(ContextCompat.GetColor(context, Resource.Color._5_grey)));
             }
             else if (e.Action == MotionEventActions.Up)
             {

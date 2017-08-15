@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Json;
 using Android.Preferences;
 using Newtonsoft.Json;
+using Android.Support.V4.Content;
 
 namespace Dental_IT.Droid.Main
 {
@@ -93,8 +94,8 @@ namespace Dental_IT.Droid.Main
                     apptDetails_UpdateBtn.Enabled = false;
                     apptDetails_CancelBtn.Enabled = false;
 
-                    apptDetails_UpdateBtn.SetBackgroundColor(new Android.Graphics.Color(GetColor(Resource.Color._5_grey)));
-                    apptDetails_CancelBtn.SetBackgroundColor(new Android.Graphics.Color(GetColor(Resource.Color._5_grey)));
+                    apptDetails_UpdateBtn.SetBackgroundColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color._5_grey)));
+                    apptDetails_CancelBtn.SetBackgroundColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color._5_grey)));
                 }
 
                 //Implement CustomTheme ActionBar

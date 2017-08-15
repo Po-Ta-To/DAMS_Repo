@@ -361,7 +361,7 @@ namespace Dental_IT.Droid.Main
             {
                 TextView errorText = (TextView)update_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);
-                errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
 
                 return false;

@@ -10,6 +10,7 @@ using Dental_IT.Model;
 using Android.Views.InputMethods;
 using System.Collections.Generic;
 using Java.Util.Regex;
+using Android.Support.V4.Content;
 
 namespace Dental_IT.Droid.Main
 {
@@ -284,7 +285,7 @@ namespace Dental_IT.Droid.Main
             {
                 TextView errorText = (TextView)register_DOBField;
                 errorText.Hint = GetString(Resource.String.no_date);
-                errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
 
                 return false;
@@ -295,7 +296,7 @@ namespace Dental_IT.Droid.Main
             {
                 TextView errorText = (TextView)register_GenderSpinner.SelectedView;
                 errorText.Text = GetString(Resource.String.no_gender);
-                errorText.SetTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
 
                 return false;
