@@ -185,10 +185,10 @@ namespace Dental_IT.Droid.Main
             //  Handle update button
             update_SubmitBtn.Click += delegate
             {
-                // Check for validation
+                // Validate fields
                 if (Validate(update_DateField))
                 {
-                    //  Close keyboard
+                    // Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
                     inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
@@ -214,6 +214,12 @@ namespace Dental_IT.Droid.Main
                     }
                 }
 
+                    String remarks = "";
+                    if (update_RemarksField.Text.Length == 0)
+                    {
+                        remarks = "No Remarks";
+                    }
+
                 // Create new appointment to store updated values
                 Appointment apptToBeUpdated = new Appointment()
                 {
@@ -222,7 +228,7 @@ namespace Dental_IT.Droid.Main
                     PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
                     RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
                     Treatments = treatmentIDArr,
-                    Remarks = update_RemarksField.Text
+                    Remarks = remarks
                 };
 
                 // Post the appointment
