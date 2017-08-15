@@ -280,7 +280,8 @@ namespace Dental_IT
                                 Date = DateTime.Parse(obj["AppointmentDate"]),
                                 AppointmentTime = obj["AppointmentTime"],
                                 TimeString = obj["AppointmentTime_s"],
-                                Status = obj["ApprovalState"]
+                                Status = obj["ApprovalState"],
+                                Remarks = obj["Remarks"]
                             };
 
                             appointmentList.Add(appointment);

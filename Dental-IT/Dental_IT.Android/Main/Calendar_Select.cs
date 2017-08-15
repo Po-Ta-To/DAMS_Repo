@@ -21,6 +21,7 @@ namespace Dental_IT.Droid.Main
         private static Java.Text.DateFormat formatter = Java.Text.DateFormat.DateInstance;
         private string selectedDate;
         private string prefString;
+        private string initialUpdateDate;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -77,6 +78,7 @@ namespace Dental_IT.Droid.Main
                 else if (i.GetStringExtra("selectDate_From").Equals("Update"))
                 {
                     prefString = "update_Date";
+                    initialUpdateDate = i.GetStringExtra("initial_UpdateDate");
                 }
             }
             else
@@ -87,16 +89,22 @@ namespace Dental_IT.Droid.Main
             RunOnUiThread(() =>
             {
                 //  Set initial select date
-                if (prefs.Contains(prefString)){
-                    if (prefString.Equals("update_Date"))
-                    {
-
-                    }
-                    calendar.SetSelectedDate(new Date(prefs.GetString(prefString, "")));
-                }
-                else
+                //  From request
+                if (prefString.Equals("request_Date"))
                 {
-                    calendar.SetSelectedDate(Calendar.GetInstance(Java.Util.TimeZone.GetTimeZone("Asia / Singapore")));
+                    if (prefs.Contains(prefString))
+                    {
+                        calendar.SetSelectedDate(new Date(prefs.GetString(prefString, "")));
+                    }
+                    else
+                    {
+                        calendar.SetSelectedDate(Calendar.GetInstance(Java.Util.TimeZone.GetTimeZone("Asia / Singapore")));
+                    }
+                }
+                //  From update
+                else if (prefString.Equals("update_Date"))
+                {
+                    calendar.SetSelectedDate(new Date(initialUpdateDate));
                 }
                 
                 selectedDate = formatter.Format(calendar.SelectedDate.Date);
