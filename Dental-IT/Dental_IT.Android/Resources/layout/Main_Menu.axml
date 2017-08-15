@@ -30,8 +30,6 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_dental_it"
                     android:scaleType="centerCrop" />
-            <!--android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"-->
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

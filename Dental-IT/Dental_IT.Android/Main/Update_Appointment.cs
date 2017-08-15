@@ -80,6 +80,8 @@ namespace Dental_IT.Droid.Main
 
                 //  Receive appointment data from intent
                 appt = JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("update_Appointment"));
+                update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
+                update_RemarksField.Text = appt.Remarks;
             }
             else
             {
@@ -152,10 +154,8 @@ namespace Dental_IT.Droid.Main
                 update_SessionLabel.SetTypeface(update_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 update_RemarksLabel.SetTypeface(update_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
 
-                //  Set appointment details
+                //  Set remaining appointment details
                 update_HospitalField.Text = appt.ClinicHospital;
-                update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
-                update_RemarksField.Text = appt.Remarks;
 
                 //  Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
@@ -171,6 +171,7 @@ namespace Dental_IT.Droid.Main
             {
                 Intent intent = new Intent(this, typeof(Calendar_Select));
                 intent.PutExtra("selectDate_From", "Update");
+                intent.PutExtra("initial_UpdateDate", update_DateField.Text);
                 StartActivity(intent);
             };
 
