@@ -45,7 +45,10 @@ namespace Dental_IT
                                 Address = obj["Address"],
                                 Telephone = obj["Telephone"],
                                 Email = obj["Email"],
-                                OpeningHours = obj["OpenHours"]
+                                OpeningHours = obj["OpenHours"],
+                                IsOpenMonFri = obj["IsOpenMonFri"],
+                                IsOpenSat = obj["IsOpenSat"],
+                                IsOpenSunPh = obj["IsOpenSunPh"]
                             };
 
                             hospitalList.Add(hospital);
@@ -149,7 +152,10 @@ namespace Dental_IT
                                 Address = obj["Address"],
                                 Telephone = obj["Telephone"],
                                 Email = obj["Email"],
-                                OpeningHours = obj["OpenHours"]
+                                OpeningHours = obj["OpenHours"],
+                                IsOpenMonFri = obj["IsOpenMonFri"],
+                                IsOpenSat = obj["IsOpenSat"],
+                                IsOpenSunPh = obj["IsOpenSunPh"]
                             };
 
                             hospList.Add(hosp);
