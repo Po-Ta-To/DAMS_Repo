@@ -115,9 +115,7 @@ namespace Dental_IT.Droid.Main
             register_RegisterBtn.Click += delegate
             {
                 //  Validate fields
-                bool validated = Validate(fields);
-
-                if (validated == true)
+                if (Validate(fields))
                 {
                     //  Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
@@ -186,7 +184,7 @@ namespace Dental_IT.Droid.Main
         {
             DatePickerFragment fragment = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
-                register_DOBField.Text = time.ToString("dd/MM/yyyy");
+                register_DOBField.Text = time.ToString("d MMMM yyyy");
             });
 
             fragment.Show(FragmentManager, "DatePickerFragment");

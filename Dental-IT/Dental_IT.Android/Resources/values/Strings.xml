@@ -98,6 +98,7 @@
   <string name="invalid_repeat">Repeat password is not the same as password</string>
   <string name="invalid_mobile">Invalid mobile number</string>
   <string name="no_date">Please select a date</string>
+  <string name="invalid_date">The selected date is not valid</string>
   <string name="no_gender">Please select a gender</string>
   <string name="pdpa_unchecked">Please indicate that you have read and agreed to the terms and conditions to register on this application.</string>
   <string name="OK">OK</string>

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Dental_IT.Model;
 using Android.Preferences;
 using System;
+using Java.Util;
 
 namespace Dental_IT.Droid.Main
 {
@@ -57,9 +58,8 @@ namespace Dental_IT.Droid.Main
                     //  Place dates into respective lists
                     foreach (AppointmentDate date in dateList)
                     {
-                        //System.Diagnostics.Debug.WriteLine(date.Date.ToString());
-                        //System.Diagnostics.Debug.WriteLine(new Date(date.Date.Year, date.Date.Month, date.Date.Day));
-                        //System.Diagnostics.Debug.WriteLine(new CalendarDay(date.Date.Year, date.Date.Month, date.Date.Day));
+                        System.Diagnostics.Debug.WriteLine(date.Status);
+                        System.Diagnostics.Debug.WriteLine(new CalendarDay(date.Date.Year, date.Date.Month, date.Date.Day));
 
                         if (date.Status.Equals("Pending"))
                         {
@@ -93,6 +93,9 @@ namespace Dental_IT.Droid.Main
 
                     RunOnUiThread(() =>
                     {
+                        //  Set initial select date
+                        calendar.SetSelectedDate(Calendar.GetInstance(Java.Util.TimeZone.GetTimeZone("Asia / Singapore")));
+
                         //  Decorate calendar
                         calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_gold)), pendingDateList));
                         calendar.AddDecorators(new EventDecoratorView(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_green)), confirmedDateList));

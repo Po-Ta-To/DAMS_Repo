@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:weightSum="1">
+  <!--Imageview marginleft = 25-->
+
+     <ImageView
+     android:id="@+id/mainMenu_Image"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+      android:layout_gravity="center"/>
+  
     <TextView
         android:id="@+id/treatmentInformation_TreatmentNameText"
         android:layout_width="0dp"
