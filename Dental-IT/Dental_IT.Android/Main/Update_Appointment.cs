@@ -215,6 +215,7 @@ namespace Dental_IT.Droid.Main
                     }
                 }
 
+                // Check if Remarks field is empty
                     String remarks = "";
                     if (update_RemarksField.Text.Length == 0)
                     {
@@ -330,8 +331,8 @@ namespace Dental_IT.Droid.Main
         // Method to validate the fields
         private bool Validate(EditText update_DateField) // , TreatmentArray)
         {
-            // Check if preferred date is selected and is valid
-            if (update_DateField.Text.Length == 0 || DateTime.Parse(update_DateField.Text) < DateTime.Today)
+            // Check if preferred date is valid
+            if (DateTime.ParseExact(update_DateField.Text, "MMM d, yyyy", null) < DateTime.Today)
             {
                 TextView errorText = (TextView)update_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);

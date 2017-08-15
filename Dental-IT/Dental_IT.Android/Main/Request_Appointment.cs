@@ -21,7 +21,7 @@ namespace Dental_IT.Droid.Main
     {
         private Hospital hosp;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
-        private List<Session> sessions = new List<Session>() { new Session() };
+        private List<Session> sessions = new List<Session>() { };
         private int[] treatmentIDArr;
         private int userID;
         private string accessToken;
@@ -210,6 +210,7 @@ namespace Dental_IT.Droid.Main
                         }
                     }
 
+                    // Check if Remarks field is empty
                     String remarks = "";
                     if (request_RemarksField.Text.Length == 0)
                     {
@@ -335,7 +336,7 @@ namespace Dental_IT.Droid.Main
                 errorText.Error = "";
 
                 return false;
-            } else if (DateTime.ParseExact(request_DateField.Text, "d MMMM yyyy", null) < DateTime.Today){
+            } else if (DateTime.ParseExact(request_DateField.Text, "MMM d, yyyy", null) < DateTime.Today){
                 TextView errorText = (TextView)request_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);
                 //errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
@@ -343,6 +344,9 @@ namespace Dental_IT.Droid.Main
 
                 return false;
             }
+
+            // Validate treatments
+
             return true;
         }
     }
