@@ -194,11 +194,24 @@ namespace Dental_IT.Droid.Main
 
             //  Handle update button
             update_SubmitBtn.Click += delegate
-            {
-                //  Get selected treatments
-                if (prefs.Contains("update_Treatments"))
+            { 
+                // Validate fields
+                if (Validate(update_DateField))
                 {
-                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
+                    // Close keyboard
+                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+
+                //  Retrieve access token
+                if (prefs.Contains("token"))
+                {
+                    accessToken = prefs.GetString("token", "");
+                }
+
+                    //  Get selected treatments
+                    if (prefs.Contains("update_Treatments"))
+                    {
+                        List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
 
                         treatmentIDArr = new int[tempTreatmentIDList.Count];
 
@@ -211,26 +224,13 @@ namespace Dental_IT.Droid.Main
                         }
                     }
 
-                // Validate fields
-                if (Validate(update_DateField, treatmentIDArr))
-                {
-                    // Close keyboard
-                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                    //If treatments unchanged, use original treatments
+                    if (treatmentIDArr == null)
+                    {
+                        treatmentIDArr = appt.Treatments;
+                    }
 
-                //  Retrieve access token
-                if (prefs.Contains("token"))
-                {
-                    accessToken = prefs.GetString("token", "");
-                }
-
-                //  If treatments unchanged, use original treatments
-                //if (treatmentIDArr == null)
-                //    {
-                //        treatmentIDArr = appt.Treatments;
-                //    }
-
-                // Check if Remarks field is empty
+                    // Check if Remarks field is empty
                     String remarks = "";
                     if (update_RemarksField.Text.Length == 0)
                     {
@@ -241,12 +241,9 @@ namespace Dental_IT.Droid.Main
                     Appointment apptToBeUpdated = new Appointment()
                     {
                         ID = appt.ID,
-                        //PreferredDate = update_DateField.Text,
-                        PreferredDate = "22 August 2017",
-                        //PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
-                        PreferredTime = 2,
-                        //RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
-                        RequestDoctorDentistID = 1,
+                        PreferredDate = update_DateField.Text,
+                        PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
+                        RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
                         Treatments = treatmentIDArr,
                         Remarks = remarks
                     };
@@ -351,23 +348,16 @@ namespace Dental_IT.Droid.Main
         }
 
         // Method to validate the fields
-        private bool Validate(EditText update_DateField, int[] treatmentIDArr)
+        private bool Validate(EditText update_DateField)
         {
             // Check if preferred date is valid
             if (DateTime.ParseExact(update_DateField.Text, "d MMMM yyyy", null) < DateTime.Today)
             {
                 TextView errorText = (TextView)update_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);
-                errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
+                //errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
 
-                return false;
-            }
-
-            // Check if one or more treatments are selected
-            if(treatmentIDArr == null)
-            {
-                Toast.MakeText(this, Resource.String.no_treatment, ToastLength.Short).Show();
                 return false;
             }
             

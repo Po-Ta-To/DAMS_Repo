@@ -23,7 +23,7 @@
         public static string global_connURL_createAppointment { get; } = conn + "/api/Appointments";
 
         // UPDATE Appointment Details by Appointment ID
-        public static string global_connURL_updateApptDetails { get; } = conn + "/api/Appointments/"; // + ApptID
+        public static string global_connURL_updateApptDetails { get; } = conn + "/api/Appointments"; // + ApptID
 
         // CANCEL Appointment by ApptID 
         public static string global_connURL_cancelApptByID { get; } = conn + "/api/CancelAppointment/"; // + ApptID
