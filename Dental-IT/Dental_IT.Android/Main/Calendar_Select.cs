@@ -12,16 +12,22 @@ using Android.Support.V4.Content;
 using Java.Util;
 using Android.Graphics.Drawables;
 using Com.Prolificinteractive.Materialcalendarview.Spans;
+using Dental_IT.Model;
+using Newtonsoft.Json;
+using System;
+using Java.Text;
 
 namespace Dental_IT.Droid.Main
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Calendar_Select : AppCompatActivity
     {
-        private static Java.Text.SimpleDateFormat formatter = new Java.Text.SimpleDateFormat("d MMMM yyyy");
+        private static SimpleDateFormat formatter = new SimpleDateFormat("d MMMM yyyy");
         private string selectedDate;
         private string prefString;
         private string initialUpdateDate;
+        private Hospital hosp;
+        private List<string> closedDays = new List<string>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -34,32 +40,6 @@ namespace Dental_IT.Droid.Main
             MaterialCalendarView calendar = FindViewById<MaterialCalendarView>(Resource.Id.calendar);
             TextView calendar_DateText = FindViewById<TextView>(Resource.Id.calendar_DateText);
             Button calendar_ConfirmBtn = FindViewById<Button>(Resource.Id.calendar_ConfirmBtn);
-
-            List<CalendarDay> dates = new List<CalendarDay>();
-
-            CalendarDay a = CalendarDay.From(2017, 6, 10);
-            CalendarDay b = CalendarDay.From(2017, 6, 15);
-            CalendarDay c = CalendarDay.From(2017, 6, 9);
-            CalendarDay d = CalendarDay.From(2017, 6, 1);
-
-            dates.Add(a);
-            dates.Add(b);
-            dates.Add(c);
-            dates.Add(d);
-
-            List<CalendarDay> dates2 = new List<CalendarDay>();
-
-            CalendarDay e = CalendarDay.From(2017, 6, 10);
-            CalendarDay f = CalendarDay.From(2017, 6, 20);
-            CalendarDay g = CalendarDay.From(2017, 6, 9);
-            CalendarDay h = CalendarDay.From(2017, 6, 24);
-
-            List<CalendarDay> list = new List<CalendarDay>();
-
-            dates2.Add(e);
-            dates2.Add(f);
-            dates2.Add(g);
-            dates2.Add(h);
 
             //  Shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
@@ -74,10 +54,30 @@ namespace Dental_IT.Droid.Main
                 if (i.GetStringExtra("selectDate_From").Equals("Request"))
                 {
                     prefString = "request_Date";
+                    hosp = JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("hosp_OpenDays"));
+
+                    //  Check which days the hospital is closed
+                    if (hosp.IsOpenMonFri == false)
+                    {
+                        closedDays.Add("Monday");
+                        closedDays.Add("Tuesday");
+                        closedDays.Add("Wednesday");
+                        closedDays.Add("Thursday");
+                        closedDays.Add("Friday");
+                    }
+                    if (hosp.IsOpenSat == false)
+                    {
+                        closedDays.Add("Saturday");
+                    }
+                    if (hosp.IsOpenSunPh == false)
+                    {
+                        closedDays.Add("Sunday");
+                    }
                 }
                 else if (i.GetStringExtra("selectDate_From").Equals("Update"))
                 {
                     prefString = "update_Date";
+                    hosp = new Hospital();
                     initialUpdateDate = i.GetStringExtra("initial_UpdateDate");
                 }
             }
@@ -89,6 +89,7 @@ namespace Dental_IT.Droid.Main
             RunOnUiThread(() =>
             {
                 //  Set initial select date
+
                 //  From request
                 if (prefString.Equals("request_Date"))
                 {
@@ -100,6 +101,10 @@ namespace Dental_IT.Droid.Main
                     {
                         calendar.SetSelectedDate(Calendar.GetInstance(Java.Util.TimeZone.GetTimeZone("Asia / Singapore")));
                     }
+
+                    //  Set background decoration on event dates
+                    //calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_red)), dates));
+                    calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_grey)), closedDays));
                 }
                 //  From update
                 else if (prefString.Equals("update_Date"))
@@ -109,10 +114,6 @@ namespace Dental_IT.Droid.Main
                 
                 selectedDate = formatter.Format(calendar.SelectedDate.Date);
                 calendar_DateText.Text = selectedDate;
-
-                //  Set background decoration on event dates
-                calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_red)), dates));
-                calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_grey)), dates2));
 
                 //  Set date on date change
                 calendar.DateChanged += delegate
@@ -178,13 +179,14 @@ namespace Dental_IT.Droid.Main
     {
         private Context context;
         private int color;
-        private List<CalendarDay> dates;
+        private List<string> days;
+        private static SimpleDateFormat dayFormatter = new SimpleDateFormat("EEEE");
 
-        public EventDecoratorSelect(Context context, int color, List<CalendarDay> dates)
+        public EventDecoratorSelect(Context context, int color, List<string> days)
         {
             this.context = context;
             this.color = color;
-            this.dates = dates;
+            this.days = days;
         }
 
         public void Decorate(DayViewFacade view)
@@ -207,29 +209,7 @@ namespace Dental_IT.Droid.Main
 
         public bool ShouldDecorate(CalendarDay day)
         {
-            bool b = false;
-
-            if (day != null)
-            {
-                foreach (CalendarDay cDay in dates)
-                {
-                    if (cDay.ToString().Equals(day.ToString()))
-                    {
-                        b = true;
-                        break;
-                    }
-                    else
-                    {
-                        b = false;
-                    }
-                }
-
-                return b;
-            }
-            else
-            {
-                return false;
-            }
+            return days.Contains(dayFormatter.Format(day.Date));
         }
     }
 }

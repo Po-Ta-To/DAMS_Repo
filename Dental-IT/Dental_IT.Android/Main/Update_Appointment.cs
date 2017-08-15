@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Dental_IT.Droid.Adapters;
 using System;
+using Android.Support.V4.Content;
 
 namespace Dental_IT.Droid.Main
 {
@@ -88,14 +89,15 @@ namespace Dental_IT.Droid.Main
                 //  Receive data from shared preferences
                 appt = JsonConvert.DeserializeObject<Appointment>(prefs.GetString("appointment", "null"));
 
-                if (prefs.Contains("update_Date")){
+                if (prefs.Contains("update_Date"))
+                {
                     update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
                 }
                 else
                 {
                     update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
                 }
-                
+
                 update_RemarksField.Text = prefs.GetString("remarks", "");
             }
 
@@ -180,6 +182,7 @@ namespace Dental_IT.Droid.Main
                 Intent intent = new Intent(this, typeof(Calendar_Select));
                 intent.PutExtra("selectDate_From", "Update");
                 intent.PutExtra("initial_UpdateDate", update_DateField.Text);
+                //intent.PutExtra("hosp_OpenDays", JsonConvert.SerializeObject(hosp));
                 StartActivity(intent);
             };
 
@@ -193,7 +196,7 @@ namespace Dental_IT.Droid.Main
 
             //  Handle update button
             update_SubmitBtn.Click += delegate
-            {
+            { 
                 // Validate fields
                 if (Validate(update_DateField))
                 {
@@ -207,52 +210,52 @@ namespace Dental_IT.Droid.Main
                     accessToken = prefs.GetString("token", "");
                 }
 
-                //  Get selected treatments
-                if (prefs.Contains("update_Treatments"))
-                {
-                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
-
-                    treatmentIDArr = new int[tempTreatmentIDList.Count];
-
-                    int count = 0;
-
-                    foreach (int id in tempTreatmentIDList)
+                    //  Get selected treatments
+                    if (prefs.Contains("update_Treatments"))
                     {
-                        treatmentIDArr[count] = id;
-                        count++;
-                    }
-                }
+                        List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
 
-                //  If treatments unchanged, use original treatments
-                if (treatmentIDArr == null)
+                        treatmentIDArr = new int[tempTreatmentIDList.Count];
+
+                        int count = 0;
+
+                        foreach (int id in tempTreatmentIDList)
+                        {
+                            treatmentIDArr[count] = id;
+                            count++;
+                        }
+                    }
+
+                    //If treatments unchanged, use original treatments
+                    if (treatmentIDArr == null)
                     {
                         treatmentIDArr = appt.Treatments;
                     }
 
-                // Check if Remarks field is empty
+                    // Check if Remarks field is empty
                     String remarks = "";
                     if (update_RemarksField.Text.Length == 0)
                     {
                         remarks = "No Remarks";
                     }
 
-                // Create new appointment to store updated values
-                Appointment apptToBeUpdated = new Appointment()
-                {
-                    ID = appt.ID,
-                    PreferredDate = update_DateField.Text,
-                    PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
-                    RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
-                    Treatments = treatmentIDArr,
-                    Remarks = remarks
-                };
+                    // Create new appointment to store updated values
+                    Appointment apptToBeUpdated = new Appointment()
+                    {
+                        ID = appt.ID,
+                        PreferredDate = update_DateField.Text,
+                        PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
+                        RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
+                        Treatments = treatmentIDArr,
+                        Remarks = remarks
+                    };
 
-                // Post the appointment
-                switch (api.PutAppointment(JsonConvert.SerializeObject(apptToBeUpdated), accessToken))
-                {
-                    //  Successful
-                    case 1:
-                        Toast.MakeText(this, Resource.String.update_OK, ToastLength.Short).Show();
+                    // Update the appointment
+                    switch (api.PutAppointment(JsonConvert.SerializeObject(apptToBeUpdated), accessToken))
+                    {
+                        //  Successful
+                        case 1:
+                            Toast.MakeText(this, Resource.String.update_OK, ToastLength.Short).Show();
 
                             Intent intent = new Intent(this, typeof(My_Appointments));
                             StartActivity(intent);
@@ -271,6 +274,10 @@ namespace Dental_IT.Droid.Main
                         //  Backend problem
                         case 4:
                             Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                            break;
+
+                        default:
+                            Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
                             break;
                     }
                 }
@@ -343,20 +350,18 @@ namespace Dental_IT.Droid.Main
         }
 
         // Method to validate the fields
-        private bool Validate(EditText update_DateField) // , TreatmentArray)
+        private bool Validate(EditText update_DateField)
         {
             // Check if preferred date is valid
             if (DateTime.ParseExact(update_DateField.Text, "d MMMM yyyy", null) < DateTime.Today)
             {
                 TextView errorText = (TextView)update_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);
-                errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                //errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
-              
+
                 return false;
             }
-
-            // Check treatments
             
             return true;
         }

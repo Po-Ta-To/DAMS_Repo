@@ -9,5 +9,8 @@
         public string Email { get; set; }
         public string OpeningHours { get; set; }
         public string Price { get; set; }
+        public bool IsOpenMonFri { get; set; }
+        public bool IsOpenSat { get; set; }
+        public bool IsOpenSunPh { get; set; }
     }
 }

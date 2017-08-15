@@ -45,7 +45,10 @@ namespace Dental_IT
                                 Address = obj["Address"],
                                 Telephone = obj["Telephone"],
                                 Email = obj["Email"],
-                                OpeningHours = obj["OpenHours"]
+                                OpeningHours = obj["OpenHours"],
+                                IsOpenMonFri = obj["IsOpenMonFri"],
+                                IsOpenSat = obj["IsOpenSat"],
+                                IsOpenSunPh = obj["IsOpenSunPh"]
                             };
 
                             hospitalList.Add(hospital);
@@ -149,7 +152,10 @@ namespace Dental_IT
                                 Address = obj["Address"],
                                 Telephone = obj["Telephone"],
                                 Email = obj["Email"],
-                                OpeningHours = obj["OpenHours"]
+                                OpeningHours = obj["OpenHours"],
+                                IsOpenMonFri = obj["IsOpenMonFri"],
+                                IsOpenSat = obj["IsOpenSat"],
+                                IsOpenSunPh = obj["IsOpenSunPh"]
                             };
 
                             hospList.Add(hosp);
@@ -298,36 +304,6 @@ namespace Dental_IT
             }
         }
 
-        //  Cancel Appointment
-        public async Task<JsonValue> CancelAppointment(int apptID)
-        {
-            try
-            {
-                // Create an HTTP web request using the URL:
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_cancelApptByID + apptID));
-                request.ContentType = "application/JSON";
-                request.Method = "GET";
-
-                // Send the request to the server and wait for the response:
-                using (WebResponse response = request.GetResponse())
-                {
-                    // Get a stream representation of the HTTP web response:
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        // Use this stream to build a JSON document object:
-                        JsonValue jsonDoc = await Task.Run(() => JsonValue.Load(stream));
-
-                        return jsonDoc;
-                    }
-                }
-            }
-            catch (WebException e)
-            {
-                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
-                return null;
-            }
-        }
-
         //  Get Appointment dates
         public async Task<List<AppointmentDate>> GetAppointmentDates(string accessToken)
         {
@@ -380,7 +356,7 @@ namespace Dental_IT
         public int PostAppointment(string newAppt, string accessToken)
         {
             try
-            {   
+            {
                 // Create an HTTP web request using the URL:
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_createAppointment));
                 request.ContentType = "application/JSON";
@@ -435,6 +411,41 @@ namespace Dental_IT
                     request.ContentLength = buffer.Length;
                     request.GetRequestStream().Write(buffer, 0, buffer.Length);
                 }
+
+                WebResponse wr = request.GetResponse();
+                return 1;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.Write("JSON doc: " + e.Message);
+
+                // The remote server returned an error: (400) Bad Request.
+                if (e.Message.Contains("400"))
+                {
+                    return 2;
+                }
+                //  Error: ConnectFailure (Network is unreachable)
+                else if (e.Message.Contains("unreachable"))
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 4;
+                }
+            }
+        }
+
+        //  Cancel Appointment
+        public int CancelAppointment(int apptID, string accessToken)
+        {
+            try
+            {
+                // Create an HTTP web request using the URL:
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Web_Config.global_connURL_cancelApptByID + apptID));
+                request.ContentType = "application/JSON";
+                request.Method = "GET";
+                request.Headers.Add("Authorization", "bearer " + accessToken);
 
                 WebResponse wr = request.GetResponse();
                 return 1;
@@ -540,7 +551,7 @@ namespace Dental_IT
                                 session.SlotString = obj["TimeRangeSlotString"];
 
                                 sessionList.Add(session);
-                            }                            
+                            }
                         }
                     }
                 }

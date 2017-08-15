@@ -4162,6 +4162,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06006e
 			public const int hospital_tab = 2131099758;
 			
+			// aapt resource value: 0x7f060096
+			public const int invalid_cancel = 2131099798;
+			
 			// aapt resource value: 0x7f060084
 			public const int invalid_date = 2131099780;
 			
