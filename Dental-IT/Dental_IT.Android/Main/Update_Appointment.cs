@@ -194,19 +194,6 @@ namespace Dental_IT.Droid.Main
             //  Handle update button
             update_SubmitBtn.Click += delegate
             {
-                // Validate fields
-                if (Validate(update_DateField))
-                {
-                    // Close keyboard
-                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
-
-                //  Retrieve access token
-                if (prefs.Contains("token"))
-                {
-                    accessToken = prefs.GetString("token", "");
-                }
-
                 //  Get selected treatments
                 if (prefs.Contains("update_Treatments"))
                 {
@@ -223,11 +210,24 @@ namespace Dental_IT.Droid.Main
                     }
                 }
 
+                // Validate fields
+                if (Validate(update_DateField, treatmentIDArr))
+                {
+                    // Close keyboard
+                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+
+                //  Retrieve access token
+                if (prefs.Contains("token"))
+                {
+                    accessToken = prefs.GetString("token", "");
+                }
+
                 //  If treatments unchanged, use original treatments
-                if (treatmentIDArr == null)
-                    {
-                        treatmentIDArr = appt.Treatments;
-                    }
+                //if (treatmentIDArr == null)
+                //    {
+                //        treatmentIDArr = appt.Treatments;
+                //    }
 
                 // Check if Remarks field is empty
                     String remarks = "";
@@ -343,7 +343,7 @@ namespace Dental_IT.Droid.Main
         }
 
         // Method to validate the fields
-        private bool Validate(EditText update_DateField) // , TreatmentArray)
+        private bool Validate(EditText update_DateField, int[] treatmentIDArr)
         {
             // Check if preferred date is valid
             if (DateTime.ParseExact(update_DateField.Text, "d MMMM yyyy", null) < DateTime.Today)
@@ -356,7 +356,12 @@ namespace Dental_IT.Droid.Main
                 return false;
             }
 
-            // Check treatments
+            // Check if one or more treatments are selected
+            if(treatmentIDArr == null)
+            {
+                Toast.MakeText(this, Resource.String.no_treatment, ToastLength.Short).Show();
+                return false;
+            }
             
             return true;
         }

@@ -345,8 +345,8 @@ namespace Dental_IT.Droid.Main
                 return false;
             }
 
-            // Validate if one or more treatments are selected
-            if(treatmentIDArr.Length == 0)
+            // Check if one or more treatments are selected
+            if(treatmentIDArr == null)
             {
                 Toast.MakeText(this, Resource.String.no_treatment, ToastLength.Short).Show();
                 return false;
