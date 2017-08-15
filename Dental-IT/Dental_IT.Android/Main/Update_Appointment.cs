@@ -25,7 +25,6 @@ namespace Dental_IT.Droid.Main
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<Session> sessions = new List<Session>() { new Session() };
         private Appointment appt;
-        private int apptID;
         private int[] treatmentIDArr;
         private int userID;
         private string accessToken;
@@ -81,7 +80,6 @@ namespace Dental_IT.Droid.Main
 
                 //  Receive appointment data from intent
                 appt = JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("update_Appointment"));
-                apptID = appt.ID;
             }
             else
             {
@@ -197,11 +195,26 @@ namespace Dental_IT.Droid.Main
                     accessToken = prefs.GetString("token", "");
                 }
 
+                //  Get selected treatments
+                if (prefs.Contains("update_Treatments"))
+                {
+                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
+
+                    treatmentIDArr = new int[tempTreatmentIDList.Count];
+
+                    int count = 0;
+
+                    foreach (int id in tempTreatmentIDList)
+                    {
+                        treatmentIDArr[count] = id;
+                        count++;
+                    }
+                }
+
                 // Create new appointment to store updated values
                 Appointment apptToBeUpdated = new Appointment()
                 {
-                    ID = apptID,
-                    UserID = userID,
+                    ID = appt.ID,
                     PreferredDate = update_DateField.Text,
                     PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
                     RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
@@ -214,7 +227,7 @@ namespace Dental_IT.Droid.Main
                 {
                     //  Successful
                     case 1:
-                        Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
+                        Toast.MakeText(this, Resource.String.update_OK, ToastLength.Short).Show();
 
                         Intent intent = new Intent(this, typeof(My_Appointments));
                         StartActivity(intent);

@@ -186,7 +186,7 @@ namespace Dental_IT.Droid.Main
         {
             DatePickerFragment fragment = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
-                register_DOBField.Text = time.ToString("dd/MM/yyyy");
+                register_DOBField.Text = time.ToString("d MMMM yyyy");
             });
 
             fragment.Show(FragmentManager, "DatePickerFragment");
