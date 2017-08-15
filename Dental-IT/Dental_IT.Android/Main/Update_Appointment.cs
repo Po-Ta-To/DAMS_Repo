@@ -80,12 +80,22 @@ namespace Dental_IT.Droid.Main
 
                 //  Receive appointment data from intent
                 appt = JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("update_Appointment"));
+                update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
+                update_RemarksField.Text = appt.Remarks;
             }
             else
             {
                 //  Receive data from shared preferences
                 appt = JsonConvert.DeserializeObject<Appointment>(prefs.GetString("appointment", "null"));
-                update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
+
+                if (prefs.Contains("update_Date")){
+                    update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
+                }
+                else
+                {
+                    update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
+                }
+                
                 update_RemarksField.Text = prefs.GetString("remarks", "");
             }
 
@@ -152,10 +162,8 @@ namespace Dental_IT.Droid.Main
                 update_SessionLabel.SetTypeface(update_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
                 update_RemarksLabel.SetTypeface(update_TreatmentsBtn.Typeface, Android.Graphics.TypefaceStyle.Normal);
 
-                //  Set appointment details
+                //  Set remaining appointment details
                 update_HospitalField.Text = appt.ClinicHospital;
-                update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
-                update_RemarksField.Text = appt.Remarks;
 
                 //  Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
@@ -171,6 +179,7 @@ namespace Dental_IT.Droid.Main
             {
                 Intent intent = new Intent(this, typeof(Calendar_Select));
                 intent.PutExtra("selectDate_From", "Update");
+                intent.PutExtra("initial_UpdateDate", update_DateField.Text);
                 StartActivity(intent);
             };
 
@@ -185,10 +194,10 @@ namespace Dental_IT.Droid.Main
             //  Handle update button
             update_SubmitBtn.Click += delegate
             {
-                // Check for validation
+                // Validate fields
                 if (Validate(update_DateField))
                 {
-                    //  Close keyboard
+                    // Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
                     inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
@@ -214,6 +223,19 @@ namespace Dental_IT.Droid.Main
                     }
                 }
 
+                //  If treatments unchanged, use original treatments
+                if (treatmentIDArr == null)
+                    {
+                        treatmentIDArr = appt.Treatments;
+                    }
+
+                // Check if Remarks field is empty
+                    String remarks = "";
+                    if (update_RemarksField.Text.Length == 0)
+                    {
+                        remarks = "No Remarks";
+                    }
+
                 // Create new appointment to store updated values
                 Appointment apptToBeUpdated = new Appointment()
                 {
@@ -222,7 +244,7 @@ namespace Dental_IT.Droid.Main
                     PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
                     RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
                     Treatments = treatmentIDArr,
-                    Remarks = update_RemarksField.Text
+                    Remarks = remarks
                 };
 
                 // Post the appointment
@@ -323,8 +345,8 @@ namespace Dental_IT.Droid.Main
         // Method to validate the fields
         private bool Validate(EditText update_DateField) // , TreatmentArray)
         {
-            // Check if preferred date is selected and is valid
-            if (update_DateField.Text.Length == 0 || DateTime.Parse(update_DateField.Text) < DateTime.Today)
+            // Check if preferred date is valid
+            if (DateTime.ParseExact(update_DateField.Text, "d MMMM yyyy", null) < DateTime.Today)
             {
                 TextView errorText = (TextView)update_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);

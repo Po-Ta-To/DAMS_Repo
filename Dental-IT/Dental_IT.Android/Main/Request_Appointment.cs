@@ -21,7 +21,7 @@ namespace Dental_IT.Droid.Main
     {
         private Hospital hosp;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
-        private List<Session> sessions = new List<Session>() { new Session() };
+        private List<Session> sessions = new List<Session>() { };
         private int[] treatmentIDArr;
         private int userID;
         private string accessToken;
@@ -172,25 +172,6 @@ namespace Dental_IT.Droid.Main
             //  Handle request button
             request_SubmitBtn.Click += delegate
             {
-                //  Close keyboard
-                InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
-
-                // Randomly generate a 3 digit number
-                int rgNumber = (new Random()).Next(100, 1000);
-
-                //  Retrieve access token
-                if (prefs.Contains("token"))
-                {
-                    accessToken = prefs.GetString("token", "");
-                }
-
-                //  Get UserID
-                if (prefs.Contains("userID"))
-                {
-                    userID = prefs.GetInt("userID", 0);
-                }
-
                 //  Get selected treatments
                 if (prefs.Contains("request_Treatments"))
                 {
@@ -207,45 +188,76 @@ namespace Dental_IT.Droid.Main
                     }
                 }
 
-                // Create new appointment
-                Appointment appt = new Appointment()
+                // Validate fields
+                if (Validate(request_DateField, treatmentIDArr))
                 {
-                    AppointmentID = "A" + rgNumber,
-                    UserID = userID,
-                    ClinicHospitalID = hosp.ID,
-                    PreferredDate = request_DateField.Text,
-                    PreferredTime = sessions[request_SessionSpinner.SelectedItemPosition].SlotID,
-                    RequestDoctorDentistID = dentists[request_DentistSpinner.SelectedItemPosition].DentistID,
-                    Treatments = treatmentIDArr,
-                    Remarks = request_RemarksField.Text
-                };
+                    //  Close keyboard
+                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-                // Post the appointment
-                switch (api.PostAppointment(JsonConvert.SerializeObject(appt), accessToken))
-                {
-                    //  Successful
-                    case 1:
-                        Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
+                    // Randomly generate a 3 digit number
+                    int rgNumber = (new Random()).Next(100, 1000);
 
-                        Intent intent = new Intent(this, typeof(My_Appointments));
-                        StartActivity(intent);
-                        break;
+                    //  Retrieve access token
+                    if (prefs.Contains("token"))
+                    {
+                        accessToken = prefs.GetString("token", "");
+                    }
 
-                    //  Invalid request
-                    case 2:
-                        Toast.MakeText(this, Resource.String.invalid_request, ToastLength.Short).Show();
-                        break;
+                    //  Get UserID
+                    if (prefs.Contains("userID"))
+                    {
+                        userID = prefs.GetInt("userID", 0);
+                    }
 
-                    //  No internet connectivity
-                    case 3:
-                        Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
-                        break;
+                    // Check if Remarks field is empty
+                    String remarks = "";
+                    if (request_RemarksField.Text.Length == 0)
+                    {
+                        remarks = "No Remarks";
+                    }
 
-                    //  Backend problem
-                    case 4:
-                        Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
-                        break;
+                    // Create new appointment and store values
+                    Appointment appt = new Appointment()
+                    {
+                        AppointmentID = "A" + rgNumber,
+                        UserID = userID,
+                        ClinicHospitalID = hosp.ID,
+                        PreferredDate = request_DateField.Text,
+                        PreferredTime = sessions[request_SessionSpinner.SelectedItemPosition].SlotID,
+                        RequestDoctorDentistID = dentists[request_DentistSpinner.SelectedItemPosition].DentistID,
+                        Treatments = treatmentIDArr,
+                        Remarks = remarks
+                    };
+
+                    // Post the appointment
+                    switch (api.PostAppointment(JsonConvert.SerializeObject(appt), accessToken))
+                    {
+                        //  Successful
+                        case 1:
+                            Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
+
+                            Intent intent = new Intent(this, typeof(My_Appointments));
+                            StartActivity(intent);
+                            break;
+
+                        //  Invalid request
+                        case 2:
+                            Toast.MakeText(this, Resource.String.invalid_request, ToastLength.Short).Show();
+                            break;
+
+                        //  No internet connectivity
+                        case 3:
+                            Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
+                            break;
+
+                        //  Backend problem
+                        case 4:
+                            Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                            break;
+                    }
                 }
+                
             };
         }
 
@@ -310,6 +322,37 @@ namespace Dental_IT.Droid.Main
             }
 
             editor.Apply();
+        }
+
+        // Method to validate the fields
+        private bool Validate(EditText request_DateField, int[] treatmentIDArr)
+        {
+            // Validate the preferred date
+            if (request_DateField.Text.Length == 0)
+            {
+                TextView errorText = (TextView)request_DateField;
+                errorText.Hint = GetString(Resource.String.no_date);
+                //errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.Error = "";
+
+                return false;
+            } else if (DateTime.ParseExact(request_DateField.Text, "d MMMM yyyy", null) < DateTime.Today){
+                TextView errorText = (TextView)request_DateField;
+                errorText.Hint = GetString(Resource.String.invalid_date);
+                //errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.Error = "";
+
+                return false;
+            }
+
+            // Validate if one or more treatments are selected
+            if(treatmentIDArr.Length == 0)
+            {
+                Toast.MakeText(this, Resource.String.no_treatment, ToastLength.Short).Show();
+                return false;
+            }
+
+            return true;
         }
     }
 }
