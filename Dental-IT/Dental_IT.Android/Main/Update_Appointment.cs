@@ -87,7 +87,15 @@ namespace Dental_IT.Droid.Main
             {
                 //  Receive data from shared preferences
                 appt = JsonConvert.DeserializeObject<Appointment>(prefs.GetString("appointment", "null"));
-                update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
+
+                if (prefs.Contains("update_Date")){
+                    update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
+                }
+                else
+                {
+                    update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
+                }
+                
                 update_RemarksField.Text = prefs.GetString("remarks", "");
             }
 
@@ -214,6 +222,12 @@ namespace Dental_IT.Droid.Main
                         count++;
                     }
                 }
+
+                //  If treatments unchanged, use original treatments
+                if (treatmentIDArr == null)
+                    {
+                        treatmentIDArr = appt.Treatments;
+                    }
 
                 // Check if Remarks field is empty
                     String remarks = "";
