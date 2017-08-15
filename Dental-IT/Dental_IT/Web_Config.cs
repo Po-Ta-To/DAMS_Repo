@@ -2,7 +2,7 @@
 {
     public static class Web_Config
     {
-        private static string conn = "http://192.168.137.1:49814";
+        private static string conn = "http://ec2-54-214-60-226.us-west-2.compute.amazonaws.com";
 
         // POST user to get token (Sign in)
         public static string global_connURL_postToken { get; } = conn + "/token";

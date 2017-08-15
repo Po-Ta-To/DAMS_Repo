@@ -116,4 +116,5 @@
   <string name="clearData_text">This will sign you out and clear all user data such as current login session and favourited hospital/clinics. It will NOT make any changes to your appointments or account details. Proceed to clear user data?</string>
   <string name="confirm_clearData">Clear</string>
   <string name="invalid_request">Unable to submit your request. Please check all fields.</string>
+  <string name="invalid_cancel">Unable to cancel appointment. Please try again later.</string>
 </resources>

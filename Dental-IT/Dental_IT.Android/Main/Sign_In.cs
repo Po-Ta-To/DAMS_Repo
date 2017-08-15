@@ -72,7 +72,10 @@ namespace Dental_IT.Droid.Main
                 {
                     //  Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                    if (inputManager != null)
+                    {
+                        inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                    }
 
                     //  Post credentials to get token from database
                     switch (api.PostUserForToken(signIn_EmailField.Text, signIn_PasswordField.Text))
@@ -121,6 +124,10 @@ namespace Dental_IT.Droid.Main
                         //  Backend problem
                         case 4:
                             Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                            break;
+
+                        default:
+                            Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
                             break;
                     }
                 }

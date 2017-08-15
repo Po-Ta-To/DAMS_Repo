@@ -88,14 +88,15 @@ namespace Dental_IT.Droid.Main
                 //  Receive data from shared preferences
                 appt = JsonConvert.DeserializeObject<Appointment>(prefs.GetString("appointment", "null"));
 
-                if (prefs.Contains("update_Date")){
+                if (prefs.Contains("update_Date"))
+                {
                     update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
                 }
                 else
                 {
                     update_DateField.Text = appt.Date.ToString("d MMMM yyyy");
                 }
-                
+
                 update_RemarksField.Text = prefs.GetString("remarks", "");
             }
 
@@ -199,16 +200,16 @@ namespace Dental_IT.Droid.Main
                 {
                     List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
 
-                    treatmentIDArr = new int[tempTreatmentIDList.Count];
+                        treatmentIDArr = new int[tempTreatmentIDList.Count];
 
-                    int count = 0;
+                        int count = 0;
 
-                    foreach (int id in tempTreatmentIDList)
-                    {
-                        treatmentIDArr[count] = id;
-                        count++;
+                        foreach (int id in tempTreatmentIDList)
+                        {
+                            treatmentIDArr[count] = id;
+                            count++;
+                        }
                     }
-                }
 
                 // Validate fields
                 if (Validate(update_DateField, treatmentIDArr))
@@ -236,23 +237,26 @@ namespace Dental_IT.Droid.Main
                         remarks = "No Remarks";
                     }
 
-                // Create new appointment to store updated values
-                Appointment apptToBeUpdated = new Appointment()
-                {
-                    ID = appt.ID,
-                    PreferredDate = update_DateField.Text,
-                    PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
-                    RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
-                    Treatments = treatmentIDArr,
-                    Remarks = remarks
-                };
+                    // Create new appointment to store updated values
+                    Appointment apptToBeUpdated = new Appointment()
+                    {
+                        ID = appt.ID,
+                        //PreferredDate = update_DateField.Text,
+                        PreferredDate = "22 August 2017",
+                        //PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
+                        PreferredTime = 2,
+                        //RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
+                        RequestDoctorDentistID = 1,
+                        Treatments = treatmentIDArr,
+                        Remarks = remarks
+                    };
 
-                // Post the appointment
-                switch (api.PutAppointment(JsonConvert.SerializeObject(apptToBeUpdated), accessToken))
-                {
-                    //  Successful
-                    case 1:
-                        Toast.MakeText(this, Resource.String.update_OK, ToastLength.Short).Show();
+                    // Update the appointment
+                    switch (api.PutAppointment(JsonConvert.SerializeObject(apptToBeUpdated), accessToken))
+                    {
+                        //  Successful
+                        case 1:
+                            Toast.MakeText(this, Resource.String.update_OK, ToastLength.Short).Show();
 
                             Intent intent = new Intent(this, typeof(My_Appointments));
                             StartActivity(intent);
@@ -271,6 +275,10 @@ namespace Dental_IT.Droid.Main
                         //  Backend problem
                         case 4:
                             Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                            break;
+
+                        default:
+                            Toast.MakeText(this, Resource.String.error, ToastLength.Short).Show();
                             break;
                     }
                 }
@@ -350,9 +358,9 @@ namespace Dental_IT.Droid.Main
             {
                 TextView errorText = (TextView)update_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);
-                errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
-              
+
                 return false;
             }
 
