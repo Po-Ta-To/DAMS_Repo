@@ -115,9 +115,7 @@ namespace Dental_IT.Droid.Main
             register_RegisterBtn.Click += delegate
             {
                 //  Validate fields
-                bool validated = Validate(fields);
-
-                if (validated == true)
+                if (Validate(fields))
                 {
                     //  Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);

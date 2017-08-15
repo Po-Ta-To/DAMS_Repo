@@ -186,9 +186,12 @@ namespace Dental_IT.Droid.Main
             //  Handle update button
             update_SubmitBtn.Click += delegate
             {
-                //  Close keyboard
-                InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                // Check for validation
+                if (Validate(update_DateField))
+                {
+                    //  Close keyboard
+                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
                 //  Retrieve access token
                 if (prefs.Contains("token"))
@@ -230,24 +233,25 @@ namespace Dental_IT.Droid.Main
                     case 1:
                         Toast.MakeText(this, Resource.String.update_OK, ToastLength.Short).Show();
 
-                        Intent intent = new Intent(this, typeof(My_Appointments));
-                        StartActivity(intent);
-                        break;
+                            Intent intent = new Intent(this, typeof(My_Appointments));
+                            StartActivity(intent);
+                            break;
 
-                    //  Invalid request
-                    case 2:
-                        Toast.MakeText(this, Resource.String.invalid_request, ToastLength.Short).Show();
-                        break;
+                        //  Invalid request
+                        case 2:
+                            Toast.MakeText(this, Resource.String.invalid_request, ToastLength.Short).Show();
+                            break;
 
-                    //  No internet connectivity
-                    case 3:
-                        Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
-                        break;
+                        //  No internet connectivity
+                        case 3:
+                            Toast.MakeText(this, Resource.String.network_error, ToastLength.Short).Show();
+                            break;
 
-                    //  Backend problem
-                    case 4:
-                        Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
-                        break;
+                        //  Backend problem
+                        case 4:
+                            Toast.MakeText(this, Resource.String.server_error, ToastLength.Short).Show();
+                            break;
+                    }
                 }
             };
         }
@@ -315,6 +319,25 @@ namespace Dental_IT.Droid.Main
             }
 
             editor.Apply();
+        }
+
+        // Method to validate the fields
+        private bool Validate(EditText update_DateField) // , TreatmentArray)
+        {
+            // Check if preferred date is selected and is valid
+            if (update_DateField.Text.Length == 0 || DateTime.Parse(update_DateField.Text) < DateTime.Today)
+            {
+                TextView errorText = (TextView)update_DateField;
+                errorText.Hint = GetString(Resource.String.invalid_date);
+                errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
+                errorText.Error = "";
+              
+                return false;
+            }
+
+            // Check treatments
+            
+            return true;
         }
     }
 }

@@ -162,13 +162,26 @@ namespace DAMS_03.API
             newAppointment.ApprovalState = 1;//Approval state should be pending (1) for requests 
             newAppointment.PreferredDate = appointment.PreferredDate;
             newAppointment.PreferredTime = appointment.PreferredTime;
-            newAppointment.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
             newAppointment.Remarks = appointment.Remarks;
 
-            //set confirmed dentist, date and time to preferred values, fields are nullable
-            newAppointment.DoctorDentistID = appointment.RequestDoctorDentistID;
+            //AppointmentDate is nulllable
             newAppointment.AppointmentDate = appointment.PreferredDate;
+            //PreferredTime is nulllable
             newAppointment.AppointmentTime = appointment.PreferredTime;
+
+
+            if (appointment.RequestDoctorDentistID == 0)
+            {
+                newAppointment.RequestDoctorDentistID = null;
+                //DoctorDentistID is nulllable
+                newAppointment.DoctorDentistID = null;
+            }
+            else
+            {
+                newAppointment.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
+                //DoctorDentistID is nulllable
+                newAppointment.DoctorDentistID = appointment.RequestDoctorDentistID;
+            }
 
             // Add the new appointment 
             db.Appointments.Add(newAppointment);
@@ -210,12 +223,25 @@ namespace DAMS_03.API
                 Appointment apptToBeUpdated = db.Appointments.Find(id);
 
                 // Update the Appointment table
-                //apptToBeUpdated.ClinicHospitalID = appointment.ClinicHospitalID;
                 apptToBeUpdated.ApprovalState = 1; // Approval state will be set to pending
                 apptToBeUpdated.PreferredDate = appointment.PreferredDate;
                 apptToBeUpdated.PreferredTime = appointment.PreferredTime;
-                apptToBeUpdated.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
+                //apptToBeUpdated.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
                 apptToBeUpdated.Remarks = appointment.Remarks;
+
+                if (appointment.RequestDoctorDentistID == 0)
+                {
+                    apptToBeUpdated.RequestDoctorDentistID = null;
+                    //DoctorDentistID is nulllable
+                    apptToBeUpdated.DoctorDentistID = null;
+                }
+                else
+                {
+                    apptToBeUpdated.RequestDoctorDentistID = appointment.RequestDoctorDentistID;
+                    //DoctorDentistID is nulllable
+                    apptToBeUpdated.DoctorDentistID = appointment.RequestDoctorDentistID;
+                }
+
                 db.SaveChanges();
 
                 // Remove the entities in AppointmentTreatment table 
