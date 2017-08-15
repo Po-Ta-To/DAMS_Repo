@@ -55,6 +55,24 @@ namespace Dental_IT.Droid.Main
                 {
                     prefString = "request_Date";
                     hosp = JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("hosp_OpenDays"));
+
+                    //  Check which days the hospital is closed
+                    if (hosp.IsOpenMonFri == false)
+                    {
+                        closedDays.Add("Monday");
+                        closedDays.Add("Tuesday");
+                        closedDays.Add("Wednesday");
+                        closedDays.Add("Thursday");
+                        closedDays.Add("Friday");
+                    }
+                    if (hosp.IsOpenSat == false)
+                    {
+                        closedDays.Add("Saturday");
+                    }
+                    if (hosp.IsOpenSunPh == false)
+                    {
+                        closedDays.Add("Sunday");
+                    }
                 }
                 else if (i.GetStringExtra("selectDate_From").Equals("Update"))
                 {
@@ -68,27 +86,10 @@ namespace Dental_IT.Droid.Main
                 prefString = null;
             }
 
-            //  Check which days the hospital is closed
-            if (hosp.IsOpenMonFri == false)
-            {
-                closedDays.Add("Monday");
-                closedDays.Add("Tuesday");
-                closedDays.Add("Wednesday");
-                closedDays.Add("Thursday");
-                closedDays.Add("Friday");
-            }
-            if (hosp.IsOpenSat == false)
-            {
-                closedDays.Add("Saturday");
-            }
-            if (hosp.IsOpenSunPh == false)
-            {
-                closedDays.Add("Sunday");
-            }
-
             RunOnUiThread(() =>
             {
                 //  Set initial select date
+
                 //  From request
                 if (prefString.Equals("request_Date"))
                 {
@@ -100,6 +101,10 @@ namespace Dental_IT.Droid.Main
                     {
                         calendar.SetSelectedDate(Calendar.GetInstance(Java.Util.TimeZone.GetTimeZone("Asia / Singapore")));
                     }
+
+                    //  Set background decoration on event dates
+                    //calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_red)), dates));
+                    calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_grey)), closedDays));
                 }
                 //  From update
                 else if (prefString.Equals("update_Date"))
@@ -109,10 +114,6 @@ namespace Dental_IT.Droid.Main
                 
                 selectedDate = formatter.Format(calendar.SelectedDate.Date);
                 calendar_DateText.Text = selectedDate;
-
-                //  Set background decoration on event dates
-                //calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_red)), dates));
-                calendar.AddDecorators(new EventDecoratorSelect(this, new Color(ContextCompat.GetColor(this, Resource.Color._5_grey)), closedDays));
 
                 //  Set date on date change
                 calendar.DateChanged += delegate
