@@ -60,6 +60,10 @@ namespace Dental_IT.Droid.Main
             dates2.Add(g);
             dates2.Add(h);
 
+            //  Shared preferences
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+
             //  Get intents
             Intent i = Intent;
 
@@ -83,9 +87,19 @@ namespace Dental_IT.Droid.Main
             RunOnUiThread(() =>
             {
                 //  Set initial select date
-                calendar.SetSelectedDate(Calendar.GetInstance(Java.Util.TimeZone.GetTimeZone("Asia / Singapore")));
-                selectedDate = formatter.Format(calendar.SelectedDate.Date);
+                if (prefs.Contains(prefString)){
+                    if (prefString.Equals("update_Date"))
+                    {
 
+                    }
+                    calendar.SetSelectedDate(new Date(prefs.GetString(prefString, "")));
+                }
+                else
+                {
+                    calendar.SetSelectedDate(Calendar.GetInstance(Java.Util.TimeZone.GetTimeZone("Asia / Singapore")));
+                }
+                
+                selectedDate = formatter.Format(calendar.SelectedDate.Date);
                 calendar_DateText.Text = selectedDate;
 
                 //  Set background decoration on event dates
@@ -111,13 +125,19 @@ namespace Dental_IT.Droid.Main
             calendar_ConfirmBtn.Click += delegate
             {
                 //  Save selected date to shared preferences
-                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-                ISharedPreferencesEditor editor = prefs.Edit();
                 editor.PutString(prefString, selectedDate);
                 editor.Apply();
 
-                Intent intent = new Intent(this, typeof(Request_Appointment));
-                StartActivity(intent);
+                if (prefString.Equals("request_Date"))
+                {
+                    Intent intent = new Intent(this, typeof(Request_Appointment));
+                    StartActivity(intent);
+                }
+                else if (prefString.Equals("update_Date"))
+                {
+                    Intent intent = new Intent(this, typeof(Update_Appointment));
+                    StartActivity(intent);
+                }
             };
         }
 
@@ -128,11 +148,19 @@ namespace Dental_IT.Droid.Main
         }
 
 
-        //  Redirect to request appointment page when back arrow is tapped
+        //  Redirect to request appointment or update appointment page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            Intent intent = new Intent(this, typeof(Request_Appointment));
-            StartActivity(intent);
+            if (prefString.Equals("request_Date"))
+            {
+                Intent intent = new Intent(this, typeof(Request_Appointment));
+                StartActivity(intent);
+            }
+            else if (prefString.Equals("update_Date"))
+            {
+                Intent intent = new Intent(this, typeof(Update_Appointment));
+                StartActivity(intent);
+            }
 
             return base.OnOptionsItemSelected(item);
         }

@@ -121,11 +121,11 @@ namespace DAMS_03.API
                                                               TimeRangeSlotString = cht.TimeRangeSlotString,
                                                           }).ToList();
 
-                string insertTimeslotPreferred = timeslots[appointment.PreferredTime].TimeRangeSlotString;
+                string insertTimeslotPreferred = timeslots[appointment.PreferredTime-1].TimeRangeSlotString;
                 string insertTimeslotFinal = "Error";
                 if (apptTime != null)
                 {
-                    insertTimeslotFinal = timeslots[(int)apptTime].TimeRangeSlotString;
+                    insertTimeslotFinal = timeslots[(int)apptTime-1].TimeRangeSlotString;
                 }
 
                 AppointmentApiHelperModel addAppt = new AppointmentApiHelperModel()

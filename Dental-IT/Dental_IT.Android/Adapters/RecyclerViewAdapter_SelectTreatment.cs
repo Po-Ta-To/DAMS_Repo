@@ -38,14 +38,22 @@ namespace Dental_IT.Droid.Adapters
                 tempSelectedList[position].toggled = true;
                 holder.treatmentChkbox.Checked = true;
 
-                prefList.Add(tempSelectedList[position].id);
+                //  If id does not already exist in list, add to list
+                if (prefList.Exists(e => e == tempSelectedList[position].id) == false)
+                {
+                    prefList.Add(tempSelectedList[position].id);
+                }                
             }
             else
             {
                 tempSelectedList[position].toggled = false;
                 holder.treatmentChkbox.Checked = false;
 
-                prefList.Remove(prefList.Find(e => (e.Equals(tempSelectedList[position].id))));
+                //  If id exists in list, remove it
+                if (prefList.Exists(e => e == tempSelectedList[position].id))
+                {
+                    prefList.Remove(prefList.Find(e => e == tempSelectedList[position].id));
+                }                
             }
         }
 

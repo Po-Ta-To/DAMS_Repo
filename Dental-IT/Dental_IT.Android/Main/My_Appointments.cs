@@ -134,7 +134,7 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-        //  Redirect to main menu page when back arrow is tapped
+        //  Open navigation drawer when icon is clicked
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -163,6 +163,7 @@ namespace Dental_IT.Droid.Main
                 //  Clear user data
                 UserAccount.AccessToken = null;
                 UserAccount.Name = null;
+                UserAccount.ID = 0;
 
                 //  Redirect to sign in page
                 intent = new Intent(this, typeof(Sign_In));
@@ -192,6 +193,7 @@ namespace Dental_IT.Droid.Main
                 //  Clear remaining user data
                 UserAccount.AccessToken = null;
                 UserAccount.Name = null;
+                UserAccount.ID = 0;
 
                 //  Redirect to sign in page
                 intent = new Intent(this, typeof(Sign_In));

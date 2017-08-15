@@ -25,7 +25,6 @@ namespace Dental_IT.Droid.Main
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<Session> sessions = new List<Session>() { new Session() };
         private Appointment appt;
-        private int apptID;
         private int[] treatmentIDArr;
         private int userID;
         private string accessToken;
@@ -81,13 +80,13 @@ namespace Dental_IT.Droid.Main
 
                 //  Receive appointment data from intent
                 appt = JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("update_Appointment"));
-                apptID = appt.ID;
             }
             else
             {
                 //  Receive data from shared preferences
                 appt = JsonConvert.DeserializeObject<Appointment>(prefs.GetString("appointment", "null"));
                 update_DateField.Text = prefs.GetString("update_Date", GetString(Resource.String.select_date));
+                update_RemarksField.Text = prefs.GetString("remarks", "");
             }
 
             //  Retrieve dentist and session data from database
@@ -193,30 +192,45 @@ namespace Dental_IT.Droid.Main
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
                     inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-                    //  Retrieve access token
-                    if (prefs.Contains("token"))
+                //  Retrieve access token
+                if (prefs.Contains("token"))
+                {
+                    accessToken = prefs.GetString("token", "");
+                }
+
+                //  Get selected treatments
+                if (prefs.Contains("update_Treatments"))
+                {
+                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
+
+                    treatmentIDArr = new int[tempTreatmentIDList.Count];
+
+                    int count = 0;
+
+                    foreach (int id in tempTreatmentIDList)
                     {
-                        accessToken = prefs.GetString("token", "");
+                        treatmentIDArr[count] = id;
+                        count++;
                     }
+                }
 
-                    // Create new appointment to store updated values
-                    Appointment apptToBeUpdated = new Appointment()
-                    {
-                        ID = apptID,
-                        UserID = userID,
-                        PreferredDate = update_DateField.Text,
-                        PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
-                        RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
-                        Treatments = treatmentIDArr,
-                        Remarks = update_RemarksField.Text
-                    };
+                // Create new appointment to store updated values
+                Appointment apptToBeUpdated = new Appointment()
+                {
+                    ID = appt.ID,
+                    PreferredDate = update_DateField.Text,
+                    PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
+                    RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
+                    Treatments = treatmentIDArr,
+                    Remarks = update_RemarksField.Text
+                };
 
-                    // Post the appointment
-                    switch (api.PutAppointment(JsonConvert.SerializeObject(apptToBeUpdated), accessToken))
-                    {
-                        //  Successful
-                        case 1:
-                            Toast.MakeText(this, Resource.String.request_OK, ToastLength.Short).Show();
+                // Post the appointment
+                switch (api.PutAppointment(JsonConvert.SerializeObject(apptToBeUpdated), accessToken))
+                {
+                    //  Successful
+                    case 1:
+                        Toast.MakeText(this, Resource.String.update_OK, ToastLength.Short).Show();
 
                             Intent intent = new Intent(this, typeof(My_Appointments));
                             StartActivity(intent);
@@ -247,8 +261,7 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        //  Redirect to appointment details page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Appointment_Details));
@@ -267,6 +280,7 @@ namespace Dental_IT.Droid.Main
             editor.PutString("appointment", JsonConvert.SerializeObject(appt));
             editor.PutInt("update_Dentist", update_DentistSpinner.SelectedItemPosition);
             editor.PutInt("update_Session", update_SessionSpinner.SelectedItemPosition);
+            editor.PutString("remarks", update_RemarksField.Text);
             editor.Apply();
         }
 
