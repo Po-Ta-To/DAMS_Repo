@@ -18,7 +18,7 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Calendar_Select : AppCompatActivity
     {
-        private static Java.Text.DateFormat formatter = Java.Text.DateFormat.DateInstance;
+        private static Java.Text.SimpleDateFormat formatter = new Java.Text.SimpleDateFormat("d MMMM yyyy");
         private string selectedDate;
         private string prefString;
         private string initialUpdateDate;

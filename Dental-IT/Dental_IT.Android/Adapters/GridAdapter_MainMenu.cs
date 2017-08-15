@@ -89,18 +89,18 @@ namespace Dental_IT.Droid.Adapters
 
     class MyImageButton : ImageButton
     {
-        private static Context context;
+        private Context context;
 
-        public MyImageButton(Context c, IAttributeSet attrs) : base(context, attrs)
+        public MyImageButton(Context context, IAttributeSet attrs) : base(context, attrs)
         {
-            c = context;
+            this.context = context;
         }
 
         public override bool OnTouchEvent(MotionEvent e)
         {
             if (e.Action == MotionEventActions.Down)
             {
-                this.SetColorFilter(new Android.Graphics.Color(context.GetColor(Resource.Color._5_grey)));
+                //this.SetColorFilter(new Android.Graphics.Color(context.GetColor(Resource.Color._5_grey)));
             }
             else if (e.Action == MotionEventActions.Up)
             {
