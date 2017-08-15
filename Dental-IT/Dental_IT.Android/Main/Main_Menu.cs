@@ -68,8 +68,7 @@ namespace Dental_IT.Droid.Main
                 if (prefs.Contains("name"))
                 {
                     navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(prefs.GetString("name", "User not found"));
-                }
-                
+                }                
             });
 
             navigationView.NavigationItemSelected += (sender, e) =>
@@ -115,6 +114,7 @@ namespace Dental_IT.Droid.Main
             };
         }
 
+        //  Open navigation drawer when icon is clicked
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -201,6 +201,7 @@ namespace Dental_IT.Droid.Main
                 //  Clear remaining user data
                 UserAccount.AccessToken = null;
                 UserAccount.Name = null;
+                UserAccount.ID = 0;
 
                 //  Redirect to sign in page
                 intent = new Intent(this, typeof(Sign_In));

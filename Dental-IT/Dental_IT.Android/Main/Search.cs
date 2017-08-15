@@ -74,56 +74,57 @@ namespace Dental_IT.Droid.Main
                 navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
                 navigationView.InflateHeaderView(Resource.Layout.sublayout_Drawer_Header);
                 navigationView.InflateMenu(Resource.Menu.nav_menu);
-                navigationView.SetCheckedItem(Resource.Id.nav_Home);
+                navigationView.SetCheckedItem(Resource.Id.nav_Search);
 
                 ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 if (prefs.Contains("name"))
                 {
                     navigationView.Menu.FindItem(Resource.Id.nav_User).SetTitle(prefs.GetString("name", "User not found"));
                 }
-
-                navigationView.NavigationItemSelected += (sender, e) =>
-                {
-                    switch (e.MenuItem.ItemId)
-                    {
-
-                        case Resource.Id.nav_Home:
-                            intent = new Intent(this, typeof(Main_Menu));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_RequestAppt:
-                            intent = new Intent(this, typeof(Select_Hospital));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_MyAppt:
-                            intent = new Intent(this, typeof(My_Appointments));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_TreatmentInfo:
-                            intent = new Intent(this, typeof(Treatment_Information));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_Search:
-                            intent = new Intent(this, typeof(Search));
-                            StartActivity(intent);
-                            break;
-
-                        case Resource.Id.nav_ClearData:
-                            ClearData();
-                            break;
-
-                        case Resource.Id.nav_Logout:
-                            Logout();
-                            break;
-                    }
-                    //  React to click here and swap fragments or navigate
-                    drawerLayout.CloseDrawers();
-                };
             });
+
+            navigationView.NavigationItemSelected += (sender, e) =>
+            {
+                switch (e.MenuItem.ItemId)
+                {
+
+                    case Resource.Id.nav_Home:
+                        intent = new Intent(this, typeof(Main_Menu));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_RequestAppt:
+                        intent = new Intent(this, typeof(Select_Hospital));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_MyAppt:
+                        intent = new Intent(this, typeof(My_Appointments));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_TreatmentInfo:
+                        intent = new Intent(this, typeof(Treatment_Information));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_Search:
+                        intent = new Intent(this, typeof(Search));
+                        StartActivity(intent);
+                        break;
+
+                    case Resource.Id.nav_ClearData:
+                        ClearData();
+                        break;
+
+                    case Resource.Id.nav_Logout:
+                        Logout();
+                        break;
+                }
+
+                //  React to click here and swap fragments or navigate
+                drawerLayout.CloseDrawers();
+            };
         }
 
         //  Implement menus in the action bar; backarrow
@@ -132,7 +133,7 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-        //  Redirect to main menu when back arrow is tapped
+        //  Open navigation drawer when icon is clicked
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -157,7 +158,7 @@ namespace Dental_IT.Droid.Main
 
         public void OnTabUnselected(TabLayout.Tab tab)
         {
-            
+
         }
 
         public bool OnQueryTextChange(string query)
@@ -215,6 +216,7 @@ namespace Dental_IT.Droid.Main
                 //  Clear user data
                 UserAccount.AccessToken = null;
                 UserAccount.Name = null;
+                UserAccount.ID = 0;
 
                 //  Redirect to sign in page
                 intent = new Intent(this, typeof(Sign_In));
@@ -244,6 +246,7 @@ namespace Dental_IT.Droid.Main
                 //  Clear remaining user data
                 UserAccount.AccessToken = null;
                 UserAccount.Name = null;
+                UserAccount.ID = 0;
 
                 //  Redirect to sign in page
                 intent = new Intent(this, typeof(Sign_In));

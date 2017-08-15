@@ -8,6 +8,8 @@ using Dental_IT.Model;
 using System;
 using System.Threading.Tasks;
 using System.Json;
+using Android.Preferences;
+using Newtonsoft.Json;
 
 namespace Dental_IT.Droid.Main
 {
@@ -41,17 +43,29 @@ namespace Dental_IT.Droid.Main
             Button apptDetails_UpdateBtn = FindViewById<Button>(Resource.Id.apptDetails_UpdateBtn);
             Button apptDetails_CancelBtn = FindViewById<Button>(Resource.Id.apptDetails_CancelBtn);
 
+            //  Shared preferences
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+
             //  Get intents
             Intent i = Intent;
 
-            //  Receive data from appointments
-            if (i.GetStringExtra("appointment") != null)
+            //  If redirected from my appointments page
+            if (i.GetStringExtra("appointment_Details") != null)
             {
-                appointment = Newtonsoft.Json.JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("appointment"));
+                //  Receive data from my appointments intent
+                appointment = Newtonsoft.Json.JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("appointment_Details"));
             }
             else
             {
-                appointment = new Appointment();
+                //  Receive data from shared preferences
+                if (prefs.Contains("appointment")){
+                    appointment = JsonConvert.DeserializeObject<Appointment>(prefs.GetString("appointment", "null"));
+                }
+                else
+                {
+                    appointment = new Appointment();
+                }
             }
 
             RunOnUiThread(() =>
@@ -67,9 +81,9 @@ namespace Dental_IT.Droid.Main
                 //  Set appointment details
                 apptDetails_HospitalText.Text = appointment.ClinicHospital;
                 apptDetails_DateText.Text = appointment.Date.ToString("d MMMM yyyy");
-                apptDetails_DentistText.Text = appointment.Dentist;
-                apptDetails_SessionText.Text = appointment.Time;
-                apptDetails_TreatmentText.Text = appointment.Treatments;
+                apptDetails_DentistText.Text = appointment.DentistName;
+                apptDetails_SessionText.Text = appointment.TimeString;
+                apptDetails_TreatmentText.Text = appointment.TreatmentsName;
                 apptDetails_StatusText.Text = appointment.Status;
 
                 //  Disable buttons on past appointments
@@ -148,7 +162,7 @@ namespace Dental_IT.Droid.Main
         }
 
 
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        //  Redirect to my appointments page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(My_Appointments));

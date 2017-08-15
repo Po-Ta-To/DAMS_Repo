@@ -55,9 +55,9 @@ namespace Dental_IT.Droid.Adapters
             }
 
             // Set view data
-            vh.treatmentsName.Text = appointmentList[position].Treatments;
-            vh.dentistName.Text = appointmentList[position].Dentist;
-            vh.dateTime.Text = appointmentList[position].Date.ToString("d MMMM yyyy") + ", " + appointmentList[position].Time;
+            vh.treatmentsName.Text = appointmentList[position].TreatmentsName;
+            vh.dentistName.Text = appointmentList[position].DentistName;
+            vh.dateTime.Text = appointmentList[position].Date.ToString("d MMMM yyyy") + ", " + appointmentList[position].TimeString;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -79,7 +79,7 @@ namespace Dental_IT.Droid.Adapters
             holder.ItemView.Click += delegate
             {
                 Intent intent = new Intent(context, typeof(Appointment_Details));
-                intent.PutExtra("appointment", Newtonsoft.Json.JsonConvert.SerializeObject(appointmentList[holder.AdapterPosition]));
+                intent.PutExtra("appointment_Details", Newtonsoft.Json.JsonConvert.SerializeObject(appointmentList[holder.AdapterPosition]));
                 context.StartActivity(intent);
             };
 

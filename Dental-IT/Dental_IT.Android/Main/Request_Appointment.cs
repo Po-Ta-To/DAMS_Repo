@@ -22,8 +22,6 @@ namespace Dental_IT.Droid.Main
         private Hospital hosp;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<Session> sessions = new List<Session>() { new Session() };
-        private int[] dentistIDArr;
-        private int[] sessionIDArr;
         private int[] treatmentIDArr;
         private int userID;
         private string accessToken;
@@ -77,14 +75,14 @@ namespace Dental_IT.Droid.Main
                 //  Remove old shared preferences
                 RemoveFromPreferences(prefs, editor);
 
-                //  Receive hospital name data from intent
+                //  Receive hospital data from intent
                 hosp = JsonConvert.DeserializeObject<Hospital>(i.GetStringExtra("newRequest_Hospital"));
             }
             else
             {
                 //  Receive data from shared preferences
                 hosp = JsonConvert.DeserializeObject<Hospital>(prefs.GetString("hospital", "null"));
-                request_DateField.Text = prefs.GetString("date", GetString(Resource.String.select_date));
+                request_DateField.Text = prefs.GetString("request_Date", GetString(Resource.String.select_date));
             }
 
             //  Retrieve dentist and session data from database
@@ -94,30 +92,18 @@ namespace Dental_IT.Droid.Main
                 {
                     //  Get dentists
                     List<Dentist> tempDentistList = await api.GetDentistsByClinicHospital(hosp.ID);
-                    dentistIDArr = new int[tempDentistList.Count];
 
-                    int x = 0;
-
-                    foreach (Dentist den in tempDentistList)
+                    foreach (Dentist dentist in tempDentistList)
                     {
-                        dentists.Add(den);
-                        dentistIDArr[x] = den.DentistID;
-
-                        x++;
+                        dentists.Add(dentist);
                     }
 
                     //  Get sessions
                     List<Session> tempSessionList = await api.GetSessionsByClinicHospital(hosp.ID);
-                    sessionIDArr = new int[tempSessionList.Count];
-
-                    int y = 0;
 
                     foreach (Session session in tempSessionList)
                     {
                         sessions.Add(session);
-                        sessionIDArr[y] = session.SlotID;
-
-                        y++;
                     }
 
                     RunOnUiThread(() =>
@@ -129,8 +115,8 @@ namespace Dental_IT.Droid.Main
                         if (i.GetStringExtra("newRequest_Hospital") == null)
                         {
                             //  Receive spinner data from shared preferences
-                            request_DentistSpinner.SetSelection(prefs.GetInt("dentist", 0));
-                            request_SessionSpinner.SetSelection(prefs.GetInt("session", 0));
+                            request_DentistSpinner.SetSelection(prefs.GetInt("request_Dentist", 0));
+                            request_SessionSpinner.SetSelection(prefs.GetInt("request_Session", 0));
                         }
                     });
                 }
@@ -206,9 +192,9 @@ namespace Dental_IT.Droid.Main
                 }
 
                 //  Get selected treatments
-                if (prefs.Contains("treatments"))
+                if (prefs.Contains("request_Treatments"))
                 {
-                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("treatments", "null"));
+                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("request_Treatments", "null"));
 
                     treatmentIDArr = new int[tempTreatmentIDList.Count];
 
@@ -222,14 +208,14 @@ namespace Dental_IT.Droid.Main
                 }
 
                 // Create new appointment
-                AppointmentRequest appt = new AppointmentRequest()
+                Appointment appt = new Appointment()
                 {
                     AppointmentID = "A" + rgNumber,
                     UserID = userID,
                     ClinicHospitalID = hosp.ID,
                     PreferredDate = request_DateField.Text,
-                    PreferredTime = sessionIDArr[request_SessionSpinner.SelectedItemPosition],
-                    RequestDoctorDentistID = dentistIDArr[request_DentistSpinner.SelectedItemPosition],
+                    PreferredTime = sessions[request_SessionSpinner.SelectedItemPosition].SlotID,
+                    RequestDoctorDentistID = dentists[request_DentistSpinner.SelectedItemPosition].DentistID,
                     Treatments = treatmentIDArr,
                     Remarks = request_RemarksField.Text
                 };
@@ -269,7 +255,7 @@ namespace Dental_IT.Droid.Main
             return true;
         }
 
-        //Toast displayed and redirected to SignIn page when back arrow is tapped
+        //  Redirect to select hospital page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             Intent intent = new Intent(this, typeof(Select_Hospital));
@@ -285,8 +271,8 @@ namespace Dental_IT.Droid.Main
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutString("hospital", JsonConvert.SerializeObject(hosp));
-            editor.PutInt("dentist", request_DentistSpinner.SelectedItemPosition);
-            editor.PutInt("session", request_SessionSpinner.SelectedItemPosition);
+            editor.PutInt("request_Dentist", request_DentistSpinner.SelectedItemPosition);
+            editor.PutInt("request_Session", request_SessionSpinner.SelectedItemPosition);
             editor.Apply();
         }
 
@@ -300,27 +286,27 @@ namespace Dental_IT.Droid.Main
             }
 
             //  Remove selected treatments from shared preferences
-            if (prefs.Contains("treatments"))
+            if (prefs.Contains("request_Treatments"))
             {
-                editor.Remove("treatments");
+                editor.Remove("request_Treatments");
             }
 
             //  Remove selected date from shared preferences
-            if (prefs.Contains("date"))
+            if (prefs.Contains("request_Date"))
             {
-                editor.Remove("date");
+                editor.Remove("request_Date");
             }
 
             //  Remove selected dentist from shared preferences
-            if (prefs.Contains("dentist"))
+            if (prefs.Contains("request_Dentist"))
             {
-                editor.Remove("dentist");
+                editor.Remove("request_Dentist");
             }
 
             //  Remove selected session from shared preferences
-            if (prefs.Contains("session"))
+            if (prefs.Contains("request_Session"))
             {
-                editor.Remove("session");
+                editor.Remove("request_Session");
             }
 
             editor.Apply();

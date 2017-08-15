@@ -25,6 +25,8 @@ namespace DAMS_03.Models
 
     public class AppointmentCreateModel
     {
+        public int ID { get; set; }
+
         [Required]
         [Display(Name = "Appointment ID")]
         public string AppointmentID { get; set; }

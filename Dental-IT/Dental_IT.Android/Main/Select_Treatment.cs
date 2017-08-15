@@ -21,8 +21,11 @@ namespace Dental_IT.Droid.Main
         private List<int> prefList = new List<int>();
         private List<ToggleState> tempSelectedList = new List<ToggleState>();
         private RecyclerView selectTreatment_RecyclerView;
+        private List<int> updateSelectedList = new List<int>();
 
         private int hospId;
+        private string prefString;
+        private Appointment appt;
 
         API api = new API();
 
@@ -41,16 +44,28 @@ namespace Dental_IT.Droid.Main
             Intent i = Intent;
 
             //  If redirected from request appointment
-            if (i.GetIntExtra("selectTreatmentFromRequest_HospId", 0) != null)
+            if (i.Extras.ContainsKey("selectTreatmentFromRequest_HospId"))
             {
+                prefString = "request_Treatments";
+
                 //  Receive data from request appointment
-                hospId = i.GetIntExtra("selectTreatmentFromRequest_HospId", 0);
+                hospId = i.GetIntExtra("selectTreatmentFromRequest_HospId", 0);                
             }
             //  Else if redirected from update appointment
-            else if (i.GetIntExtra("selectTreatmentFromUpdate_HospId", 0) != null)
+            else if (i.Extras.ContainsKey("selectTreatmentFromUpdate_Appointment"))
             {
-                //  Receive data from update appointment
-                hospId = i.GetIntExtra("selectTreatmentFromUpdate_HospId", 0);
+                prefString = "update_Treatments";
+
+                //  Receive appointment object from update appointment
+                appt = Newtonsoft.Json.JsonConvert.DeserializeObject<Appointment>(i.GetStringExtra("selectTreatmentFromUpdate_Appointment"));
+
+                //  Get selected treatments from appointment object
+                foreach (int treatmentID in appt.Treatments)
+                {
+                    updateSelectedList.Add(treatmentID);
+                }
+
+                hospId = appt.ClinicHospitalID;
             }
             else
             {
@@ -66,17 +81,17 @@ namespace Dental_IT.Droid.Main
                     treatmentList = await api.GetTreatmentsByClinicHospital(hospId);
 
                     //  If shared preferences contains treatments
-                    if (prefs.Contains("treatments"))
+                    if (prefs.Contains(prefString))
                     {
                         //  Retrieve list of treatment ids that are selected
-                        prefList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(prefs.GetString("treatments", "null"));
+                        prefList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(prefs.GetString(prefString, "null"));
 
                         //  Create a temporary list of selected treatments with all the treatments
                         foreach (Treatment treatment in treatmentList)
                         {
                             ToggleState tempSelected = new ToggleState(treatment.ID);
 
-                            //  Set favourited to true if hospital id corresponds with id in shared preferences
+                            //  Set checked to true if hospital id corresponds with id in shared preferences
                             if (prefList.Exists(e => (e.Equals(treatment.ID))))
                             {
                                 tempSelected.toggled = true;
@@ -86,12 +101,40 @@ namespace Dental_IT.Droid.Main
                         }
                     }
 
-                    //  Else if shared preferences is empty, create a temporary list of favourites with all the hospitals, setting all favourited to false by default
+                    //  Else if shared preferences is empty, create a temporary list of favourites with all the hospitals, setting all favourited to false by default, or according to selected treatments if from update
                     else
                     {
-                        foreach (Treatment treatment in treatmentList)
+                        //  Update appointment
+                        if (prefString.Equals("update_Treatments"))
                         {
-                            tempSelectedList.Add(new ToggleState(treatment.ID));
+                            foreach (Treatment treatment in treatmentList)
+                            {
+                                ToggleState tempSelected = new ToggleState(treatment.ID);
+
+                                //  Set checked to true if hospital id corresponds with id in update selected list
+                                if (updateSelectedList.Exists(e => (e.Equals(treatment.ID))))
+                                {
+                                    tempSelected.toggled = true;
+                                }
+
+                                tempSelectedList.Add(tempSelected);
+                            }
+
+                            foreach (ToggleState toggle in tempSelectedList)
+                            {
+                                if (toggle.toggled == true)
+                                {
+                                    prefList.Add(toggle.id);
+                                }                                
+                            }
+                        }
+                        //  Request appointment
+                        else
+                        {
+                            foreach (Treatment treatment in treatmentList)
+                            {
+                                tempSelectedList.Add(new ToggleState(treatment.ID));
+                            }
                         }
                     }
 
@@ -112,15 +155,6 @@ namespace Dental_IT.Droid.Main
 
             RunOnUiThread(() =>
             {
-                //  Configure custom adapter for recyclerview
-                selectTreatment_RecyclerView.Post(() =>
-                {
-                    selectTreatment_RecyclerView.SetLayoutManager(new LinearLayoutManager(this));
-
-                    RecyclerViewAdapter_SelectTreatment adapter = new RecyclerViewAdapter_SelectTreatment(this, treatmentList, prefList, tempSelectedList);
-                    selectTreatment_RecyclerView.SetAdapter(adapter);
-                });
-
                 //Implement CustomTheme ActionBar
                 var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
                 toolbar.SetTitle(Resource.String.selectTreatment_title);
@@ -138,11 +172,17 @@ namespace Dental_IT.Droid.Main
         }
 
 
-        //  Redirect to request appointment page when back arrow is tapped
+        //  Redirect to request appointment or update appointment page when back arrow is tapped
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            Intent intent = new Intent(this, typeof(Request_Appointment));
-            StartActivity(intent);
+            if (prefString.Equals("request_Treatments")){
+                Intent intent = new Intent(this, typeof(Request_Appointment));
+                StartActivity(intent);
+            }
+            else if (prefString.Equals("update_Treatments")){
+                Intent intent = new Intent(this, typeof(Update_Appointment));
+                StartActivity(intent);
+            }
 
             return base.OnOptionsItemSelected(item);
         }
@@ -154,7 +194,7 @@ namespace Dental_IT.Droid.Main
             //  Save selected treatments to shared preferences
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editor = prefs.Edit();
-            editor.PutString("treatments", Newtonsoft.Json.JsonConvert.SerializeObject(RecyclerViewAdapter_SelectTreatment.prefList));
+            editor.PutString(prefString, Newtonsoft.Json.JsonConvert.SerializeObject(RecyclerViewAdapter_SelectTreatment.prefList));
             editor.Apply();
         }
     }
