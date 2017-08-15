@@ -2318,8 +2318,26 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f020054
 			public const int avd_hide_password = 2130837588;
 			
+			// aapt resource value: 0x7f020094
+			public const int avd_hide_password_1 = 2130837652;
+			
+			// aapt resource value: 0x7f020095
+			public const int avd_hide_password_2 = 2130837653;
+			
+			// aapt resource value: 0x7f020096
+			public const int avd_hide_password_3 = 2130837654;
+			
 			// aapt resource value: 0x7f020055
 			public const int avd_show_password = 2130837589;
+			
+			// aapt resource value: 0x7f020097
+			public const int avd_show_password_1 = 2130837655;
+			
+			// aapt resource value: 0x7f020098
+			public const int avd_show_password_2 = 2130837656;
+			
+			// aapt resource value: 0x7f020099
+			public const int avd_show_password_3 = 2130837657;
 			
 			// aapt resource value: 0x7f020056
 			public const int background = 2130837590;
@@ -3916,8 +3934,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060038
 			public const int NRIC = 2131099704;
 			
-			// aapt resource value: 0x7f060086
-			public const int OK = 2131099782;
+			// aapt resource value: 0x7f060087
+			public const int OK = 2131099783;
 			
 			// aapt resource value: 0x7f060003
 			public const int abc_action_bar_home_description = 2131099651;
@@ -4012,14 +4030,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060015
 			public const int abc_toolbar_collapse_description = 2131099669;
 			
-			// aapt resource value: 0x7f06008b
-			public const int access_denied = 2131099787;
-			
 			// aapt resource value: 0x7f06008c
-			public const int account_created = 2131099788;
+			public const int access_denied = 2131099788;
 			
 			// aapt resource value: 0x7f06008d
-			public const int account_taken = 2131099789;
+			public const int account_created = 2131099789;
+			
+			// aapt resource value: 0x7f06008e
+			public const int account_taken = 2131099790;
 			
 			// aapt resource value: 0x7f06004f
 			public const int address = 2131099727;
@@ -4063,8 +4081,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060026
 			public const int character_counter_pattern = 2131099686;
 			
-			// aapt resource value: 0x7f060091
-			public const int clearData_text = 2131099793;
+			// aapt resource value: 0x7f060092
+			public const int clearData_text = 2131099794;
 			
 			// aapt resource value: 0x7f060064
 			public const int close = 2131099748;
@@ -4078,14 +4096,14 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060065
 			public const int confirm_cancel = 2131099749;
 			
-			// aapt resource value: 0x7f060092
-			public const int confirm_clearData = 2131099794;
+			// aapt resource value: 0x7f060093
+			public const int confirm_clearData = 2131099795;
 			
 			// aapt resource value: 0x7f06007b
 			public const int confirm_exit = 2131099771;
 			
-			// aapt resource value: 0x7f060090
-			public const int confirm_logout = 2131099792;
+			// aapt resource value: 0x7f060091
+			public const int confirm_logout = 2131099793;
 			
 			// aapt resource value: 0x7f060076
 			public const int confirmed = 2131099766;
@@ -4108,8 +4126,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060030
 			public const int email = 2131099696;
 			
-			// aapt resource value: 0x7f060087
-			public const int error = 2131099783;
+			// aapt resource value: 0x7f060088
+			public const int error = 2131099784;
 			
 			// aapt resource value: 0x7f06007a
 			public const int exit_text = 2131099770;
@@ -4132,6 +4150,9 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06006e
 			public const int hospital_tab = 2131099758;
 			
+			// aapt resource value: 0x7f060084
+			public const int invalid_date = 2131099780;
+			
 			// aapt resource value: 0x7f06007f
 			public const int invalid_email = 2131099775;
 			
@@ -4144,17 +4165,17 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060081
 			public const int invalid_repeat = 2131099777;
 			
-			// aapt resource value: 0x7f060093
-			public const int invalid_request = 2131099795;
+			// aapt resource value: 0x7f060094
+			public const int invalid_request = 2131099796;
 			
-			// aapt resource value: 0x7f060088
-			public const int invalid_signIn = 2131099784;
+			// aapt resource value: 0x7f060089
+			public const int invalid_signIn = 2131099785;
 			
 			// aapt resource value: 0x7f060074
 			public const int legend = 2131099764;
 			
-			// aapt resource value: 0x7f06008f
-			public const int logout_text = 2131099791;
+			// aapt resource value: 0x7f060090
+			public const int logout_text = 2131099792;
 			
 			// aapt resource value: 0x7f060073
 			public const int mainmenu = 2131099763;
@@ -4168,8 +4189,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06002f
 			public const int name = 2131099695;
 			
-			// aapt resource value: 0x7f06008a
-			public const int network_error = 2131099786;
+			// aapt resource value: 0x7f06008b
+			public const int network_error = 2131099787;
 			
 			// aapt resource value: 0x7f06002d
 			public const int next = 2131099693;
@@ -4180,8 +4201,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060083
 			public const int no_date = 2131099779;
 			
-			// aapt resource value: 0x7f060084
-			public const int no_gender = 2131099780;
+			// aapt resource value: 0x7f060085
+			public const int no_gender = 2131099781;
 			
 			// aapt resource value: 0x7f06005f
 			public const int offeredBy_title = 2131099743;
@@ -4219,8 +4240,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06003b
 			public const int pdpa_title = 2131099707;
 			
-			// aapt resource value: 0x7f060085
-			public const int pdpa_unchecked = 2131099781;
+			// aapt resource value: 0x7f060086
+			public const int pdpa_unchecked = 2131099782;
 			
 			// aapt resource value: 0x7f060075
 			public const int pending = 2131099765;
@@ -4246,8 +4267,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f06003d
 			public const int register = 2131099709;
 			
-			// aapt resource value: 0x7f06008e
-			public const int register_error = 2131099790;
+			// aapt resource value: 0x7f06008f
+			public const int register_error = 2131099791;
 			
 			// aapt resource value: 0x7f060034
 			public const int register_text = 2131099700;
@@ -4306,8 +4327,8 @@ namespace Dental_IT.Droid
 			// aapt resource value: 0x7f060045
 			public const int select_treatments = 2131099717;
 			
-			// aapt resource value: 0x7f060089
-			public const int server_error = 2131099785;
+			// aapt resource value: 0x7f06008a
+			public const int server_error = 2131099786;
 			
 			// aapt resource value: 0x7f06004a
 			public const int session = 2131099722;
