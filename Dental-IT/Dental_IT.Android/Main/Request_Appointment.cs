@@ -172,8 +172,24 @@ namespace Dental_IT.Droid.Main
             //  Handle request button
             request_SubmitBtn.Click += delegate
             {
+                //  Get selected treatments
+                if (prefs.Contains("request_Treatments"))
+                {
+                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("request_Treatments", "null"));
+
+                    treatmentIDArr = new int[tempTreatmentIDList.Count];
+
+                    int count = 0;
+
+                    foreach (int id in tempTreatmentIDList)
+                    {
+                        treatmentIDArr[count] = id;
+                        count++;
+                    }
+                }
+
                 // Validate fields
-                if (Validate(request_DateField))
+                if (Validate(request_DateField, treatmentIDArr))
                 {
                     //  Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
@@ -192,22 +208,6 @@ namespace Dental_IT.Droid.Main
                     if (prefs.Contains("userID"))
                     {
                         userID = prefs.GetInt("userID", 0);
-                    }
-
-                    //  Get selected treatments
-                    if (prefs.Contains("request_Treatments"))
-                    {
-                        List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("request_Treatments", "null"));
-
-                        treatmentIDArr = new int[tempTreatmentIDList.Count];
-
-                        int count = 0;
-
-                        foreach (int id in tempTreatmentIDList)
-                        {
-                            treatmentIDArr[count] = id;
-                            count++;
-                        }
                     }
 
                     // Check if Remarks field is empty
@@ -325,7 +325,7 @@ namespace Dental_IT.Droid.Main
         }
 
         // Method to validate the fields
-        private bool Validate(EditText request_DateField)
+        private bool Validate(EditText request_DateField, int[] treatmentIDArr)
         {
             // Validate the preferred date
             if (request_DateField.Text.Length == 0)
@@ -336,7 +336,7 @@ namespace Dental_IT.Droid.Main
                 errorText.Error = "";
 
                 return false;
-            } else if (DateTime.ParseExact(request_DateField.Text, "MMM d, yyyy", null) < DateTime.Today){
+            } else if (DateTime.ParseExact(request_DateField.Text, "d MMMM yyyy", null) < DateTime.Today){
                 TextView errorText = (TextView)request_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);
                 //errorText.SetHintTextColor(new Android.Graphics.Color(GetColor(Resource.Color.red)));
@@ -345,7 +345,12 @@ namespace Dental_IT.Droid.Main
                 return false;
             }
 
-            // Validate treatments
+            // Validate if one or more treatments are selected
+            if(treatmentIDArr.Length == 0)
+            {
+                Toast.MakeText(this, Resource.String.no_treatment, ToastLength.Short).Show();
+                return false;
+            }
 
             return true;
         }

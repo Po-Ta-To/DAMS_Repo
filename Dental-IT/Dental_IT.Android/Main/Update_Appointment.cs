@@ -332,7 +332,7 @@ namespace Dental_IT.Droid.Main
         private bool Validate(EditText update_DateField) // , TreatmentArray)
         {
             // Check if preferred date is valid
-            if (DateTime.ParseExact(update_DateField.Text, "MMM d, yyyy", null) < DateTime.Today)
+            if (DateTime.ParseExact(update_DateField.Text, "d MMMM yyyy", null) < DateTime.Today)
             {
                 TextView errorText = (TextView)update_DateField;
                 errorText.Hint = GetString(Resource.String.invalid_date);
