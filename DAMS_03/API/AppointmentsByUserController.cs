@@ -51,6 +51,7 @@ namespace DAMS_03.API
             {
                 string approvalString = "";
                 System.DateTime? apptDate = new System.DateTime();
+                apptDate = appointment.AppointmentDate;
                 int? apptTime = appointment.AppointmentTime;
                                  
                 switch (appointment.ApprovalState)
