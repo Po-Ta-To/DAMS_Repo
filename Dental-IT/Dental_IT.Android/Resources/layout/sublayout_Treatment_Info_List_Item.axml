@@ -4,20 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:weightSum="1">
-  <!--Imageview marginleft = 25-->
-
-     <ImageView
-     android:id="@+id/mainMenu_Image"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-      android:layout_gravity="center"/>
-  
+    <ImageView
+        android:id="@+id/info_Image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_information"
+        android:scaleX="0.75"
+        android:scaleY="0.75" />
     <TextView
         android:id="@+id/treatmentInformation_TreatmentNameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_weight="0.6"
+        android:layout_marginLeft="25dp"
+        android:layout_weight="0.5"
         android:layout_gravity="center_vertical"
         android:maxLines="1"
         android:ellipsize="end"
