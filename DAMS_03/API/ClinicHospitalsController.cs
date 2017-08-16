@@ -158,6 +158,34 @@ namespace DAMS_03.API
                             orderby oh.OpeningHoursDay ascending
                             select oh).ToList();
 
+            bool IsOpenMonFri;
+            bool IsOpenSat;
+            bool IsOpenSunPh;
+            
+            if (openingHours[0].TimeRangeStart == new TimeSpan(0) && openingHours[0].TimeRangeEnd == new TimeSpan(0))
+            {
+                IsOpenMonFri = false;
+            }
+            else
+            {
+                IsOpenMonFri = true;
+            }
+            if (openingHours[1].TimeRangeStart == new TimeSpan(0) && openingHours[1].TimeRangeEnd == new TimeSpan(0))
+            {
+                IsOpenSat = false;
+            }
+            else
+            {
+                IsOpenSat = true;
+            }
+            if (openingHours[2].TimeRangeStart == new TimeSpan(0) && openingHours[2].TimeRangeEnd == new TimeSpan(0))
+            {
+                IsOpenSunPh = false;
+            }
+            else
+            {
+                IsOpenSunPh = true;
+            }
 
             ClinicHospitalDetailsModel detailedModel = new ClinicHospitalDetailsModel()
             {
@@ -171,20 +199,22 @@ namespace DAMS_03.API
                 IsStringOpenHours = clinicHospital.IsStringOpenHours,
                 //OpeningHours = openingHours
             };
-
-
-
+            
             if (detailedModel.IsStringOpenHours == true)
             {
-                var returnModel = new
+                ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
                 {
                     ClinicHospitalID = clinicHospital.ClinicHospitalID,
                     ClinicHospitalName = clinicHospital.ClinicHospitalName,
-                    ClinicHospitalAddress = clinicHospital.ClinicHospitalAddress,
-                    ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
-                    ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
-                    ClinicHospitalOpenHours = clinicHospital.ClinicHospitalOpenHours
+                    Address = clinicHospital.ClinicHospitalAddress,
+                    Telephone = clinicHospital.ClinicHospitalTel,
+                    Email = clinicHospital.ClinicHospitalEmail,
+                    OpenHours = clinicHospital.ClinicHospitalOpenHours
                 };
+
+                returnModel.IsOpenMonFri = IsOpenMonFri;
+                returnModel.IsOpenSat = IsOpenSat;
+                returnModel.IsOpenSunPh = IsOpenSunPh;
 
                 return Ok(returnModel);
 
@@ -226,15 +256,19 @@ namespace DAMS_03.API
                     openinghours += openingHours[2].TimeRangeStart.Hours.ToString("00") + ":" + openingHours[2].TimeRangeStart.Minutes.ToString("00") + " - " + openingHours[2].TimeRangeEnd.Hours.ToString("00") + ":" + openingHours[2].TimeRangeEnd.Minutes.ToString("00");
                 }
 
-                var returnModel = new
+                ClinicHospitalHelperModel returnModel = new ClinicHospitalHelperModel()
                 {
                     ClinicHospitalID = clinicHospital.ClinicHospitalID,
                     ClinicHospitalName = clinicHospital.ClinicHospitalName,
-                    ClinicHospitalAddress = clinicHospital.ClinicHospitalAddress,
-                    ClinicHospitalTel = clinicHospital.ClinicHospitalTel,
-                    ClinicHospitalEmail = clinicHospital.ClinicHospitalEmail,
-                    ClinicHospitalOpenHours = openinghours
+                    Address = clinicHospital.ClinicHospitalAddress,
+                    Telephone = clinicHospital.ClinicHospitalTel,
+                    Email = clinicHospital.ClinicHospitalEmail,
+                    OpenHours = openinghours
                 };
+
+                returnModel.IsOpenMonFri = IsOpenMonFri;
+                returnModel.IsOpenSat = IsOpenSat;
+                returnModel.IsOpenSunPh = IsOpenSunPh;
 
                 return Ok(returnModel);
             }
