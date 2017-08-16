@@ -198,7 +198,7 @@ namespace Dental_IT.Droid.Main
             update_SubmitBtn.Click += delegate
             { 
                 // Validate fields
-                if (Validate(update_DateField))
+                if (Validate(update_DateField, treatmentIDArr))
                 {
                     // Close keyboard
                     InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
@@ -350,19 +350,27 @@ namespace Dental_IT.Droid.Main
         }
 
         // Method to validate the fields
-        private bool Validate(EditText update_DateField)
+        private bool Validate(EditText update_DateField, int[] treatmentIDArr)
         {
             // Check if preferred date is valid
             if (DateTime.ParseExact(update_DateField.Text, "d MMMM yyyy", null) < DateTime.Today)
             {
                 TextView errorText = (TextView)update_DateField;
-                errorText.Hint = GetString(Resource.String.invalid_date);
-                //errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
+                update_DateLabel.RequestFocus();
+                update_DateField.SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
+                Toast.MakeText(this, Resource.String.invalid_date, ToastLength.Short).Show();
 
                 return false;
             }
-            
+
+            // Check if one or more treatments are selected
+            if (treatmentIDArr == null)
+            {
+                Toast.MakeText(this, Resource.String.no_treatment, ToastLength.Short).Show();
+                return false;
+            }
+
             return true;
         }
     }

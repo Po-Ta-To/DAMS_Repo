@@ -54,6 +54,8 @@
                         android:id="@+id/request_DateLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:textColor="@color/dark_blue"
                         android:text="@string/pref_date" />
                     <EditText
