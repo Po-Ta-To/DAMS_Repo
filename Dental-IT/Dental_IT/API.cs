@@ -290,7 +290,10 @@ namespace Dental_IT
                                 Remarks = obj["Remarks"]
                             };
 
-                            appointmentList.Add(appointment);
+                            if (appointment.Status.Equals("Pending") || appointment.Status.Equals("Confirmed"))
+                            {
+                                appointmentList.Add(appointment);
+                            }                            
                         }
                     }
                 }
@@ -362,6 +365,7 @@ namespace Dental_IT
                 request.ContentType = "application/JSON";
                 request.Method = "POST";
                 request.Headers.Add("Authorization", "bearer " + accessToken);
+                request.Timeout = 10000;
 
                 byte[] buffer = Encoding.Default.GetBytes(newAppt);
                 if (buffer != null)
@@ -404,6 +408,7 @@ namespace Dental_IT
                 request.ContentType = "application/JSON";
                 request.Method = "PUT";
                 request.Headers.Add("Authorization", "bearer " + accessToken);
+                request.Timeout = 10000;
 
                 byte[] buffer = Encoding.Default.GetBytes(updateAppt);
                 if (buffer != null)
@@ -446,6 +451,7 @@ namespace Dental_IT
                 request.ContentType = "application/JSON";
                 request.Method = "GET";
                 request.Headers.Add("Authorization", "bearer " + accessToken);
+                request.Timeout = 10000;
 
                 WebResponse wr = request.GetResponse();
                 return 1;

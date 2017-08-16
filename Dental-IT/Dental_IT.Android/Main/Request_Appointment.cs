@@ -341,16 +341,19 @@ namespace Dental_IT.Droid.Main
             if (request_DateField.Text.Length == 0)
             {
                 TextView errorText = (TextView)request_DateField;
+                request_DateLabel.RequestFocus();
                 errorText.Hint = GetString(Resource.String.no_date);
                 errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
 
                 return false;
-            } else if (DateTime.ParseExact(request_DateField.Text, "d MMMM yyyy", null) < DateTime.Today){
+            }
+            else if (DateTime.ParseExact(request_DateField.Text, "d MMMM yyyy", null) < DateTime.Today){
                 TextView errorText = (TextView)request_DateField;
-                errorText.Hint = GetString(Resource.String.invalid_date);
-                errorText.SetHintTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
+                request_DateLabel.RequestFocus();
+                request_DateField.SetTextColor(new Android.Graphics.Color(ContextCompat.GetColor(this, Resource.Color.red)));
                 errorText.Error = "";
+                Toast.MakeText(this, Resource.String.invalid_date, ToastLength.Short).Show();
 
                 return false;
             }
