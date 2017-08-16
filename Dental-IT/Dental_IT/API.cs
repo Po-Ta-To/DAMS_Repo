@@ -290,7 +290,10 @@ namespace Dental_IT
                                 Remarks = obj["Remarks"]
                             };
 
-                            appointmentList.Add(appointment);
+                            if (appointment.Status.Equals("Pending") || appointment.Status.Equals("Confirmed"))
+                            {
+                                appointmentList.Add(appointment);
+                            }                            
                         }
                     }
                 }
