@@ -21,13 +21,10 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Update_Appointment : AppCompatActivity
     {
-        private DrawerLayout drawerLayout;
-        private NavigationView navigationView;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<Session> sessions = new List<Session>() { new Session() };
         private Appointment appt;
         private int[] treatmentIDArr;
-        private int userID;
         private string accessToken;
 
         private TextView update_HospitalLabel;
