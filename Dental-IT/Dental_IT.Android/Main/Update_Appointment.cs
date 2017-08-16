@@ -21,13 +21,10 @@ namespace Dental_IT.Droid.Main
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Update_Appointment : AppCompatActivity
     {
-        private DrawerLayout drawerLayout;
-        private NavigationView navigationView;
         private List<Dentist> dentists = new List<Dentist>() { new Dentist() };
         private List<Session> sessions = new List<Session>() { new Session() };
         private Appointment appt;
         private int[] treatmentIDArr;
-        private int userID;
         private string accessToken;
 
         private TextView update_HospitalLabel;
@@ -196,13 +193,10 @@ namespace Dental_IT.Droid.Main
 
             //  Handle update button
             update_SubmitBtn.Click += delegate
-            { 
-                // Validate fields
-                if (Validate(update_DateField, treatmentIDArr))
-                {
-                    // Close keyboard
-                    InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                    inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+            {
+                // Close keyboard
+                InputMethodManager inputManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                inputManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
                 //  Retrieve access token
                 if (prefs.Contains("token"))
@@ -210,45 +204,53 @@ namespace Dental_IT.Droid.Main
                     accessToken = prefs.GetString("token", "");
                 }
 
-                    //  Get selected treatments
-                    if (prefs.Contains("update_Treatments"))
+                //  Get selected treatments
+                if (prefs.Contains("update_Treatments"))
+                {
+                    List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
+
+                    treatmentIDArr = new int[tempTreatmentIDList.Count];
+
+                    int count = 0;
+
+                    foreach (int id in tempTreatmentIDList)
                     {
-                        List<int> tempTreatmentIDList = JsonConvert.DeserializeObject<List<int>>(prefs.GetString("update_Treatments", "null"));
-
-                        treatmentIDArr = new int[tempTreatmentIDList.Count];
-
-                        int count = 0;
-
-                        foreach (int id in tempTreatmentIDList)
-                        {
-                            treatmentIDArr[count] = id;
-                            count++;
-                        }
+                        treatmentIDArr[count] = id;
+                        count++;
                     }
+                }
 
-                    //If treatments unchanged, use original treatments
-                    if (treatmentIDArr == null)
-                    {
-                        treatmentIDArr = appt.Treatments;
-                    }
+                //If treatments unchanged, use original treatments
+                if (treatmentIDArr == null)
+                {
+                    treatmentIDArr = appt.Treatments;
+                }
 
-                    // Check if Remarks field is empty
-                    String remarks = "";
-                    if (update_RemarksField.Text.Length == 0)
-                    {
-                        remarks = "No Remarks";
-                    }
+                // Check if Remarks field is empty
+                String remarks = "";
+                if (update_RemarksField.Text.Length == 0)
+                {
+                    remarks = "No Remarks";
+                }
+                else
+                {
+                    remarks = update_RemarksField.Text;
+                }
 
-                    // Create new appointment to store updated values
-                    Appointment apptToBeUpdated = new Appointment()
-                    {
-                        ID = appt.ID,
-                        PreferredDate = update_DateField.Text,
-                        PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
-                        RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
-                        Treatments = treatmentIDArr,
-                        Remarks = remarks
-                    };
+                // Create new appointment to store updated values
+                Appointment apptToBeUpdated = new Appointment()
+                {
+                    ID = appt.ID,
+                    PreferredDate = update_DateField.Text,
+                    PreferredTime = sessions[update_SessionSpinner.SelectedItemPosition].SlotID,
+                    RequestDoctorDentistID = dentists[update_DentistSpinner.SelectedItemPosition].DentistID,
+                    Treatments = treatmentIDArr,
+                    Remarks = remarks
+                };
+
+                // Validate fields
+                if (Validate(update_DateField, treatmentIDArr))
+                {
 
                     // Update the appointment
                     switch (api.PutAppointment(JsonConvert.SerializeObject(apptToBeUpdated), accessToken))

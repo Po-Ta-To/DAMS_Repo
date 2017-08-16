@@ -85,6 +85,7 @@ namespace Dental_IT.Droid.Main
                 //  Receive data from shared preferences
                 hosp = JsonConvert.DeserializeObject<Hospital>(prefs.GetString("hospital", "null"));
                 request_DateField.Text = prefs.GetString("request_Date", GetString(Resource.String.select_date));
+                request_RemarksField.Text = prefs.GetString("remarks", "");
             }
 
             //  Retrieve dentist and session data from database
@@ -221,6 +222,10 @@ namespace Dental_IT.Droid.Main
                     if (request_RemarksField.Text.Length == 0)
                     {
                         remarks = "No Remarks";
+                    }
+                    else
+                    {
+                        remarks = request_RemarksField.Text;
                     }
 
                     // Create new appointment and store values

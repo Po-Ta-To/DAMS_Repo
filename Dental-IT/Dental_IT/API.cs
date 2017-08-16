@@ -152,10 +152,7 @@ namespace Dental_IT
                                 Address = obj["Address"],
                                 Telephone = obj["Telephone"],
                                 Email = obj["Email"],
-                                OpeningHours = obj["OpenHours"],
-                                IsOpenMonFri = obj["IsOpenMonFri"],
-                                IsOpenSat = obj["IsOpenSat"],
-                                IsOpenSunPh = obj["IsOpenSunPh"]
+                                OpeningHours = obj["OpenHours"]
                             };
 
                             hospList.Add(hosp);
