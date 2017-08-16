@@ -238,6 +238,10 @@ namespace Dental_IT.Droid.Main
                     {
                         remarks = "No Remarks";
                     }
+                    else
+                    {
+                        remarks = update_RemarksField.Text;
+                    }
 
                     // Create new appointment to store updated values
                     Appointment apptToBeUpdated = new Appointment()

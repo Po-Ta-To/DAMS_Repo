@@ -3,10 +3,10 @@
     public static class Web_Config
     {
         //  Amazon AWS
-        private static string conn = "http://ec2-54-214-60-226.us-west-2.compute.amazonaws.com";
+        //private static string conn = "http://ec2-54-214-60-226.us-west-2.compute.amazonaws.com";
 
         //  Local URL
-        //private static string conn = "http://192.168.137.1:49814";
+        private static string conn = "http://192.168.137.1:49814";
 
         // POST user to get token (Sign in)
         public static string global_connURL_postToken { get; } = conn + "/token";
